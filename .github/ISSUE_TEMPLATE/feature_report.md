@@ -1,7 +1,7 @@
 ---
 name: Feature report
 about: 기능 리포트
-title: "[FEATURE]"
+title: "[KK-FEATURE]"
 labels: enhancement
 
 ---
