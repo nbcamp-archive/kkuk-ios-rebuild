@@ -1,7 +1,7 @@
 ---
 name: Basic report
 about: 일반 리포트
-title: "[BASIC]"
+title: "[KK-BASIC]"
 ---
 
 ## Description
