@@ -18,4 +18,3 @@ class CategoryViewController: BaseUIViewController {
     override func addTarget() {}
     
 }
-
