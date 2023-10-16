@@ -28,9 +28,6 @@
 		1C2843D62ADD2F9300A87E99 /* UIView+AddSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843D52ADD2F9300A87E99 /* UIView+AddSubviews.swift */; };
 		1C2843D82ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843D72ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift */; };
 		1C2843DC2ADD388700A87E99 /* And.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843DB2ADD388700A87E99 /* And.swift */; };
-		1C2843E22ADD478A00A87E99 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 1C2843E12ADD478A00A87E99 /* .gitkeep */; };
-		1C2843E42ADD479400A87E99 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 1C2843E32ADD479400A87E99 /* .gitkeep */; };
-		1C2843E62ADD47A200A87E99 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 1C2843E52ADD47A200A87E99 /* .gitkeep */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -400,6 +397,7 @@
 				1C2843532ADB969A00A87E99 /* Sources */,
 				1C2843542ADB969A00A87E99 /* Frameworks */,
 				1C2843552ADB969A00A87E99 /* Resources */,
+				1C2843E72ADD8CB900A87E99 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -494,11 +492,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C2843E22ADD478A00A87E99 /* .gitkeep in Resources */,
 				1C2843972ADC2C5600A87E99 /* Assets.xcassets in Resources */,
-				1C2843E62ADD47A200A87E99 /* .gitkeep in Resources */,
 				1C2843962ADC2C5600A87E99 /* LaunchScreen.storyboard in Resources */,
-				1C2843E42ADD479400A87E99 /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,6 +512,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1C2843E72ADD8CB900A87E99 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nexport PATH\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1C2843532ADB969A00A87E99 /* Sources */ = {
