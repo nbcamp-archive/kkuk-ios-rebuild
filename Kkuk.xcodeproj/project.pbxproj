@@ -28,6 +28,15 @@
 		1C2843D62ADD2F9300A87E99 /* UIView+AddSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843D52ADD2F9300A87E99 /* UIView+AddSubviews.swift */; };
 		1C2843D82ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843D72ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift */; };
 		1C2843DC2ADD388700A87E99 /* And.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843DB2ADD388700A87E99 /* And.swift */; };
+		1C2843EA2ADE996200A87E99 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843E92ADE996200A87E99 /* Alamofire */; };
+		1C2843ED2ADE99D400A87E99 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843EC2ADE99D400A87E99 /* IQKeyboardManagerSwift */; };
+		1C2843F02ADE99EF00A87E99 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843EF2ADE99EF00A87E99 /* Kingfisher */; };
+		1C2843F32ADE9A1400A87E99 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843F22ADE9A1400A87E99 /* PanModal */; };
+		1C2843F62ADE9AB600A87E99 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843F52ADE9AB600A87E99 /* Realm */; };
+		1C2843F82ADE9AB600A87E99 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843F72ADE9AB600A87E99 /* RealmSwift */; };
+		1C2843FB2ADE9AE200A87E99 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843FA2ADE9AE200A87E99 /* SnapKit */; };
+		1C2843FE2ADE9AF400A87E99 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843FD2ADE9AF400A87E99 /* SkeletonView */; };
+		1C2844012ADE9B0100A87E99 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2844002ADE9B0100A87E99 /* SwiftSoup */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +97,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C2843F82ADE9AB600A87E99 /* RealmSwift in Frameworks */,
+				1C2843F32ADE9A1400A87E99 /* PanModal in Frameworks */,
+				1C2843F02ADE99EF00A87E99 /* Kingfisher in Frameworks */,
+				1C2843FB2ADE9AE200A87E99 /* SnapKit in Frameworks */,
+				1C2843FE2ADE9AF400A87E99 /* SkeletonView in Frameworks */,
+				1C2843EA2ADE996200A87E99 /* Alamofire in Frameworks */,
+				1C2843ED2ADE99D400A87E99 /* IQKeyboardManagerSwift in Frameworks */,
+				1C2843F62ADE9AB600A87E99 /* Realm in Frameworks */,
+				1C2844012ADE9B0100A87E99 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +422,17 @@
 			dependencies = (
 			);
 			name = Kkuk;
+			packageProductDependencies = (
+				1C2843E92ADE996200A87E99 /* Alamofire */,
+				1C2843EC2ADE99D400A87E99 /* IQKeyboardManagerSwift */,
+				1C2843EF2ADE99EF00A87E99 /* Kingfisher */,
+				1C2843F22ADE9A1400A87E99 /* PanModal */,
+				1C2843F52ADE9AB600A87E99 /* Realm */,
+				1C2843F72ADE9AB600A87E99 /* RealmSwift */,
+				1C2843FA2ADE9AE200A87E99 /* SnapKit */,
+				1C2843FD2ADE9AF400A87E99 /* SkeletonView */,
+				1C2844002ADE9B0100A87E99 /* SwiftSoup */,
+			);
 			productName = Kkuk;
 			productReference = 1C2843572ADB969A00A87E99 /* Kkuk.app */;
 			productType = "com.apple.product-type.application";
@@ -476,6 +505,16 @@
 				Base,
 			);
 			mainGroup = 1C28434E2ADB969A00A87E99;
+			packageReferences = (
+				1C2843E82ADE996200A87E99 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				1C2843EB2ADE99D400A87E99 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				1C2843EE2ADE99EF00A87E99 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				1C2843F12ADE9A1400A87E99 /* XCRemoteSwiftPackageReference "PanModal" */,
+				1C2843F42ADE9AB600A87E99 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				1C2843F92ADE9AE200A87E99 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				1C2843FC2ADE9AF400A87E99 /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				1C2843FF2ADE9B0100A87E99 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			productRefGroup = 1C2843582ADB969A00A87E99 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -872,6 +911,121 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1C2843E82ADE996200A87E99 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		1C2843EB2ADE99D400A87E99 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+		1C2843EE2ADE99EF00A87E99 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		1C2843F12ADE9A1400A87E99 /* XCRemoteSwiftPackageReference "PanModal" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/slackhq/PanModal.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		1C2843F42ADE9AB600A87E99 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		1C2843F92ADE9AE200A87E99 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		1C2843FC2ADE9AF400A87E99 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		1C2843FF2ADE9B0100A87E99 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1C2843E92ADE996200A87E99 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843E82ADE996200A87E99 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		1C2843EC2ADE99D400A87E99 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843EB2ADE99D400A87E99 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		1C2843EF2ADE99EF00A87E99 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843EE2ADE99EF00A87E99 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		1C2843F22ADE9A1400A87E99 /* PanModal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843F12ADE9A1400A87E99 /* XCRemoteSwiftPackageReference "PanModal" */;
+			productName = PanModal;
+		};
+		1C2843F52ADE9AB600A87E99 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843F42ADE9AB600A87E99 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		1C2843F72ADE9AB600A87E99 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843F42ADE9AB600A87E99 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		1C2843FA2ADE9AE200A87E99 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843F92ADE9AE200A87E99 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		1C2843FD2ADE9AF400A87E99 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843FC2ADE9AF400A87E99 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
+		};
+		1C2844002ADE9B0100A87E99 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843FF2ADE9B0100A87E99 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1C28434F2ADB969A00A87E99 /* Project object */;
 }
