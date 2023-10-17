@@ -56,9 +56,9 @@ else
 		if [ $TYPE = "warning" ]; then
 			printf "\033[0;33m$TYPE ⚠️\033[0m\n"
 			# warning일 경우에는 커밋을 진행할 수 있도록 설정하려면 주석 해제
-      # printf "$FILEPATH:$L:$C\n"
-      # printf "$MESSAGE: - $DESCRIPTION\n"
-      # exit 0
+			# printf "$FILEPATH:$L:$C\n"
+			# printf "$MESSAGE: - $DESCRIPTION\n"
+			# exit 0
 		elif [ $TYPE = "error" ]; then
 			printf "\033[0;31m$TYPE ❌ \033[0m\n"
 		fi
