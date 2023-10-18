@@ -1,5 +1,5 @@
 //
-//  UIColor.swift
+//  UIColor+AppColor.swift
 //  Kkuk
 //
 //  Created by se-ryeong on 2023/10/18.
@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIColor {
+    
     static var main: UIColor {
         guard let color = UIColor(named: "main") else {
             return UIColor.orange
@@ -49,4 +50,5 @@ extension UIColor {
         }
         return color
     }
+    
 }

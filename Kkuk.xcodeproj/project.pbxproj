@@ -43,7 +43,7 @@
 		1C2844242ADED52B00A87E99 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C28441F2ADED52B00A87E99 /* Pretendard-Bold.otf */; };
 		1C2844252ADED52B00A87E99 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C2844202ADED52B00A87E99 /* Pretendard-SemiBold.otf */; };
 		1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */; };
-		C3A65F022ADEFBC500A100A7 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F012ADEFBC500A100A7 /* UIColor.swift */; };
+		C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,7 +103,7 @@
 		1C28441F2ADED52B00A87E99 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		1C2844202ADED52B00A87E99 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+FontSizes.swift"; sourceTree = "<group>"; };
-		C3A65F012ADEFBC500A100A7 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -383,7 +383,7 @@
 				1C2843D52ADD2F9300A87E99 /* UIView+AddSubviews.swift */,
 				1C2843D72ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift */,
 				1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */,
-				C3A65F012ADEFBC500A100A7 /* UIColor.swift */,
+				C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -620,7 +620,7 @@
 				1C2843CD2ADD106700A87E99 /* BaseUITabBarController.swift in Sources */,
 				1C28438D2ADB9D0D00A87E99 /* AppDelegate.swift in Sources */,
 				1C2843B92ADD0DD400A87E99 /* CategoryViewController.swift in Sources */,
-				C3A65F022ADEFBC500A100A7 /* UIColor.swift in Sources */,
+				C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */,
 				1C2843A42ADC2F7000A87E99 /* BaseUIViewController.swift in Sources */,
 				1C2843DC2ADD388700A87E99 /* And.swift in Sources */,
 				1C2843D82ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift in Sources */,
