@@ -28,6 +28,8 @@ class SearchContentViewController: BaseUIViewController {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(ContentTableViewCell.self, forCellReuseIdentifier: "ContentTableViewCell")
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return tableView
     }()
 
@@ -66,10 +68,11 @@ extension SearchContentViewController: UISearchBarDelegate {
 
 extension SearchContentViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = contentTableView.dequeueReusableCell(withIdentifier: "ContentTableViewCell", for: indexPath)
+        return cell
     }
 }
