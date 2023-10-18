@@ -7,20 +7,26 @@
 
 import UIKit
 
+import SnapKit
+
 class HomeViewController: BaseUIViewController {
     
     lazy var label: UILabel = UILabel().and {
-        $0.text = "텍스트"
-        $0.font = UIFont.systemFont(ofSize: 16)
+        $0.text = "익스텐션 테스트"
+        $0.font = .largeTitle
+        $0.textColor = .main
     }
     
-    lazy var test = UILabel().and {
-        $0.text = ""
+    override func setUI() {
+        view.addSubview(label)
     }
     
-    override func setUI() {}
-    
-    override func setLayout() {}
+    override func setLayout() {
+        label.snp.makeConstraints { constraint in
+            constraint.centerX.equalToSuperview()
+            constraint.centerY.equalToSuperview()
+        }
+    }
     
     override func setDelegate() {}
     
