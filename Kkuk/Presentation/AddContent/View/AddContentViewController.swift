@@ -51,7 +51,7 @@ class AddContentViewController: BaseUIViewController {
         textView.tintColor = .main
         textView.layer.cornerRadius = CGFloat(5)
         textView.textContainer.maximumNumberOfLines = 4
-        textView.contentInset = UIEdgeInsets(top: 16, left: 12, bottom: 16, right: 12)
+        // textView.contentInset = UIEdgeInsets(top: 16, left: 12, bottom: 16, right: 12)
         return textView
     }()
     
@@ -69,7 +69,7 @@ class AddContentViewController: BaseUIViewController {
     
     override func setLayout() {
         induceURLLabel.snp.makeConstraints { constraint in
-            constraint.top.equalTo(60)
+            constraint.top.equalTo(view.safeAreaLayoutGuide).offset(60)
             constraint.leading.equalTo(20)
         }
         URLTextField.snp.makeConstraints { constraint in
