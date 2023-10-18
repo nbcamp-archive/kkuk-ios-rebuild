@@ -24,12 +24,20 @@ class SearchContentViewController: BaseUIViewController {
         return searchBar
     }()
     
+    private lazy var contentTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        return tableView
+    }()
+
     override func setUI() {
-        view.addSubviews([searchBar])
+        view.addSubviews([searchBar, contentTableView])
     }
     
     override func setLayout() {
         setSearchBarLayout()
+        setContentTableViewLayout()
     }
     
     override func setDelegate() {}
@@ -42,8 +50,26 @@ class SearchContentViewController: BaseUIViewController {
             make.leading.trailing.equalToSuperview().inset(20)
         }
     }
+    
+    func setContentTableViewLayout() {
+        contentTableView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom).offset(48)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+    }
 }
 
 extension SearchContentViewController: UISearchBarDelegate {
     
+}
+
+extension SearchContentViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
 }
