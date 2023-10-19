@@ -11,8 +11,8 @@ import SnapKit
 
 class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
-    private var topFrameView: UIView = {
-        let view = UIView()
+    private var topFrameView: UIStackView = {
+        let view = UIStackView()
         view.backgroundColor = .main
         
         return view
@@ -36,35 +36,36 @@ class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         return label
     }()
     
-    private let recommendPagingView = RecommendPagingView()
+    private var recentLabel: UILabel = {
+        let label = UILabel()
+        label.text = "최근 보관한 항목"
+        label.font = .title3
+        label.textColor = .text1
+        
+        return label
+    }()
     
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        pageControl.currentPage = Int(floor(scrollView.contentOffset.x / UIScreen.main.bounds.width))
-//    }
+    private let recommendPagingView = RecommendPagingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
         
-        recommendPagingView.setItems(items: ["111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111", "222222222222", "333333333333"])
+        recommendPagingView.setItems(items: ["1111111", "222222222222", "333333333333"])
     }
     
     override func setUI() {
-        view.addSubview(topFrameView)
-        view.addSubview(subTitleLabel)
-        view.addSubview(titleLabel)
-        view.addSubview(recommendPagingView)
-        
+        view.addSubviews([topFrameView, recentLabel])
+        topFrameView.addSubviews([subTitleLabel, titleLabel, recommendPagingView])
     }
     
     override func setLayout() {
         topFrameView.snp.makeConstraints { constraint in
             constraint.top.equalToSuperview()
-            constraint.height.equalTo(450)
             constraint.width.equalTo(view.safeAreaLayoutGuide)
         }
         
-        subTitleLabel.snp.makeConstraints{ constraint in
+        subTitleLabel.snp.makeConstraints { constraint in
             constraint.top.equalTo(view.safeAreaLayoutGuide).offset(40)
             constraint.leading.equalTo(20)
         }
@@ -74,10 +75,15 @@ class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
             constraint.leading.equalTo(20)
         }
         
+        recentLabel.snp.makeConstraints { constraint in
+            constraint.top.equalTo(topFrameView.snp.bottom).offset(18)
+            constraint.leading.equalTo(20)
+        }
+        
         recommendPagingView.snp.makeConstraints { constraint in
             constraint.horizontalEdges.equalToSuperview()
             constraint.top.equalTo(titleLabel.snp.bottom).offset(28)
-            constraint.height.equalTo(236)
+            constraint.bottom.equalToSuperview()
         }
     }
     

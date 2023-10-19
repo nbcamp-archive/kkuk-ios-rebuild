@@ -44,7 +44,6 @@
 		1C2844252ADED52B00A87E99 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C2844202ADED52B00A87E99 /* Pretendard-SemiBold.otf */; };
 		1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */; };
 		C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */; };
-		C3A65F042AE0006500A100A7 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F032AE0006400A100A7 /* CustomPageControl.swift */; };
 		C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */; };
 		C3A65F082AE0326500A100A7 /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F072AE0326500A100A7 /* RecommendView.swift */; };
 /* End PBXBuildFile section */
@@ -82,7 +81,6 @@
 		1C2843A22ADC2F7000A87E99 /* BaseUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseUIViewController.swift; sourceTree = "<group>"; };
 		1C2843A72ADD0C0F00A87E99 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1C2843B02ADD0D6300A87E99 /* AppInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
-		1C2843B22ADD0D7F00A87E99 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		1C2843B52ADD0DB000A87E99 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		1C2843B82ADD0DD400A87E99 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		1C2843BE2ADD0F5300A87E99 /* SearchContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContentViewController.swift; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 		1C2844202ADED52B00A87E99 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+FontSizes.swift"; sourceTree = "<group>"; };
 		C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
-		C3A65F032AE0006400A100A7 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 		C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendPagingView.swift; sourceTree = "<group>"; };
 		C3A65F072AE0326500A100A7 /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -287,8 +284,6 @@
 		1C2843A62ADD0C0200A87E99 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				1C2843B22ADD0D7F00A87E99 /* .gitkeep */,
-				C3A65F032AE0006400A100A7 /* CustomPageControl.swift */,
 				C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */,
 				C3A65F072AE0326500A100A7 /* RecommendView.swift */,
 			);
@@ -622,7 +617,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3A65F042AE0006500A100A7 /* CustomPageControl.swift in Sources */,
 				1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */,
 				1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */,
 				C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */,

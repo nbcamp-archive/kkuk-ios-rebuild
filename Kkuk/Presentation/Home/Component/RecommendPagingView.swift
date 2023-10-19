@@ -16,14 +16,19 @@ final class RecommendPagingView: UIView {
         return view
     }()
     
-    private let pageControl: CustomPageControl = {
-        let control = CustomPageControl()
+    let itemStackView: UIStackView = {
+        let view = UIStackView()
+        view.spacing = 40
+
+        return view
+    }()
+    
+    private let pageControl: UIPageControl = {
+        let control = UIPageControl()
         control.numberOfPages = 3
         control.currentPage = 0
         control.pageIndicatorTintColor = .subgray2
         control.currentPageIndicatorTintColor = .white
-        control.indicatorImage = UIImage.init(systemName: "circle")
-        control.currentIndicatorImage = UIImage(systemName: "circle.fill")
         
         return control
     }()
@@ -33,15 +38,23 @@ final class RecommendPagingView: UIView {
         self.addSubview(self.scrollView)
         self.addSubview(self.pageControl)
         
+        self.scrollView.addSubview(itemStackView)
+        
         self.scrollView.delegate = self
         
-        self.scrollView.snp.makeConstraints {
-            $0.leading.trailing.top.bottom.equalToSuperview()
+        self.scrollView.snp.makeConstraints { constraint in
+            constraint.leading.trailing.top.bottom.equalToSuperview()
         }
         
-        self.pageControl.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(scrollView.snp.bottom)
+        self.itemStackView.snp.makeConstraints { constraint in
+            constraint.top.equalToSuperview()
+            constraint.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        self.pageControl.snp.makeConstraints { constraint in
+            constraint.top.equalTo(itemStackView.snp.bottom).offset(12)
+            constraint.centerX.equalToSuperview()
+            constraint.bottom.equalTo(scrollView.snp.bottom).offset(-12)
         }
     }
     
@@ -50,17 +63,21 @@ final class RecommendPagingView: UIView {
     }
     
     func setItems(items: [String]) {
+        
         self.pageControl.numberOfPages = items.count
         let width = UIScreen.main.bounds.width-40
-        let padding: CGFloat = 20
+        
         for index in 0..<items.count {
             let view = RecommendView()
             view.configureRecommend(content: items[index], image: nil)
             
-            let xPosition = UIScreen.main.bounds.width * CGFloat(index) + padding
             self.scrollView.contentSize.width = width * CGFloat(index+2)
-            self.scrollView.addSubview(view)
-            view.frame = CGRect(x: xPosition, y: 0, width: width, height: 236)
+            
+            itemStackView.addArrangedSubview(view)
+            
+            view.snp.makeConstraints { constraint in
+                constraint.width.equalTo(width)
+            }
         }
     }
     
@@ -70,6 +87,7 @@ final class RecommendPagingView: UIView {
         }
     }
 }
+
 extension RecommendPagingView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) { // scrollView가 스와이프 될 때 발생 될 이벤트
         self.pageControl.currentPage = Int(round(scrollView.contentOffset.x / (UIScreen.main.bounds.width)))
