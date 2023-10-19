@@ -10,6 +10,8 @@ import UIKit
 
 class AddContentViewController: BaseUIViewController {
     
+    private let memoTextViewMaxHeight: CGFloat = 142
+    
     private lazy var induceURLLabel: UILabel = {
         let label = UILabel()
         label.text = "링크 입력 및 붙여넣기"
@@ -38,20 +40,20 @@ class AddContentViewController: BaseUIViewController {
         textField.placeholder = "https://www.example.com"
         textField.backgroundColor = .subgray3
         textField.tintColor = .main
+        textField.font = .body1
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
         return textField
     }()
     
-    private let memoTextViewMaxHeight: CGFloat = 142
     private lazy var memoTextView: UITextView = {
         let textView = UITextView()
         textView.isScrollEnabled = false
         textView.backgroundColor = .subgray3
         textView.tintColor = .main
+        textView.font = .body1
         textView.layer.cornerRadius = CGFloat(5)
-        textView.textContainer.maximumNumberOfLines = 4
-        // textView.contentInset = UIEdgeInsets(top: 16, left: 12, bottom: 16, right: 12)
+        textView.contentInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         return textView
     }()
     
@@ -95,18 +97,49 @@ class AddContentViewController: BaseUIViewController {
     }
     
     override func setDelegate() {
+        URLTextField.delegate = self
         memoTextView.delegate = self
     }
     
-    override func addTarget() {}
+    override func addTarget() {
+        let endEditingGesture = UITapGestureRecognizer(target: self, action: #selector(endEditingDidTap))
+        view.addGestureRecognizer(endEditingGesture)
+    }
     
 }
 
 // MARK: - 커스텀 메서드
 
-extension AddContentViewController {}
+extension AddContentViewController {
+    
+    @objc
+    private func endEditingDidTap() {
+        view.endEditing(true)
+    }
+    
+}
 
-// MARK: - `UITextView` 델리게이트
+// MARK: - UITextField 델리게이트
+
+extension AddContentViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        URLTextField.backgroundColor = .background
+        URLTextField.layer.borderWidth = CGFloat(2)
+        URLTextField.layer.cornerRadius = CGFloat(5)
+        URLTextField.layer.borderColor = UIColor.main.cgColor
+        URLTextField.layer.masksToBounds = true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        URLTextField.backgroundColor = .subgray3
+        URLTextField.layer.borderWidth = CGFloat(0)
+        URLTextField.layer.borderColor = .none
+    }
+    
+}
+
+// MARK: - UITextView 델리게이트
 
 extension AddContentViewController: UITextViewDelegate {
     
@@ -124,4 +157,19 @@ extension AddContentViewController: UITextViewDelegate {
             }
         }
     }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        memoTextView.backgroundColor = .background
+        memoTextView.layer.borderColor = UIColor.main.cgColor
+        memoTextView.layer.borderWidth = CGFloat(2)
+        memoTextView.layer.cornerRadius = CGFloat(5)
+        memoTextView.layer.masksToBounds = true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        memoTextView.backgroundColor = .subgray3
+        memoTextView.layer.borderWidth = CGFloat(0)
+        memoTextView.layer.borderColor = .none
+    }
+    
 }
