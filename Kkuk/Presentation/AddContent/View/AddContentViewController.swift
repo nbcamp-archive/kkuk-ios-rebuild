@@ -10,63 +10,86 @@ import UIKit
 
 class AddContentViewController: BaseUIViewController {
     
-    private let memoTextViewMaxHeight: CGFloat = 142
-    
     private lazy var induceURLLabel: UILabel = {
         let label = UILabel()
-        label.text = "링크 입력 및 붙여넣기"
         label.font = .title2
+        label.text = "링크 입력 및 붙여넣기"
         label.textColor = .text1
         return label
     }()
     
     private lazy var induceMemoLabel: UILabel = {
         let label = UILabel()
-        label.text = "메모하기"
         label.font = .title2
+        label.text = "메모하기"
         label.textColor = .text1
         return label
     }()
     
     private lazy var induceCategoryLabel: UILabel = {
         let label = UILabel()
-        label.text = "카테고리 선택하기"
         label.font = .title2
+        label.text = "카테고리 고르기"
         return label
     }()
     
     private lazy var URLTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "https://www.example.com"
-        textField.backgroundColor = .subgray3
-        textField.tintColor = .main
-        textField.font = .body1
         textField.borderStyle = .roundedRect
+        textField.backgroundColor = .subgray3
         textField.clearButtonMode = .whileEditing
+        textField.font = .body1
+        textField.placeholder = "https://www.example.com"
+        textField.tintColor = .main
         return textField
+    }()
+    
+    private lazy var memoContainerView: UIView = {
+        let view = UIView()
+        return view
     }()
     
     private lazy var memoTextView: UITextView = {
         let textView = UITextView()
+        textView.textColor = .text1
         textView.isScrollEnabled = false
         textView.backgroundColor = .subgray3
         textView.tintColor = .main
         textView.font = .body1
         textView.layer.cornerRadius = CGFloat(5)
-        textView.contentInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+        textView.contentInset = UIEdgeInsets(top: 4, left: 4, bottom: 0, right: 4)
         return textView
     }()
     
     private lazy var memoTextCountLabel: UILabel = {
         let label = UILabel()
+        label.font = .body3
         label.text = "0/75자"
+        label.textColor = .subgray1
         return label
     }()
     
+    private lazy var requiredLabel: UILabel = {
+        let label = UILabel()
+        label.text = "필수"
+        label.font = .body3
+        label.textColor = .subgray1
+        return label
+    }()
+    
+    private lazy var optionalLabel: UILabel = {
+        let label = UILabel()
+        label.text = "선택"
+        return label
+    }()
+    
+    private lazy var addContentButton = AddContentButton(frame: .zero)
+    
     override func setUI() {
-        memoTextView.addSubview(memoTextCountLabel)
+        memoContainerView.addSubviews([memoTextView, memoTextCountLabel])
+        
         view.addSubviews([induceURLLabel, induceMemoLabel, induceCategoryLabel,
-                          URLTextField, memoTextView])
+                          URLTextField, memoContainerView, addContentButton])
     }
     
     override func setLayout() {
@@ -84,15 +107,27 @@ class AddContentViewController: BaseUIViewController {
             constraint.top.equalTo(URLTextField.snp.bottom).offset(20)
             constraint.leading.equalTo(induceURLLabel)
         }
-        memoTextView.snp.makeConstraints { constraint in
+        memoContainerView.snp.makeConstraints { constraint in
             constraint.top.equalTo(induceMemoLabel.snp.bottom).offset(14)
             constraint.leading.equalTo(induceURLLabel)
             constraint.trailing.equalTo(-20)
-            constraint.height.equalTo(48)
+            constraint.height.equalTo(142)
+        }
+        memoTextView.snp.makeConstraints { constraint in
+            constraint.edges.equalToSuperview()
+        }
+        memoTextCountLabel.snp.makeConstraints { constraint in
+            constraint.trailing.equalToSuperview().offset(-8)
+            constraint.bottom.equalToSuperview().offset(-8)
         }
         induceCategoryLabel.snp.makeConstraints { constraint in
             constraint.top.equalTo(memoTextView.snp.bottom).offset(20)
             constraint.leading.equalTo(induceURLLabel)
+        }
+        addContentButton.snp.makeConstraints { constraint in
+            constraint.bottom.equalToSuperview()
+            constraint.leading.trailing.equalToSuperview()
+            constraint.height.equalTo(60)
         }
     }
     
@@ -101,23 +136,13 @@ class AddContentViewController: BaseUIViewController {
         memoTextView.delegate = self
     }
     
-    override func addTarget() {
-        let endEditingGesture = UITapGestureRecognizer(target: self, action: #selector(endEditingDidTap))
-        view.addGestureRecognizer(endEditingGesture)
-    }
+    override func addTarget() {}
     
 }
 
 // MARK: - 커스텀 메서드
 
-extension AddContentViewController {
-    
-    @objc
-    private func endEditingDidTap() {
-        view.endEditing(true)
-    }
-    
-}
+extension AddContentViewController {}
 
 // MARK: - UITextField 델리게이트
 
@@ -135,6 +160,14 @@ extension AddContentViewController: UITextFieldDelegate {
         URLTextField.backgroundColor = .subgray3
         URLTextField.layer.borderWidth = CGFloat(0)
         URLTextField.layer.borderColor = .none
+        addContentButton.updateButtonState(with: URLTextField.text)
+    }
+    
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let updateText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+        addContentButton.updateButtonState(with: updateText)
+        return true
     }
     
 }
@@ -143,22 +176,12 @@ extension AddContentViewController: UITextFieldDelegate {
 
 extension AddContentViewController: UITextViewDelegate {
     
-    func textViewDidChange(_ textView: UITextView) {
-        let size = CGSize(width: view.frame.width, height: .infinity)
-        let estimatedSize = memoTextView.sizeThatFits(size)
-        
-        memoTextView.constraints.forEach { (constraint) in
-            if estimatedSize.height >= memoTextViewMaxHeight {
-                memoTextView.isScrollEnabled = true
-            } else {
-                if constraint.firstAttribute == .height {
-                    constraint.constant = estimatedSize.height
-                }
-            }
-        }
-    }
-    
     func textViewDidBeginEditing(_ textView: UITextView) {
+        let memoTextViewPlaceholder = "내용"
+        if textView.text == memoTextViewPlaceholder {
+            textView.text = nil
+        }
+        
         memoTextView.backgroundColor = .background
         memoTextView.layer.borderColor = UIColor.main.cgColor
         memoTextView.layer.borderWidth = CGFloat(2)
@@ -167,9 +190,33 @@ extension AddContentViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        let memoTextViewPlaceholder = "내용"
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            textView.text = memoTextViewPlaceholder
+            textView.textColor = .subgray1
+        }
+        
         memoTextView.backgroundColor = .subgray3
         memoTextView.layer.borderWidth = CGFloat(0)
         memoTextView.layer.borderColor = .none
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let count = textView.text.count
+        memoTextCountLabel.text = "\(count)/75자"
+        if count >= 75 {
+            memoTextCountLabel.textColor = .red
+        } else {
+            memoTextCountLabel.textColor = .subgray1
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentMemoText = memoTextView.text ?? ""
+        guard let stringRange = Range(range, in: currentMemoText) else { return false }
+        
+        let updateMemoText = currentMemoText.replacingCharacters(in: stringRange, with: text)
+        return updateMemoText.count <= 75
     }
     
 }
