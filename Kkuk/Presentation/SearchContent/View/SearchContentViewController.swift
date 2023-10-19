@@ -70,13 +70,18 @@ extension SearchContentViewController: UISearchBarDelegate {
         
         containerView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
-            make.leading.trailing.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
         let viewController = RecentSearchContentViewController()
         addChild(viewController)
         containerView.addSubview(viewController.view)
+        
+        viewController.view.snp.makeConstraints { make in
+            make.edges.equalTo(containerView.snp.edges)
+        }
+        
         viewController.didMove(toParent: self)
     }
 }

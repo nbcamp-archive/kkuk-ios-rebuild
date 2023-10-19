@@ -8,6 +8,9 @@
 import UIKit
 
 class RecentSearchContentViewController: BaseUIViewController {
+    let cellSpacing: CGFloat = 16
+    let cellHeight: CGFloat = 16
+
     private lazy var recentSearchesLabel: UILabel = {
         let label = UILabel()
         label.text = "최근 검색어"
@@ -19,17 +22,21 @@ class RecentSearchContentViewController: BaseUIViewController {
     }()
 
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.minimumLineSpacing = cellSpacing
+        flowLayout.minimumInteritemSpacing = cellSpacing
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(BaseUICollectionViewCell.self, forCellWithReuseIdentifier: "BaseUICollectionViewCell")
+        collectionView.register(RecentSearchContentCollectionViewCell.self, forCellWithReuseIdentifier: "RecentSearchContentCollectionViewCell")
+        
         return collectionView
     }()
-
     
     override func setUI() {
         view.addSubviews([recentSearchesLabel, collectionView])
-
     }
     
     override func setLayout() {
@@ -40,30 +47,30 @@ class RecentSearchContentViewController: BaseUIViewController {
     func setRecentSearchesLabel() {
         recentSearchesLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(32)
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview()
         }
     }
     
     func setCollectionViewLayout() {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(recentSearchesLabel.snp.bottom).offset(32)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
 
 extension RecentSearchContentViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BaseUICollectionViewCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecentSearchContentCollectionViewCell", for: indexPath)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: 100)
+        let width = collectionView.bounds.width / 2 - cellSpacing
+        return CGSize(width: width, height: cellHeight)
     }
 }
