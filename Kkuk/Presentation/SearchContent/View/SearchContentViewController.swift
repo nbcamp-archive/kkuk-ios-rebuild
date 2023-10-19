@@ -9,6 +9,8 @@ import UIKit
 
 class SearchContentViewController: BaseUIViewController {
     
+    let contentList: [String] = []
+    
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "검색어를 입력하세요"
@@ -32,14 +34,26 @@ class SearchContentViewController: BaseUIViewController {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return tableView
     }()
+    
+    private lazy var noContentLabel: UILabel = {
+        let label = UILabel()
+        label.text = "아카이브가 없습니다"
+        label.font = .subtitle2
+        label.textColor = .text1
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.isHidden = !contentList.isEmpty
+        return label
+    }()
 
     override func setUI() {
-        view.addSubviews([searchBar, contentTableView])
+        view.addSubviews([searchBar, contentTableView, noContentLabel])
     }
     
     override func setLayout() {
         setSearchBarLayout()
         setContentTableViewLayout()
+        setNoContentLabelLayout()
     }
     
     override func setDelegate() {}
@@ -58,6 +72,13 @@ class SearchContentViewController: BaseUIViewController {
             make.top.equalTo(searchBar.snp.bottom).offset(48)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+    }
+    
+    func setNoContentLabelLayout() {
+        noContentLabel.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom).offset(48)
+            make.centerX.equalToSuperview()
         }
     }
 }
@@ -88,7 +109,7 @@ extension SearchContentViewController: UISearchBarDelegate {
 
 extension SearchContentViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return contentList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
