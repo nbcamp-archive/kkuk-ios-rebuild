@@ -111,83 +111,79 @@ class AddCategoryViewController: BaseUIViewController, UITextFieldDelegate {
     
     override func setLayout() {
         titleInputLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.centerX.equalTo(view)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(20) // 상단 safeArea로부터 20픽셀 아래에 위치
+            make.leading.equalTo(view).offset(16) // 화면의 왼쪽 가장자리로부터 16픽셀 떨어져서 위치
         }
         
         inputTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleInputLabel.snp.bottom).offset(14)
+            make.top.equalTo(titleInputLabel.snp.bottom).offset(16) // 16픽셀 간격
             make.centerX.equalTo(view)
             make.width.equalTo(view).multipliedBy(0.9)
             make.height.equalTo(48)
         }
         
         inputLimitLabel.snp.makeConstraints { make in
-            make.top.equalTo(inputTextField.snp.bottom).offset(4)
-            make.centerX.equalTo(view)
+            make.top.equalTo(inputTextField.snp.bottom).offset(4) // 4픽셀 간격
+            make.trailing.equalTo(inputTextField) // inputTextField의 오른쪽 끝에 맞춤
         }
         
         iconSelectionLabel.snp.makeConstraints { make in
-            make.top.equalTo(inputLimitLabel.snp.bottom).offset(20)
-            make.centerX.equalTo(view)
+            make.top.equalTo(inputLimitLabel.snp.bottom).offset(16) // 16픽셀 간격
+            make.leading.equalTo(view).offset(16)
         }
         
         iconsGridStackView.snp.makeConstraints { make in
-            make.top.equalTo(iconSelectionLabel.snp.bottom).offset(14)
+            make.top.equalTo(iconSelectionLabel.snp.bottom).offset(16) // 16픽셀 간격
             make.centerX.equalTo(view)
             make.width.equalTo(view).multipliedBy(0.9)
             make.height.equalTo(200)
         }
         
         confirmButton.snp.makeConstraints { make in
-            make.top.equalTo(iconsGridStackView.snp.bottom).offset(20)
+            make.top.equalTo(iconsGridStackView.snp.bottom).offset(16) // 16픽셀 간격
             make.centerX.equalTo(view)
             make.width.equalTo(view).multipliedBy(0.9)
-            make.height.equalTo(50)
+            make.height.equalTo(48)
         }
     }
     
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
-
+        
         // 현재 조합 중인 문자열이 있는지 확인
         if let markedTextRange = textField.markedTextRange,
            textField.position(from: markedTextRange.start, offset: 0) != nil {
             return true
         }
-
+        
         guard let currentText = textField.text else { return true }
         let newLength = currentText.count + string.count - range.length
         return newLength <= 15
     }
-
+    
     // 화면 탭 시 키보드를 내리는 함수
     @objc func viewTapped() {
         print("Screen tapped!")  // 로깅 추가
         view.endEditing(true)
     }
     
-    @objc func keyboardWillShow(
-        
-        notification: NSNotification) {
-            if let keyInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-                let keyboardSize = keyInfo.cgRectValue
-                if view.frame.origin.y == 0 {
-                    view.frame.origin.y -= keyboardSize.height / 2
-                }
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardSize = keyInfo.cgRectValue
+            let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+            
+            // inputTextField가 키보드에 의해 가려진 경우 화면을 위로 올려줍니다.
+            let rect = self.view.frame
+            if rect.origin.y + inputTextField.frame.maxY > self.view.frame.height - keyboardSize.height {
+                self.view.frame.origin.y -= keyboardSize.height
             }
         }
-    
-    @objc func keyboardWillHide(
-        notification: NSNotification) {
-        if view.frame.origin.y != 0 {
-            view.frame.origin.y = 0
-        }
     }
-
-    deinit {
-        // 옵저버 해제
-        NotificationCenter.default.removeObserver(self)
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        // 화면을 원래 위치로 되돌립니다.
+        self.view.frame.origin.y = 0
+        
     }
 }
