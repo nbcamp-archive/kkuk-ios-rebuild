@@ -45,6 +45,16 @@ class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         return label
     }()
     
+    private var plusButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .main
+        button.layer.cornerRadius = 30
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.tintColor = .background
+        
+        return button
+    }()
+    
     private let recommendPagingView = RecommendPagingView()
     
     override func viewDidLoad() {
@@ -55,7 +65,7 @@ class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     }
     
     override func setUI() {
-        view.addSubviews([topFrameView, recentLabel])
+        view.addSubviews([topFrameView, recentLabel, plusButton])
         topFrameView.addSubviews([subTitleLabel, titleLabel, recommendPagingView])
     }
     
@@ -84,6 +94,13 @@ class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
             constraint.horizontalEdges.equalToSuperview()
             constraint.top.equalTo(titleLabel.snp.bottom).offset(28)
             constraint.bottom.equalToSuperview()
+        }
+        
+        plusButton.snp.makeConstraints { constraint in
+            constraint.bottom.equalTo(view.safeAreaLayoutGuide).offset(-40)
+            constraint.trailing.equalTo(-20)
+            constraint.height.width.equalTo(60)
+            
         }
     }
     

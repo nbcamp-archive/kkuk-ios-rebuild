@@ -35,13 +35,17 @@ final class RecommendPagingView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addSubview(self.scrollView)
-        self.addSubview(self.pageControl)
-        
+        self.addSubviews([scrollView, pageControl])
         self.scrollView.addSubview(itemStackView)
-        
         self.scrollView.delegate = self
-        
+        initializeUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func initializeUI() {
         self.scrollView.snp.makeConstraints { constraint in
             constraint.leading.trailing.top.bottom.equalToSuperview()
         }
@@ -56,10 +60,6 @@ final class RecommendPagingView: UIView {
             constraint.centerX.equalToSuperview()
             constraint.bottom.equalTo(scrollView.snp.bottom).offset(-12)
         }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func setItems(items: [String]) {
@@ -89,7 +89,8 @@ final class RecommendPagingView: UIView {
 }
 
 extension RecommendPagingView: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) { // scrollView가 스와이프 될 때 발생 될 이벤트
+    // scrollView가 스와이프 될 때 발생 될 이벤트
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.pageControl.currentPage = Int(round(scrollView.contentOffset.x / (UIScreen.main.bounds.width)))
     }
 }
