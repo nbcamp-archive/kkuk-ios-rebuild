@@ -1,5 +1,5 @@
 //
-//  CustomCategoryViewController.swift
+//  AddCategoryViewController.swift
 //  Kkuk
 //
 //  Created by 손영하 on 2023/10/19.
@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class CustomCategoryViewController: BaseUIViewController, UITextFieldDelegate {
+class AddCategoryViewController: BaseUIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,8 @@ class CustomCategoryViewController: BaseUIViewController, UITextFieldDelegate {
         // 화면 탭 제스처 추가
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         view.addGestureRecognizer(tapGesture)
+        
+        inputTextField.becomeFirstResponder()
     }
     
     private lazy var titleInputLabel: UILabel = {
@@ -148,13 +150,21 @@ class CustomCategoryViewController: BaseUIViewController, UITextFieldDelegate {
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
+
+        // 현재 조합 중인 문자열이 있는지 확인
+        if let markedTextRange = textField.markedTextRange,
+           textField.position(from: markedTextRange.start, offset: 0) != nil {
+            return true
+        }
+
         guard let currentText = textField.text else { return true }
         let newLength = currentText.count + string.count - range.length
         return newLength <= 15
     }
-    
+
     // 화면 탭 시 키보드를 내리는 함수
     @objc func viewTapped() {
+        print("Screen tapped!")  // 로깅 추가
         view.endEditing(true)
     }
     
