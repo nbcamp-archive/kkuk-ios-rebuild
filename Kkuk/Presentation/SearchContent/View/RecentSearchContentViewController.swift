@@ -20,6 +20,14 @@ class RecentSearchContentViewController: BaseUIViewController {
        
         return label
     }()
+    
+    private lazy var allDelegateButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("전체 삭제", for: .normal)
+        button.setTitleColor(.subgray2, for: .normal)
+        button.titleLabel?.font = .subtitle4
+        return button
+    }()
 
     private lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -36,18 +44,26 @@ class RecentSearchContentViewController: BaseUIViewController {
     }()
     
     override func setUI() {
-        view.addSubviews([recentSearchesLabel, collectionView])
+        view.addSubviews([recentSearchesLabel, allDelegateButton, collectionView])
     }
     
     override func setLayout() {
         setRecentSearchesLabel()
+        setAllDeleteButton()
         setCollectionViewLayout()
     }
     
     func setRecentSearchesLabel() {
         recentSearchesLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(32)
-            make.leading.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
+        }
+    }
+    
+    func setAllDeleteButton() {
+        allDelegateButton.snp.makeConstraints { make in
+            make.centerY.equalTo(recentSearchesLabel)
+            make.trailing.equalToSuperview()
         }
     }
     
