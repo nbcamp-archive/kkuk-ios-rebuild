@@ -10,6 +10,8 @@ import UIKit
 class RecentSearchContentViewController: BaseUIViewController {
     let cellSpacing: CGFloat = 16
     let cellHeight: CGFloat = 16
+    
+    var searchList: [String] = []
 
     private lazy var recentSearchesLabel: UILabel = {
         let label = UILabel()
@@ -43,14 +45,26 @@ class RecentSearchContentViewController: BaseUIViewController {
         return collectionView
     }()
     
+    private lazy var noRecentSearchesLabel: UILabel = {
+        let label = UILabel()
+        label.text = "최근 검색어가 없습니다"
+        label.font = .subtitle2
+        label.textColor = .text1
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.isHidden = !searchList.isEmpty
+        return label
+    }()
+    
     override func setUI() {
-        view.addSubviews([recentSearchesLabel, allDelegateButton, collectionView])
+        view.addSubviews([recentSearchesLabel, allDelegateButton, collectionView, noRecentSearchesLabel])
     }
     
     override func setLayout() {
         setRecentSearchesLabel()
         setAllDeleteButton()
         setCollectionViewLayout()
+        setNoRecentSearchesLabelLayout()
     }
     
     func setRecentSearchesLabel() {
@@ -73,11 +87,18 @@ class RecentSearchContentViewController: BaseUIViewController {
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
+    
+    func setNoRecentSearchesLabelLayout() {
+        noRecentSearchesLabel.snp.makeConstraints { make in
+            make.top.equalTo(recentSearchesLabel.snp.bottom).offset(32)
+            make.centerX.equalToSuperview()
+        }
+    }
 }
 
 extension RecentSearchContentViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return searchList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
