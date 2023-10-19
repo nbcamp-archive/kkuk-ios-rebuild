@@ -44,6 +44,9 @@
 		1C2844252ADED52B00A87E99 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C2844202ADED52B00A87E99 /* Pretendard-SemiBold.otf */; };
 		1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */; };
 		C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */; };
+		C3A65F042AE0006500A100A7 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F032AE0006400A100A7 /* CustomPageControl.swift */; };
+		C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */; };
+		C3A65F082AE0326500A100A7 /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F072AE0326500A100A7 /* RecommendView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +107,9 @@
 		1C2844202ADED52B00A87E99 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+FontSizes.swift"; sourceTree = "<group>"; };
 		C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
+		C3A65F032AE0006400A100A7 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
+		C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendPagingView.swift; sourceTree = "<group>"; };
+		C3A65F072AE0326500A100A7 /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +288,9 @@
 			isa = PBXGroup;
 			children = (
 				1C2843B22ADD0D7F00A87E99 /* .gitkeep */,
+				C3A65F032AE0006400A100A7 /* CustomPageControl.swift */,
+				C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */,
+				C3A65F072AE0326500A100A7 /* RecommendView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -613,8 +622,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3A65F042AE0006500A100A7 /* CustomPageControl.swift in Sources */,
 				1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */,
 				1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */,
+				C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */,
 				1C2843CF2ADD11B600A87E99 /* AppTabBarController.swift in Sources */,
 				1C2843A82ADD0C0F00A87E99 /* HomeViewController.swift in Sources */,
 				1C2843CD2ADD106700A87E99 /* BaseUITabBarController.swift in Sources */,
@@ -624,6 +635,7 @@
 				1C2843A42ADC2F7000A87E99 /* BaseUIViewController.swift in Sources */,
 				1C2843DC2ADD388700A87E99 /* And.swift in Sources */,
 				1C2843D82ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift in Sources */,
+				C3A65F082AE0326500A100A7 /* RecommendView.swift in Sources */,
 				1C2843BF2ADD0F5300A87E99 /* SearchContentViewController.swift in Sources */,
 				1C2843D62ADD2F9300A87E99 /* UIView+AddSubviews.swift in Sources */,
 				1C2843D12ADD2C5C00A87E99 /* BaseUITableViewCell.swift in Sources */,
