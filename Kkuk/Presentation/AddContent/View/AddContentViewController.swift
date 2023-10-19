@@ -134,6 +134,11 @@ class AddContentViewController: BaseUIViewController {
     override func setDelegate() {
         URLTextField.delegate = self
         memoTextView.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func addTarget() {}
@@ -142,7 +147,31 @@ class AddContentViewController: BaseUIViewController {
 
 // MARK: - 커스텀 메서드
 
-extension AddContentViewController {}
+extension AddContentViewController {
+    
+    @objc
+    private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        
+        let keyboardHeight = view.convert(keyboardFrame, from: nil).size.height
+        
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.addContentButton.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight)
+            self?.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.addContentButton.transform = .identity
+            self?.view.layoutIfNeeded()
+        }
+    }
+    
+}
 
 // MARK: - UITextField 델리게이트
 
