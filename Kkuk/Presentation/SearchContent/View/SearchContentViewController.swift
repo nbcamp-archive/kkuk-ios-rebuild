@@ -64,6 +64,21 @@ class SearchContentViewController: BaseUIViewController {
 
 extension SearchContentViewController: UISearchBarDelegate {
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        let containerView = UIView()
+        view.addSubview(containerView)
+        
+        containerView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        let viewController = RecentSearchContentViewController()
+        addChild(viewController)
+        containerView.addSubview(viewController.view)
+        viewController.didMove(toParent: self)
+    }
 }
 
 extension SearchContentViewController: UITableViewDataSource, UITableViewDelegate {
