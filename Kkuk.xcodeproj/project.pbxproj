@@ -43,6 +43,7 @@
 		1C2844242ADED52B00A87E99 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C28441F2ADED52B00A87E99 /* Pretendard-Bold.otf */; };
 		1C2844252ADED52B00A87E99 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C2844202ADED52B00A87E99 /* Pretendard-SemiBold.otf */; };
 		1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */; };
+		1C2844292AE0ECE000A87E99 /* AddContentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844282AE0ECE000A87E99 /* AddContentButton.swift */; };
 		C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */; };
 /* End PBXBuildFile section */
 
@@ -86,7 +87,6 @@
 		1C2843C12ADD0F7B00A87E99 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		1C2843C42ADD0FA800A87E99 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		1C2843C72ADD0FD600A87E99 /* AddContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentViewController.swift; sourceTree = "<group>"; };
-		1C2843CA2ADD101100A87E99 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		1C2843CC2ADD106700A87E99 /* BaseUITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITabBarController.swift; sourceTree = "<group>"; };
 		1C2843CE2ADD11B600A87E99 /* AppTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarController.swift; sourceTree = "<group>"; };
 		1C2843D02ADD2C5C00A87E99 /* BaseUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITableViewCell.swift; sourceTree = "<group>"; };
@@ -103,6 +103,7 @@
 		1C28441F2ADED52B00A87E99 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		1C2844202ADED52B00A87E99 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+FontSizes.swift"; sourceTree = "<group>"; };
+		1C2844282AE0ECE000A87E99 /* AddContentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentButton.swift; sourceTree = "<group>"; };
 		C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -372,7 +373,7 @@
 		1C2843C92ADD0FF500A87E99 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				1C2843CA2ADD101100A87E99 /* .gitkeep */,
+				1C2844282AE0ECE000A87E99 /* AddContentButton.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -614,6 +615,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */,
+				1C2844292AE0ECE000A87E99 /* AddContentButton.swift in Sources */,
 				1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */,
 				1C2843CF2ADD11B600A87E99 /* AppTabBarController.swift in Sources */,
 				1C2843A82ADD0C0F00A87E99 /* HomeViewController.swift in Sources */,
