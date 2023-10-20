@@ -121,7 +121,7 @@ extension SearchContentViewController: UISearchBarDelegate {
     }
     
     func toggleCancelButtonVisibility(isShow: Bool) {
-        searchBar.setShowsCancelButton(show, animated: false)
+        searchBar.setShowsCancelButton(isShow, animated: false)
         searchBar.resignFirstResponder()
     }
     
