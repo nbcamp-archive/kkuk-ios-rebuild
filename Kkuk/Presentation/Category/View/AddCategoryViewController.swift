@@ -10,65 +10,157 @@ import UIKit
 
 class AddCategoryViewController: BaseUIViewController, UITextFieldDelegate {
     
+    // MARK: - UI Components
+    
+    private lazy var titleInputLabel = createTitleInputLabel()
+    private lazy var inputTextField = createInputTextField()
+    private lazy var inputLimitLabel = createInputLimitLabel()
+    private lazy var iconSelectionLabel = createIconSelectionLabel()
+    private lazy var iconsGridStackView = createIconsGridStackView()
+    private lazy var confirmButton = createConfirmButton()
+    private var selectedIconButton: UIButton?
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setLayout()
-        
-        // 키보드가 화면을 가릴 때 조정을 위한 옵저버 등록
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillShow),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
-        
-        // 화면 탭 제스처 추가
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
-        view.addGestureRecognizer(tapGesture)
-        
-        inputTextField.becomeFirstResponder()
+        setupTapGesture()
     }
+        
+        // MARK: - UI Setup
+
+        override func setUI() {
+               view.addSubviews([
+                   titleInputLabel,
+                   inputTextField,
+                   inputLimitLabel,
+                   iconSelectionLabel,
+                   iconsGridStackView,
+                   confirmButton
+               ])
+           }
+        
+        // 화면 구성 요소의 레이아웃 설정
+        override func setLayout() {
+            titleInputLabel.snp.makeConstraints { make in
+                make.top.equalTo(view.safeAreaLayoutGuide).offset(20) // 상단 safeArea로부터 20픽셀 아래에 위치
+                make.leading.equalTo(view).offset(16) // 화면의 왼쪽 가장자리로부터 16픽셀 떨어져서 위치
+            }
+            
+            inputTextField.snp.makeConstraints { make in
+                make.top.equalTo(titleInputLabel.snp.bottom).offset(16) // 16픽셀 간격
+                make.centerX.equalTo(view)
+                make.width.equalTo(view).multipliedBy(0.9)
+                make.height.equalTo(48)
+            }
+            
+            inputLimitLabel.snp.makeConstraints { make in
+                make.top.equalTo(inputTextField.snp.bottom).offset(4) // 4픽셀 간격
+                make.trailing.equalTo(inputTextField) // inputTextField의 오른쪽 끝에 맞춤
+            }
+            
+            iconSelectionLabel.snp.makeConstraints { make in
+                make.top.equalTo(inputLimitLabel.snp.bottom).offset(16) // 16픽셀 간격
+                make.leading.equalTo(view).offset(16)
+            }
+            
+            iconsGridStackView.snp.makeConstraints { make in
+                make.top.equalTo(iconSelectionLabel.snp.bottom).offset(16) // 16픽셀 간격
+                make.centerX.equalTo(view)
+                make.width.equalTo(view).multipliedBy(0.9)
+                make.height.equalTo(200)
+            }
+            
+            confirmButton.snp.makeConstraints { make in
+                make.top.equalTo(iconsGridStackView.snp.bottom).offset(16) // 16픽셀 간격
+                make.centerX.equalTo(view)
+                make.width.equalTo(view).multipliedBy(0.9)
+                make.height.equalTo(48)
+            }
+        }
+        
+        // MARK: - Helper Functions for UI Components Creation
     
-    private lazy var titleInputLabel: UILabel = {
+    // 카테고리 이름 라벨 설정
+        private func createTitleInputLabel() -> UILabel {
         let label = UILabel()
         label.text = "카테고리 이름"
         label.font = UIFont.title2
         label.textColor = UIColor.text1
         return label
-    }()
+    }
     
-    private lazy var inputTextField: UITextField = {
+    // 사용자가 카테고리 이름을 입력할 텍스트 필드 설정
+        private func createInputTextField() -> UITextField {
         let textField = UITextField()
-        textField.placeholder = "카테고리 이름을 입력하세요"
+        textField.placeholder = "카테고리 이름을 입력하세요."
         textField.backgroundColor = UIColor.subgray3
         textField.tintColor = UIColor.main
         textField.font = UIFont.body1
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
         textField.delegate = self
+        textField.layer.borderColor = UIColor.clear.cgColor
+        textField.layer.borderWidth = 1.0
+        textField.rightViewMode = .whileEditing
+        
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
+            textField.leftView = paddingView
+            textField.leftViewMode = .always
+        
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
+           label.font = UIFont.systemFont(ofSize: 12)
+           label.textColor = .gray
+           label.textAlignment = .right
+           textField.rightView = label
+        
+        // 'x' 모양의 클리어 버튼 생성
+        let clearButton = UIButton(type: .custom)
+        clearButton.frame = CGRect(x: 0, y: 0, width: 65, height: 25) // 설정된 버튼의 크기
+        clearButton.contentMode = .center
+
+        // 'x' 이미지를 가진 이미지 뷰 생성
+        let xmarkImage = UIImage(systemName: "xmark.circle.fill")
+        let clearImageView = UIImageView(image: xmarkImage)
+
+        // 버튼의 중앙에 위치하도록
+        let imageViewYPosition = (clearButton.frame.height - 25) / 2
+        clearImageView.frame = CGRect(x: 0, y: imageViewYPosition, width: 25, height: 25)
+
+        // 이미지 뷰를 버튼에 추가
+        clearButton.addSubview(clearImageView)
+
+        // 버튼이 눌렸을 때의 동작 설정
+        clearButton.addTarget(self, action: #selector(clearTextFieldContent), for: .touchUpInside)
+
+        // 텍스트 필드의 오른쪽 뷰에 버튼을 설정
+        textField.rightView = clearButton
+
         return textField
-    }()
+    }
     
-    private lazy var inputLimitLabel: UILabel = {
+    // 입력 글자 수 제한 안내 레이블 설정
+        private func createInputLimitLabel() -> UILabel {
         let label = UILabel()
-        label.text = "*최대 15자 까지 입력 가능"
+        label.text = "*최대 15자까지 입력 가능"
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = .red
+        label.textColor = UIColor.orange
         return label
-    }()
+    }
     
-    private lazy var iconSelectionLabel: UILabel = {
+    // 아이콘 선택을 위한 라벨 설정
+        private func createIconSelectionLabel() -> UILabel {
         let label = UILabel()
         label.text = "아이콘 선택"
         label.font = UIFont.title2
         label.textColor = UIColor.text1
         return label
-    }()
+    }
     
-    private lazy var iconsGridStackView: UIStackView = {
+    // 카테고리 아이콘들을 선택할 수 있는 그리드 뷰 설정
+        private func createIconsGridStackView() -> UIStackView {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fillEqually
@@ -79,74 +171,84 @@ class AddCategoryViewController: BaseUIViewController, UITextFieldDelegate {
             hStack.axis = .horizontal
             hStack.distribution = .fillEqually
             hStack.spacing = 10
-            for _ in 0..<3 {
+            for _ in 0..<5 {
                 let iconButton = UIButton()
-                iconButton.setImage(UIImage(named: "yourIconName"), for: .normal)
+                iconButton.setImage(UIImage(named: "blueCircle"), for: .normal)
+                iconButton.layer.borderWidth = 2
+                iconButton.layer.borderColor = UIColor.clear.cgColor
+                iconButton.addTarget(self, action: #selector(iconButtonTapped), for: .touchUpInside)
                 hStack.addArrangedSubview(iconButton)
             }
             stack.addArrangedSubview(hStack)
         }
         return stack
-    }()
-    
-    private lazy var confirmButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("확인", for: .normal)
-        button.backgroundColor = UIColor.main
-        button.titleLabel?.font = UIFont.body2
-        button.layer.cornerRadius = 5
-        return button
-    }()
-    
-    override func setUI() {
-        view.addSubviews([
-            titleInputLabel,
-            inputTextField,
-            inputLimitLabel,
-            iconSelectionLabel,
-            iconsGridStackView,
-            confirmButton
-        ])
     }
     
-    override func setLayout() {
-        titleInputLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20) // 상단 safeArea로부터 20픽셀 아래에 위치
-            make.leading.equalTo(view).offset(16) // 화면의 왼쪽 가장자리로부터 16픽셀 떨어져서 위치
+    // 카테고리 확인버튼 설정
+        private func createConfirmButton() -> UIButton {
+            let button = UIButton()
+            button.setTitle("확인", for: .normal)
+            button.backgroundColor = UIColor.main
+            button.titleLabel?.font = UIFont.body2
+            button.layer.cornerRadius = 5
+            button.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)  // 추가된 부분
+            return button
+        }
+
+        // MARK: - Actions
+        
+        // 아이콘 버튼을 탭할 때의 동작
+        @objc func iconButtonTapped(_ sender: UIButton) {
+            
+            // 이전에 선택된 아이콘 버튼의 선택을 해제
+            selectedIconButton?.layer.borderWidth = 0
+            selectedIconButton?.layer.borderColor = UIColor.clear.cgColor
+
+            // 새로 선택된 아이콘 버튼 강조
+            sender.layer.cornerRadius = sender.frame.size.width / 2  // 버튼을 동그랗게 만듭니다.
+            sender.layer.borderWidth = 3
+            sender.layer.borderColor = UIColor.systemBlue.cgColor
+
+            // 선택된 아이콘 버튼 업데이트
+            selectedIconButton = sender
         }
         
-        inputTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleInputLabel.snp.bottom).offset(16) // 16픽셀 간격
-            make.centerX.equalTo(view)
-            make.width.equalTo(view).multipliedBy(0.9)
-            make.height.equalTo(48)
+        // 텍스트 필드의 내용을 지우는 동작
+        @objc private func clearTextFieldContent() {
+            inputTextField.text = ""
         }
         
-        inputLimitLabel.snp.makeConstraints { make in
-            make.top.equalTo(inputTextField.snp.bottom).offset(4) // 4픽셀 간격
-            make.trailing.equalTo(inputTextField) // inputTextField의 오른쪽 끝에 맞춤
+        // 화면을 탭할 때 키보드를 숨기고 화면을 원래대로 복구
+        @objc func viewTapped() {
+            print("Screen tapped!")  // 로깅 추가
+            view.endEditing(true)
+            
+            func keyboardWillHide(notification: NSNotification) {
+                if self.view.frame.origin.y != 0 {
+                    self.view.frame.origin.y = 0
+                }
+            }
         }
         
-        iconSelectionLabel.snp.makeConstraints { make in
-            make.top.equalTo(inputLimitLabel.snp.bottom).offset(16) // 16픽셀 간격
-            make.leading.equalTo(view).offset(16)
-        }
+        // 확인 버튼을 눌렀을 때의 동작
+        @objc func confirmButtonTapped() {
+                self.dismiss(animated: true, completion: nil)
+            }
         
-        iconsGridStackView.snp.makeConstraints { make in
-            make.top.equalTo(iconSelectionLabel.snp.bottom).offset(16) // 16픽셀 간격
-            make.centerX.equalTo(view)
-            make.width.equalTo(view).multipliedBy(0.9)
-            make.height.equalTo(200)
-        }
+        // MARK: - TextField Delegate
         
-        confirmButton.snp.makeConstraints { make in
-            make.top.equalTo(iconsGridStackView.snp.bottom).offset(16) // 16픽셀 간격
-            make.centerX.equalTo(view)
-            make.width.equalTo(view).multipliedBy(0.9)
-            make.height.equalTo(48)
+    // 텍스트 필드 편집이 시작될 때 호출되는 메서드
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == inputTextField {
+            textField.backgroundColor = .white
+            textField.borderStyle = .none
+            textField.layer.cornerRadius = 5 // 원하는 모서리 둥글기 값
+            textField.layer.borderColor = UIColor.orange.cgColor
+            textField.layer.borderWidth = 1.0
         }
     }
-    
+
+    // 텍스트 필드에서 텍스트 변경 시 글자수 제한과 관련된 동작
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
@@ -159,31 +261,28 @@ class AddCategoryViewController: BaseUIViewController, UITextFieldDelegate {
         
         guard let currentText = textField.text else { return true }
         let newLength = currentText.count + string.count - range.length
-        return newLength <= 15
+        
+        inputLimitLabel.text = "\(newLength)/15"
+        // 입력 제한 라벨 업데이트
+        
+        return (newLength < 15)
     }
     
-    // 화면 탭 시 키보드를 내리는 함수
-    @objc func viewTapped() {
-        print("Screen tapped!")  // 로깅 추가
-        view.endEditing(true)
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardSize = keyInfo.cgRectValue
-            let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
-            
-            // inputTextField가 키보드에 의해 가려진 경우 화면을 위로 올려줍니다.
-            let rect = self.view.frame
-            if rect.origin.y + inputTextField.frame.maxY > self.view.frame.height - keyboardSize.height {
-                self.view.frame.origin.y -= keyboardSize.height
+    // 텍스트 필드 편집이 끝났을 때 호출되는 메서드
+        func textFieldDidEndEditing(_ textField: UITextField) {
+            if textField == inputTextField {
+                textField.backgroundColor = UIColor.subgray3
+                textField.borderStyle = .none
+                textField.layer.borderColor = UIColor.clear.cgColor
             }
         }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        // 화면을 원래 위치로 되돌립니다.
-        self.view.frame.origin.y = 0
         
-    }
-}
+        // MARK: - Private Helpers
+
+    // 사용자가 화면의 다른 부분을 탭하면 키보드를 숨김
+        private func setupTapGesture() {
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+                tapGesture.cancelsTouchesInView = true
+                view.addGestureRecognizer(tapGesture)
+            }
+        }
