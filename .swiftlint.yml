@@ -19,6 +19,8 @@ excluded:
   - Kkuk/Resource
   - KkukTests
   - KkukUITests
+  
+line_length: 160
 
 file_length:
   warning: 500
