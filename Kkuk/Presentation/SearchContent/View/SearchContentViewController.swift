@@ -86,6 +86,8 @@ class SearchContentViewController: BaseUIViewController {
 extension SearchContentViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: false)
+        
         let containerView = UIView()
         view.addSubview(containerView)
         
