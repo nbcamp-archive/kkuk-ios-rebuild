@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
+final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     private var topFrameView: UIStackView = {
         let view = UIStackView()
@@ -49,13 +49,13 @@ class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         let button = UIButton()
         button.backgroundColor = .main
         button.layer.cornerRadius = 30
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.setImage(UIImage(named: "Plus"), for: .normal)
         button.tintColor = .background
         
         return button
     }()
     
-    private let recommendPagingView = RecommendPagingView()
+    private var recommendPagingView = RecommendPagingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,7 +97,7 @@ class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         }
         
         plusButton.snp.makeConstraints { constraint in
-            constraint.bottom.equalTo(view.safeAreaLayoutGuide).offset(-40)
+            constraint.bottom.equalTo(view.safeAreaLayoutGuide).offset(-32)
             constraint.trailing.equalTo(-20)
             constraint.height.width.equalTo(60)
             
