@@ -15,6 +15,7 @@ class SearchContentViewController: BaseUIViewController {
         let searchBar = UISearchBar()
         searchBar.placeholder = "검색어를 입력하세요"
         searchBar.delegate = self
+        searchBar.searchBarStyle = .minimal
         
         if let textField = searchBar.value(forKey: "searchField") as? UITextField {
             textField.backgroundColor = .clear
