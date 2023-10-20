@@ -11,6 +11,8 @@ class SearchContentViewController: BaseUIViewController {
     
     let contentList: [String] = []
     
+    let recentSearchContentViewController = RecentSearchContentViewController()
+    
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "검색어를 입력하세요"
@@ -98,15 +100,35 @@ extension SearchContentViewController: UISearchBarDelegate {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
-        let viewController = RecentSearchContentViewController()
-        addChild(viewController)
-        containerView.addSubview(viewController.view)
+        addChild(recentSearchContentViewController)
+        containerView.addSubview(recentSearchContentViewController.view)
         
-        viewController.view.snp.makeConstraints { make in
+        recentSearchContentViewController.view.snp.makeConstraints { make in
             make.edges.equalTo(containerView.snp.edges)
         }
         
-        viewController.didMove(toParent: self)
+        recentSearchContentViewController.didMove(toParent: self)
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        toggleCancelButtonVisibility(isShow: false)
+        dismissRecentSearchContentViewController()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        toggleCancelButtonVisibility(isShow: false)
+        dismissRecentSearchContentViewController()
+    }
+    
+    func toggleCancelButtonVisibility(isShow: Bool) {
+        searchBar.setShowsCancelButton(show, animated: false)
+        searchBar.resignFirstResponder()
+    }
+    
+    func dismissRecentSearchContentViewController() {
+        recentSearchContentViewController.willMove(toParent: nil)
+        recentSearchContentViewController.view.removeFromSuperview()
+        recentSearchContentViewController.removeFromParent()
     }
 }
 

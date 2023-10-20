@@ -110,4 +110,14 @@ extension RecentSearchContentViewController: UICollectionViewDelegate, UICollect
         let width = collectionView.bounds.width / 2 - cellSpacing
         return CGSize(width: width, height: cellHeight)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let searchContentViewController = parent as? SearchContentViewController {
+            searchContentViewController.toggleCancelButtonVisibility(isShow: false)
+         }
+        
+        willMove(toParent: nil)
+        view.removeFromSuperview()
+        removeFromParent()
+    }
 }
