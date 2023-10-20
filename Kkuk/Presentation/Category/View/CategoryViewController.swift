@@ -6,15 +6,33 @@
 //
 
 import UIKit
+import SnapKit
 
 class CategoryViewController: BaseUIViewController {
     
-    override func setUI() {}
+    private lazy var moveToAddCategoryButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("카테고리 추가하기", for: .normal)
+        button.addTarget(self, action: #selector(moveToAddCategory), for: .touchUpInside)
+        return button
+    }()
     
-    override func setLayout() {}
+    override func setUI() {
+        view.addSubview(moveToAddCategoryButton)
+    }
     
-    override func setDelegate() {}
+    override func setLayout() {
+        moveToAddCategoryButton.snp.makeConstraints { make in
+            make.center.equalTo(view)
+            make.width.equalTo(200)
+            make.height.equalTo(50)
+        }
+    }
     
-    override func addTarget() {}
+    @objc private func moveToAddCategory() {
+        let customVC = AddCategoryViewController()
+        let navController = UINavigationController(rootViewController: customVC)
+        self.present(navController, animated: true, completion: nil)
+    }
     
 }
