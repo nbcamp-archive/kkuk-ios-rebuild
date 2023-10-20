@@ -33,7 +33,7 @@ class ContentTableViewCell: BaseUITableViewCell {
         return label
     }()
     
-    private lazy var UrlLabel: UILabel = {
+    private lazy var urlLabel: UILabel = {
         let label = UILabel()
         label.text = "URL 라벨"
         label.font = .subtitle4
@@ -48,7 +48,7 @@ class ContentTableViewCell: BaseUITableViewCell {
     }
     
     override func setUI() {
-        contentView.addSubviews([thumbnailImageView, siteTitleLabel, memoLabel, UrlLabel])
+        contentView.addSubviews([thumbnailImageView, siteTitleLabel, memoLabel, urlLabel])
     }
     
     override func setLayout() {
@@ -69,7 +69,7 @@ class ContentTableViewCell: BaseUITableViewCell {
             make.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
         }
         
-        UrlLabel.snp.makeConstraints { make in
+        urlLabel.snp.makeConstraints { make in
             make.top.equalTo(memoLabel.snp.bottom).offset(4)
             make.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
         }
