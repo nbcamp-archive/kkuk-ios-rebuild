@@ -91,6 +91,8 @@ extension AppTabBarController {
     
     private func wrapNavigationController(from viewController: UIViewController) -> UINavigationController {
         let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.navigationBar.isHidden = true
+        
         return navigationController
     }
     
