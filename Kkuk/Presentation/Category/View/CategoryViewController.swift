@@ -5,34 +5,75 @@
 //  Created by Yujin Kim on 2023-10-16.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 class CategoryViewController: BaseUIViewController {
-    
-    private lazy var moveToAddCategoryButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("카테고리 추가하기", for: .normal)
-        button.addTarget(self, action: #selector(moveToAddCategory), for: .touchUpInside)
-        return button
+    private lazy var categoryCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: (UIScreen.main.bounds.width / 2) - 20, height: UIScreen.main.bounds.height / 4)
+        layout.sectionInset = .zero
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
+        collectionView.register(AddCategoryCollectionViewCell.self, forCellWithReuseIdentifier: "AddCategoryCollectionViewCell")
+        collectionView.contentInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
     }()
     
+    var color: [UIColor] = [.systemGray, .systemOrange, .systemYellow, .systemGreen]
+    
     override func setUI() {
-        view.addSubview(moveToAddCategoryButton)
+        view.addSubview(categoryCollectionView)
     }
     
     override func setLayout() {
-        moveToAddCategoryButton.snp.makeConstraints { make in
-            make.center.equalTo(view)
-            make.width.equalTo(200)
-            make.height.equalTo(50)
+        categoryCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
-    @objc private func moveToAddCategory() {
-        let customVC = AddCategoryViewController()
-        let navController = UINavigationController(rootViewController: customVC)
-        self.present(navController, animated: true, completion: nil)
+    override func setDelegate() {
+        categoryCollectionView.delegate = self
+        categoryCollectionView.dataSource = self
     }
     
+    override func addTarget() {}
+}
+
+extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return color.count + 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let index = indexPath[1]
+        if index == 0 {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddCategoryCollectionViewCell",
+                                                                for: indexPath) as? AddCategoryCollectionViewCell else { return UICollectionViewCell() }
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell",
+                                                                for: indexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
+            let color = color[indexPath.item - 1]
+            cell.contentView.backgroundColor = color
+//            cell.title1.text = category1
+//            cell.title2.text = category3
+            return cell
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let index = indexPath[1]
+        if index == 0 {
+            let customVC = AddCategoryViewController()
+            let navController = UINavigationController(rootViewController: customVC)
+            present(navController, animated: true, completion: nil)
+        } else {
+            print("카테고리 클릭")
+        }
+    }
 }
