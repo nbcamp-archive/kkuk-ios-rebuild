@@ -33,6 +33,8 @@ final class RecommendPagingView: UIView {
         return control
     }()
     
+    private var items: [String] = []
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addSubviews([scrollView, pageControl])
@@ -61,9 +63,10 @@ final class RecommendPagingView: UIView {
             constraint.bottom.equalTo(scrollView.snp.bottom).offset(-12)
         }
     }
-    
+        
     func setItems(items: [String]) {
         
+        self.items = items
         self.pageControl.numberOfPages = items.count
         let width = UIScreen.main.bounds.width-40
         
@@ -85,6 +88,10 @@ final class RecommendPagingView: UIView {
         self.scrollView.subviews.forEach {
             $0.removeFromSuperview()
         }
+    }
+    
+    func numberOfItems() -> Int {
+        return items.count
     }
 }
 

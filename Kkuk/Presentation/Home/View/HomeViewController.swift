@@ -20,7 +20,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     private var subTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "이 콘텐츠는 어떠세요?"
+        label.text = "내 마음에 드는 콘텐츠를, 꾹"
         label.font = .subtitle2
         label.textColor = .background
         
@@ -29,7 +29,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     private var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "오늘의 추천"
+        label.text = "즐겨찾기"
         label.font = .title1
         label.textColor = .background
         
@@ -57,16 +57,23 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     private var recommendPagingView = RecommendPagingView()
     
+    private var emptyStateView: EmptyStateView = {
+        let view = EmptyStateView()
+        //view.isHidden = true
+        
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
         
-        recommendPagingView.setItems(items: ["1111111", "222222222222", "333333333333"])
+        recommendPagingView.setItems(items: [])
     }
-    
+  
     override func setUI() {
         view.addSubviews([topFrameView, recentLabel, plusButton])
-        topFrameView.addSubviews([subTitleLabel, titleLabel, recommendPagingView])
+        topFrameView.addSubviews([subTitleLabel, titleLabel, recommendPagingView, emptyStateView])
     }
     
     override func setLayout() {
