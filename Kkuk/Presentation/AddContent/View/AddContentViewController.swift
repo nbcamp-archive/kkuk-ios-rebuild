@@ -5,7 +5,10 @@
 //  Created by Yujin Kim on 2023-10-16.
 //
 
+import Alamofire
+import SwiftSoup
 import SnapKit
+
 import UIKit
 
 class AddContentViewController: BaseUIViewController {
@@ -167,7 +170,9 @@ class AddContentViewController: BaseUIViewController {
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    override func addTarget() {}
+    override func addTarget() {
+        addContentButton.addTarget(self, action: #selector(addContentButtonDidTap), for: .touchUpInside)
+    }
     
     override func setNavigationBar() {
         title = "추가하기"
@@ -216,6 +221,24 @@ extension AddContentViewController {
     @objc
     private func closeButtonItemDidTap() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc
+    private func addContentButtonDidTap() {
+        guard let text = URLTextField.text, !text.isEmpty, let URL = URL(string: text) else { return }
+        
+        let openGraphService = OpenGraphService()
+        
+        openGraphService.extractOpenGraphData(from: URL) { result in
+            switch result {
+            case .success(let openGraph):
+                print("ogURL: \(openGraph.ogURL ?? "No data")")
+                print("ogTitle: \(openGraph.ogTitle ?? "No data")")
+                print("ogGraph: \(openGraph.ogImage ?? "No data")")
+            case .failure(let error):
+                print("Open Graph Property Data를 추출하는데 문제가 발생했습니다. \(error.localizedDescription)")
+            }
+        }
     }
     
 }
@@ -295,4 +318,87 @@ extension AddContentViewController: UITextViewDelegate {
         return updateMemoText.count <= 75
     }
     
+}
+
+class ExtractOpenGraphTestViewController: BaseUIViewController {
+    
+    private lazy var opengraphImageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+    
+    private lazy var opengraphTitle: UILabel = {
+        let label = UILabel()
+        label.font = .body1
+        return label
+    }()
+    
+    private lazy var opengraphDescription: UITextView = {
+        let view = UITextView()
+        view.font = .body2
+        return view
+    }()
+    
+    var openGraphData: [String: String]? {
+        didSet {
+            bind()
+        }
+    }
+    
+    override func setUI() {
+        view.addSubviews([opengraphImageView, opengraphTitle, opengraphDescription])
+    }
+    
+    override func setLayout() {
+        opengraphImageView.snp.makeConstraints { constraint in
+            constraint.centerX.equalToSuperview()
+            constraint.top.equalTo(view.safeAreaLayoutGuide)
+            constraint.width.equalTo(150)
+            constraint.height.equalTo(300)
+        }
+        
+        opengraphTitle.snp.makeConstraints { constraint in
+            constraint.top.equalTo(opengraphImageView.snp.bottom).offset(20)
+            constraint.leading.equalToSuperview().offset(20)
+            constraint.trailing.equalToSuperview().offset(-20)
+        }
+        
+        opengraphDescription.snp.makeConstraints { constraint in
+            constraint.top.equalTo(opengraphTitle.snp.bottom).offset(20)
+            constraint.leading.equalToSuperview().offset(20)
+            constraint.trailing.equalToSuperview().offset(-20)
+            constraint.width.equalTo(250)
+            constraint.height.equalTo(500)
+        }
+    }
+    
+}
+
+extension ExtractOpenGraphTestViewController {
+    
+    private func bind() {
+        if let openGraphData = openGraphData {
+            if let imageURLString = openGraphData["og:image"],
+               let imageURL = URL(string: imageURLString) {
+                
+                AF.request(imageURL).responseData { response in
+                    if case .success(let image) = response.result {
+                        DispatchQueue.main.async {
+                            let image = UIImage(data: image)
+                            self.opengraphImageView.image = image
+                        }
+                    }
+                }
+            }
+            
+            if let title = openGraphData["og:title"] {
+                opengraphTitle.text = title
+            }
+            
+            if let description = openGraphData["og:description"] {
+                opengraphDescription.text = description
+            }
+        }
+    }
 }
