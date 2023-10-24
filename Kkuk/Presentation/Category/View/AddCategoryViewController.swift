@@ -137,24 +137,36 @@ class AddCategoryViewController: BaseUIViewController, UITextFieldDelegate {
     }
     
     private func createIconsGridStackView() -> UIStackView {
+        // 아이콘 이미지 이름들을 배열로 정의합니다.
+        let iconImageNames = ["trip", "education", "plant", "animal", "cafe"]
+        
         let stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fillEqually
         stack.spacing = 10
-        
+
+        var imageIndex = 0  // 아이콘 이미지 이름 배열의 인덱스를 나타내는 변수
         for _ in 0..<3 {
             let hStack = UIStackView()
             hStack.axis = .horizontal
             hStack.distribution = .fillEqually
             hStack.spacing = 10
+            
             for _ in 0..<5 {
                 let iconButton = UIButton()
-                iconButton.setImage(UIImage(named: "blueCircle"), for: .normal)
+                
+                // 배열에서 이미지 이름을 가져와 이미지를 설정
+                if imageIndex < iconImageNames.count {
+                    iconButton.setImage(UIImage(named: iconImageNames[imageIndex]), for: .normal)
+                    imageIndex += 1
+                }
+                
                 iconButton.layer.borderWidth = 2
                 iconButton.layer.borderColor = UIColor.clear.cgColor
                 iconButton.addTarget(self, action: #selector(iconButtonTapped), for: .touchUpInside)
                 hStack.addArrangedSubview(iconButton)
             }
+            
             stack.addArrangedSubview(hStack)
         }
         return stack
