@@ -12,6 +12,7 @@ class SearchContentViewController: BaseUIViewController {
     let contentList: [String] = []
     
     let recentSearchContentViewController = RecentSearchContentViewController()
+    let recenteSearchManager = RecentSearchManager()
     
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -123,6 +124,9 @@ extension SearchContentViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         toggleCancelButtonVisibility(isShow: false)
         toggleContainerViewVisibility(isShow: true)
+        
+        guard let searchText = searchBar.text else { return }
+        recenteSearchManager.add(to: searchText)
     }
     
     func toggleCancelButtonVisibility(isShow: Bool) {
