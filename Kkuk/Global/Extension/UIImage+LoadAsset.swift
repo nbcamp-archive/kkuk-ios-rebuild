@@ -9,7 +9,7 @@ import UIKit
 
 extension UIImage {
     
-    func loadAsset(named name: String) -> UIImage {
+    static func loadAsset(named name: String) -> UIImage {
         guard let image = UIImage(named: name, in: nil, compatibleWith: nil) else {
             return UIImage()
         }

@@ -47,6 +47,7 @@
 		1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */; };
 		1C2844292AE0ECE000A87E99 /* AddContentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844282AE0ECE000A87E99 /* AddContentButton.swift */; };
 		1C79EFF62AE7641000B5A97A /* UIImage+LoadAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFF52AE7641000B5A97A /* UIImage+LoadAsset.swift */; };
+		1C79EFF92AE7675A00B5A97A /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFF82AE7675A00B5A97A /* Asset.swift */; };
 		C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */; };
 		C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */; };
 		C3A65F082AE0326500A100A7 /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F072AE0326500A100A7 /* RecommendView.swift */; };
@@ -111,6 +112,7 @@
 		1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+FontSizes.swift"; sourceTree = "<group>"; };
 		1C2844282AE0ECE000A87E99 /* AddContentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentButton.swift; sourceTree = "<group>"; };
 		1C79EFF52AE7641000B5A97A /* UIImage+LoadAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+LoadAsset.swift"; sourceTree = "<group>"; };
+		1C79EFF82AE7675A00B5A97A /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 		C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
 		C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendPagingView.swift; sourceTree = "<group>"; };
 		C3A65F072AE0326500A100A7 /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 		1C28438F2ADB9D8800A87E99 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				1C79EFF72AE7673D00B5A97A /* Enum */,
 				1C2843D42ADD2F8000A87E99 /* Extension */,
 				1C2843A12ADC2F7000A87E99 /* Base */,
 				1C28439F2ADC2F7000A87E99 /* Protocol */,
@@ -449,6 +452,14 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		1C79EFF72AE7673D00B5A97A /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				1C79EFF82AE7675A00B5A97A /* Asset.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -634,6 +645,7 @@
 				C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */,
 				1C2843CF2ADD11B600A87E99 /* AppTabBarController.swift in Sources */,
 				0A042ED92ADFE48E002ED30D /* ContentTableViewCell.swift in Sources */,
+				1C79EFF92AE7675A00B5A97A /* Asset.swift in Sources */,
 				1C2843A82ADD0C0F00A87E99 /* HomeViewController.swift in Sources */,
 				1C28438D2ADB9D0D00A87E99 /* AppDelegate.swift in Sources */,
 				1C2843B92ADD0DD400A87E99 /* CategoryViewController.swift in Sources */,
