@@ -27,4 +27,8 @@ struct RecentSearchManager {
     func fetchAllSearches() -> [String] {
         return UserDefaults.standard.stringArray(forKey: keyNmae) ?? []
     }
+    
+    func deleteAllSearches() {
+        UserDefaults.standard.removeObject(forKey: keyNmae)
+    }
 }

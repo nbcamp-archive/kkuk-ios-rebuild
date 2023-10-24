@@ -11,6 +11,8 @@ class RecentSearchContentViewController: BaseUIViewController {
     let cellSpacing: CGFloat = 16
     let cellHeight: CGFloat = 16
     
+    let manager = RecentSearchManager()
+    
     var searchList: [String] = []
 
     private lazy var recentSearchesLabel: UILabel = {
@@ -70,6 +72,10 @@ class RecentSearchContentViewController: BaseUIViewController {
         setNoRecentSearchesLabelLayout()
     }
     
+    override func addTarget() {
+        allDelegateButton.addTarget(self, action: #selector(deleteAllSearches), for: .touchUpInside)
+    }
+    
     func setRecentSearchesLabel() {
         recentSearchesLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(32)
@@ -96,6 +102,10 @@ class RecentSearchContentViewController: BaseUIViewController {
             make.top.equalTo(recentSearchesLabel.snp.bottom).offset(32)
             make.centerX.equalToSuperview()
         }
+    }
+    
+    @objc func deleteAllSearches() {
+        manager.deleteAllSearches()
     }
 }
 
