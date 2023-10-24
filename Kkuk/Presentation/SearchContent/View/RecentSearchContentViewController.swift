@@ -115,8 +115,14 @@ extension RecentSearchContentViewController: UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecentSearchContentCollectionViewCell", for: indexPath)
-        return cell
+        let cellName = "RecentSearchContentCollectionViewCell"
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellName,
+                                                         for: indexPath) as? RecentSearchContentCollectionViewCell {
+            cell.addDeleteButton(tag: indexPath.row)
+            return cell
+        }
+        
+        return BaseUICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

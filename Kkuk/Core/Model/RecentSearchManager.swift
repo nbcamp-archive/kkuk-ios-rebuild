@@ -31,4 +31,10 @@ struct RecentSearchManager {
     func deleteAllSearches() {
         UserDefaults.standard.removeObject(forKey: keyNmae)
     }
+    
+    func deleteSearch(at index: Int) {
+        var allSearches = fetchAllSearches()
+        allSearches.remove(at: index)
+        UserDefaults.standard.set(allSearches, forKey: keyNmae)
+    }
 }
