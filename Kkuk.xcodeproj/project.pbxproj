@@ -10,6 +10,7 @@
 		0A042ED92ADFE48E002ED30D /* ContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042ED82ADFE48E002ED30D /* ContentTableViewCell.swift */; };
 		0A042EDB2ADFF9D0002ED30D /* RecentSearchContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042EDA2ADFF9D0002ED30D /* RecentSearchContentViewController.swift */; };
 		0A042EDD2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042EDC2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift */; };
+		0A95434A2AE7C60300907579 /* RecentSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9543492AE7C60300907579 /* RecentSearchManager.swift */; };
 		1C2843722ADB969C00A87E99 /* KkukTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843712ADB969C00A87E99 /* KkukTests.swift */; };
 		1C28437C2ADB969C00A87E99 /* KkukUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C28437B2ADB969C00A87E99 /* KkukUITests.swift */; };
 		1C28437E2ADB969C00A87E99 /* KkukUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C28437D2ADB969C00A87E99 /* KkukUITestsLaunchTests.swift */; };
@@ -73,6 +74,7 @@
 		0A042ED82ADFE48E002ED30D /* ContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewCell.swift; sourceTree = "<group>"; };
 		0A042EDA2ADFF9D0002ED30D /* RecentSearchContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchContentViewController.swift; sourceTree = "<group>"; };
 		0A042EDC2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchContentCollectionViewCell.swift; sourceTree = "<group>"; };
+		0A9543492AE7C60300907579 /* RecentSearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchManager.swift; sourceTree = "<group>"; };
 		1C2843572ADB969A00A87E99 /* Kkuk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kkuk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C28436D2ADB969C00A87E99 /* KkukTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KkukTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C2843712ADB969C00A87E99 /* KkukTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KkukTests.swift; sourceTree = "<group>"; };
@@ -101,7 +103,6 @@
 		1C2843DB2ADD388700A87E99 /* And.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = And.swift; sourceTree = "<group>"; };
 		1C2843E12ADD478A00A87E99 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		1C2843E32ADD479400A87E99 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		1C2843E52ADD47A200A87E99 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		1C28441C2ADED52B00A87E99 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		1C28441D2ADED52B00A87E99 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		1C28441E2ADED52B00A87E99 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
@@ -429,7 +430,7 @@
 		1C2843E02ADD477A00A87E99 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1C2843E52ADD47A200A87E99 /* .gitkeep */,
+				0A9543492AE7C60300907579 /* RecentSearchManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -642,6 +643,7 @@
 				1C2843BF2ADD0F5300A87E99 /* SearchContentViewController.swift in Sources */,
 				ECF81C432AE050FF000C05DC /* AddCategoryViewController.swift in Sources */,
 				0A042EDD2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift in Sources */,
+				0A95434A2AE7C60300907579 /* RecentSearchManager.swift in Sources */,
 				1C2843D62ADD2F9300A87E99 /* UIView+AddSubviews.swift in Sources */,
 				1C2843D12ADD2C5C00A87E99 /* BaseUITableViewCell.swift in Sources */,
 				0A042EDB2ADFF9D0002ED30D /* RecentSearchContentViewController.swift in Sources */,
