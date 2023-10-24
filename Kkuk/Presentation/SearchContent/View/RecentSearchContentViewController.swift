@@ -57,7 +57,10 @@ class RecentSearchContentViewController: BaseUIViewController {
     }()
     
     override func setUI() {
-        view.addSubviews([recentSearchesLabel, allDelegateButton, collectionView, noRecentSearchesLabel])
+        view.addSubviews([recentSearchesLabel,
+                          allDelegateButton,
+                          collectionView,
+                          noRecentSearchesLabel])
     }
     
     override func setLayout() {
@@ -113,11 +116,7 @@ extension RecentSearchContentViewController: UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let searchContentViewController = parent as? SearchContentViewController {
-            searchContentViewController.toggleCancelButtonVisibility(isShow: false)
+            searchContentViewController.toggleContainerViewVisibility(isShow: false)
          }
-        
-        willMove(toParent: nil)
-        view.removeFromSuperview()
-        removeFromParent()
     }
 }
