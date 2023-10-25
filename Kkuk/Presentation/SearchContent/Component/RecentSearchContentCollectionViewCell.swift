@@ -13,7 +13,6 @@ class RecentSearchContentCollectionViewCell: BaseUICollectionViewCell {
     
     private lazy var searchWordLabel: UILabel = {
         var label = UILabel()
-        label.text = "검색어"
         label.font = .body1
         label.textColor = .text1
         return label
@@ -41,6 +40,10 @@ class RecentSearchContentCollectionViewCell: BaseUICollectionViewCell {
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview()
         }
+    }
+    
+    func addSearchWordLabel(text: String) {
+        searchWordLabel.text = text
     }
     
     func addDeleteButton(tag: Int) {

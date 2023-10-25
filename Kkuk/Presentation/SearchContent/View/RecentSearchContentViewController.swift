@@ -59,6 +59,8 @@ class RecentSearchContentViewController: BaseUIViewController {
     }()
     
     override func setUI() {
+        searchList = manager.fetchAllSearches()
+        
         view.addSubviews([recentSearchesLabel,
                           allDelegateButton,
                           collectionView,
@@ -118,6 +120,7 @@ extension RecentSearchContentViewController: UICollectionViewDelegate, UICollect
         let cellName = "RecentSearchContentCollectionViewCell"
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellName,
                                                          for: indexPath) as? RecentSearchContentCollectionViewCell {
+            cell.addSearchWordLabel(text: searchList[indexPath.row])
             cell.addDeleteButton(tag: indexPath.row)
             return cell
         }
