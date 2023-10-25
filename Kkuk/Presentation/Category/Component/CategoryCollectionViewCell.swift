@@ -9,7 +9,6 @@ import SnapKit
 import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
-    
     private let textSizeOfheightSize: CGFloat = {
         switch UIScreen.main.bounds.width {
         case 400...:
@@ -47,7 +46,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var cancelModifyButton: UIButton = {
+    private lazy var deleteModifyButton: UIButton = {
         let button = UIButton()
         let modify = UIAction(title: "수정하기", handler: { _ in print("수정하기") })
         let delete = UIAction(title: "삭제하기", handler: { _ in print("삭제하기") })
@@ -65,7 +64,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     }
     
     func setUp() {
-        contentView.addSubviews([titleImage, stackView, cancelModifyButton])
+        contentView.addSubviews([titleImage, stackView, deleteModifyButton])
         contentView.backgroundColor = .systemGray
         
         contentView.layer.shadowColor = UIColor.black.cgColor // 색깔
@@ -74,13 +73,13 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         contentView.layer.shadowRadius = 5 // 반경
         contentView.layer.shadowOpacity = 0.3 // alpha값
         
-        cancelModifyButton.snp.makeConstraints { make in
+        deleteModifyButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(2)
             make.trailing.equalToSuperview().offset(-2)
         }
         
         titleImage.snp.makeConstraints { make in
-            make.top.equalTo(cancelModifyButton.snp.bottom)
+            make.top.equalTo(deleteModifyButton.snp.bottom)
             make.width.equalTo(contentView.bounds.width / 3)
             make.height.equalTo(contentView.bounds.width / 3)
             make.centerX.equalToSuperview()
@@ -92,8 +91,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
             make.trailing.equalToSuperview().offset(-8)
             make.centerX.equalToSuperview()
         }
-        
-        print(textSizeOfheightSize)
 
         titleImage.setContentHuggingPriority(.defaultLow, for: .vertical)
         titleImage.setContentHuggingPriority(.defaultLow, for: .vertical)
