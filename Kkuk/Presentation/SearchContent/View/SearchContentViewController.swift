@@ -112,28 +112,14 @@ class SearchContentViewController: BaseUIViewController {
 extension SearchContentViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        toggleCancelButtonVisibility(isShow: true)
         toggleContainerViewVisibility(isShow: false)
-    }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        toggleCancelButtonVisibility(isShow: false)
-        toggleContainerViewVisibility(isShow: true)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        toggleCancelButtonVisibility(isShow: false)
         toggleContainerViewVisibility(isShow: true)
         
         guard let searchText = searchBar.text else { return }
         recenteSearchManager.add(to: searchText)
-    }
-    
-    func toggleCancelButtonVisibility(isShow: Bool) {
-        searchBar.setShowsCancelButton(isShow, animated: false)
-        if !isShow {
-            searchBar.resignFirstResponder()
-        }
     }
     
     func toggleContainerViewVisibility(isShow: Bool) {
