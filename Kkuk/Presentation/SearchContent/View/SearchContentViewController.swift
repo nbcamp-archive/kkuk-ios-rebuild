@@ -111,12 +111,14 @@ class SearchContentViewController: BaseUIViewController {
 
 extension SearchContentViewController: UISearchBarDelegate {
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        toggleContainerViewVisibility(isShow: false)
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            toggleContainerViewVisibility(isShow: true)
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        toggleContainerViewVisibility(isShow: true)
+        toggleContainerViewVisibility(isShow: false)
         
         guard let searchText = searchBar.text else { return }
         recenteSearchManager.add(to: searchText)
