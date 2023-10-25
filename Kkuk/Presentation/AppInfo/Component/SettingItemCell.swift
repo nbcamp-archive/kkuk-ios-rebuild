@@ -18,7 +18,7 @@ class SettingItemCell: UITableViewCell {
         return label
     }()
     
-    private var chevronImageView: UIImageView = {
+    private let chevronImageView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(systemName: "chevron.right")
         view.tintColor = .text1

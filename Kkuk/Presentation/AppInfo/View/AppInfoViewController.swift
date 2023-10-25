@@ -92,7 +92,7 @@ extension AppInfoViewController: UITableViewDelegate, UITableViewDataSource {
         default:
             break
         }
-        
+
         return cell
     }
 }
