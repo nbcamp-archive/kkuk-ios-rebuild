@@ -73,9 +73,9 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // TODO: 아이템 DB에서 가져오기 (최대 5개)
+        // 아이템 DB에서 가져오기 (최대 5개)
         
-        // TODO: 가져온 아이템 setItems 인자로 전달하기
+        // 가져온 아이템 setItems 인자로 전달하기
         recommendPagingView.setItems(items: [])
     }
   
@@ -131,15 +131,6 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
 
 extension HomeViewController {
   
-    @objc
-    private func plusButtonDidTap() {
-        let viewController = AddContentViewController()
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        navigationController.modalTransitionStyle = .coverVertical
-        present(navigationController, animated: true)
-    }
-    
     @objc
     private func plusButtonDidTap() {
         let viewController = AddContentViewController()
