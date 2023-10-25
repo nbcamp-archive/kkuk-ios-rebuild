@@ -124,11 +124,21 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     override func addTarget() {
         plusButton.addTarget(self, action: #selector(plusButtonDidTap), for: .touchUpInside)
     }
+
 }
 
 // MARK: - 커스텀 메서드
 
 extension HomeViewController {
+  
+    @objc
+    private func plusButtonDidTap() {
+        let viewController = AddContentViewController()
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.modalTransitionStyle = .coverVertical
+        present(navigationController, animated: true)
+    }
     
     @objc
     private func plusButtonDidTap() {
@@ -138,4 +148,5 @@ extension HomeViewController {
         navigationController.modalTransitionStyle = .coverVertical
         present(navigationController, animated: true)
     }
+  
 }
