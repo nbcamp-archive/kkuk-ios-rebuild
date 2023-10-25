@@ -9,15 +9,16 @@ import UIKit
 
 class RecentSearchContentCollectionViewCell: BaseUICollectionViewCell {
     
+    let manager = RecentSearchManager()
+    
     private lazy var searchWordLabel: UILabel = {
         var label = UILabel()
-        label.text = "검색어"
         label.font = .body1
         label.textColor = .text1
         return label
     }()
     
-    private lazy var deleteButton: UIButton = {
+    lazy var deleteButton: UIButton = {
         var button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.tintColor = .text1
@@ -38,5 +39,13 @@ class RecentSearchContentCollectionViewCell: BaseUICollectionViewCell {
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview()
         }
+    }
+    
+    func addSearchWordLabel(text: String) {
+        searchWordLabel.text = text
+    }
+    
+    func addDeleteButton(tag: Int) {
+        deleteButton.tag = tag
     }
 }
