@@ -55,6 +55,7 @@
 		C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */; };
 		C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */; };
 		C3A65F082AE0326500A100A7 /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F072AE0326500A100A7 /* RecommendView.swift */; };
+		ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD225642AE7883B009CA421 /* AddCategoryView.swift */; };
 		ECF81C432AE050FF000C05DC /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF81C422AE050FF000C05DC /* AddCategoryViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -98,7 +99,6 @@
 		1C2843B52ADD0DB000A87E99 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		1C2843B82ADD0DD400A87E99 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		1C2843BE2ADD0F5300A87E99 /* SearchContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContentViewController.swift; sourceTree = "<group>"; };
-		1C2843C42ADD0FA800A87E99 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		1C2843C72ADD0FD600A87E99 /* AddContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentViewController.swift; sourceTree = "<group>"; };
 		1C2843CE2ADD11B600A87E99 /* AppTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarController.swift; sourceTree = "<group>"; };
 		1C2843D02ADD2C5C00A87E99 /* BaseUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITableViewCell.swift; sourceTree = "<group>"; };
@@ -123,6 +123,7 @@
 		C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
 		C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendPagingView.swift; sourceTree = "<group>"; };
 		C3A65F072AE0326500A100A7 /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
+		ECD225642AE7883B009CA421 /* AddCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryView.swift; sourceTree = "<group>"; };
 		ECF81C422AE050FF000C05DC /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -381,7 +382,7 @@
 		1C2843C32ADD0F9800A87E99 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				1C2843C42ADD0FA800A87E99 /* .gitkeep */,
+				ECD225642AE7883B009CA421 /* AddCategoryView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -657,6 +658,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */,
 				1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */,
 				1C2844292AE0ECE000A87E99 /* AddContentButton.swift in Sources */,
 				1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */,
