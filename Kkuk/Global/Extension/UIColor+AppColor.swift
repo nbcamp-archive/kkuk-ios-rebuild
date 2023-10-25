@@ -43,6 +43,20 @@ extension UIColor {
         }
         return color
     }
+    
+    static var selected: UIColor {
+        guard let color = UIColor(named: "selected") else {
+            return UIColor.black
+        }
+        return color
+    }
+    
+    static var unselected: UIColor {
+        guard let color = UIColor(named: "unselected") else {
+            return UIColor.lightGray
+        }
+        return color
+    }
 
     static var background: UIColor {
         guard let color = UIColor(named: "background") else {

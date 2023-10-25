@@ -20,7 +20,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     private var subTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "이 콘텐츠는 어떠세요?"
+        label.text = "내 마음에 드는 콘텐츠를, 꾹"
         label.font = .subtitle2
         label.textColor = .background
         
@@ -29,7 +29,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     private var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "오늘의 추천"
+        label.text = "즐겨찾기"
         label.font = .title1
         label.textColor = .background
         
@@ -55,17 +55,33 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         return button
     }()
     
+    private var emptyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "최근에 추가한 콘텐츠가 없습니다."
+        label.font = .title2
+        label.textColor = .subgray1
+        
+        return label
+    }()
+    
     private var recommendPagingView = RecommendPagingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
-        
-        recommendPagingView.setItems(items: ["1111111", "222222222222", "333333333333"])
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // TODO: 아이템 DB에서 가져오기 (최대 5개)
+        
+        // TODO: 가져온 아이템 setItems 인자로 전달하기
+        recommendPagingView.setItems(items: [])
+    }
+  
     override func setUI() {
         view.addSubviews([topFrameView, recentLabel, plusButton])
+        
         topFrameView.addSubviews([subTitleLabel, titleLabel, recommendPagingView])
     }
     
@@ -100,7 +116,6 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
             constraint.bottom.equalTo(view.safeAreaLayoutGuide).offset(-32)
             constraint.trailing.equalTo(-20)
             constraint.height.width.equalTo(60)
-            
         }
     }
     
@@ -109,13 +124,13 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     override func addTarget() {
         plusButton.addTarget(self, action: #selector(plusButtonDidTap), for: .touchUpInside)
     }
-    
+
 }
 
 // MARK: - 커스텀 메서드
 
 extension HomeViewController {
-    
+  
     @objc
     private func plusButtonDidTap() {
         let viewController = AddContentViewController()
@@ -125,4 +140,13 @@ extension HomeViewController {
         present(navigationController, animated: true)
     }
     
+    @objc
+    private func plusButtonDidTap() {
+        let viewController = AddContentViewController()
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.modalTransitionStyle = .coverVertical
+        present(navigationController, animated: true)
+    }
+  
 }

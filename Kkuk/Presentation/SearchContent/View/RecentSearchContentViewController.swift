@@ -11,6 +11,8 @@ class RecentSearchContentViewController: BaseUIViewController {
     let cellSpacing: CGFloat = 16
     let cellHeight: CGFloat = 16
     
+    let manager = RecentSearchManager()
+    
     var searchList: [String] = []
 
     private lazy var recentSearchesLabel: UILabel = {
@@ -57,7 +59,12 @@ class RecentSearchContentViewController: BaseUIViewController {
     }()
     
     override func setUI() {
-        view.addSubviews([recentSearchesLabel, allDelegateButton, collectionView, noRecentSearchesLabel])
+        searchList = manager.fetchAllSearches()
+        
+        view.addSubviews([recentSearchesLabel,
+                          allDelegateButton,
+                          collectionView,
+                          noRecentSearchesLabel])
     }
     
     override func setLayout() {
@@ -65,6 +72,16 @@ class RecentSearchContentViewController: BaseUIViewController {
         setAllDeleteButton()
         setCollectionViewLayout()
         setNoRecentSearchesLabelLayout()
+    }
+    
+    override func addTarget() {
+        allDelegateButton.addTarget(self, action: #selector(deleteAllSearches), for: .touchUpInside)
+    }
+    
+    func reloadData() {
+        searchList = manager.fetchAllSearches()
+        collectionView.reloadData()
+        noRecentSearchesLabel.isHidden = !searchList.isEmpty
     }
     
     func setRecentSearchesLabel() {
@@ -94,6 +111,16 @@ class RecentSearchContentViewController: BaseUIViewController {
             make.centerX.equalToSuperview()
         }
     }
+    
+    @objc func deleteAllSearches() {
+        manager.deleteAllSearches()
+        reloadData()
+    }
+    
+    @objc func deleteSearch(_ sender: UIButton) {
+        manager.deleteSearch(at: sender.tag)
+        reloadData()
+    }
 }
 
 extension RecentSearchContentViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -102,8 +129,16 @@ extension RecentSearchContentViewController: UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecentSearchContentCollectionViewCell", for: indexPath)
-        return cell
+        let cellName = "RecentSearchContentCollectionViewCell"
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellName,
+                                                         for: indexPath) as? RecentSearchContentCollectionViewCell {
+            cell.addSearchWordLabel(text: searchList[indexPath.row])
+            cell.addDeleteButton(tag: indexPath.row)
+            cell.deleteButton.addTarget(self, action: #selector(deleteSearch(_:)), for: .touchUpInside)
+            return cell
+        }
+        
+        return BaseUICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -113,11 +148,7 @@ extension RecentSearchContentViewController: UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let searchContentViewController = parent as? SearchContentViewController {
-            searchContentViewController.toggleCancelButtonVisibility(isShow: false)
+            searchContentViewController.toggleContainerViewVisibility(isShow: false)
          }
-        
-        willMove(toParent: nil)
-        view.removeFromSuperview()
-        removeFromParent()
     }
 }

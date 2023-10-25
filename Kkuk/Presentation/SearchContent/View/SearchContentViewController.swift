@@ -12,6 +12,7 @@ class SearchContentViewController: BaseUIViewController {
     let contentList: [String] = []
     
     let recentSearchContentViewController = RecentSearchContentViewController()
+    let recenteSearchManager = RecentSearchManager()
     
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -48,15 +49,25 @@ class SearchContentViewController: BaseUIViewController {
         label.isHidden = !contentList.isEmpty
         return label
     }()
+    
+    private lazy var containerView: UIView = {
+        let view = UIView()
+        view.addSubview(recentSearchContentViewController.view)
+        return view
+    }()
 
     override func setUI() {
-        view.addSubviews([searchBar, contentTableView, noContentLabel])
+        addChild(recentSearchContentViewController)
+        recentSearchContentViewController.didMove(toParent: self)
+        
+        view.addSubviews([searchBar, contentTableView, noContentLabel, containerView])
     }
     
     override func setLayout() {
         setSearchBarLayout()
         setContentTableViewLayout()
         setNoContentLabelLayout()
+        setContainerViewLayout()
     }
     
     override func setDelegate() {}
@@ -84,51 +95,38 @@ class SearchContentViewController: BaseUIViewController {
             make.centerX.equalToSuperview()
         }
     }
-}
-
-extension SearchContentViewController: UISearchBarDelegate {
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(true, animated: false)
-        
-        let containerView = UIView()
-        view.addSubview(containerView)
-        
+    func setContainerViewLayout() {
         containerView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
-        addChild(recentSearchContentViewController)
-        containerView.addSubview(recentSearchContentViewController.view)
-        
         recentSearchContentViewController.view.snp.makeConstraints { make in
             make.edges.equalTo(containerView.snp.edges)
         }
-        
-        recentSearchContentViewController.didMove(toParent: self)
     }
+}
 
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        toggleCancelButtonVisibility(isShow: false)
-        dismissRecentSearchContentViewController()
+extension SearchContentViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            toggleContainerViewVisibility(isShow: true)
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        toggleCancelButtonVisibility(isShow: false)
-        dismissRecentSearchContentViewController()
+        toggleContainerViewVisibility(isShow: false)
+        
+        guard let searchText = searchBar.text else { return }
+        recenteSearchManager.add(to: searchText)
     }
     
-    func toggleCancelButtonVisibility(isShow: Bool) {
-        searchBar.setShowsCancelButton(isShow, animated: false)
-        searchBar.resignFirstResponder()
-    }
-    
-    func dismissRecentSearchContentViewController() {
-        recentSearchContentViewController.willMove(toParent: nil)
-        recentSearchContentViewController.view.removeFromSuperview()
-        recentSearchContentViewController.removeFromParent()
+    func toggleContainerViewVisibility(isShow: Bool) {
+        containerView.isHidden = !isShow
+        recentSearchContentViewController.reloadData()
     }
 }
 
