@@ -56,7 +56,7 @@ extension AppTabBarController {
     private func prepareTabBarController() {
         setViewControllers(viewControllers, animated: false)
       
-        selectedIndex = AppTabBarItemType.home.toInt()
+        selectedIndex = AppTabBarItem.home.toInt()
         
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
