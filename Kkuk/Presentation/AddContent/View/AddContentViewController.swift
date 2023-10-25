@@ -189,21 +189,6 @@ class AddContentViewController: BaseUIViewController {
         navigationItem.rightBarButtonItem = closeButtonItem
     }
     
-    override func setNavigationBar() {
-        title = "추가하기"
-        
-        let appearance = UINavigationBarAppearance()
-        appearance.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.body1 ]
-        appearance.backgroundColor = .white
-        appearance.shadowColor = .none
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        
-        let closeButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self,
-                                              action: #selector(closeButtonItemDidTap))
-        navigationItem.rightBarButtonItem = closeButtonItem
-    }
-    
 }
 
 // MARK: - 커스텀 메서드
