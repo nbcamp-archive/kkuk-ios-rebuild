@@ -47,6 +47,8 @@
 		1C2844252ADED52B00A87E99 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C2844202ADED52B00A87E99 /* Pretendard-SemiBold.otf */; };
 		1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */; };
 		1C2844292AE0ECE000A87E99 /* AddContentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844282AE0ECE000A87E99 /* AddContentButton.swift */; };
+		C352F49F2AE7980F0016398A /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F49E2AE7980F0016398A /* EmptyStateView.swift */; };
+		C352F4A32AE825F40016398A /* SettingItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A22AE825F40016398A /* SettingItemCell.swift */; };
 		1C79EFF62AE7641000B5A97A /* UIImage+LoadAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFF52AE7641000B5A97A /* UIImage+LoadAsset.swift */; };
 		1C79EFF92AE7675A00B5A97A /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFF82AE7675A00B5A97A /* Asset.swift */; };
 		1C79F0002AE7E6EF00B5A97A /* HTMLParseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFFF2AE7E6EF00B5A97A /* HTMLParseService.swift */; };
@@ -96,7 +98,6 @@
 		1C2843A22ADC2F7000A87E99 /* BaseUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseUIViewController.swift; sourceTree = "<group>"; };
 		1C2843A72ADD0C0F00A87E99 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1C2843B02ADD0D6300A87E99 /* AppInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
-		1C2843B52ADD0DB000A87E99 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		1C2843B82ADD0DD400A87E99 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		1C2843BE2ADD0F5300A87E99 /* SearchContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContentViewController.swift; sourceTree = "<group>"; };
 		1C2843C72ADD0FD600A87E99 /* AddContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +116,8 @@
 		1C2844202ADED52B00A87E99 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+FontSizes.swift"; sourceTree = "<group>"; };
 		1C2844282AE0ECE000A87E99 /* AddContentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentButton.swift; sourceTree = "<group>"; };
+		C352F49E2AE7980F0016398A /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		C352F4A22AE825F40016398A /* SettingItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingItemCell.swift; sourceTree = "<group>"; };
 		1C79EFF52AE7641000B5A97A /* UIImage+LoadAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+LoadAsset.swift"; sourceTree = "<group>"; };
 		1C79EFF82AE7675A00B5A97A /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 		1C79EFFF2AE7E6EF00B5A97A /* HTMLParseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParseService.swift; sourceTree = "<group>"; };
@@ -305,6 +308,7 @@
 			children = (
 				C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */,
 				C3A65F072AE0326500A100A7 /* RecommendView.swift */,
+				C352F49E2AE7980F0016398A /* EmptyStateView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -329,7 +333,7 @@
 		1C2843B42ADD0D9C00A87E99 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				1C2843B52ADD0DB000A87E99 /* .gitkeep */,
+				C352F4A22AE825F40016398A /* SettingItemCell.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -677,8 +681,10 @@
 				1C79F0022AE7E94400B5A97A /* OpenGraphService.swift in Sources */,
 				C3A65F082AE0326500A100A7 /* RecommendView.swift in Sources */,
 				1C2843BF2ADD0F5300A87E99 /* SearchContentViewController.swift in Sources */,
+				C352F4A32AE825F40016398A /* SettingItemCell.swift in Sources */,
 				ECF81C432AE050FF000C05DC /* AddCategoryViewController.swift in Sources */,
 				0A042EDD2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift in Sources */,
+				C352F49F2AE7980F0016398A /* EmptyStateView.swift in Sources */,
 				0A95434A2AE7C60300907579 /* RecentSearchManager.swift in Sources */,
 				1C2843D62ADD2F9300A87E99 /* UIView+AddSubviews.swift in Sources */,
 				1C2843D12ADD2C5C00A87E99 /* BaseUITableViewCell.swift in Sources */,
