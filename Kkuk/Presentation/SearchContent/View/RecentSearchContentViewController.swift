@@ -78,6 +78,12 @@ class RecentSearchContentViewController: BaseUIViewController {
         allDelegateButton.addTarget(self, action: #selector(deleteAllSearches), for: .touchUpInside)
     }
     
+    func reloadData() {
+        searchList = manager.fetchAllSearches()
+        collectionView.reloadData()
+        noRecentSearchesLabel.isHidden = !searchList.isEmpty
+    }
+    
     func setRecentSearchesLabel() {
         recentSearchesLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(32)
@@ -108,6 +114,12 @@ class RecentSearchContentViewController: BaseUIViewController {
     
     @objc func deleteAllSearches() {
         manager.deleteAllSearches()
+        reloadData()
+    }
+    
+    @objc func deleteSearch(_ sender: UIButton) {
+        manager.deleteSearch(at: sender.tag)
+        reloadData()
     }
 }
 
@@ -122,6 +134,7 @@ extension RecentSearchContentViewController: UICollectionViewDelegate, UICollect
                                                          for: indexPath) as? RecentSearchContentCollectionViewCell {
             cell.addSearchWordLabel(text: searchList[indexPath.row])
             cell.addDeleteButton(tag: indexPath.row)
+            cell.deleteButton.addTarget(self, action: #selector(deleteSearch(_:)), for: .touchUpInside)
             return cell
         }
         

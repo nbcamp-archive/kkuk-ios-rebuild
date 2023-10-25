@@ -18,11 +18,10 @@ class RecentSearchContentCollectionViewCell: BaseUICollectionViewCell {
         return label
     }()
     
-    private lazy var deleteButton: UIButton = {
+    lazy var deleteButton: UIButton = {
         var button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.tintColor = .text1
-        button.addTarget(self, action: #selector(deleteSearch(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -48,10 +47,5 @@ class RecentSearchContentCollectionViewCell: BaseUICollectionViewCell {
     
     func addDeleteButton(tag: Int) {
         deleteButton.tag = tag
-    }
-    
-    @objc func deleteSearch(_ sender: UIButton) {
-        manager.deleteSearch(at: sender.tag)
-        print(manager.fetchAllSearches())
     }
 }

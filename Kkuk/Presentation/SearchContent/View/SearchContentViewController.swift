@@ -126,6 +126,7 @@ extension SearchContentViewController: UISearchBarDelegate {
     
     func toggleContainerViewVisibility(isShow: Bool) {
         containerView.isHidden = !isShow
+        recentSearchContentViewController.reloadData()
     }
 }
 
