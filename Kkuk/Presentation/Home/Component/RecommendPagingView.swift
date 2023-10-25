@@ -23,9 +23,10 @@ final class RecommendPagingView: UIView {
         return view
     }()
     
+    private var emptyStateView = EmptyStateView()
+    
     private let pageControl: UIPageControl = {
         let control = UIPageControl()
-        control.numberOfPages = 3
         control.currentPage = 0
         control.pageIndicatorTintColor = .subgray2
         control.currentPageIndicatorTintColor = .white
@@ -37,17 +38,17 @@ final class RecommendPagingView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addSubviews([scrollView, pageControl])
+        self.addSubviews([scrollView, pageControl, emptyStateView])
         self.scrollView.addSubview(itemStackView)
         self.scrollView.delegate = self
-        initializeUI()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func initializeUI() {
+    private func setLayout() {
         self.scrollView.snp.makeConstraints { constraint in
             constraint.leading.trailing.top.bottom.equalToSuperview()
         }
@@ -62,9 +63,21 @@ final class RecommendPagingView: UIView {
             constraint.centerX.equalToSuperview()
             constraint.bottom.equalTo(scrollView.snp.bottom).offset(-12)
         }
+        
+        emptyStateView.snp.makeConstraints { constraint in
+            constraint.centerX.equalToSuperview()
+            constraint.top.equalToSuperview()
+            constraint.bottom.equalToSuperview().offset(-28)
+        }
     }
         
     func setItems(items: [String]) {
+        resetItem()
+        if items.isEmpty {
+            emptyStateView.isHidden = false
+            pageControl.isHidden = true
+            return
+        }
         
         self.items = items
         self.pageControl.numberOfPages = items.count
@@ -84,8 +97,11 @@ final class RecommendPagingView: UIView {
         }
     }
     
-    func resetItem() {
-        self.scrollView.subviews.forEach {
+    private func resetItem() {
+        pageControl.isHidden = false
+        emptyStateView.isHidden = true
+        
+        itemStackView.arrangedSubviews.forEach {
             $0.removeFromSuperview()
         }
     }

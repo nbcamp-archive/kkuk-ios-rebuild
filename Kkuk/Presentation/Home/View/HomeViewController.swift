@@ -55,25 +55,34 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         return button
     }()
     
-    private var recommendPagingView = RecommendPagingView()
-    
-    private var emptyStateView: EmptyStateView = {
-        let view = EmptyStateView()
-        //view.isHidden = true
+    private let emptyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "최근에 추가한 콘텐츠가 없습니다."
+        label.font = .title2
+        label.textColor = .subgray1
         
-        return view
+        return label
     }()
+    
+    private var recommendPagingView = RecommendPagingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // TODO: 아이템 DB에서 가져오기 (최대 5개)
         
+        // TODO: 가져온 아이템 setItems 인자로 전달하기
         recommendPagingView.setItems(items: [])
     }
   
     override func setUI() {
         view.addSubviews([topFrameView, recentLabel, plusButton])
-        topFrameView.addSubviews([subTitleLabel, titleLabel, recommendPagingView, emptyStateView])
+        
+        topFrameView.addSubviews([subTitleLabel, titleLabel, recommendPagingView])
     }
     
     override func setLayout() {
@@ -107,7 +116,6 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
             constraint.bottom.equalTo(view.safeAreaLayoutGuide).offset(-32)
             constraint.trailing.equalTo(-20)
             constraint.height.width.equalTo(60)
-            
         }
     }
     
@@ -116,7 +124,6 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     override func addTarget() {
         plusButton.addTarget(self, action: #selector(plusButtonDidTap), for: .touchUpInside)
     }
-    
 }
 
 // MARK: - 커스텀 메서드
@@ -131,5 +138,4 @@ extension HomeViewController {
         navigationController.modalTransitionStyle = .coverVertical
         present(navigationController, animated: true)
     }
-    
 }
