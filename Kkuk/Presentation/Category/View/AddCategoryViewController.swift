@@ -5,222 +5,178 @@
 //  Created by 손영하 on 2023/10/19.
 //
 
-import SnapKit
 import UIKit
+import SnapKit
 
-class AddCategoryViewController: BaseUIViewController, UITextFieldDelegate {
+class AddCategoryViewController: UIViewController {
     
-    // MARK: - UI Components
+    private let categoryTitleInputLabel = CategoryTitleInputLabel()
+    private let categoryInputTextField = CategoryInputTextField()
+    private let categoryInputLimitLabel = CategoryInputLimitLabel()
+    private let categoryconfirmButton = ConfirmButton()
+    private var iconButtons: [IconSelectButton] = []
+    private let iconImageNames = ["plant", "education", "animal", "trip", "cafe"]
     
-    private lazy var titleInputLabel = createTitleInputLabel()
-    private lazy var inputTextField = createInputTextField()
-    private lazy var inputLimitLabel = createInputLimitLabel()
-    private lazy var iconSelectionLabel = createIconSelectionLabel()
-    private lazy var iconsGridStackView = createIconsGridStackView()
-    private lazy var confirmButton = createConfirmButton()
-    private var selectedIconButton: UIButton?
-    
-    // MARK: - Life Cycle
+    var savedText: String? // 저장된 텍스트 변수
+    var selectedIcon: UIImage? // 선택된 아이콘 변수
+    var selectedIconButton: IconSelectButton?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
-        setLayout()
-        setupTapGesture()
+        setupViews()
+        setupLayout()
     }
     
-    // MARK: - UI Setup
-    
-    override func setUI() {
-        view.addSubviews([
-            titleInputLabel,
-            inputTextField,
-            inputLimitLabel,
-            iconSelectionLabel,
-            iconsGridStackView,
-            confirmButton
-        ])
-    }
-    
-    override func setLayout() {
-        titleInputLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
-            make.leading.equalToSuperview().inset(16)
-        }
+    private func setupViews() {
+        view.backgroundColor = .white
+        title = "카테고리"
         
-        inputTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleInputLabel.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.9)
-            make.height.equalTo(48)
-        }
+        categoryInputTextField.delegate = self
+        categoryInputTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        inputLimitLabel.snp.makeConstraints { make in
-            make.top.equalTo(inputTextField.snp.bottom).offset(4)
-            make.trailing.equalTo(inputTextField)
-        }
+        categoryconfirmButton.addTarget(self, action: #selector(categoryconfirmButtonTapped), for: .touchUpInside)
         
-        iconSelectionLabel.snp.makeConstraints { make in
-            make.top.equalTo(inputLimitLabel.snp.bottom).offset(16)
-            make.leading.equalToSuperview().inset(16)
-        }
+        view.addSubview(categoryTitleInputLabel)
+        view.addSubview(categoryInputTextField)
+        view.addSubview(categoryInputLimitLabel)
+        view.addSubview(categoryconfirmButton)
         
-        iconsGridStackView.snp.makeConstraints { make in
-            make.top.equalTo(iconSelectionLabel.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.9)
-            make.height.equalTo(200)
-        }
-        
-        confirmButton.snp.makeConstraints { make in
-            make.top.equalTo(iconsGridStackView.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.9)
-            make.height.equalTo(48)
-        }
-    }
-    
-    private func setupTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
-        view.addGestureRecognizer(tapGesture)
-    }
-    
-    // MARK: - Helper Functions for UI Components Creation
-    
-    private func createTitleInputLabel() -> UILabel {
-        let label = UILabel()
-        label.text = "카테고리 이름"
-        label.font = UIFont.title2
-        label.textColor = UIColor.text1
-        return label
-    }
-    
-    private func createInputTextField() -> UITextField {
-        let textField = UITextField()
-        textField.placeholder = "카테고리 이름을 입력하세요."
-        textField.backgroundColor = UIColor.subgray3
-        textField.tintColor = UIColor.main
-        textField.font = UIFont.body1
-        textField.borderStyle = .roundedRect
-        textField.clearButtonMode = .whileEditing
-        textField.delegate = self
-        textField.layer.borderColor = UIColor.clear.cgColor
-        textField.layer.borderWidth = 1.0
-        
-        let paddingView = UIView()
-        textField.leftView = paddingView
-        textField.leftViewMode = .always
-        
-        let clearButton = UIButton(type: .custom)
-        clearButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-        clearButton.addTarget(self, action: #selector(clearTextFieldContent), for: .touchUpInside)
-        textField.rightView = clearButton
-        textField.rightViewMode = .whileEditing
-        
-        return textField
-    }
-    
-    private func createInputLimitLabel() -> UILabel {
-        let label = UILabel()
-        label.text = "*최대 15자까지 입력 가능"
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor.orange
-        return label
-    }
-    
-    private func createIconSelectionLabel() -> UILabel {
-        let label = UILabel()
-        label.text = "아이콘 선택"
-        label.font = UIFont.title2
-        label.textColor = UIColor.text1
-        return label
-    }
-    
-    private func createIconsGridStackView() -> UIStackView {
-        // 아이콘 이미지 이름들을 배열로 정의합니다.
-        let iconImageNames = ["trip", "education", "plant", "animal", "cafe"]
-        
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.distribution = .fillEqually
-        stack.spacing = 10
-
-        var imageIndex = 0  // 아이콘 이미지 이름 배열의 인덱스를 나타내는 변수
-        for _ in 0..<3 {
-            let hStack = UIStackView()
-            hStack.axis = .horizontal
-            hStack.distribution = .fillEqually
-            hStack.spacing = 10
+        iconImageNames.forEach { imageName in
+            let button = IconSelectButton()
+            let image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
             
-            for _ in 0..<5 {
-                let iconButton = UIButton()
+            button.setImage(UIImage(named: imageName), for: .normal)
+            button.addTarget(self, action: #selector(iconButtonTapped(_:)), for: .touchUpInside)
+            iconButtons.append(button)
+            view.addSubview(button)
+        }
+    }
+    
+    private func setupLayout() {
+        categoryTitleInputLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            make.leading.equalTo(view.snp.leading).offset(20)
+        }
+        
+        categoryInputTextField.snp.makeConstraints { make in
+            make.top.equalTo(categoryTitleInputLabel.snp.bottom).offset(10)
+            make.leading.equalTo(view.snp.leading).offset(20)
+            make.trailing.equalTo(view.snp.trailing).offset(-20)
+            make.height.equalTo(40) // Adding height constraint
+        }
+        
+        categoryInputLimitLabel.snp.makeConstraints { make in
+            make.top.equalTo(categoryInputTextField.snp.bottom).offset(5)
+            make.trailing.equalTo(categoryInputTextField.snp.trailing)
+        }
+        
+        let buttonsPerRow = 5
+        for (index, button) in iconButtons.enumerated() {
+            button.snp.makeConstraints { make in
+                // 행과 열 계산
+                let row = index / buttonsPerRow
+                let col = index % buttonsPerRow
                 
-                // 배열에서 이미지 이름을 가져와 이미지를 설정
-                if imageIndex < iconImageNames.count {
-                    iconButton.setImage(UIImage(named: iconImageNames[imageIndex]), for: .normal)
-                    imageIndex += 1
+                if col == 0 {
+                    make.leading.equalTo(view.snp.leading).offset(20) // 첫 번째 열
+                } else {
+                    make.leading.equalTo(iconButtons[index - 1].snp.trailing).offset(20) // 이전 버튼 오른쪽
                 }
                 
-                iconButton.layer.borderWidth = 2
-                iconButton.layer.borderColor = UIColor.clear.cgColor
-                iconButton.addTarget(self, action: #selector(iconButtonTapped), for: .touchUpInside)
-                hStack.addArrangedSubview(iconButton)
+                if row == 0 {
+                    make.top.equalTo(categoryInputLimitLabel.snp.bottom).offset(20) // 첫 번째 행
+                } else {
+                    make.top.equalTo(iconButtons[index - buttonsPerRow].snp.bottom).offset(20) // 이전 행 아래쪽
+                }
+                
+                make.width.equalTo(52)
+                make.height.equalTo(48)
             }
-            
-            stack.addArrangedSubview(hStack)
         }
-        return stack
+        
+        categoryconfirmButton.snp.makeConstraints { make in
+            make.centerX.equalTo(view.snp.centerX) // 가로 중앙
+            make.centerY.equalTo(view.snp.centerY).offset(20)// 세로 중앙
+            make.width.equalTo(categoryInputTextField.snp.width) // 기존의 너비 제약 조건
+            make.height.equalTo(40) // 기존의 높이 제약 조건
+        }
     }
     
-    private func createConfirmButton() -> UIButton {
-        let button = UIButton()
-        button.setTitle("확인", for: .normal)
-        button.backgroundColor = UIColor.main
-        button.titleLabel?.font = UIFont.body2
-        button.layer.cornerRadius = 5
-        button.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-        return button
-    }
-    
-    // MARK: - Actions
-    
-    @objc func iconButtonTapped(_ sender: UIButton) {
-        selectedIconButton?.layer.borderWidth = 0
-        selectedIconButton?.layer.borderColor = UIColor.clear.cgColor
+    // IconSelectButton 인스턴스의 동작 처리
+    @objc private func iconButtonTapped(_ sender: IconSelectButton) {
+        // 기존 선택된 버튼의 오버레이 뷰 제거
+        selectedIconButton?.subviews.forEach { if $0.tag == 999 { $0.removeFromSuperview() } }
         
-        sender.layer.cornerRadius = sender.frame.size.width / 2
-        sender.layer.borderWidth = 3
-        sender.layer.borderColor = UIColor.systemBlue.cgColor
+        // 버튼의 이미지 뷰의 프레임을 사용하여 오버레이 뷰의 프레임 설정
+        if let imageViewFrame = sender.imageView?.frame {
+            let overlayView = UIView(frame: imageViewFrame)
+            overlayView.backgroundColor = UIColor(white: 0.5, alpha: 0.5) // 원하는 색상으로 변경
+            overlayView.tag = 999 // 오버레이 뷰 구분을 위한 태그 설정
+            
+            // 오버레이 뷰의 모서리를 둥글게 만들기
+            overlayView.layer.cornerRadius = overlayView.frame.height / 2
+            // 만약 버튼이 완벽한 원이면 이 값을 사용
+            overlayView.clipsToBounds = true  // 뷰의 경계 내부만 보이게 설정
+            
+            sender.addSubview(overlayView)
+        }
         
+        // 선택된 버튼 업데이트
         selectedIconButton = sender
+        
+        for button in iconButtons {
+            if button == sender {
+                button.isSelected = true
+            } else {
+                button.isSelected = false
+            }
+        }
     }
     
-    @objc private func clearTextFieldContent() {
-        inputTextField.text = ""
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        let count = textField.text?.count ?? 0
+        categoryInputLimitLabel.text = "\(count)/20"
     }
     
-    @objc func viewTapped() {
-        print("Screen tapped!")
-        view.endEditing(true)
-    }
-    
-    @objc func confirmButtonTapped() {
+    @objc private func categoryconfirmButtonTapped() {
+        guard let categoryName = categoryInputTextField.text, !categoryName.isEmpty else {
+            print("카테고리 이름을 입력해주세요") // 입력 필드가 비어 있을 경우 알림 또는 처리
+            return
+        }
+        
+        // 카테고리 이름 저장
+        savedText = categoryName
+        
+        // UserDefaults를 사용하여 텍스트 필드에 입력된 카테고리 이름 저장
+        let defaults = UserDefaults.standard
+        defaults.set(categoryName, forKey: "savedCategoryName")
+        
+        // 선택된 아이콘 저장
+        for button in iconButtons where button.isSelected {
+            selectedIcon = button.imageView?.image
+            break
+        }
+        
+        // 화면 닫기
         self.dismiss(animated: true, completion: nil)
     }
     
-    // MARK: - TextField Delegate
-    
+}
+
+extension AddCategoryViewController: UITextFieldDelegate {
+    // 필요한 메소드들 구현
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == inputTextField {
+        if textField == categoryInputTextField {
             textField.backgroundColor = .white
             textField.borderStyle = .none
-            textField.layer.cornerRadius = 5
+            textField.layer.cornerRadius = 5 // 원하는 모서리 둥글기 값
             textField.layer.borderColor = UIColor.orange.cgColor
             textField.layer.borderWidth = 1.0
         }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // 현재 조합 중인 문자열이 있는지 확인
         if let markedTextRange = textField.markedTextRange,
            textField.position(from: markedTextRange.start, offset: 0) != nil {
             return true
@@ -228,9 +184,16 @@ class AddCategoryViewController: BaseUIViewController, UITextFieldDelegate {
         
         guard let currentText = textField.text else { return true }
         let newLength = currentText.count + string.count - range.length
+        categoryInputLimitLabel.text = "\(newLength)/20"
         
-        inputLimitLabel.text = "\(newLength)/15"
-        
-        return(newLength < 15)
+        return (newLength <= 20)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == categoryInputTextField {
+            textField.backgroundColor = UIColor.subgray3
+            textField.borderStyle = .none
+            textField.layer.borderColor = UIColor.clear.cgColor
+        }
     }
 }
