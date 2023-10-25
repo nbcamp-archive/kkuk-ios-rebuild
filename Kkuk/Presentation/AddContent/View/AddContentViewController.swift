@@ -100,13 +100,13 @@ class AddContentViewController: BaseUIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setIQKeyboardManagerEnable(true)
+        setIQKeyboardManagerEnable(false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        setIQKeyboardManagerEnable(true)
+        setIQKeyboardManagerEnable(false)
     }
     
     override func setUI() {
