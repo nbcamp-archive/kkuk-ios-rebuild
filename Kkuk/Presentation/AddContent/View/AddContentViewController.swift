@@ -10,6 +10,7 @@ import SwiftSoup
 import SnapKit
 
 import UIKit
+import RealmSwift
 
 class AddContentViewController: BaseUIViewController {
     
@@ -235,6 +236,17 @@ extension AddContentViewController {
                 print("ogURL: \(openGraph.ogURL ?? "No data")")
                 print("ogTitle: \(openGraph.ogTitle ?? "No data")")
                 print("ogGraph: \(openGraph.ogImage ?? "No data")")
+
+                let content = Content(id: "test111",
+                                           sourceURL: openGraph.ogURL ?? "url",
+                                           title: openGraph.ogTitle ?? "title",
+                                           imageURL: openGraph.ogImage ?? "image",
+                                           memo: self.memoTextView.text)
+                
+                let realm = ContetnManager.shared
+                realm.add(to: content)
+                
+                
             case .failure(let error):
                 print("Open Graph Property Data를 추출하는데 문제가 발생했습니다. \(error.localizedDescription)")
             }

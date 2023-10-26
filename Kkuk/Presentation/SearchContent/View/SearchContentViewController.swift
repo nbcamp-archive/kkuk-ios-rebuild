@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SearchContentViewController: BaseUIViewController {
     
-    let contentList: [String] = []
+    var contentList: [Content] = []
     
     let recentSearchContentViewController = RecentSearchContentViewController()
     let recenteSearchManager = RecentSearchManager()
@@ -74,6 +75,9 @@ class SearchContentViewController: BaseUIViewController {
     
     override func addTarget() {}
     
+    func reloadData() {
+    }
+    
     func setSearchBarLayout() {
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
@@ -118,6 +122,13 @@ extension SearchContentViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else { return }
+        
+        let realm = ContetnManager.shared
+        contentList = realm.read(at: text)
+        contentTableView.reloadData()
+        noContentLabel.isHidden = !contentList.isEmpty
+        
         toggleContainerViewVisibility(isShow: false)
         
         guard let searchText = searchBar.text else { return }
@@ -136,7 +147,8 @@ extension SearchContentViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = contentTableView.dequeueReusableCell(withIdentifier: "ContentTableViewCell", for: indexPath)
+        let cell = contentTableView.dequeueReusableCell(withIdentifier: "ContentTableViewCell", for: indexPath) as! ContentTableViewCell
+        cell.setup(content: contentList[indexPath.row])
         return cell
     }
 }

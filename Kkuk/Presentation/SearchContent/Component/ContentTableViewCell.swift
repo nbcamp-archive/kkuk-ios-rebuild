@@ -42,6 +42,11 @@ class ContentTableViewCell: BaseUITableViewCell {
         return label
     }()
     
+    func setup(content: Content) {
+        siteTitleLabel.text = content.title
+        memoLabel.text = content.memo
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0))
