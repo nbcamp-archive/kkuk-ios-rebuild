@@ -8,14 +8,21 @@
 import UIKit
 import SnapKit
 
+protocol AddCategoryViewControllerDelegate: AnyObject {
+    func reloadCollectionView()
+}
+
 class AddCategoryViewController: UIViewController {
     
+    weak var delegate: AddCategoryViewControllerDelegate?
     private let categoryTitleInputLabel = CategoryTitleInputLabel()
     private let categoryInputTextField = CategoryInputTextField()
     private let categoryInputLimitLabel = CategoryInputLimitLabel()
     private let categoryconfirmButton = ConfirmButton()
     private var iconButtons: [IconSelectButton] = []
     private let iconImageNames = ["plant", "education", "animal", "trip", "cafe"]
+    private let categoryManager = RealmCategoryManager.shared
+    private let category = Category()
     
     var savedText: String? // 저장된 텍스트 변수
     var selectedIcon: UIImage? // 선택된 아이콘 변수
@@ -146,10 +153,11 @@ class AddCategoryViewController: UIViewController {
         
         // 카테고리 이름 저장
         savedText = categoryName
+        category.name = savedText!
+        category.iconId = 1
         
         // UserDefaults를 사용하여 텍스트 필드에 입력된 카테고리 이름 저장
-        let defaults = UserDefaults.standard
-        defaults.set(categoryName, forKey: "savedCategoryName")
+        categoryManager.write(category)
         
         // 선택된 아이콘 저장
         for button in iconButtons where button.isSelected {
@@ -158,6 +166,7 @@ class AddCategoryViewController: UIViewController {
         }
         
         // 화면 닫기
+        self.delegate?.reloadCollectionView()
         self.dismiss(animated: true, completion: nil)
     }
     

@@ -103,6 +103,10 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor.subgray1.cgColor
     }
     
+    func configure(category: Category) {
+        titleLabel.text = category.name
+    }
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

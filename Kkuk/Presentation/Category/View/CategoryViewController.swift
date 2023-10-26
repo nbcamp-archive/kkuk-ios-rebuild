@@ -8,9 +8,13 @@
 import SnapKit
 import UIKit
 
+
 class CategoryViewController: BaseUIViewController {
+    var category: [Category] = []
+    var categoryManager = RealmCategoryManager.shared
     
     private let sectionInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+    
     private lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -27,6 +31,12 @@ class CategoryViewController: BaseUIViewController {
     
     override func setUI() {
         view.addSubview(categoryCollectionView)
+        let categorys = categoryManager.read(Category.self)
+        for cate in categorys {
+            category.append(cate)
+            print(cate)
+        }
+        print(categoryManager.getLocationOfDefaultRealm())
     }
     
     override func setLayout() {
@@ -38,16 +48,25 @@ class CategoryViewController: BaseUIViewController {
     }
     
     override func setDelegate() {
+        AddCategoryViewController().delegate = self
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
     }
     
     override func addTarget() {}
+    
+    func configure(category: [Category]) {
+        self.category = category
+        let indexPathsToInsert = (0 ..< category.count).map { IndexPath(item: $0, section: 0) }
+        categoryCollectionView.performBatchUpdates {
+            self.categoryCollectionView.insertItems(at: indexPathsToInsert)
+        }
+    }
 }
 
 extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return color.count + 1
+        return category.count+1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -59,8 +78,9 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell",
                                                                 for: indexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
-            let color = color[indexPath.item - 1]
-            cell.contentView.backgroundColor = color
+            let category = category[indexPath.item - 1]
+            cell.configure(category: category)
+//            cell.contentView.backgroundColor = color
             return cell
         }
     }
@@ -81,25 +101,32 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
 
 extension CategoryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int)
-    -> CGFloat {
+        -> CGFloat
+    {
         20
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int)
-    -> CGFloat {
-        20
-    }
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
+    { 20 }
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
         let height = collectionView.frame.height
         let itemsPerRow: CGFloat = 2
-        let widthPadding = sectionInsets.left * (itemsPerRow)
+        let widthPadding = sectionInsets.left * itemsPerRow
         let itemsPerColumn: CGFloat = 3
-        let heightPadding = sectionInsets.top * (itemsPerColumn)
+        let heightPadding = sectionInsets.top * itemsPerColumn
         let cellWidth = (width - widthPadding) / itemsPerRow
         let cellHeight = (height - heightPadding) / itemsPerColumn
 
         return CGSize(width: cellWidth, height: cellHeight)
+    }
+}
+
+extension CategoryViewController: AddCategoryViewControllerDelegate {
+    func reloadCollectionView() {
+        print("ddddd")
+        categoryCollectionView.reloadData()
     }
 }
