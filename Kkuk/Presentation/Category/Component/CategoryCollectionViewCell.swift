@@ -5,10 +5,20 @@
 //  Created by 장가겸 on 10/23/23.
 //
 
+import RealmSwift
 import SnapKit
 import UIKit
 
+protocol CategoryCollectionViewCellDelegate: AnyObject {
+    func deleteCollectionViewCell()
+}
+
 class CategoryCollectionViewCell: UICollectionViewCell {
+    private let categoryManager = RealmCategoryManager.shared
+    weak var delegate: CategoryCollectionViewCellDelegate?
+    private var category: Category?
+    private var id: Int?
+    
     private let textSizeOfheightSize: CGFloat = {
         switch UIScreen.main.bounds.width {
         case 400...:
@@ -49,8 +59,11 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     private lazy var deleteModifyButton: UIButton = {
         let button = UIButton()
         let modify = UIAction(title: "수정하기", handler: { _ in print("수정하기") })
-        let delete = UIAction(title: "삭제하기", handler: { _ in print("삭제하기") })
-        let cancel = UIAction(title: "취소", attributes: .destructive, handler: { _ in print("취소하기") })
+        let delete = UIAction(title: "삭제하기", handler: { [self] _ in categoryManager.delete(category!)
+            print("ždddfffż")
+            self.delegate?.deleteCollectionViewCell()
+        })
+        let cancel = UIAction(title: "취소", attributes: .destructive, handler: { _ in })
         button.setTitle(":", for: .normal)
         button.tintColor = UIColor(red: 0.60, green: 0.60, blue: 0.60, alpha: 0.33)
         button.menu = UIMenu(title: "", identifier: nil, options: .displayInline, children: [modify, delete, cancel])
@@ -101,6 +114,34 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 8.0
         contentView.layer.borderWidth = 0.1
         contentView.layer.borderColor = UIColor.subgray1.cgColor
+    }
+    
+    func configure(category: Category) {
+        self.category = category
+        titleLabel.text = category.name
+        setCategoryCell(id: category.iconId)
+    }
+    
+    @objc func setCategoryCell(id: Int) {
+        switch id {
+        case 0:
+            contentView.backgroundColor = UIColor(red: 0.00, green: 0.74, blue: 0.61, alpha: 1.00)
+            titleImage.image = UIImage(named: "plant")
+        case 1:
+            contentView.backgroundColor = UIColor(red: 0.00, green: 0.30, blue: 0.45, alpha: 1.00)
+            titleImage.image = UIImage(named: "education")
+        case 2:
+            contentView.backgroundColor = UIColor(red: 0.71, green: 0.34, blue: 0.58, alpha: 1.00)
+            titleImage.image = UIImage(named: "animal")
+        case 3:
+            contentView.backgroundColor = UIColor(red: 0.00, green: 0.48, blue: 0.86, alpha: 1.00)
+            titleImage.image = UIImage(named: "trip")
+        case 4:
+            contentView.backgroundColor = UIColor(red: 0.75, green: 0.65, blue: 0.62, alpha: 1.00)
+            titleImage.image = UIImage(named: "cafe")
+        default:
+            return
+        }
     }
     
     @available(*, unavailable)
