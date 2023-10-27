@@ -49,7 +49,7 @@ class AppInfoViewController: BaseUIViewController {
     override func setLayout() {
         tableView.snp.makeConstraints { constraint in
             constraint.leading.trailing.equalToSuperview().inset(20)
-            constraint.top.equalTo(view.safeAreaLayoutGuide)
+            constraint.top.equalTo(view.safeAreaLayoutGuide).offset(100)
             constraint.bottom.equalToSuperview()
         }
     }
