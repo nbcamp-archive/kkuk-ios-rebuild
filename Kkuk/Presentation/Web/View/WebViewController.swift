@@ -11,16 +11,44 @@ import WebKit
 
 class WebViewController: BaseUIViewController {
     
-    private lazy var wkWebViewToolbar = WebViewToolbar()
+    private lazy var backButtonItem: UIBarButtonItem = {
+        let buttonItem = UIBarButtonItem(image: Asset.back.withRenderingMode(.alwaysTemplate), style: .plain, target: nil, action: nil)
+        buttonItem.tintColor = .selected
+        return buttonItem
+    }()
+    
+    private lazy var refreshButtonItem: UIBarButtonItem = {
+        let buttonItem = UIBarButtonItem(image: Asset.refresh.withRenderingMode(.alwaysTemplate), style: .plain, target: nil, action: nil)
+        buttonItem.tintColor = .selected
+        return buttonItem
+    }()
     
     private lazy var wkWebView: WKWebView = {
         let view = WKWebView()
-        view.frame = .zero
         view.allowsBackForwardNavigationGestures = true
         return view
     }()
     
+    private lazy var wkWebViewToolbar = WebViewToolbar()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // 나중에 콘텐츠와 연결할 때 변경이 필요함
+        let url = URL(string: "https://github.com/nbcamp-archive/kkuk-ios")
+        let request = URLRequest(url: url!)
+        wkWebView.load(request)
+    }
+    
+    override func setNavigationBar() {
+        title = "웹 페이지 테스트 화면"
+
+        navigationItem.leftBarButtonItem = backButtonItem
+        navigationItem.rightBarButtonItem = refreshButtonItem
+    }
+    
     override func setUI() {
+        setNavigationBar()
+        
         view.addSubviews([wkWebViewToolbar, wkWebView])
     }
     
@@ -38,6 +66,74 @@ class WebViewController: BaseUIViewController {
     override func setDelegate() {
         wkWebView.navigationDelegate = self
         wkWebView.uiDelegate = self
+    }
+    
+    override func addTarget() {
+        backButtonItem.target = self
+        backButtonItem.action = #selector(backButtonItemDidTap(_:))
+        
+        refreshButtonItem.target = self
+        refreshButtonItem.action = #selector(refreshButtonItemDidTap(_:))
+        
+        wkWebViewToolbar.backwardButton.target = self
+        wkWebViewToolbar.forwardButton.target = self
+        wkWebViewToolbar.shareButton.target = self
+        wkWebViewToolbar.safariButton.target = self
+        wkWebViewToolbar.backwardButton.action = #selector(backwardButtonDidTap(_:))
+        wkWebViewToolbar.forwardButton.action = #selector(forwardButtonItemDidTap(_:))
+        wkWebViewToolbar.shareButton.action = #selector(shareButtonItemDidTap(_:))
+        wkWebViewToolbar.safariButton.action = #selector(safariButtonItemDidTap(_:))
+        
+    }
+    
+}
+
+// MARK: - 커스텀 메서드
+
+extension WebViewController {
+
+    @objc
+    private func backButtonItemDidTap(_ buttonItem: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
+    }
+
+    @objc
+    private func refreshButtonItemDidTap(_ buttonItem: UIBarButtonItem) {
+        wkWebView.reload()
+    }
+
+    @objc
+    private func backwardButtonDidTap(_ buttonItem: UIBarButtonItem) {
+        if wkWebView.canGoBack {
+            wkWebView.goBack()
+        }
+    }
+
+    @objc
+    private func forwardButtonItemDidTap(_ buttonItem: UITabBarItem) {
+        if wkWebView.canGoForward {
+            wkWebView.goForward()
+        }
+    }
+
+    @objc
+    private func shareButtonItemDidTap(_ buttonItem: UITabBarItem) {
+        guard let url = wkWebView.url else { return }
+        
+        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        
+        present(activityViewController, animated: true)
+    }
+
+    @objc
+    private func safariButtonItemDidTap(_ buttonItem: UITabBarItem) {
+        guard let url = wkWebView.url else { return }
+        
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            print("해당 URL을 브라우저를 여는데 실패했습니다.")
+        }
     }
     
 }
@@ -109,6 +205,4 @@ extension WebViewController: WKUIDelegate {
 
 // MARK: - WebKit 네비게이션 델리게이트
 
-extension WebViewController: WKNavigationDelegate {
-    
-}
+extension WebViewController: WKNavigationDelegate {}
