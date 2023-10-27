@@ -55,6 +55,7 @@
 		1C79F0022AE7E94400B5A97A /* OpenGraphService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79F0012AE7E94400B5A97A /* OpenGraphService.swift */; };
 		1C79F0062AE7F67300B5A97A /* AppTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79F0052AE7F67300B5A97A /* AppTabBarItem.swift */; };
 		1CAEBE672AEBE8CA00FF4CF2 /* CompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE662AEBE8CA00FF4CF2 /* CompleteButton.swift */; };
+		1CAEBE692AEBFD5500FF4CF2 /* InduceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE682AEBFD5500FF4CF2 /* InduceLabel.swift */; };
 		55791AC02AE7AEC7005C06C4 /* CategoryInnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */; };
 		55791AC32AE7AED9005C06C4 /* AddCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AC12AE7AED9005C06C4 /* AddCategoryCollectionViewCell.swift */; };
 		55791AC42AE7AED9005C06C4 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AC22AE7AED9005C06C4 /* CategoryCollectionViewCell.swift */; };
@@ -134,6 +135,7 @@
 		1C79F0012AE7E94400B5A97A /* OpenGraphService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraphService.swift; sourceTree = "<group>"; };
 		1C79F0052AE7F67300B5A97A /* AppTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarItem.swift; sourceTree = "<group>"; };
 		1CAEBE662AEBE8CA00FF4CF2 /* CompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteButton.swift; sourceTree = "<group>"; };
+		1CAEBE682AEBFD5500FF4CF2 /* InduceLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InduceLabel.swift; sourceTree = "<group>"; };
 		55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryInnerViewController.swift; sourceTree = "<group>"; };
 		55791AC12AE7AED9005C06C4 /* AddCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		55791AC22AE7AED9005C06C4 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -541,6 +543,7 @@
 			isa = PBXGroup;
 			children = (
 				1CAEBE662AEBE8CA00FF4CF2 /* CompleteButton.swift */,
+				1CAEBE682AEBFD5500FF4CF2 /* InduceLabel.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -732,6 +735,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CAEBE692AEBFD5500FF4CF2 /* InduceLabel.swift in Sources */,
 				1C328F892AE92F8D0040D883 /* WebViewController.swift in Sources */,
 				ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */,
 				1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */,
