@@ -42,11 +42,19 @@ class ContentTableViewCell: BaseUITableViewCell {
         return label
     }()
     
-    func configureCell(title: String, memo: String?, image: UIImage?, url: String) {
+    func configureCell(title: String, memo: String?, image: String?, url: String) {
         siteTitleLabel.text = title
         memoLabel.text = memo
-        thumbnailImageView.image = image
         urlLabel.text = url
+        
+        DispatchQueue.global().async {
+            guard let url = URL(string: image ?? ""),
+                  let data = try? Data(contentsOf: url) else { return }
+            
+            DispatchQueue.main.async {
+                self.thumbnailImageView.image = UIImage(data: data)
+            }
+        }
     }
     
     override func layoutSubviews() {

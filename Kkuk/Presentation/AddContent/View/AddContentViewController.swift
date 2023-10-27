@@ -13,6 +13,8 @@ import UIKit
 
 class AddContentViewController: BaseUIViewController {
     
+    private lazy var contentManager = ContentManager()
+    
     private lazy var induceURLLabel: UILabel = {
         let label = UILabel()
         label.font = .title2
@@ -229,9 +231,15 @@ extension AddContentViewController {
         
         let openGraphService = OpenGraphService()
         
-        openGraphService.extractOpenGraphData(from: URL) { result in
+        openGraphService.extractOpenGraphData(from: URL) { [weak self] result in
             switch result {
             case .success(let openGraph):
+                let newContent = Content(sourceURL: text,
+                                         title: openGraph.ogTitle ?? "",
+                                         imageURL: openGraph.ogImage,
+                                         memo: self?.memoTextView.text)
+                self?.contentManager.create(content: newContent)
+                
                 print("ogURL: \(openGraph.ogURL ?? "No data")")
                 print("ogTitle: \(openGraph.ogTitle ?? "No data")")
                 print("ogGraph: \(openGraph.ogImage ?? "No data")")

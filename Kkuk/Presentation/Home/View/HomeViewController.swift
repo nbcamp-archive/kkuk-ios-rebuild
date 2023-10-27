@@ -10,7 +10,10 @@ import UIKit
 import SnapKit
 
 final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
-    private var recentItems: [String] = ["1", "2"] {
+    
+    private var contentManager = ContentManager()
+    
+    private var recentItems: [Content] = [] {
         didSet {
             emptyLabel.isHidden = !recentItems.isEmpty
         }
@@ -81,14 +84,14 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
-        
+        contentManager.getLocationOfDefaultRealm()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // 아이템 DB에서 가져오기 (최대 5개)
-        recentItems = []
-        // 가져온 아이템 setItems 인자로 전달하기
+        let contents = contentManager.read().prefix(5).map { $0 as Content }
+        recentItems = contents
+        tableView.reloadData()
         recommendPagingView.setItems(items: [])
     }
   
@@ -181,9 +184,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         else { return UITableViewCell() }
         let item = recentItems[indexPath.row]
         
-        cell.configureCell(title: item,
-                           memo: "메모 라벨",
-                           image: UIImage(systemName: "photo"),
+        cell.configureCell(title: item.title,
+                           memo: item.memo,
+                           image: item.imageURL,
                            url: "url")
         return cell
     }
