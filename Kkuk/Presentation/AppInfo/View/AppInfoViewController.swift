@@ -6,12 +6,12 @@
 //
 
 import UIKit
-
 import SnapKit
 
 class AppInfoViewController: BaseUIViewController {
-    let settingItems = ["시스템 설정"]
-    let serviceInfoItems = ["이용약관", "개인정보 정책", "앱 버전", "고객 문의", "모든 데이터 지우기"]
+    
+    let settingItems = ["이용약관", "개인정보 정책", "시스템 설정", "서비스 이용방법"]
+    let serviceInfoItems = ["앱 버전", "고객 문의", "모든 데이터 지우기"]
     
     let tableView: UITableView = {
         let view = UITableView()
@@ -22,11 +22,25 @@ class AppInfoViewController: BaseUIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .background
-        navigationController?.navigationBar.isHidden = false
+    
+        view.backgroundColor = UIColor.background
         
-        title = "설정"
+        setNavigationBar()
+        setCustomTitleView()
+        
+        setUI()
+        setLayout()
+        setDelegate()
     }
+    
+    func setCustomTitleView() {
+        let titleLabel = UILabel()
+        titleLabel.backgroundColor = UIColor.orange
+        titleLabel.font = UIFont.title2
+        titleLabel.sizeToFit()
+        let leftItem = UIBarButtonItem(customView: titleLabel)
+            navigationItem.leftBarButtonItem = leftItem
+        }
     
     override func setUI() {
         view.addSubviews([tableView])
@@ -44,12 +58,10 @@ class AppInfoViewController: BaseUIViewController {
         tableView.dataSource = self
         tableView.delegate = self
     }
-    
-    override func addTarget() {}
-    
 }
 
 extension AppInfoViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -57,34 +69,51 @@ extension AppInfoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 1
+            return settingItems.count
         case 1:
-            return 5
+            return serviceInfoItems.count
         default:
             return 0
         }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let title = section == 0 ? "설정" : "서비스 정보"
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.background
         
         let label = UILabel()
-        label.textColor = .subgray1
-        label.font = .subtitle2
-        label.text = title
+        label.textColor = UIColor.orange
+        label.font = UIFont.title2
+        label.text = section == 0 ? "About KKuk" : "Support"
         
-        return label
+        headerView.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.centerY.equalToSuperview()
+        }
+        
+        return headerView
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingItemCell.identifier, for: indexPath) as? SettingItemCell else { return .init() }
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: SettingItemCell.identifier,
+            for: indexPath
+        ) as? SettingItemCell else {
+            return .init()
+        }
         switch indexPath.section {
         case 0:
             cell.configureCell(title: settingItems[indexPath.row])
         case 1:
-            if indexPath.row == 2 {
-                cell.configureCell(title: serviceInfoItems[indexPath.row], subTitle: "1.0")
-            } else if indexPath.row == 3 {
+            let title = serviceInfoItems[indexPath.row]
+            if indexPath.row == 0 {
+                cell.configureCell(title: serviceInfoItems[indexPath.row], subTitle: "v1.0")
+            } else if indexPath.row == 1 {
                 cell.configureCell(title: serviceInfoItems[indexPath.row], subTitle: "kkuk.us@gmail.com")
             } else {
                 cell.configureCell(title: serviceInfoItems[indexPath.row])
