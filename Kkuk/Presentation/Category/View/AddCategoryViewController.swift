@@ -5,17 +5,24 @@
 //  Created by 손영하 on 2023/10/19.
 //
 
-import UIKit
 import SnapKit
+import UIKit
+
+protocol AddCategoryViewControllerDelegate: AnyObject {
+    func reloadCollectionView()
+}
 
 class AddCategoryViewController: UIViewController {
-    
+    weak var delegate: AddCategoryViewControllerDelegate?
     private let categoryTitleInputLabel = CategoryTitleInputLabel()
     private let categoryInputTextField = CategoryInputTextField()
     private let categoryInputLimitLabel = CategoryInputLimitLabel()
     private let categoryconfirmButton = ConfirmButton()
     private var iconButtons: [IconSelectButton] = []
     private let iconImageNames = ["plant", "education", "animal", "trip", "cafe"]
+    private let categoryManager = RealmCategoryManager.shared
+    private let category = Category()
+    private var index: Int?
     
     var savedText: String? // 저장된 텍스트 변수
     var selectedIcon: UIImage? // 선택된 아이콘 변수
@@ -96,7 +103,7 @@ class AddCategoryViewController: UIViewController {
         
         categoryconfirmButton.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX) // 가로 중앙
-            make.centerY.equalTo(view.snp.centerY).offset(20)// 세로 중앙
+            make.centerY.equalTo(view.snp.centerY).offset(20) // 세로 중앙
             make.width.equalTo(categoryInputTextField.snp.width) // 기존의 너비 제약 조건
             make.height.equalTo(40) // 기존의 높이 제약 조건
         }
@@ -116,7 +123,7 @@ class AddCategoryViewController: UIViewController {
             // 오버레이 뷰의 모서리를 둥글게 만들기
             overlayView.layer.cornerRadius = overlayView.frame.height / 2
             // 만약 버튼이 완벽한 원이면 이 값을 사용
-            overlayView.clipsToBounds = true  // 뷰의 경계 내부만 보이게 설정
+            overlayView.clipsToBounds = true // 뷰의 경계 내부만 보이게 설정
             
             sender.addSubview(overlayView)
         }
@@ -124,8 +131,9 @@ class AddCategoryViewController: UIViewController {
         // 선택된 버튼 업데이트
         selectedIconButton = sender
         
-        for button in iconButtons {
+        for (index, button) in iconButtons.enumerated() {
             if button == sender {
+                self.index = index
                 button.isSelected = true
             } else {
                 button.isSelected = false
@@ -144,12 +152,19 @@ class AddCategoryViewController: UIViewController {
             return
         }
         
+        guard let iconIndex = index else {
+            print("인덱스를 선택해주세요") // 입력 필드가 비어 있을 경우 알림 또는 처리
+            return
+        }
+        
         // 카테고리 이름 저장
         savedText = categoryName
+        category.name = savedText!
+        index = iconIndex
+        category.iconId = index!
         
         // UserDefaults를 사용하여 텍스트 필드에 입력된 카테고리 이름 저장
-        let defaults = UserDefaults.standard
-        defaults.set(categoryName, forKey: "savedCategoryName")
+        categoryManager.write(category)
         
         // 선택된 아이콘 저장
         for button in iconButtons where button.isSelected {
@@ -158,9 +173,9 @@ class AddCategoryViewController: UIViewController {
         }
         
         // 화면 닫기
-        self.dismiss(animated: true, completion: nil)
+        delegate?.reloadCollectionView()
+        dismiss(animated: true, completion: nil)
     }
-    
 }
 
 extension AddCategoryViewController: UITextFieldDelegate {
@@ -178,7 +193,8 @@ extension AddCategoryViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // 현재 조합 중인 문자열이 있는지 확인
         if let markedTextRange = textField.markedTextRange,
-           textField.position(from: markedTextRange.start, offset: 0) != nil {
+           textField.position(from: markedTextRange.start, offset: 0) != nil
+        {
             return true
         }
         
@@ -186,7 +202,7 @@ extension AddCategoryViewController: UITextFieldDelegate {
         let newLength = currentText.count + string.count - range.length
         categoryInputLimitLabel.text = "\(newLength)/20"
         
-        return (newLength <= 20)
+        return newLength <= 20
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

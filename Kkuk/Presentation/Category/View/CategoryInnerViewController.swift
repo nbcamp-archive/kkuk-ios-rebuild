@@ -9,7 +9,9 @@ import SnapKit
 import UIKit
 
 class CategoryInnerViewController: BaseUIViewController {
-    let contentList: [String] = ["ddddd"]
+    private let contentList: [String] = ["ddddd"]
+    
+    private lazy var navLabel = UINavigationItem(title: "카테고리 이름")
     
     private lazy var contentTableView: UITableView = {
         let tableView = UITableView()
@@ -21,7 +23,6 @@ class CategoryInnerViewController: BaseUIViewController {
     private lazy var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         let leftBarButton = UIBarButtonItem(title: "카테고리", style: .plain, target: self, action: #selector(categoryButtonTapped))
-        let navLabel = UINavigationItem(title: "카테고리 이름")
         navLabel.leftBarButtonItem = leftBarButton
         leftBarButton.tintColor = .main
         navigationBar.setItems([navLabel], animated: true)
@@ -68,6 +69,10 @@ class CategoryInnerViewController: BaseUIViewController {
     
     @objc func categoryButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func configure(category: Category) {
+        navLabel.title = category.name
     }
 }
 
