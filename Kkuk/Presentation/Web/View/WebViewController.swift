@@ -23,6 +23,14 @@ class WebViewController: BaseUIViewController {
         return buttonItem
     }()
     
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "제목"
+        label.font = .title3
+        label.textColor = .text1
+        return label
+    }()
+    
     private lazy var wkWebView: WKWebView = {
         let view = WKWebView()
         view.allowsBackForwardNavigationGestures = true
@@ -40,8 +48,7 @@ class WebViewController: BaseUIViewController {
     }
     
     override func setNavigationBar() {
-        title = "웹 페이지 테스트 화면"
-
+        navigationItem.titleView = titleLabel
         navigationItem.leftBarButtonItem = backButtonItem
         navigationItem.rightBarButtonItem = refreshButtonItem
     }
@@ -141,8 +148,7 @@ extension WebViewController {
 // MARK: - WebKit UI 델리게이트
 
 extension WebViewController: WKUIDelegate {
-    // JavaScript alert 패널 처리
-    //
+
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String,
                  initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
         let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
@@ -155,8 +161,7 @@ extension WebViewController: WKUIDelegate {
         
         self.present(alertController, animated: true, completion: nil)
     }
-    // JavaScript confirm 패널 처리
-    //
+
     func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String,
                  initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
         let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
@@ -174,8 +179,7 @@ extension WebViewController: WKUIDelegate {
         
         self.present(alertController, animated: true, completion: nil)
     }
-    // JavaScript 텍스트인풋 패널 처리
-    //
+
     func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String,
                  defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
         let alertController = UIAlertController(title: "", message: prompt, preferredStyle: .alert)
