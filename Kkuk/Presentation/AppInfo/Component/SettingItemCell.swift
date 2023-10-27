@@ -30,6 +30,7 @@ class SettingItemCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
         setupLayout()
+        self.separatorInset = .zero
            }
     
     required init?(coder: NSCoder) {
