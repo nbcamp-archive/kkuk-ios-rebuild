@@ -17,6 +17,7 @@ class Content: Object, Identifiable {
     @Persisted var createDate: Date
     @Persisted var isPinned: Bool
     @Persisted var categoryId: Int
+    @Persisted var category: ObjectId = ObjectId("653b6f009991bd921de7d0ba")
     
     override class func primaryKey() -> String? {
         "id"
