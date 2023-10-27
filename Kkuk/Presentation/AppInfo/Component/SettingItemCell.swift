@@ -43,7 +43,6 @@ class SettingItemCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setLayout()
         self.separatorInset = .zero
-        
     }
     
     required init?(coder: NSCoder) {

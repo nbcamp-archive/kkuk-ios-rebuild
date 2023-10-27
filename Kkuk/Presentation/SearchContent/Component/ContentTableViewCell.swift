@@ -42,6 +42,13 @@ class ContentTableViewCell: BaseUITableViewCell {
         return label
     }()
     
+    func configureCell(title: String, memo: String?, image: UIImage?, url: String) {
+        siteTitleLabel.text = title
+        memoLabel.text = memo
+        thumbnailImageView.image = image
+        urlLabel.text = url
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0))
