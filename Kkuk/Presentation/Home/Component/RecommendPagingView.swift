@@ -81,7 +81,7 @@ final class RecommendPagingView: UIView {
         
         self.items = items
         self.pageControl.numberOfPages = items.count
-        let width = UIScreen.main.bounds.width-40
+        let width = UIScreen.main.bounds.width - 40
         
         for index in 0..<items.count {
             let view = RecommendView()
