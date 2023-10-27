@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 class SettingItemCell: UITableViewCell {
     
@@ -16,6 +15,7 @@ class SettingItemCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .black // 색상 조정
         label.font = UIFont.subtitle2 // 글꼴 및 크기 조정
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -23,6 +23,7 @@ class SettingItemCell: UITableViewCell {
         let label = UILabel()
         label.textColor = UIColor.black // 색상 조정
         label.font = UIFont.subtitle2// 글꼴 및 크기 조정
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -31,7 +32,7 @@ class SettingItemCell: UITableViewCell {
         setupViews()
         setupLayout()
         self.separatorInset = .zero
-           }
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -43,15 +44,17 @@ class SettingItemCell: UITableViewCell {
     }
     
     private func setupLayout() {
-        titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.centerY.equalToSuperview()
-        }
+        // titleLabel layout
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
         
-        subTitleLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.centerY.equalToSuperview()
-        }
+        // subTitleLabel layout
+        NSLayoutConstraint.activate([
+            subTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            subTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
     }
     
     func configureCell(title: String, subTitle: String? = nil) {
