@@ -11,6 +11,14 @@ import SnapKit
 
 final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
+    private var contentManager = ContentManager()
+    
+    private var recentItems: [Content] = [] {
+        didSet {
+            emptyLabel.isHidden = !recentItems.isEmpty
+        }
+    }
+    
     private var topFrameView: UIStackView = {
         let view = UIStackView()
         view.backgroundColor = .main
@@ -58,7 +66,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     private var emptyLabel: UILabel = {
         let label = UILabel()
         label.text = "최근에 추가한 콘텐츠가 없습니다."
-        label.font = .title2
+        label.font = .subtitle1
         label.textColor = .subgray1
         
         return label
@@ -66,23 +74,33 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     private var recommendPagingView = RecommendPagingView()
     
+    private var tableView: UITableView = {
+        let view = UITableView()
+        view.register(ContentTableViewCell.self, forCellReuseIdentifier: "ContentTableViewCell")
+       
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
+        contentManager.getLocationOfDefaultRealm()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // 아이템 DB에서 가져오기 (최대 5개)
-        
-        // 가져온 아이템 setItems 인자로 전달하기
+        let contents = contentManager.read().prefix(5).map { $0 as Content }
+        recentItems = contents
+        tableView.reloadData()
         recommendPagingView.setItems(items: [])
     }
   
     override func setUI() {
-        view.addSubviews([topFrameView, recentLabel, plusButton])
+        view.addSubviews([topFrameView, recentLabel, tableView, plusButton])
         
         topFrameView.addSubviews([subTitleLabel, titleLabel, recommendPagingView])
+        
+        tableView.addSubviews([emptyLabel])
     }
     
     override func setLayout() {
@@ -117,9 +135,22 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
             constraint.trailing.equalTo(-20)
             constraint.height.width.equalTo(60)
         }
+        
+        tableView.snp.makeConstraints { constraint in
+            constraint.top.equalTo(recentLabel.snp.bottom).offset(16)
+            constraint.leading.trailing.equalToSuperview().inset(20)
+            constraint.bottom.equalToSuperview()
+        }
+        
+        emptyLabel.snp.makeConstraints { constraint in
+            constraint.centerX.centerY.equalToSuperview()
+        }
     }
     
-    override func setDelegate() {}
+    override func setDelegate() {
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
     
     override func addTarget() {
         plusButton.addTarget(self, action: #selector(plusButtonDidTap), for: .touchUpInside)
@@ -130,7 +161,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
 // MARK: - 커스텀 메서드
 
 extension HomeViewController {
-  
+
     @objc
     private func plusButtonDidTap() {
         let viewController = AddContentViewController()
@@ -140,4 +171,23 @@ extension HomeViewController {
         present(navigationController, animated: true)
     }
   
+}
+
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return recentItems.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ContentTableViewCell",
+                                                       for: indexPath) as? ContentTableViewCell
+        else { return UITableViewCell() }
+        let item = recentItems[indexPath.row]
+        
+        cell.configureCell(title: item.title,
+                           memo: item.memo,
+                           image: item.imageURL,
+                           url: "url")
+        return cell
+    }
 }

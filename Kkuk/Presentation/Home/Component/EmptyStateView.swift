@@ -12,6 +12,7 @@ class EmptyStateView: UIStackView {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "empty")
         imageView.contentMode = .scaleAspectFit
+        
         return imageView
     }()
     
@@ -20,6 +21,7 @@ class EmptyStateView: UIStackView {
         label.text = "콘텐츠를 고정해주세요."
         label.font = .subtitle1
         label.textColor = .background
+        
         return label
     }()
     

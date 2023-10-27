@@ -8,78 +8,60 @@
 import UIKit
 
 class SettingItemCell: UITableViewCell {
+    
     static let identifier = "SettingItemCell"
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .title2
-        label.textColor = .text1
-        
+        label.textColor = .black // 색상 조정
+        label.font = UIFont.subtitle2 // 글꼴 및 크기 조정
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    }()
-    
-    private let chevronImageView: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(systemName: "chevron.right")
-        view.tintColor = .text1
-        return view
     }()
     
     private let subTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .title2
-        label.textColor = .text1
-        
+        label.textColor = UIColor.black // 색상 조정
+        label.font = UIFont.subtitle2// 글꼴 및 크기 조정
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let separatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .main
-        return view
-    }()
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setLayout()
+        setupViews()
+        setupLayout()
         self.separatorInset = .zero
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(title: String, subTitle: String? = nil) {
-        if let subTitle = subTitle {
-            subTitleLabel.text = subTitle
-            chevronImageView.isHidden = true
-        }
-        
-        titleLabel.text = title
+    private func setupViews() {
+        addSubview(titleLabel)
+        addSubview(subTitleLabel)
     }
     
-    private func setLayout() {
-        addSubviews([titleLabel, chevronImageView, separatorView, subTitleLabel])
+    private func setupLayout() {
+        // titleLabel layout
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
         
-        titleLabel.snp.makeConstraints { constraint in
-            constraint.leading.trailing.equalToSuperview()
-            constraint.top.bottom.equalToSuperview().inset(14)
-        }
+        // subTitleLabel layout
+        NSLayoutConstraint.activate([
+            subTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            subTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+    }
+    
+    func configureCell(title: String, subTitle: String? = nil) {
+        titleLabel.text = title
+        subTitleLabel.text = subTitle
         
-        chevronImageView.snp.makeConstraints { constraint in
-            constraint.trailing.centerY.equalToSuperview()
-            constraint.width.height.equalTo(16)
-        }
-        
-        subTitleLabel.snp.makeConstraints { constraint in
-            constraint.trailing.centerY.equalToSuperview()
-        }
-        
-        separatorView.snp.makeConstraints { constraint in
-            constraint.height.equalTo(0.7)
-            constraint.leading.trailing.equalToSuperview()
-            constraint.bottom.equalToSuperview()
-        }
+        // 부제목이 없으면 숨기기
+        subTitleLabel.isHidden = subTitle == nil
     }
 }
