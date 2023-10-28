@@ -245,7 +245,8 @@ extension AddContentViewController {
                 let newContent = Content(sourceURL: text,
                                          title: openGraph.ogTitle ?? "",
                                          imageURL: openGraph.ogImage,
-                                         memo: self?.memoTextView.text)
+                                         memo: self?.memoTextView.text,
+                                         category: (self?.selectedCategoryId)!)
                 self?.contentManager.create(content: newContent)
                 
                 print("ogURL: \(openGraph.ogURL ?? "No data")")
