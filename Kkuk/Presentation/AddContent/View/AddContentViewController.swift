@@ -8,12 +8,19 @@
 import Alamofire
 import SwiftSoup
 import SnapKit
+import RealmSwift
 
 import UIKit
 
 class AddContentViewController: BaseUIViewController {
     
-    private lazy var contentManager = ContentManager()
+    private var contentManager = ContentManager()
+    
+    private var categoryManager = RealmCategoryManager.shared
+    
+    private var categories: [Category] = []
+    
+    private var selectedCategoryId: ObjectId?
     
     private lazy var addContentButton = AddContentButton(frame: .zero)
     
@@ -70,6 +77,20 @@ class AddContentViewController: BaseUIViewController {
         return label
     }()
     
+    private lazy var setCategoryCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 8
+        layout.minimumLineSpacing = 8
+        
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = .clear
+        view.delegate = self
+        view.dataSource = self
+        view.register(SetCategoryCell.self, forCellWithReuseIdentifier: "SetCategoryCell")
+        return view
+    }()
+    
     private lazy var closeButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(systemItem: .close)
         barButtonItem.target = self
@@ -80,6 +101,7 @@ class AddContentViewController: BaseUIViewController {
         super.viewDidLoad()
         
         URLTextField.becomeFirstResponder()
+        categories = categoryManager.read()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,7 +122,7 @@ class AddContentViewController: BaseUIViewController {
         memoContainerView.addSubviews([memoTextView, memoTextCountLabel])
         
         view.addSubviews([induceURLLabel, induceMemoLabel, induceCategoryLabel,
-                          URLTextField, memoContainerView, addContentButton])
+                          URLTextField, memoContainerView, setCategoryCollectionView, addContentButton])
     }
     
     override func setLayout() {
@@ -134,6 +156,12 @@ class AddContentViewController: BaseUIViewController {
         induceCategoryLabel.snp.makeConstraints {
             $0.top.equalTo(memoTextView.snp.bottom).offset(20)
             $0.leading.equalTo(induceURLLabel)
+        }
+        setCategoryCollectionView.snp.makeConstraints {
+            $0.top.equalTo(induceCategoryLabel.snp.bottom).offset(8)
+            $0.leading.equalTo(induceURLLabel)
+            $0.trailing.equalTo(-20)
+            $0.height.equalTo(160)
         }
         addContentButton.snp.makeConstraints {
             $0.bottom.equalToSuperview()
@@ -308,85 +336,42 @@ extension AddContentViewController: UITextViewDelegate {
     
 }
 
-class ExtractOpenGraphTestViewController: BaseUIViewController {
+extension AddContentViewController: UICollectionViewDelegate {
     
-    private lazy var opengraphImageView: UIImageView = {
-        let view = UIImageView()
-        view.contentMode = .scaleAspectFit
-        return view
-    }()
-    
-    private lazy var opengraphTitle: UILabel = {
-        let label = UILabel()
-        label.font = .body1
-        return label
-    }()
-    
-    private lazy var opengraphDescription: UITextView = {
-        let view = UITextView()
-        view.font = .body2
-        return view
-    }()
-    
-    var openGraphData: [String: String]? {
-        didSet {
-            bind()
-        }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categories.count
     }
     
-    override func setUI() {
-        view.addSubviews([opengraphImageView, opengraphTitle, opengraphDescription])
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SetCategoryCell", for: indexPath) as? SetCategoryCell else {
+            return UICollectionViewCell()
+        }
+        
+        let category = categories[indexPath.item]
+        cell.configure(with: category)
+        
+        return cell
     }
     
-    override func setLayout() {
-        opengraphImageView.snp.makeConstraints { constraint in
-            constraint.centerX.equalToSuperview()
-            constraint.top.equalTo(view.safeAreaLayoutGuide)
-            constraint.width.equalTo(150)
-            constraint.height.equalTo(300)
-        }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let category = categories[indexPath.item]
+        selectedCategoryId = category.id
         
-        opengraphTitle.snp.makeConstraints { constraint in
-            constraint.top.equalTo(opengraphImageView.snp.bottom).offset(20)
-            constraint.leading.equalToSuperview().offset(20)
-            constraint.trailing.equalToSuperview().offset(-20)
-        }
-        
-        opengraphDescription.snp.makeConstraints { constraint in
-            constraint.top.equalTo(opengraphTitle.snp.bottom).offset(20)
-            constraint.leading.equalToSuperview().offset(20)
-            constraint.trailing.equalToSuperview().offset(-20)
-            constraint.width.equalTo(250)
-            constraint.height.equalTo(500)
+        // 모든 셀의 선택 상태를 업데이트합니다.
+        for visibleIndexPath in collectionView.indexPathsForVisibleItems {
+            if let cell = collectionView.cellForItem(at: visibleIndexPath) as? SetCategoryCell {
+                cell.isSelected = visibleIndexPath == indexPath
+            }
         }
     }
     
 }
 
-extension ExtractOpenGraphTestViewController {
+extension AddContentViewController: UICollectionViewDataSource {
     
-    private func bind() {
-        if let openGraphData = openGraphData {
-            if let imageURLString = openGraphData["og:image"],
-               let imageURL = URL(string: imageURLString) {
-                
-                AF.request(imageURL).responseData { response in
-                    if case .success(let image) = response.result {
-                        DispatchQueue.main.async {
-                            let image = UIImage(data: image)
-                            self.opengraphImageView.image = image
-                        }
-                    }
-                }
-            }
-            
-            if let title = openGraphData["og:title"] {
-                opengraphTitle.text = title
-            }
-            
-            if let description = openGraphData["og:description"] {
-                opengraphDescription.text = description
-            }
-        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (collectionView.bounds.width - 16) / 3 // 3개의 셀을 가로로 표시하므로 셀의 너비를 계산합니다.
+        return CGSize(width: width, height: 48) // 셀의 높이는 48로 설정합니다.
     }
+    
 }
