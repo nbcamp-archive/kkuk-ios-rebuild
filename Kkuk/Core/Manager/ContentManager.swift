@@ -10,9 +10,15 @@ import RealmSwift
 
 class ContentManager {
     func getLocationOfDefaultRealm() {
-        print("Realm is located at:", try! Realm().configuration.fileURL!)
+        do {
+            let realm = try Realm()
+            let filePath = realm.configuration.fileURL
+            print("Realm is located at: ", filePath!)
+        } catch {
+            print("Faild load to realm file path in located.")
+        }
     }
-
+    
     func create(content: Content) {
         do {
             let realm = try Realm()
@@ -23,7 +29,7 @@ class ContentManager {
             print("Failed create ContentObject: \(error)")
         }
     }
-  
+    
     func read() -> [Content] {
         do {
             let realm = try Realm()
@@ -44,8 +50,9 @@ class ContentManager {
         } catch {
             print("Error adding user: \(error)")
             return []
+        }
     }
-
+    
     func readInCategory(at id: ObjectId) -> [Content] {
         do {
             let realm = try Realm()
@@ -57,5 +64,4 @@ class ContentManager {
         }
         return []
     }
-      
 }
