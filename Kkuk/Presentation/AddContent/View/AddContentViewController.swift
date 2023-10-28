@@ -15,28 +15,15 @@ class AddContentViewController: BaseUIViewController {
     
     private lazy var contentManager = ContentManager()
     
-    private lazy var induceURLLabel: UILabel = {
-        let label = UILabel()
-        label.font = .title2
-        label.text = "링크 입력 및 붙여넣기"
-        label.textColor = .text1
-        return label
-    }()
+    private lazy var addContentButton = AddContentButton(frame: .zero)
     
-    private lazy var induceMemoLabel: UILabel = {
-        let label = UILabel()
-        label.font = .title2
-        label.text = "메모하기"
-        label.textColor = .text1
-        return label
-    }()
+    private lazy var induceURLLabel = InduceLabel(text: "링크 입력 및 붙여넣기", font: .title2)
     
-    private lazy var induceCategoryLabel: UILabel = {
-        let label = UILabel()
-        label.font = .title2
-        label.text = "카테고리 고르기"
-        return label
-    }()
+    private lazy var induceMemoLabel = InduceLabel(text: "메모하기", font: .title2)
+    
+    private lazy var induceCategoryLabel = InduceLabel(text: "카테고리 선택하기", font: .title2)
+    
+    private lazy var memoContainerView = UIView()
     
     private lazy var URLTextField: UITextField = {
         let textField = UITextField()
@@ -47,11 +34,6 @@ class AddContentViewController: BaseUIViewController {
         textField.placeholder = "https://www.example.com"
         textField.tintColor = .main
         return textField
-    }()
-    
-    private lazy var memoContainerView: UIView = {
-        let view = UIView()
-        return view
     }()
     
     private lazy var memoTextView: UITextView = {
@@ -94,8 +76,6 @@ class AddContentViewController: BaseUIViewController {
         return barButtonItem
     }()
     
-    private lazy var addContentButton = AddContentButton(frame: .zero)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -124,41 +104,41 @@ class AddContentViewController: BaseUIViewController {
     }
     
     override func setLayout() {
-        induceURLLabel.snp.makeConstraints { constraint in
-            constraint.top.equalTo(view.safeAreaLayoutGuide).offset(60)
-            constraint.leading.equalTo(20)
+        induceURLLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(60)
+            $0.leading.equalTo(20)
         }
-        URLTextField.snp.makeConstraints { constraint in
-            constraint.top.equalTo(induceURLLabel.snp.bottom).offset(14)
-            constraint.leading.equalTo(20)
-            constraint.trailing.equalTo(-20)
-            constraint.height.equalTo(48)
+        URLTextField.snp.makeConstraints {
+            $0.top.equalTo(induceURLLabel.snp.bottom).offset(14)
+            $0.leading.equalTo(20)
+            $0.trailing.equalTo(-20)
+            $0.height.equalTo(48)
         }
-        induceMemoLabel.snp.makeConstraints { constraint in
-            constraint.top.equalTo(URLTextField.snp.bottom).offset(20)
-            constraint.leading.equalTo(induceURLLabel)
+        induceMemoLabel.snp.makeConstraints {
+            $0.top.equalTo(URLTextField.snp.bottom).offset(20)
+            $0.leading.equalTo(induceURLLabel)
         }
-        memoContainerView.snp.makeConstraints { constraint in
-            constraint.top.equalTo(induceMemoLabel.snp.bottom).offset(14)
-            constraint.leading.equalTo(induceURLLabel)
-            constraint.trailing.equalTo(-20)
-            constraint.height.equalTo(142)
+        memoContainerView.snp.makeConstraints {
+            $0.top.equalTo(induceMemoLabel.snp.bottom).offset(14)
+            $0.leading.equalTo(induceURLLabel)
+            $0.trailing.equalTo(-20)
+            $0.height.equalTo(142)
         }
-        memoTextView.snp.makeConstraints { constraint in
-            constraint.edges.equalToSuperview()
+        memoTextView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
-        memoTextCountLabel.snp.makeConstraints { constraint in
-            constraint.trailing.equalToSuperview().offset(-8)
-            constraint.bottom.equalToSuperview().offset(-8)
+        memoTextCountLabel.snp.makeConstraints {
+            $0.trailing.equalToSuperview().offset(-8)
+            $0.bottom.equalToSuperview().offset(-8)
         }
-        induceCategoryLabel.snp.makeConstraints { constraint in
-            constraint.top.equalTo(memoTextView.snp.bottom).offset(20)
-            constraint.leading.equalTo(induceURLLabel)
+        induceCategoryLabel.snp.makeConstraints {
+            $0.top.equalTo(memoTextView.snp.bottom).offset(20)
+            $0.leading.equalTo(induceURLLabel)
         }
-        addContentButton.snp.makeConstraints { constraint in
-            constraint.bottom.equalToSuperview()
-            constraint.leading.trailing.equalToSuperview()
-            constraint.height.equalTo(60)
+        addContentButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(60)
         }
     }
     
@@ -180,7 +160,7 @@ class AddContentViewController: BaseUIViewController {
         title = "추가하기"
         
         let appearance = UINavigationBarAppearance()
-        appearance.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.body1 ]
+        appearance.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.title3 ]
         appearance.backgroundColor = .white
         appearance.shadowColor = .none
         navigationController?.navigationBar.standardAppearance = appearance
