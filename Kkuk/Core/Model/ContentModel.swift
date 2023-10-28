@@ -16,7 +16,7 @@ class Content: Object, Identifiable {
     @Persisted var memo: String?
     @Persisted var createDate: Date
     @Persisted var isPinned: Bool
-    @Persisted var category: ObjectId = ObjectId("653b6f009991bd921de7d0ba")
+    @Persisted var category: ObjectId
     
     override class func primaryKey() -> String? {
         "id"
@@ -28,7 +28,8 @@ class Content: Object, Identifiable {
         imageURL: String?,
         memo: String?,
         createDate: Date = Date(),
-        isPinned: Bool = false) {
+        isPinned: Bool = false,
+        category: ObjectId) {
             self.init()
             self.sourceURL = sourceURL
             self.title = title
@@ -36,5 +37,6 @@ class Content: Object, Identifiable {
             self.memo = memo
             self.createDate = createDate
             self.isPinned = isPinned
+            self.category = category
         }
 }
