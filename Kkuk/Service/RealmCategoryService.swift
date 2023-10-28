@@ -20,7 +20,11 @@ final class RealmCategoryManager: Storage {
     private let database: Realm
 
     private init() {
-        self.database = try! Realm()
+        do {
+            self.database = try Realm()
+        } catch {
+            fatalError("Error initializing Realm: \(error)")
+        }
     }
 
     func getLocationOfDefaultRealm() {
