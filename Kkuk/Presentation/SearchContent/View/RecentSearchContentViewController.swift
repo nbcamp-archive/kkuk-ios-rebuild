@@ -148,6 +148,9 @@ extension RecentSearchContentViewController: UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let searchContentViewController = parent as? SearchContentViewController {
+            let searchText = searchList[indexPath.row]
+            searchContentViewController.searchBar.text = searchText
+            searchContentViewController.reloadData(with: searchText)
             searchContentViewController.toggleContainerViewVisibility(isShow: false)
          }
     }
