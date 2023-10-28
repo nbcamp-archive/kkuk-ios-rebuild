@@ -62,6 +62,8 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell",
                                                                 for: indexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
             let category = category[indexPath.item - 1]
+//            print(category.id)
+//            print(type(of: category.id))
             cell.configure(category: category)
             cell.delegate = self
             return cell
@@ -79,7 +81,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
             let customVC = CategoryInnerViewController()
             customVC.modalPresentationStyle = .fullScreen
             let category = category[indexPath.item - 1]
-            customVC.configure(category: category)
+            customVC.category = category
             navigationController?.pushViewController(customVC, animated: true)
         }
     }

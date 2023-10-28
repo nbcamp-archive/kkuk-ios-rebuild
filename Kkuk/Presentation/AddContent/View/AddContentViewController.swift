@@ -8,35 +8,29 @@
 import Alamofire
 import SwiftSoup
 import SnapKit
+import RealmSwift
 
 import UIKit
 
 class AddContentViewController: BaseUIViewController {
     
-    private lazy var contentManager = ContentManager()
+    private var contentManager = ContentManager()
     
-    private lazy var induceURLLabel: UILabel = {
-        let label = UILabel()
-        label.font = .title2
-        label.text = "링크 입력 및 붙여넣기"
-        label.textColor = .text1
-        return label
-    }()
+    private var categoryManager = RealmCategoryManager.shared
     
-    private lazy var induceMemoLabel: UILabel = {
-        let label = UILabel()
-        label.font = .title2
-        label.text = "메모하기"
-        label.textColor = .text1
-        return label
-    }()
+    private var categories: [Category] = []
     
-    private lazy var induceCategoryLabel: UILabel = {
-        let label = UILabel()
-        label.font = .title2
-        label.text = "카테고리 고르기"
-        return label
-    }()
+    private var selectedCategoryId: ObjectId?
+    
+    private lazy var addContentButton = AddContentButton(frame: .zero)
+    
+    private lazy var induceURLLabel = InduceLabel(text: "링크 입력 및 붙여넣기", font: .title2)
+    
+    private lazy var induceMemoLabel = InduceLabel(text: "메모하기", font: .title2)
+    
+    private lazy var induceCategoryLabel = InduceLabel(text: "카테고리 선택하기", font: .title2)
+    
+    private lazy var memoContainerView = UIView()
     
     private lazy var URLTextField: UITextField = {
         let textField = UITextField()
@@ -47,11 +41,6 @@ class AddContentViewController: BaseUIViewController {
         textField.placeholder = "https://www.example.com"
         textField.tintColor = .main
         return textField
-    }()
-    
-    private lazy var memoContainerView: UIView = {
-        let view = UIView()
-        return view
     }()
     
     private lazy var memoTextView: UITextView = {
@@ -88,18 +77,31 @@ class AddContentViewController: BaseUIViewController {
         return label
     }()
     
+    private lazy var setCategoryCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 8
+        layout.minimumLineSpacing = 8
+        
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = .clear
+        view.delegate = self
+        view.dataSource = self
+        view.register(SetCategoryCell.self, forCellWithReuseIdentifier: "SetCategoryCell")
+        return view
+    }()
+    
     private lazy var closeButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(systemItem: .close)
         barButtonItem.target = self
         return barButtonItem
     }()
     
-    private lazy var addContentButton = AddContentButton(frame: .zero)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         URLTextField.becomeFirstResponder()
+        categories = categoryManager.read()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,45 +122,51 @@ class AddContentViewController: BaseUIViewController {
         memoContainerView.addSubviews([memoTextView, memoTextCountLabel])
         
         view.addSubviews([induceURLLabel, induceMemoLabel, induceCategoryLabel,
-                          URLTextField, memoContainerView, addContentButton])
+                          URLTextField, memoContainerView, setCategoryCollectionView, addContentButton])
     }
     
     override func setLayout() {
-        induceURLLabel.snp.makeConstraints { constraint in
-            constraint.top.equalTo(view.safeAreaLayoutGuide).offset(60)
-            constraint.leading.equalTo(20)
+        induceURLLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(60)
+            $0.leading.equalTo(20)
         }
-        URLTextField.snp.makeConstraints { constraint in
-            constraint.top.equalTo(induceURLLabel.snp.bottom).offset(14)
-            constraint.leading.equalTo(20)
-            constraint.trailing.equalTo(-20)
-            constraint.height.equalTo(48)
+        URLTextField.snp.makeConstraints {
+            $0.top.equalTo(induceURLLabel.snp.bottom).offset(14)
+            $0.leading.equalTo(20)
+            $0.trailing.equalTo(-20)
+            $0.height.equalTo(48)
         }
-        induceMemoLabel.snp.makeConstraints { constraint in
-            constraint.top.equalTo(URLTextField.snp.bottom).offset(20)
-            constraint.leading.equalTo(induceURLLabel)
+        induceMemoLabel.snp.makeConstraints {
+            $0.top.equalTo(URLTextField.snp.bottom).offset(20)
+            $0.leading.equalTo(induceURLLabel)
         }
-        memoContainerView.snp.makeConstraints { constraint in
-            constraint.top.equalTo(induceMemoLabel.snp.bottom).offset(14)
-            constraint.leading.equalTo(induceURLLabel)
-            constraint.trailing.equalTo(-20)
-            constraint.height.equalTo(142)
+        memoContainerView.snp.makeConstraints {
+            $0.top.equalTo(induceMemoLabel.snp.bottom).offset(14)
+            $0.leading.equalTo(induceURLLabel)
+            $0.trailing.equalTo(-20)
+            $0.height.equalTo(142)
         }
-        memoTextView.snp.makeConstraints { constraint in
-            constraint.edges.equalToSuperview()
+        memoTextView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
-        memoTextCountLabel.snp.makeConstraints { constraint in
-            constraint.trailing.equalToSuperview().offset(-8)
-            constraint.bottom.equalToSuperview().offset(-8)
+        memoTextCountLabel.snp.makeConstraints {
+            $0.trailing.equalToSuperview().offset(-8)
+            $0.bottom.equalToSuperview().offset(-8)
         }
-        induceCategoryLabel.snp.makeConstraints { constraint in
-            constraint.top.equalTo(memoTextView.snp.bottom).offset(20)
-            constraint.leading.equalTo(induceURLLabel)
+        induceCategoryLabel.snp.makeConstraints {
+            $0.top.equalTo(memoTextView.snp.bottom).offset(20)
+            $0.leading.equalTo(induceURLLabel)
         }
-        addContentButton.snp.makeConstraints { constraint in
-            constraint.bottom.equalToSuperview()
-            constraint.leading.trailing.equalToSuperview()
-            constraint.height.equalTo(60)
+        setCategoryCollectionView.snp.makeConstraints {
+            $0.top.equalTo(induceCategoryLabel.snp.bottom).offset(8)
+            $0.leading.equalTo(induceURLLabel)
+            $0.trailing.equalTo(-20)
+            $0.height.equalTo(160)
+        }
+        addContentButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(60)
         }
     }
     
@@ -180,7 +188,7 @@ class AddContentViewController: BaseUIViewController {
         title = "추가하기"
         
         let appearance = UINavigationBarAppearance()
-        appearance.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.body1 ]
+        appearance.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.title3 ]
         appearance.backgroundColor = .white
         appearance.shadowColor = .none
         navigationController?.navigationBar.standardAppearance = appearance
@@ -328,85 +336,42 @@ extension AddContentViewController: UITextViewDelegate {
     
 }
 
-class ExtractOpenGraphTestViewController: BaseUIViewController {
+extension AddContentViewController: UICollectionViewDelegate {
     
-    private lazy var opengraphImageView: UIImageView = {
-        let view = UIImageView()
-        view.contentMode = .scaleAspectFit
-        return view
-    }()
-    
-    private lazy var opengraphTitle: UILabel = {
-        let label = UILabel()
-        label.font = .body1
-        return label
-    }()
-    
-    private lazy var opengraphDescription: UITextView = {
-        let view = UITextView()
-        view.font = .body2
-        return view
-    }()
-    
-    var openGraphData: [String: String]? {
-        didSet {
-            bind()
-        }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categories.count
     }
     
-    override func setUI() {
-        view.addSubviews([opengraphImageView, opengraphTitle, opengraphDescription])
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SetCategoryCell", for: indexPath) as? SetCategoryCell else {
+            return UICollectionViewCell()
+        }
+        
+        let category = categories[indexPath.item]
+        cell.configure(with: category)
+        
+        return cell
     }
     
-    override func setLayout() {
-        opengraphImageView.snp.makeConstraints { constraint in
-            constraint.centerX.equalToSuperview()
-            constraint.top.equalTo(view.safeAreaLayoutGuide)
-            constraint.width.equalTo(150)
-            constraint.height.equalTo(300)
-        }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let category = categories[indexPath.item]
+        selectedCategoryId = category.id
         
-        opengraphTitle.snp.makeConstraints { constraint in
-            constraint.top.equalTo(opengraphImageView.snp.bottom).offset(20)
-            constraint.leading.equalToSuperview().offset(20)
-            constraint.trailing.equalToSuperview().offset(-20)
-        }
-        
-        opengraphDescription.snp.makeConstraints { constraint in
-            constraint.top.equalTo(opengraphTitle.snp.bottom).offset(20)
-            constraint.leading.equalToSuperview().offset(20)
-            constraint.trailing.equalToSuperview().offset(-20)
-            constraint.width.equalTo(250)
-            constraint.height.equalTo(500)
+        // 모든 셀의 선택 상태를 업데이트합니다.
+        for visibleIndexPath in collectionView.indexPathsForVisibleItems {
+            if let cell = collectionView.cellForItem(at: visibleIndexPath) as? SetCategoryCell {
+                cell.isSelected = visibleIndexPath == indexPath
+            }
         }
     }
     
 }
 
-extension ExtractOpenGraphTestViewController {
+extension AddContentViewController: UICollectionViewDataSource {
     
-    private func bind() {
-        if let openGraphData = openGraphData {
-            if let imageURLString = openGraphData["og:image"],
-               let imageURL = URL(string: imageURLString) {
-                
-                AF.request(imageURL).responseData { response in
-                    if case .success(let image) = response.result {
-                        DispatchQueue.main.async {
-                            let image = UIImage(data: image)
-                            self.opengraphImageView.image = image
-                        }
-                    }
-                }
-            }
-            
-            if let title = openGraphData["og:title"] {
-                opengraphTitle.text = title
-            }
-            
-            if let description = openGraphData["og:description"] {
-                opengraphDescription.text = description
-            }
-        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (collectionView.bounds.width - 16) / 3 // 3개의 셀을 가로로 표시하므로 셀의 너비를 계산합니다.
+        return CGSize(width: width, height: 48) // 셀의 높이는 48로 설정합니다.
     }
+    
 }
