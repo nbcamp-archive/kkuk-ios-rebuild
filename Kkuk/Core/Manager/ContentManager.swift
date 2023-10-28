@@ -23,7 +23,7 @@ class ContentManager {
             print("Failed create ContentObject: \(error)")
         }
     }
-
+  
     func read() -> [Content] {
         do {
             let realm = try Realm()
@@ -33,6 +33,17 @@ class ContentManager {
             print("Failed read ContentObject: \(error)")
         }
         return []
+    }
+    
+    func read(at searchText: String) -> [Content] {
+        do {
+            let realm = try Realm()
+            let query = NSPredicate(format: "title CONTAINS %@", searchText)
+            let result = realm.objects(Content.self).filter(query).sorted(byKeyPath: "createDate", ascending: false)
+            return Array(result)
+        } catch {
+            print("Error adding user: \(error)")
+            return []
     }
 
     func readInCategory(at id: ObjectId) -> [Content] {
@@ -46,4 +57,5 @@ class ContentManager {
         }
         return []
     }
+      
 }
