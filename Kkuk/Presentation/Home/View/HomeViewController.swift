@@ -193,7 +193,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configureCell(title: item.title,
                            memo: item.memo,
                            image: item.imageURL,
-                           url: "url",
+                           url: item.sourceURL,
                            isPinned: item.isPinned,
                            index: indexPath.row)
         return cell

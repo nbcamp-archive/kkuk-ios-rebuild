@@ -63,10 +63,10 @@ class ContentTableViewCell: BaseUITableViewCell {
     }()
     
     func configureCell(title: String, memo: String?, image: String?, url: String, isPinned: Bool, index: Int) {
-        
+        thumbnailImageView.image = UIImage(systemName: "photo")
         siteTitleLabel.text = title
         memoLabel.text = memo
-        urlLabel.text = "http://naver.com/http://naver.com/http://naver.com/http://naver.com/http://naver.com/"
+        urlLabel.text = url
         pinButton.tag = index
         let pinImage = isPinned ? UIImage(named: "selectedPin") : UIImage(named: "Pin")
         pinButton.setImage(pinImage, for: .normal)
