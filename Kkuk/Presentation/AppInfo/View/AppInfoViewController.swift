@@ -17,6 +17,7 @@ class AppInfoViewController: BaseUIViewController {
         let view = UITableView()
         view.separatorStyle = .none
         view.register(SettingItemCell.self, forCellReuseIdentifier: SettingItemCell.identifier)
+        
         return view
     }()
     
@@ -25,7 +26,10 @@ class AppInfoViewController: BaseUIViewController {
     
         view.backgroundColor = UIColor.background
         
+        tableView.isScrollEnabled = false
+        
         setNavigationBar()
+        
         setCustomTitleView()
         
         setUI()
@@ -49,7 +53,7 @@ class AppInfoViewController: BaseUIViewController {
     override func setLayout() {
         tableView.snp.makeConstraints { constraint in
             constraint.leading.trailing.equalToSuperview().inset(20)
-            constraint.top.equalTo(view.safeAreaLayoutGuide).offset(100)
+            constraint.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             constraint.bottom.equalToSuperview()
         }
     }
