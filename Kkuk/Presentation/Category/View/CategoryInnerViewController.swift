@@ -39,7 +39,7 @@ class CategoryInnerViewController: BaseUIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let contents = contentManager.readInCategory(at:category!.id).map { $0 as Content }
+        let contents = contentManager.readInCategory(at: category!.id).map { $0 as Content }
         recentItems = contents
         contentTableView.reloadData()
     }
