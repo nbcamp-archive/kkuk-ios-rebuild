@@ -68,6 +68,8 @@ class ContentTableViewCell: BaseUITableViewCell {
         memoLabel.text = memo
         urlLabel.text = "http://naver.com/http://naver.com/http://naver.com/http://naver.com/http://naver.com/"
         pinButton.tag = index
+        let pinImage = isPinned ? UIImage(named: "selectedPin") : UIImage(named: "Pin")
+        pinButton.setImage(pinImage, for: .normal)
         
         DispatchQueue.global().async {
             guard let url = URL(string: image ?? ""),
