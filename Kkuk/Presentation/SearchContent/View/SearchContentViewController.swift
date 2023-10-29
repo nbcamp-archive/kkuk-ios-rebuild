@@ -9,12 +9,12 @@ import UIKit
 
 class SearchContentViewController: BaseUIViewController {
     
-    let contentList: [String] = []
+    var contentList: [Content] = []
     
     let recentSearchContentViewController = RecentSearchContentViewController()
     let recenteSearchManager = RecentSearchManager()
     
-    private lazy var searchBar: UISearchBar = {
+    lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "검색어를 입력하세요"
         searchBar.delegate = self
@@ -74,6 +74,13 @@ class SearchContentViewController: BaseUIViewController {
     
     override func addTarget() {}
     
+    func reloadData(with searchText: String) {
+        let realm = ContentManager()
+        contentList = realm.read(at: searchText)
+        contentTableView.reloadData()
+        noContentLabel.isHidden = !contentList.isEmpty
+    }
+    
     func setSearchBarLayout() {
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
@@ -118,6 +125,9 @@ extension SearchContentViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text else { return }
+        reloadData(with: searchText)
+
         toggleContainerViewVisibility(isShow: false)
         
         guard let searchText = searchBar.text else { return }
@@ -136,7 +146,9 @@ extension SearchContentViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = contentTableView.dequeueReusableCell(withIdentifier: "ContentTableViewCell", for: indexPath)
+        let cell = contentTableView.dequeueReusableCell(withIdentifier: "ContentTableViewCell", for: indexPath) as! ContentTableViewCell
+        let content = contentList[indexPath.row]
+        cell.configureCell(title: content.title, memo: content.memo, image: content.imageURL, url: content.sourceURL)
         return cell
     }
 }
