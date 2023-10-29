@@ -11,6 +11,9 @@ import WebKit
 
 class WebViewController: BaseUIViewController {
     
+    let sourceURL: String?
+    let sourceTitle: String?
+    
     private lazy var backButtonItem: UIBarButtonItem = {
         let buttonItem = UIBarButtonItem(image: Asset.back.withRenderingMode(.alwaysTemplate), style: .plain, target: nil, action: nil)
         buttonItem.tintColor = .selected
@@ -39,12 +42,24 @@ class WebViewController: BaseUIViewController {
     
     private lazy var wkWebViewToolbar = WebViewToolbar()
     
+    init(sourceURL: String, sourceTitle: String) {
+        self.sourceURL = sourceURL
+        self.sourceTitle = sourceTitle
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // 나중에 콘텐츠와 연결할 때 변경이 필요함
-        let url = URL(string: "https://github.com/nbcamp-archive/kkuk-ios")
-        let request = URLRequest(url: url!)
-        wkWebView.load(request)
+
+        if let url = URL(string: sourceURL ?? "") {
+            let request = URLRequest(url: url)
+            titleLabel.text = sourceTitle
+            wkWebView.load(request)
+        }
     }
     
     override func setNavigationBar() {
