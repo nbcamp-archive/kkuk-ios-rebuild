@@ -146,9 +146,23 @@ extension SearchContentViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = contentTableView.dequeueReusableCell(withIdentifier: "ContentTableViewCell", for: indexPath) as! ContentTableViewCell
+        guard let cell = contentTableView.dequeueReusableCell(withIdentifier: "ContentTableViewCell", for: indexPath) as? ContentTableViewCell else {
+            return UITableViewCell()
+        }
+        
         let content = contentList[indexPath.row]
-        cell.configureCell(title: content.title, memo: content.memo, image: content.imageURL, url: content.sourceURL)
+        cell.configureCell(title: content.title, memo: content.memo, image: content.imageURL, url: content.sourceURL, isPinned: false, index: indexPath.row)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = contentList[indexPath.row]
+        
+        let url = item.sourceURL
+        let title = item.title
+        
+        let viewController = WebViewController(sourceURL: url, sourceTitle: title)
+        viewController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }

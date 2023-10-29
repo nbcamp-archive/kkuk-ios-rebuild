@@ -249,6 +249,8 @@ extension AddContentViewController {
                                          category: (self?.selectedCategoryId)!)
                 self?.contentManager.create(content: newContent)
                 
+                self?.dismiss(animated: true)
+                
                 print("ogURL: \(openGraph.ogURL ?? "No data")")
                 print("ogTitle: \(openGraph.ogTitle ?? "No data")")
                 print("ogGraph: \(openGraph.ogImage ?? "No data")")

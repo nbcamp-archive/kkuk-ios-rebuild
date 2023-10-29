@@ -89,10 +89,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let contents = contentManager.read().prefix(5).map { $0 as Content }
-        recentItems = contents
-        tableView.reloadData()
-        recommendPagingView.setItems(items: [])
+        updateItems()
     }
   
     override func setUI() {
@@ -103,6 +100,15 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         tableView.addSubviews([emptyLabel])
     }
     
+    private func updateItems() {
+        let contents = contentManager.read()
+        recentItems = contents.prefix(5).map { $0 as Content }
+        tableView.reloadData()
+        
+        let isPinnedItems = contents.filter { $0.isPinned }
+        recommendPagingView.setItems(items: isPinnedItems)
+    }
+    
     override func setLayout() {
         topFrameView.snp.makeConstraints { constraint in
             constraint.top.equalToSuperview()
@@ -110,7 +116,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         }
         
         subTitleLabel.snp.makeConstraints { constraint in
-            constraint.top.equalTo(view.safeAreaLayoutGuide).offset(40)
+            constraint.top.equalTo(view.safeAreaLayoutGuide)
             constraint.leading.equalTo(20)
         }
         
@@ -183,11 +189,34 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                                                        for: indexPath) as? ContentTableViewCell
         else { return UITableViewCell() }
         let item = recentItems[indexPath.row]
-        
+        cell.delegate = self
         cell.configureCell(title: item.title,
                            memo: item.memo,
                            image: item.imageURL,
-                           url: "url")
+                           url: item.sourceURL,
+                           isPinned: item.isPinned,
+                           index: indexPath.row)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = recentItems[indexPath.row]
+        
+        let url = item.sourceURL
+        let title = item.title
+        
+        let viewController = WebViewController(sourceURL: url, sourceTitle: title)
+        viewController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+}
+
+extension HomeViewController: ContentTableViewCellDelegate {
+    func togglePin(index: Int) {
+        contentManager.update(content: self.recentItems[index]) { [weak self] content in
+            content.isPinned.toggle()
+            self?.updateItems()
+        }
     }
 }

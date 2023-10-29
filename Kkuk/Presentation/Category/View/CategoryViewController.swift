@@ -62,8 +62,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell",
                                                                 for: indexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
             let category = category[indexPath.item - 1]
-//            print(category.id)
-//            print(type(of: category.id))
+
             cell.configure(category: category)
             cell.delegate = self
             return cell
@@ -76,6 +75,8 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
             let customVC = AddCategoryViewController()
             customVC.delegate = self
             let navController = UINavigationController(rootViewController: customVC)
+            navController.modalPresentationStyle = .fullScreen
+            navController.modalTransitionStyle = .coverVertical
             present(navController, animated: true, completion: nil)
         } else {
             let customVC = CategoryInnerViewController()
@@ -88,16 +89,15 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
 }
 
 extension CategoryViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat
-    {
-        20
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
-                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
-    {
-        20
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -115,15 +115,19 @@ extension CategoryViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension CategoryViewController: AddCategoryViewControllerDelegate {
+    
     func reloadCollectionView() {
         category = categoryManager.read()
         categoryCollectionView.reloadData()
     }
+    
 }
 
 extension CategoryViewController: CategoryCollectionViewCellDelegate {
+    
     func deleteCollectionViewCell() {
         category = categoryManager.read()
         categoryCollectionView.reloadData()
     }
+    
 }

@@ -39,7 +39,7 @@ class CategoryInnerViewController: BaseUIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let contents = contentManager.readInCategory(at:category!.id).map { $0 as Content }
+        let contents = contentManager.readInCategory(at: category!.id).map { $0 as Content }
         recentItems = contents
         contentTableView.reloadData()
     }
@@ -72,6 +72,7 @@ class CategoryInnerViewController: BaseUIViewController {
 }
 
 extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recentItems.count
     }
@@ -85,7 +86,21 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         cell.configureCell(title: item.title,
                            memo: item.memo,
                            image: item.imageURL,
-                           url: "url")
+                           url: item.sourceURL,
+                           isPinned: false,
+                           index: indexPath.row)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = recentItems[indexPath.row]
+        
+        let url = item.sourceURL
+        let title = item.title
+        
+        let viewController = WebViewController(sourceURL: url, sourceTitle: title)
+        viewController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
 }
