@@ -17,6 +17,7 @@ class AppInfoViewController: BaseUIViewController {
         let view = UITableView()
         view.separatorStyle = .none
         view.register(SettingItemCell.self, forCellReuseIdentifier: SettingItemCell.identifier)
+        
         return view
     }()
     
@@ -25,7 +26,10 @@ class AppInfoViewController: BaseUIViewController {
     
         view.backgroundColor = UIColor.background
         
+        tableView.isScrollEnabled = false
+        
         setNavigationBar()
+        
         setCustomTitleView()
         
         setUI()
@@ -49,7 +53,7 @@ class AppInfoViewController: BaseUIViewController {
     override func setLayout() {
         tableView.snp.makeConstraints { constraint in
             constraint.leading.trailing.equalToSuperview().inset(20)
-            constraint.top.equalTo(view.safeAreaLayoutGuide).offset(80)
+            constraint.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             constraint.bottom.equalToSuperview()
         }
     }
@@ -96,7 +100,7 @@ extension AppInfoViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 16
+        return 60
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -110,7 +114,7 @@ extension AppInfoViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             cell.configureCell(title: settingItems[indexPath.row])
         case 1:
-            _ = serviceInfoItems[indexPath.row]
+            let title = serviceInfoItems[indexPath.row]
             if indexPath.row == 0 {
                 cell.configureCell(title: serviceInfoItems[indexPath.row], subTitle: "v1.0")
             } else if indexPath.row == 1 {
