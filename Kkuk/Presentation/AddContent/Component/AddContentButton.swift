@@ -55,6 +55,8 @@ class AddContentButton: UIButton {
         
         if isValidURL(with: url) {
             setUI(for: .enable)
+        } else if !url.isEmpty {
+            setUI(for: .enable)
         } else {
             setUI(for: .normal)
         }
