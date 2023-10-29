@@ -118,9 +118,9 @@ class ContentTableViewCell: BaseUITableViewCell {
         }
         
         pinButton.snp.makeConstraints { make in
-            make.top.equalTo(memoLabel.snp.bottom).offset(4)
             make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().inset(12)
+            make.width.height.equalTo(16)
+            make.centerY.equalTo(urlLabel)
         }
     }
 

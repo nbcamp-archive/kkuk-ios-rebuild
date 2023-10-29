@@ -200,8 +200,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath)
+        let item = recentItems[indexPath.row]
+        
+        let url = item.sourceURL
+        let title = item.title
+        
+        let viewController = WebViewController(sourceURL: url, sourceTitle: title)
+        viewController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(viewController, animated: true)
     }
+    
 }
 
 extension HomeViewController: ContentTableViewCellDelegate {
