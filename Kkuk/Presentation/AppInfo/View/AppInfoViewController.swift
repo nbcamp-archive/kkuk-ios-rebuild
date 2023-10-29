@@ -49,7 +49,7 @@ class AppInfoViewController: BaseUIViewController {
     override func setLayout() {
         tableView.snp.makeConstraints { constraint in
             constraint.leading.trailing.equalToSuperview().inset(20)
-            constraint.top.equalTo(view.safeAreaLayoutGuide).offset(100)
+            constraint.top.equalTo(view.safeAreaLayoutGuide).offset(80)
             constraint.bottom.equalToSuperview()
         }
     }
@@ -96,7 +96,7 @@ extension AppInfoViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+        return 16
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -110,7 +110,7 @@ extension AppInfoViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             cell.configureCell(title: settingItems[indexPath.row])
         case 1:
-            let title = serviceInfoItems[indexPath.row]
+            _ = serviceInfoItems[indexPath.row]
             if indexPath.row == 0 {
                 cell.configureCell(title: serviceInfoItems[indexPath.row], subTitle: "v1.0")
             } else if indexPath.row == 1 {

@@ -193,8 +193,7 @@ extension AddCategoryViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // 현재 조합 중인 문자열이 있는지 확인
         if let markedTextRange = textField.markedTextRange,
-           textField.position(from: markedTextRange.start, offset: 0) != nil
-        {
+           textField.position(from: markedTextRange.start, offset: 0) != nil{
             return true
         }
         
