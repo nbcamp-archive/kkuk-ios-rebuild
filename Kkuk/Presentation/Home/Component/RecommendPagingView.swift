@@ -34,8 +34,8 @@ final class RecommendPagingView: UIView {
         return control
     }()
     
-    private var items: [String] = []
-    
+    private var items: [Content] = []
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addSubviews([scrollView, pageControl, emptyStateView])
@@ -71,7 +71,7 @@ final class RecommendPagingView: UIView {
         }
     }
         
-    func setItems(items: [String]) {
+    func setItems(items: [Content]) {
         resetItem()
         if items.isEmpty {
             emptyStateView.isHidden = false
@@ -85,7 +85,7 @@ final class RecommendPagingView: UIView {
         
         for index in 0..<items.count {
             let view = RecommendView()
-            view.configureRecommend(content: items[index], image: nil)
+            view.configureRecommend(content: items[index])
             
             self.scrollView.contentSize.width = width * CGFloat(index+2)
             

@@ -34,4 +34,16 @@ class ContentManager {
             }
             return []
         }
+    
+    func update(content: Content, completion: @escaping (Content) -> Void) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                completion(content)
+            }
+        } catch {
+            print("Failed to update ContentObject: \(error)")
+        }
+    }
+    
 }

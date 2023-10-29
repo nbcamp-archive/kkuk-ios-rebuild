@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol ContentTableViewCellDelegate: AnyObject {
+    func togglePin(index: Int)
+}
+
 class ContentTableViewCell: BaseUITableViewCell {
+    weak var delegate: ContentTableViewCellDelegate?
+    
+    private var contentManager = ContentManager()
     
     private lazy var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
@@ -50,17 +57,17 @@ class ContentTableViewCell: BaseUITableViewCell {
     // 향후 컨텐츠 수정 및 삭제 등과 연결해서 변경 예정
     private lazy var pinButton: UIButton = {
         let button = UIButton()
-        button.setTitle("pin", for: .normal)
-        button.setTitleColor(.text1, for: .normal)
-        button.titleLabel?.font = .subtitle3
         button.addTarget(self, action: #selector(tappedPinButton(_:)), for: .touchUpInside)
+        
         return button
     }()
     
-    func configureCell(title: String, memo: String?, image: String?, url: String) {
+    func configureCell(title: String, memo: String?, image: String?, url: String, isPinned: Bool, index: Int) {
+        
         siteTitleLabel.text = title
         memoLabel.text = memo
         urlLabel.text = "http://naver.com/http://naver.com/http://naver.com/http://naver.com/http://naver.com/"
+        pinButton.tag = index
         
         DispatchQueue.global().async {
             guard let url = URL(string: image ?? ""),
@@ -114,8 +121,8 @@ class ContentTableViewCell: BaseUITableViewCell {
             make.bottom.equalToSuperview().inset(12)
         }
     }
-    
+
     @objc func tappedPinButton(_ sender: UIButton) {
-        print("pin touch test")
+        delegate?.togglePin(index: sender.tag)
     }
 }

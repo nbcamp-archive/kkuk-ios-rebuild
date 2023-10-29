@@ -51,8 +51,16 @@ final class RecommendView: UIView {
         }
     }
     
-    func configureRecommend(content: String, image: UIImage?) {
-        self.contentLabel.text = content
-        self.imageView.image = image
+    func configureRecommend(content: Content) {
+        self.contentLabel.text = content.title
+        let url = content.imageURL
+        DispatchQueue.global().async {
+            guard let url = URL(string: url ?? ""),
+                  let data = try? Data(contentsOf: url) else { return }
+            
+            DispatchQueue.main.async {
+                self.imageView.image = UIImage(data: data)
+            }
+        }
     }
 }
