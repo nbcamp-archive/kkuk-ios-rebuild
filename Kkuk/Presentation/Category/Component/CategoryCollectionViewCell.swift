@@ -60,7 +60,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         let modify = UIAction(title: "수정하기", handler: { _ in print("수정하기") })
         let delete = UIAction(title: "삭제하기", handler: { [self] _ in categoryManager.delete(category!)
-            print("ždddfffż")
             self.delegate?.deleteCollectionViewCell()
         })
         let cancel = UIAction(title: "취소", attributes: .destructive, handler: { _ in })

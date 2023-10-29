@@ -9,24 +9,21 @@ import SnapKit
 import UIKit
 
 class CategoryInnerViewController: BaseUIViewController {
-    private let contentList: [String] = ["ddddd"]
+    private var contentManager = ContentManager()
     
-    private lazy var navLabel = UINavigationItem(title: "카테고리 이름")
+    private var recentItems: [Content] = [] {
+        didSet {
+            noContentLabel.isHidden = !recentItems.isEmpty
+        }
+    }
+    
+    var category: Category?
     
     private lazy var contentTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(ContentTableViewCell.self, forCellReuseIdentifier: "ContentTableViewCell")
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return tableView
-    }()
-    
-    private lazy var navigationBar: UINavigationBar = {
-        let navigationBar = UINavigationBar()
-        let leftBarButton = UIBarButtonItem(title: "카테고리", style: .plain, target: self, action: #selector(categoryButtonTapped))
-        navLabel.leftBarButtonItem = leftBarButton
-        leftBarButton.tintColor = .main
-        navigationBar.setItems([navLabel], animated: true)
-        return navigationBar
     }()
     
     private lazy var noContentLabel: UILabel = {
@@ -36,22 +33,24 @@ class CategoryInnerViewController: BaseUIViewController {
         label.textColor = .text1
         label.numberOfLines = 1
         label.textAlignment = .center
-        label.isHidden = !contentList.isEmpty
+        label.isHidden = !recentItems.isEmpty
         return label
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let contents = contentManager.readInCategory(at:category!.id).map { $0 as Content }
+        recentItems = contents
+        contentTableView.reloadData()
+    }
 
     override func setUI() {
-        view.addSubviews([navigationBar, contentTableView, noContentLabel])
+        view.addSubviews([contentTableView, noContentLabel])
     }
     
     override func setLayout() {
-        navigationBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.leading.trailing.equalToSuperview()
-        }
-        
         contentTableView.snp.makeConstraints { make in
-            make.top.equalTo(navigationBar.snp.bottom)
+            make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
@@ -70,19 +69,23 @@ class CategoryInnerViewController: BaseUIViewController {
     @objc func categoryButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
-    
-    @objc func configure(category: Category) {
-        navLabel.title = category.name
-    }
 }
 
 extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contentList.count
+        return recentItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = contentTableView.dequeueReusableCell(withIdentifier: "ContentTableViewCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ContentTableViewCell",
+                                                       for: indexPath) as? ContentTableViewCell
+        else { return UITableViewCell() }
+        let item = recentItems[indexPath.row]
+        
+        cell.configureCell(title: item.title,
+                           memo: item.memo,
+                           image: item.imageURL,
+                           url: "url")
         return cell
     }
 }
