@@ -216,7 +216,6 @@
 				1C79EFFE2AE7E46700B5A97A /* Service */,
 				1C2843DD2ADD477A00A87E99 /* Core */,
 				1C2843992ADC2CD400A87E99 /* Presentation */,
-				1C2843922ADC2C5600A87E99 /* Resource */,
 				1C28438F2ADB9D8800A87E99 /* Global */,
 				1C28438A2ADB9D0D00A87E99 /* Application */,
 			);
@@ -253,6 +252,7 @@
 		1C28438F2ADB9D8800A87E99 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				1C2843922ADC2C5600A87E99 /* Resource */,
 				1CAEBE652AEBE88B00FF4CF2 /* Component */,
 				1C79EFF72AE7673D00B5A97A /* Enum */,
 				1C2843D42ADD2F8000A87E99 /* Extension */,
@@ -945,7 +945,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Kkuk/Resource/Info.plist;
+				INFOPLIST_FILE = Kkuk/Global/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -972,7 +972,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Kkuk/Resource/Info.plist;
+				INFOPLIST_FILE = Kkuk/Global/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
