@@ -30,6 +30,8 @@ class AddContentViewController: BaseUIViewController {
     
     private lazy var induceCategoryLabel = InduceLabel(text: "카테고리 선택하기", font: .title2)
     
+    private lazy var optionalLabel = OptionalLabel(frame: .zero)
+    
     private lazy var memoContainerView = UIView()
     
     private lazy var URLTextField: UITextField = {
@@ -60,20 +62,6 @@ class AddContentViewController: BaseUIViewController {
         label.font = .body3
         label.text = "0/75자"
         label.textColor = .subgray1
-        return label
-    }()
-    
-    private lazy var requiredLabel: UILabel = {
-        let label = UILabel()
-        label.text = "필수"
-        label.font = .body3
-        label.textColor = .subgray1
-        return label
-    }()
-    
-    private lazy var optionalLabel: UILabel = {
-        let label = UILabel()
-        label.text = "선택"
         return label
     }()
     
@@ -121,7 +109,7 @@ class AddContentViewController: BaseUIViewController {
         
         memoContainerView.addSubviews([memoTextView, memoTextCountLabel])
         
-        view.addSubviews([induceURLLabel, induceMemoLabel, induceCategoryLabel,
+        view.addSubviews([induceURLLabel, induceMemoLabel, optionalLabel, induceCategoryLabel,
                           URLTextField, memoContainerView, setCategoryCollectionView, addContentButton])
     }
     
@@ -139,6 +127,11 @@ class AddContentViewController: BaseUIViewController {
         induceMemoLabel.snp.makeConstraints {
             $0.top.equalTo(URLTextField.snp.bottom).offset(20)
             $0.leading.equalTo(induceURLLabel)
+        }
+        optionalLabel.snp.makeConstraints {
+            $0.top.equalTo(URLTextField.snp.bottom).offset(20)
+            $0.leading.equalTo(induceMemoLabel.snp.trailing).offset(8)
+            $0.height.equalTo(induceMemoLabel.snp.height)
         }
         memoContainerView.snp.makeConstraints {
             $0.top.equalTo(induceMemoLabel.snp.bottom).offset(14)
