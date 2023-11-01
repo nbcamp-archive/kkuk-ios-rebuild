@@ -37,6 +37,11 @@ class CategoryInnerViewController: BaseUIViewController {
         return label
     }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setNavigationBar()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let contents = contentManager.readInCategory(at: category!.id).map { $0 as Content }
@@ -68,6 +73,10 @@ class CategoryInnerViewController: BaseUIViewController {
     
     @objc func categoryButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    override func setNavigationBar() {
+        title = category?.name
     }
 }
 
