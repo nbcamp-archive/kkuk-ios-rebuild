@@ -119,7 +119,8 @@ class ContentTableViewCell: BaseUITableViewCell {
         
         pinButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
-            make.width.height.equalTo(16)
+            make.height.equalTo(18)
+            make.width.equalTo(12)
             make.centerY.equalTo(urlLabel)
         }
     }

@@ -113,6 +113,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         topFrameView.snp.makeConstraints { constraint in
             constraint.top.equalToSuperview()
             constraint.width.equalTo(view.safeAreaLayoutGuide)
+            constraint.height.equalTo(view.snp.height).multipliedBy(0.55)
         }
         
         subTitleLabel.snp.makeConstraints { constraint in

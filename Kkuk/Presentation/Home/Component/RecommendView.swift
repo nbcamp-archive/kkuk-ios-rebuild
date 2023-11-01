@@ -24,13 +24,28 @@ final class RecommendView: UIView {
         return label
     }()
     
+    private let circleView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .background
+        view.layer.cornerRadius = 15
+        
+        return view
+    }()
+    
+    private let pinButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "selectedPin"), for: .normal)
+        
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .background
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 12
         
-        addSubviews([imageView, contentLabel])
+        addSubviews([imageView, circleView, pinButton, contentLabel])
         setLayout()
     }
     
@@ -42,12 +57,25 @@ final class RecommendView: UIView {
     private func setLayout() {
         imageView.snp.makeConstraints { constraint in
             constraint.horizontalEdges.top.equalToSuperview()
-            constraint.height.equalTo(162)
+            constraint.height.equalTo(140)
         }
         
         contentLabel.snp.makeConstraints { constraint in
-            constraint.bottom.horizontalEdges.equalToSuperview().inset(16)
-            constraint.top.equalTo(imageView.snp.bottom).offset(16)
+            constraint.bottom.horizontalEdges.equalToSuperview().inset(14)
+            constraint.top.equalTo(imageView.snp.bottom).offset(14)
+        }
+        
+        circleView.snp.makeConstraints { constraint in
+            constraint.trailing.equalTo(-11)
+            constraint.width.height.equalTo(30)
+            constraint.top.equalTo(imageView.snp.top).offset(10)
+        }
+        
+        pinButton.snp.makeConstraints { constraint in
+            constraint.centerX.equalTo(circleView.snp.centerX)
+            constraint.centerY.equalTo(circleView.snp.centerY)
+            constraint.height.equalTo(18)
+            constraint.width.equalTo(12)
         }
     }
     
@@ -63,4 +91,5 @@ final class RecommendView: UIView {
             }
         }
     }
+    
 }

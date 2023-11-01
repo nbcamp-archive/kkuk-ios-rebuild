@@ -39,7 +39,7 @@ class EmptyStateView: UIStackView {
     private func setLayout() {
         emptyStateImageView.snp.makeConstraints { constraint in
             constraint.top.equalToSuperview()
-            constraint.width.height.equalTo(200)
+            constraint.width.height.equalTo(140)
             constraint.leading.trailing.equalToSuperview()
         }
         
