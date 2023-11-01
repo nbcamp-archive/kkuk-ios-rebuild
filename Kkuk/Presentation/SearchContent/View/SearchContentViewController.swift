@@ -19,14 +19,6 @@ class SearchContentViewController: BaseUIViewController {
         searchBar.placeholder = "검색어를 입력하세요"
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
-        
-        if let textField = searchBar.value(forKey: "searchField") as? UITextField {
-            textField.backgroundColor = .clear
-            textField.layer.borderWidth = 1.0
-            textField.layer.borderColor = UIColor.black.cgColor
-            textField.layer.cornerRadius = 12.0
-          }
-        
         return searchBar
     }()
     
@@ -55,6 +47,11 @@ class SearchContentViewController: BaseUIViewController {
         view.addSubview(recentSearchContentViewController.view)
         return view
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        toggleTextFieldStyle(isTapped: false)
+    }
 
     override func setUI() {
         addChild(recentSearchContentViewController)
@@ -124,6 +121,14 @@ extension SearchContentViewController: UISearchBarDelegate {
         }
     }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        toggleTextFieldStyle(isTapped: true)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        toggleTextFieldStyle(isTapped: false)
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text else { return }
         reloadData(with: searchText)
@@ -137,6 +142,22 @@ extension SearchContentViewController: UISearchBarDelegate {
     func toggleContainerViewVisibility(isShow: Bool) {
         containerView.isHidden = !isShow
         recentSearchContentViewController.reloadData()
+    }
+    
+    func toggleTextFieldStyle(isTapped: Bool) {
+        if isTapped {
+            searchBar.searchTextField.backgroundColor = .background
+            searchBar.searchTextField.layer.borderWidth = 2
+            searchBar.searchTextField.layer.cornerRadius = 5
+            searchBar.searchTextField.layer.borderColor = UIColor.main.cgColor
+            searchBar.searchTextField.layer.masksToBounds = true
+        } else {
+            searchBar.searchTextField.backgroundColor = .clear
+            searchBar.searchTextField.layer.borderWidth = 0
+            searchBar.searchTextField.layer.borderColor = .none
+            searchBar.searchTextField.resignFirstResponder()
+            searchBar.searchTextField.text = .none
+        }
     }
 }
 
