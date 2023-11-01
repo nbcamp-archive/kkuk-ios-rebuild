@@ -14,15 +14,21 @@ import UIKit
 
 class AddContentViewController: BaseUIViewController {
     
+    // MARK: - 프로퍼티
+    
     private var contentManager = ContentManager()
     
     private var categoryManager = RealmCategoryManager.shared
     
-    private var categories: [Category] = []
+    private var categories = [Category]()
     
     private var selectedCategoryId: ObjectId?
     
-    private lazy var addContentButton = AddContentButton(frame: .zero)
+    private var sourceURL = ""
+    
+    // MARK: - 컴포넌트
+
+    private lazy var addContentButton = CompleteButton(frame: .zero)
     
     private lazy var induceURLLabel = InduceLabel(text: "링크 입력 및 붙여넣기", font: .title2)
     
@@ -43,6 +49,16 @@ class AddContentViewController: BaseUIViewController {
         textField.placeholder = "https://www.example.com"
         textField.tintColor = .main
         return textField
+    }()
+    
+    private lazy var URLTextFieldValidLabel: UILabel = {
+        let label = UILabel()
+        label.font = .body3
+        label.textColor = .systemRed
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.isHidden = true
+        return label
     }()
     
     private lazy var memoTextView: UITextView = {
@@ -85,10 +101,11 @@ class AddContentViewController: BaseUIViewController {
         return barButtonItem
     }()
     
+    // MARK: - 오버라이딩 메서드
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        URLTextField.becomeFirstResponder()
         categories = categoryManager.read()
     }
     
@@ -109,8 +126,8 @@ class AddContentViewController: BaseUIViewController {
         
         memoContainerView.addSubviews([memoTextView, memoTextCountLabel])
         
-        view.addSubviews([induceURLLabel, induceMemoLabel, optionalLabel, induceCategoryLabel,
-                          URLTextField, memoContainerView, setCategoryCollectionView, addContentButton])
+        view.addSubviews([induceURLLabel, induceMemoLabel, induceCategoryLabel,
+                          URLTextField, URLTextFieldValidLabel, memoContainerView, setCategoryCollectionView, addContentButton])
     }
     
     override func setLayout() {
@@ -124,14 +141,14 @@ class AddContentViewController: BaseUIViewController {
             $0.trailing.equalTo(-20)
             $0.height.equalTo(48)
         }
-        induceMemoLabel.snp.makeConstraints {
-            $0.top.equalTo(URLTextField.snp.bottom).offset(20)
-            $0.leading.equalTo(induceURLLabel)
+        URLTextFieldValidLabel.snp.makeConstraints {
+            $0.top.equalTo(URLTextField.snp.bottom).offset(8)
+            $0.leading.equalTo(20)
+            $0.trailing.equalTo(-20)
         }
-        optionalLabel.snp.makeConstraints {
-            $0.top.equalTo(URLTextField.snp.bottom).offset(20)
-            $0.leading.equalTo(induceMemoLabel.snp.trailing).offset(8)
-            $0.height.equalTo(induceMemoLabel.snp.height)
+        induceMemoLabel.snp.makeConstraints {
+            $0.top.equalTo(URLTextFieldValidLabel.snp.bottom).offset(20)
+            $0.leading.equalTo(induceURLLabel)
         }
         memoContainerView.snp.makeConstraints {
             $0.top.equalTo(induceMemoLabel.snp.bottom).offset(14)
@@ -157,8 +174,9 @@ class AddContentViewController: BaseUIViewController {
             $0.height.equalTo(160)
         }
         addContentButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
             $0.height.equalTo(60)
         }
     }
@@ -166,15 +184,11 @@ class AddContentViewController: BaseUIViewController {
     override func setDelegate() {
         URLTextField.delegate = self
         memoTextView.delegate = self
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
-                                               name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
-                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func addTarget() {
         addContentButton.addTarget(self, action: #selector(addContentButtonDidTap), for: .touchUpInside)
+        URLTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
     override func setNavigationBar() {
@@ -198,27 +212,39 @@ class AddContentViewController: BaseUIViewController {
 
 extension AddContentViewController {
     
-    @objc
-    private func keyboardWillShow(_ notification: Notification) {
-        guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
-            return
-        }
-        
-        let keyboardHeight = view.convert(keyboardFrame, from: nil).size.height
-        
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.addContentButton.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight)
-            self?.view.layoutIfNeeded()
+    private func updateAddContentButtonState(with text: String) {
+        if isValidURL(with: sourceURL), !sourceURL.isEmpty {
+            addContentButton.setUI(to: .enable)
+            URLTextFieldValidLabel.isHidden = false
+            URLTextFieldValidLabel.textColor = .systemBlue
+            URLTextFieldValidLabel.text = "올바른 형식의 링크입니다."
+        } else if sourceURL.isEmpty {
+            addContentButton.setUI(to: .disable)
+            URLTextFieldValidLabel.isHidden = false
+            URLTextFieldValidLabel.text = "링크를 추가해야 합니다."
+        } else if sourceURL.range(of: ".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*", options: .regularExpression) != nil {
+            addContentButton.setUI(to: .disable)
+            URLTextFieldValidLabel.isHidden = false
+            URLTextFieldValidLabel.text = "지원하지 않는 형식의 링크입니다."
         }
     }
     
-    @objc
-    func keyboardWillHide(_ notification: Notification) {
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.addContentButton.transform = .identity
-            self?.view.layoutIfNeeded()
+    private func isValidURL(with url: String) -> Bool {
+        if let url = NSURL(string: url) {
+            return UIApplication.shared.canOpenURL(url as URL)
         }
+        return false
+    }
+    
+}
+
+// MARK: - @objc
+
+extension AddContentViewController {
+    
+    @objc
+    func textFieldDidChange(_ textField: UITextField) {
+        sourceURL = URLTextField.text ?? ""
     }
     
     @objc
@@ -265,19 +291,23 @@ extension AddContentViewController: UITextFieldDelegate {
         URLTextField.layer.cornerRadius = CGFloat(5)
         URLTextField.layer.borderColor = UIColor.main.cgColor
         URLTextField.layer.masksToBounds = true
+        
+        updateAddContentButtonState(with: sourceURL)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         URLTextField.backgroundColor = .subgray3
         URLTextField.layer.borderWidth = CGFloat(0)
         URLTextField.layer.borderColor = .none
-        addContentButton.updateButtonState(with: URLTextField.text)
+        
+        updateAddContentButtonState(with: sourceURL)
     }
     
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let updateText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
-        addContentButton.updateButtonState(with: updateText)
+        let updateText = (sourceURL as NSString).replacingCharacters(in: range, with: string)
+        
+        updateAddContentButtonState(with: updateText)
         return true
     }
     
