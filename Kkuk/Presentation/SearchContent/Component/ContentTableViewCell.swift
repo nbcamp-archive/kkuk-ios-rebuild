@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 protocol ContentTableViewCellDelegate: AnyObject {
     func togglePin(index: Int)
@@ -62,23 +63,16 @@ class ContentTableViewCell: BaseUITableViewCell {
         return button
     }()
     
-    func configureCell(title: String, memo: String?, image: String?, url: String, isPinned: Bool, index: Int) {
-        thumbnailImageView.image = UIImage(systemName: "photo")
-        siteTitleLabel.text = title
-        memoLabel.text = memo
-        urlLabel.text = url
-        pinButton.tag = index
-        let pinImage = isPinned ? UIImage(named: "selectedPin") : UIImage(named: "Pin")
-        pinButton.setImage(pinImage, for: .normal)
+    func configureCell(content: Content, index: Int) {
+        siteTitleLabel.text = content.title
+        memoLabel.text = content.memo
+        urlLabel.text = content.sourceURL
         
-        DispatchQueue.global().async {
-            guard let url = URL(string: image ?? ""),
-                  let data = try? Data(contentsOf: url) else { return }
-            
-            DispatchQueue.main.async {
-                self.thumbnailImageView.image = UIImage(data: data)
-            }
-        }
+        let pinImage = content.isPinned ? UIImage(named: "selectedPin") : UIImage(named: "Pin")
+        pinButton.setImage(pinImage, for: .normal)
+        pinButton.tag = index
+        
+        setUpImage(imageURL: content.imageURL)
     }
     
     override func layoutSubviews() {
@@ -123,6 +117,41 @@ class ContentTableViewCell: BaseUITableViewCell {
             make.centerY.equalTo(urlLabel)
         }
     }
+    
+    func setUpImage(imageURL: String?) {
+        guard var url = imageURL else { return }
+
+        // http 포함 -> https로 변경
+        if url.contains("http:") {
+            if let range = url.range(of: "http:") {
+                url.replaceSubrange(range, with: "https:")
+            }
+        // http 미포함 -> https를 접두에 추가
+        // (이 조건은 https가 포함되어 있을 때도 만족하기 떄문에 조건에서 제거해줘야함)
+        } else if !url.contains("https:") {
+            url = "https:" + url
+        }
+        
+        guard let https = url.range(of: "https:") else { return }
+  
+        url = String(url.suffix(from: https.lowerBound))
+        
+        AF.request(url)
+            .responseData { response in
+                switch response.result {
+                case .success(let data):
+                    if let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self.thumbnailImageView.image = image
+                        }
+                    }
+                case .failure(let error):
+                    print("AF error : \(error)")
+                    print("AF error URL : \(url)")
+                }
+            }
+    }
+
 
     @objc func tappedPinButton(_ sender: UIButton) {
         delegate?.togglePin(index: sender.tag)
