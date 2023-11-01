@@ -33,7 +33,7 @@ class AddCategoryViewController: BaseUIViewController {
     
     private lazy var categoryNameLimitLabel: UILabel = {
         let label = UILabel()
-        label.text = "0/20"
+        label.text = "0/15"
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .gray
         label.textAlignment = .right
@@ -83,7 +83,7 @@ class AddCategoryViewController: BaseUIViewController {
         
         iconImageNames.forEach { imageName in
             let button = IconSelectButton()
-            let image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
+            _ = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
             
             button.setImage(UIImage(named: imageName), for: .normal)
             button.addTarget(self, action: #selector(iconButtonTapped(_:)), for: .touchUpInside)
@@ -216,7 +216,7 @@ extension AddCategoryViewController {
     @objc
     private func textFieldDidChange(_ textField: UITextField) {
         let count = textField.text?.count ?? 0
-        categoryNameLimitLabel.text = "\(count)/20"
+        categoryNameLimitLabel.text = "\(count)/15"
     }
     
     @objc
@@ -310,9 +310,8 @@ extension AddCategoryViewController: UITextFieldDelegate {
         
         let newLength = currentText.count + string.count - range.length
         
-        categoryNameLimitLabel.text = "\(newLength)/20"
+        categoryNameLimitLabel.text = "\(newLength)/15"
         
-        return newLength <= 20
+        return newLength <= 15
     }
-    
 }
