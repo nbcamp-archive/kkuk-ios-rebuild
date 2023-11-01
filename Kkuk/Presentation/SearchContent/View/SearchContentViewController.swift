@@ -51,9 +51,18 @@ class SearchContentViewController: BaseUIViewController {
         return view
     }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setNavigationBar()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         toggleTextFieldStyle(isTapped: false)
+    }
+    
+    override func setNavigationBar() {
+        title = "검색"
     }
 
     override func setUI() {
