@@ -46,7 +46,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     private var recentLabel: UILabel = {
         let label = UILabel()
-        label.text = "최근 보관한 항목"
+        label.text = "최근 보관한 콘텐츠"
         label.font = .title3
         label.textColor = .text1
         
