@@ -152,7 +152,6 @@ class ContentTableViewCell: BaseUITableViewCell {
             }
     }
 
-
     @objc func tappedPinButton(_ sender: UIButton) {
         delegate?.togglePin(index: sender.tag)
     }
