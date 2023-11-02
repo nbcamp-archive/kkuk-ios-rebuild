@@ -18,7 +18,7 @@ final class RecommendPagingView: UIView {
     
     let itemStackView: UIStackView = {
         let view = UIStackView()
-        view.spacing = 40
+        view.spacing = 50
 
         return view
     }()
@@ -55,7 +55,7 @@ final class RecommendPagingView: UIView {
         
         self.itemStackView.snp.makeConstraints { constraint in
             constraint.top.equalToSuperview()
-            constraint.horizontalEdges.equalToSuperview().inset(20)
+            constraint.horizontalEdges.equalToSuperview().inset(25)
         }
         
         self.pageControl.snp.makeConstraints { constraint in
@@ -81,16 +81,15 @@ final class RecommendPagingView: UIView {
         
         self.items = items
         self.pageControl.numberOfPages = items.count
-        let width = UIScreen.main.bounds.width-40
+        let width = UIScreen.main.bounds.width - 50
         
         for index in 0..<items.count {
+            
             let view = RecommendView()
             view.configureRecommend(content: items[index])
-            
-            self.scrollView.contentSize.width = width * CGFloat(index+2)
-            
+                        
             itemStackView.addArrangedSubview(view)
-            
+
             view.snp.makeConstraints { constraint in
                 constraint.width.equalTo(width)
             }

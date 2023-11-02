@@ -10,7 +10,7 @@ import UIKit
 class EmptyStateView: UIStackView {
     private var emptyStateImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "empty")
+        imageView.image = Asset.refresh
         imageView.contentMode = .scaleAspectFit
         
         return imageView
@@ -39,7 +39,7 @@ class EmptyStateView: UIStackView {
     private func setLayout() {
         emptyStateImageView.snp.makeConstraints { constraint in
             constraint.top.equalToSuperview()
-            constraint.width.height.equalTo(200)
+            constraint.width.height.equalTo(140)
             constraint.leading.trailing.equalToSuperview()
         }
         

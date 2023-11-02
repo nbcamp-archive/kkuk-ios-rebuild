@@ -46,7 +46,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     private var recentLabel: UILabel = {
         let label = UILabel()
-        label.text = "최근 보관한 항목"
+        label.text = "최근 보관한 콘텐츠"
         label.font = .title3
         label.textColor = .text1
         
@@ -107,12 +107,18 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         
         let isPinnedItems = contents.filter { $0.isPinned }
         recommendPagingView.setItems(items: isPinnedItems)
+        
+        recommendPagingView.itemStackView.subviews.forEach {
+            let view = $0 as? RecommendView
+            view?.delegate = self
+        }
     }
     
     override func setLayout() {
         topFrameView.snp.makeConstraints { constraint in
             constraint.top.equalToSuperview()
             constraint.width.equalTo(view.safeAreaLayoutGuide)
+            constraint.height.equalTo(view.snp.height).multipliedBy(0.55)
         }
         
         subTitleLabel.snp.makeConstraints { constraint in
@@ -137,7 +143,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         }
         
         plusButton.snp.makeConstraints { constraint in
-            constraint.bottom.equalTo(view.safeAreaLayoutGuide).offset(-32)
+            constraint.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
             constraint.trailing.equalTo(-20)
             constraint.height.width.equalTo(60)
         }
@@ -213,5 +219,11 @@ extension HomeViewController: ContentTableViewCellDelegate {
             content.isPinned.toggle()
             self?.updateItems()
         }
+    }
+}
+
+extension HomeViewController: RecommendViewDelegate {
+    func selectedPin() {
+        updateItems()
     }
 }

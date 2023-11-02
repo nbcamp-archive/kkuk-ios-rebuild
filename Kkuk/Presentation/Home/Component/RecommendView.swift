@@ -7,10 +7,22 @@
 
 import UIKit
 
+protocol RecommendViewDelegate: AnyObject {
+    func selectedPin()
+}
+
 final class RecommendView: UIView {
+    private var item: Content?
+    
+    weak var delegate: RecommendViewDelegate?
+    
+    private var contentManager = ContentManager()
+    
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .subgray2
+        view.contentMode = .scaleAspectFill
+        view.clipsToBounds = true
         
         return view
     }()
@@ -24,13 +36,29 @@ final class RecommendView: UIView {
         return label
     }()
     
+    private let circleView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .background
+        view.layer.cornerRadius = 15
+        
+        return view
+    }()
+    
+    private lazy var pinButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "selectedPin"), for: .normal)
+        button.addTarget(self, action: #selector(tapPinButton), for: .touchUpInside)
+        
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .background
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 12
         
-        addSubviews([imageView, contentLabel])
+        addSubviews([imageView, circleView, pinButton, contentLabel])
         setLayout()
     }
     
@@ -42,16 +70,30 @@ final class RecommendView: UIView {
     private func setLayout() {
         imageView.snp.makeConstraints { constraint in
             constraint.horizontalEdges.top.equalToSuperview()
-            constraint.height.equalTo(162)
+            constraint.height.equalTo(150)
         }
         
         contentLabel.snp.makeConstraints { constraint in
-            constraint.bottom.horizontalEdges.equalToSuperview().inset(16)
-            constraint.top.equalTo(imageView.snp.bottom).offset(16)
+            constraint.bottom.horizontalEdges.equalToSuperview().inset(14)
+            constraint.top.equalTo(imageView.snp.bottom).offset(14)
+        }
+        
+        circleView.snp.makeConstraints { constraint in
+            constraint.trailing.equalTo(-11)
+            constraint.width.height.equalTo(30)
+            constraint.top.equalTo(imageView.snp.top).offset(10)
+        }
+        
+        pinButton.snp.makeConstraints { constraint in
+            constraint.centerX.equalTo(circleView.snp.centerX)
+            constraint.centerY.equalTo(circleView.snp.centerY)
+            constraint.height.equalTo(18)
+            constraint.width.equalTo(12)
         }
     }
     
     func configureRecommend(content: Content) {
+        self.item = content
         self.contentLabel.text = content.title
         let url = content.imageURL
         DispatchQueue.global().async {
@@ -63,4 +105,14 @@ final class RecommendView: UIView {
             }
         }
     }
+    
+    @objc func tapPinButton(_ sender: UIButton) {
+        guard let item else { return }
+        contentManager.update(content: item) { item in
+            item.isPinned.toggle()
+        }
+        
+        delegate?.selectedPin()
+    }
+
 }
