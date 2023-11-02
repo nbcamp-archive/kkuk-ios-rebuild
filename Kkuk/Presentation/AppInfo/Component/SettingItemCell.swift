@@ -13,16 +13,16 @@ class SettingItemCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black // 색상 조정
-        label.font = UIFont.subtitle2 // 글꼴 및 크기 조정
+        label.textColor = .text1
+        label.font = UIFont.subtitle2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let subTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.black // 색상 조정
-        label.font = UIFont.subtitle2// 글꼴 및 크기 조정
+        label.textColor = .text1
+        label.font = UIFont.subtitle2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

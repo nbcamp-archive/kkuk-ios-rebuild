@@ -83,7 +83,7 @@ class AddCategoryViewController: BaseUIViewController {
         
         iconImageNames.forEach { imageName in
             let button = IconSelectButton()
-            let image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
+            _ = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
             
             button.setImage(UIImage(named: imageName), for: .normal)
             button.addTarget(self, action: #selector(iconButtonTapped(_:)), for: .touchUpInside)
@@ -314,5 +314,4 @@ extension AddCategoryViewController: UITextFieldDelegate {
         
         return newLength <= 20
     }
-    
 }
