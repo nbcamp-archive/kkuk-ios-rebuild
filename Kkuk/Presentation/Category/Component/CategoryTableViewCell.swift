@@ -9,13 +9,13 @@ import RealmSwift
 import SnapKit
 import UIKit
 
-protocol CategoryCollectionViewCellDelegate: AnyObject {
-    func deleteCollectionViewCell()
+protocol CategoryTableViewCellDelegate: AnyObject {
+    func deleteTableViewCell()
 }
 
-class CategoryCollectionViewCell: BaseUITableViewCell {
+class CategoryTableViewCell: BaseUITableViewCell {
     private let categoryManager = RealmCategoryManager.shared
-    weak var delegate: CategoryCollectionViewCellDelegate?
+    weak var delegate: CategoryTableViewCellDelegate?
     private var category: Category?
     private var id: Int?
     

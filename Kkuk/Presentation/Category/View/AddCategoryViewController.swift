@@ -9,7 +9,7 @@ import SnapKit
 import UIKit
 
 protocol AddCategoryViewControllerDelegate: AnyObject {
-    func reloadCollectionView()
+    func reloadTableView()
 }
 
 class AddCategoryViewController: BaseUIViewController {
@@ -247,7 +247,7 @@ extension AddCategoryViewController {
         }
         
         // 화면 닫기
-        delegate?.reloadCollectionView()
+        delegate?.reloadTableView()
         dismiss(animated: true, completion: nil)
     }
     

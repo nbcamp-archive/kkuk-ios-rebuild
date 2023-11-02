@@ -16,7 +16,7 @@ class CategoryViewController: BaseUIViewController {
 
     private lazy var categoryTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(CategoryCollectionViewCell.self, forCellReuseIdentifier: "CategoryCollectionViewCell")
+        tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategoryTableViewCell")
         return tableView
     }()
     
@@ -133,8 +133,8 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCollectionViewCell", for: indexPath)
-            as? CategoryCollectionViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for: indexPath)
+            as? CategoryTableViewCell else { return UITableViewCell() }
         let category = category[indexPath.item]
         cell.configure(category: category)
         cell.delegate = self
@@ -180,7 +180,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
             let swipeAction = UISwipeActionsConfiguration(actions: [delete])
-            swipeAction.performsFirstActionWithFullSwipe = false // This is the line which disables full swipe
+            swipeAction.performsFirstActionWithFullSwipe = false
             return swipeAction
         } else {
             let config = UISwipeActionsConfiguration()
@@ -191,14 +191,14 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension CategoryViewController: AddCategoryViewControllerDelegate {
-    func reloadCollectionView() {
+    func reloadTableView() {
         category = categoryManager.read()
         categoryTableView.reloadData()
     }
 }
 
-extension CategoryViewController: CategoryCollectionViewCellDelegate {
-    func deleteCollectionViewCell() {
+extension CategoryViewController: CategoryTableViewCellDelegate {
+    func deleteTableViewCell() {
         category = categoryManager.read()
         categoryTableView.reloadData()
     }
