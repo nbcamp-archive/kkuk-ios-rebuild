@@ -7,10 +7,22 @@
 
 import UIKit
 
+protocol RecommendViewDelegate: AnyObject {
+    func selectedPin()
+}
+
 final class RecommendView: UIView {
+    private var item: Content?
+    
+    weak var delegate: RecommendViewDelegate?
+    
+    private var contentManager = ContentManager()
+    
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .subgray2
+        view.contentMode = .scaleAspectFill
+        view.clipsToBounds = true
         
         return view
     }()
@@ -32,9 +44,10 @@ final class RecommendView: UIView {
         return view
     }()
     
-    private let pinButton: UIButton = {
+    private lazy var pinButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "selectedPin"), for: .normal)
+        button.addTarget(self, action: #selector(tapPinButton), for: .touchUpInside)
         
         return button
     }()
@@ -57,7 +70,7 @@ final class RecommendView: UIView {
     private func setLayout() {
         imageView.snp.makeConstraints { constraint in
             constraint.horizontalEdges.top.equalToSuperview()
-            constraint.height.equalTo(140)
+            constraint.height.equalTo(150)
         }
         
         contentLabel.snp.makeConstraints { constraint in
@@ -80,6 +93,7 @@ final class RecommendView: UIView {
     }
     
     func configureRecommend(content: Content) {
+        self.item = content
         self.contentLabel.text = content.title
         let url = content.imageURL
         DispatchQueue.global().async {
@@ -92,4 +106,13 @@ final class RecommendView: UIView {
         }
     }
     
+    @objc func tapPinButton(_ sender: UIButton) {
+        guard let item else { return }
+        contentManager.update(content: item) { item in
+            item.isPinned.toggle()
+        }
+        
+        delegate?.selectedPin()
+    }
+
 }

@@ -81,16 +81,15 @@ final class RecommendPagingView: UIView {
         
         self.items = items
         self.pageControl.numberOfPages = items.count
-        let width = UIScreen.main.bounds.width-50
+        let width = UIScreen.main.bounds.width - 50
         
         for index in 0..<items.count {
+            
             let view = RecommendView()
             view.configureRecommend(content: items[index])
-            
-            self.scrollView.contentSize.width = width * CGFloat(index+2)
-            
+                        
             itemStackView.addArrangedSubview(view)
-            
+
             view.snp.makeConstraints { constraint in
                 constraint.width.equalTo(width)
             }

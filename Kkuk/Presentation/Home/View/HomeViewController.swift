@@ -107,6 +107,11 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         
         let isPinnedItems = contents.filter { $0.isPinned }
         recommendPagingView.setItems(items: isPinnedItems)
+        
+        recommendPagingView.itemStackView.subviews.forEach {
+            let view = $0 as? RecommendView
+            view?.delegate = self
+        }
     }
     
     override func setLayout() {
@@ -138,7 +143,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         }
         
         plusButton.snp.makeConstraints { constraint in
-            constraint.bottom.equalTo(view.safeAreaLayoutGuide).offset(-32)
+            constraint.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
             constraint.trailing.equalTo(-20)
             constraint.height.width.equalTo(60)
         }
@@ -219,5 +224,11 @@ extension HomeViewController: ContentTableViewCellDelegate {
             content.isPinned.toggle()
             self?.updateItems()
         }
+    }
+}
+
+extension HomeViewController: RecommendViewDelegate {
+    func selectedPin() {
+        updateItems()
     }
 }
