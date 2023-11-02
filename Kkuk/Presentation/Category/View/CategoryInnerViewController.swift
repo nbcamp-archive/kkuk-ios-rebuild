@@ -37,6 +37,11 @@ class CategoryInnerViewController: BaseUIViewController {
         return label
     }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setNavigationBar()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let contents = contentManager.readInCategory(at: category!.id).map { $0 as Content }
@@ -69,6 +74,10 @@ class CategoryInnerViewController: BaseUIViewController {
     @objc func categoryButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
+    
+    override func setNavigationBar() {
+        title = category?.name
+    }
 }
 
 extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSource {
@@ -83,12 +92,7 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         else { return UITableViewCell() }
         let item = recentItems[indexPath.row]
         
-        cell.configureCell(title: item.title,
-                           memo: item.memo,
-                           image: item.imageURL,
-                           url: item.sourceURL,
-                           isPinned: false,
-                           index: indexPath.row)
+        cell.configureCell(content: item, index: indexPath.row)
         return cell
     }
     

@@ -59,8 +59,7 @@
 		1CAEBE6F2AF1278500FF4CF2 /* OptionalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE6E2AF1278500FF4CF2 /* OptionalLabel.swift */; };
 		1CB63FF82AF271F6003BDB62 /* SelectCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB63FF72AF271F6003BDB62 /* SelectCategoryCell.swift */; };
 		55791AC02AE7AEC7005C06C4 /* CategoryInnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */; };
-		55791AC32AE7AED9005C06C4 /* AddCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AC12AE7AED9005C06C4 /* AddCategoryCollectionViewCell.swift */; };
-		55791AC42AE7AED9005C06C4 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AC22AE7AED9005C06C4 /* CategoryCollectionViewCell.swift */; };
+		55791AC42AE7AED9005C06C4 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */; };
 		55791AD22AEBC0FF005C06C4 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AD12AEBC0FF005C06C4 /* Category.swift */; };
 		55791AD42AEBC136005C06C4 /* RealmCategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AD32AEBC136005C06C4 /* RealmCategoryService.swift */; };
 		C352F49F2AE7980F0016398A /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F49E2AE7980F0016398A /* EmptyStateView.swift */; };
@@ -141,8 +140,7 @@
 		1CAEBE6E2AF1278500FF4CF2 /* OptionalLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalLabel.swift; sourceTree = "<group>"; };
 		1CB63FF72AF271F6003BDB62 /* SelectCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCategoryCell.swift; sourceTree = "<group>"; };
 		55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryInnerViewController.swift; sourceTree = "<group>"; };
-		55791AC12AE7AED9005C06C4 /* AddCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
-		55791AC22AE7AED9005C06C4 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		55791AD12AEBC0FF005C06C4 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		55791AD32AEBC136005C06C4 /* RealmCategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCategoryService.swift; sourceTree = "<group>"; };
 		C352F49E2AE7980F0016398A /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
@@ -415,8 +413,7 @@
 		1C2843C32ADD0F9800A87E99 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				55791AC12AE7AED9005C06C4 /* AddCategoryCollectionViewCell.swift */,
-				55791AC22AE7AED9005C06C4 /* CategoryCollectionViewCell.swift */,
+				55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */,
 				ECD225642AE7883B009CA421 /* AddCategoryView.swift */,
 			);
 			path = Component;
@@ -748,7 +745,7 @@
 				1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */,
 				C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */,
 				C352F4AE2AEB87330016398A /* ContentManager.swift in Sources */,
-				55791AC42AE7AED9005C06C4 /* CategoryCollectionViewCell.swift in Sources */,
+				55791AC42AE7AED9005C06C4 /* CategoryTableViewCell.swift in Sources */,
 				1C79F0062AE7F67300B5A97A /* AppTabBarItem.swift in Sources */,
 				1C2843CF2ADD11B600A87E99 /* AppTabBarController.swift in Sources */,
 				1C328F8D2AE9368D0040D883 /* WebViewToolbar.swift in Sources */,
@@ -780,7 +777,6 @@
 				1C79F0002AE7E6EF00B5A97A /* HTMLParseService.swift in Sources */,
 				0A042EDB2ADFF9D0002ED30D /* RecentSearchContentViewController.swift in Sources */,
 				1C28438E2ADB9D0D00A87E99 /* SceneDelegate.swift in Sources */,
-				55791AC32AE7AED9005C06C4 /* AddCategoryCollectionViewCell.swift in Sources */,
 				1CB63FF82AF271F6003BDB62 /* SelectCategoryCell.swift in Sources */,
 				1C79EFF62AE7641000B5A97A /* UIImage+LoadAsset.swift in Sources */,
 				55791AD22AEBC0FF005C06C4 /* Category.swift in Sources */,

@@ -28,7 +28,7 @@ class RecentSearchContentViewController: BaseUIViewController {
     private lazy var allDelegateButton: UIButton = {
         let button = UIButton()
         button.setTitle("전체 삭제", for: .normal)
-        button.setTitleColor(.subgray2, for: .normal)
+        button.setTitleColor(.subgray1, for: .normal)
         button.titleLabel?.font = .subtitle4
         return button
     }()
