@@ -7,23 +7,17 @@
 
 import UIKit
 
-protocol CompleteButtonDelegate: AnyObject {
-    func updateState()
-}
-
-// let completeButton = CompleteButton(title: "", type: .content or .category)
 class CompleteButton: UIButton {
     
-    weak var delegate: CompleteButtonDelegate?
-    
-    enum ButtonState {
-        case disable, enable
+    enum State {
+        case disable
+        case enable
     }
     
-    init(frame: CGRect, state: ButtonState) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configure(state: state)
+        setUI(to: .disable)
     }
     
     @available(*, unavailable)
@@ -31,15 +25,31 @@ class CompleteButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure(state: ButtonState) {
+    func setUI(to state: State) {
         var attributeContainer = AttributeContainer()
-        attributeContainer.font = .subtitle3
-
+        
         var configuration = UIButton.Configuration.plain()
+        
+        attributeContainer.font = .subtitle2
+        
         configuration.attributedTitle = AttributedString("완료", attributes: attributeContainer)
-        configuration.background.cornerRadius = CGFloat(0)
         configuration.baseForegroundColor = .white
-        configuration.background.backgroundColor = .main
+        configuration.background.cornerRadius = CGFloat(5)
+        
+        switch state {
+        case .disable:
+            configuration.background.backgroundColor = .subgray3
+            
+            contentMode = .center
+            isEnabled = false
+        case .enable:
+            configuration.background.backgroundColor = .main
+            
+            contentMode = .center
+            isEnabled = true
+        }
+        
+        self.configuration = configuration
     }
     
 }

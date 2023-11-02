@@ -14,21 +14,29 @@ import UIKit
 
 class AddContentViewController: BaseUIViewController {
     
+    // MARK: - 프로퍼티
+    
     private var contentManager = ContentManager()
     
     private var categoryManager = RealmCategoryManager.shared
     
-    private var categories: [Category] = []
+    private var categories = [Category]()
     
     private var selectedCategoryId: ObjectId?
     
-    private lazy var addContentButton = AddContentButton(frame: .zero)
+    private var sourceURL = ""
+    
+    // MARK: - 컴포넌트
+
+    private lazy var addContentButton = CompleteButton(frame: .zero)
     
     private lazy var induceURLLabel = InduceLabel(text: "링크 입력 및 붙여넣기", font: .title2)
     
     private lazy var induceMemoLabel = InduceLabel(text: "메모하기", font: .title2)
     
     private lazy var induceCategoryLabel = InduceLabel(text: "카테고리 선택하기", font: .title2)
+    
+    private lazy var optionalLabel = OptionalLabel(frame: .zero)
     
     private lazy var memoContainerView = UIView()
     
@@ -43,9 +51,20 @@ class AddContentViewController: BaseUIViewController {
         return textField
     }()
     
+    private lazy var URLTextFieldStateLabel: UILabel = {
+        let label = UILabel()
+        label.text = " "
+        label.font = .body3
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.isHidden = true
+        return label
+    }()
+    
     private lazy var memoTextView: UITextView = {
         let textView = UITextView()
-        textView.textColor = .text1
+        textView.text = "메모가 필요한 경우 내용을 작성할 수 있습니다. (선택)"
+        textView.textColor = .subgray1
         textView.isScrollEnabled = false
         textView.backgroundColor = .subgray3
         textView.tintColor = .main
@@ -63,44 +82,23 @@ class AddContentViewController: BaseUIViewController {
         return label
     }()
     
-    private lazy var requiredLabel: UILabel = {
-        let label = UILabel()
-        label.text = "필수"
-        label.font = .body3
-        label.textColor = .subgray1
-        return label
-    }()
-    
-    private lazy var optionalLabel: UILabel = {
-        let label = UILabel()
-        label.text = "선택"
-        return label
-    }()
-    
-    private lazy var setCategoryCollectionView: UICollectionView = {
+    private lazy var selectCategoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 8
-        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 4
+        layout.minimumLineSpacing = 4
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.backgroundColor = .clear
         view.delegate = self
         view.dataSource = self
-        view.register(SetCategoryCell.self, forCellWithReuseIdentifier: "SetCategoryCell")
+        view.register(SelectCategoryCell.self, forCellWithReuseIdentifier: "SetCategoryCell")
         return view
-    }()
-    
-    private lazy var closeButtonItem: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(systemItem: .close)
-        barButtonItem.target = self
-        return barButtonItem
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        URLTextField.becomeFirstResponder()
         categories = categoryManager.read()
     }
     
@@ -116,74 +114,6 @@ class AddContentViewController: BaseUIViewController {
         setIQKeyboardManagerEnable(false)
     }
     
-    override func setUI() {
-        setNavigationBar()
-        
-        memoContainerView.addSubviews([memoTextView, memoTextCountLabel])
-        
-        view.addSubviews([induceURLLabel, induceMemoLabel, induceCategoryLabel,
-                          URLTextField, memoContainerView, setCategoryCollectionView, addContentButton])
-    }
-    
-    override func setLayout() {
-        induceURLLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(60)
-            $0.leading.equalTo(20)
-        }
-        URLTextField.snp.makeConstraints {
-            $0.top.equalTo(induceURLLabel.snp.bottom).offset(14)
-            $0.leading.equalTo(20)
-            $0.trailing.equalTo(-20)
-            $0.height.equalTo(48)
-        }
-        induceMemoLabel.snp.makeConstraints {
-            $0.top.equalTo(URLTextField.snp.bottom).offset(20)
-            $0.leading.equalTo(induceURLLabel)
-        }
-        memoContainerView.snp.makeConstraints {
-            $0.top.equalTo(induceMemoLabel.snp.bottom).offset(14)
-            $0.leading.equalTo(induceURLLabel)
-            $0.trailing.equalTo(-20)
-            $0.height.equalTo(142)
-        }
-        memoTextView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        memoTextCountLabel.snp.makeConstraints {
-            $0.trailing.equalToSuperview().offset(-8)
-            $0.bottom.equalToSuperview().offset(-8)
-        }
-        induceCategoryLabel.snp.makeConstraints {
-            $0.top.equalTo(memoTextView.snp.bottom).offset(20)
-            $0.leading.equalTo(induceURLLabel)
-        }
-        setCategoryCollectionView.snp.makeConstraints {
-            $0.top.equalTo(induceCategoryLabel.snp.bottom).offset(8)
-            $0.leading.equalTo(induceURLLabel)
-            $0.trailing.equalTo(-20)
-            $0.height.equalTo(160)
-        }
-        addContentButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(60)
-        }
-    }
-    
-    override func setDelegate() {
-        URLTextField.delegate = self
-        memoTextView.delegate = self
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
-                                               name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
-                                               name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    override func addTarget() {
-        addContentButton.addTarget(self, action: #selector(addContentButtonDidTap), for: .touchUpInside)
-    }
-    
     override func setNavigationBar() {
         title = "추가하기"
         
@@ -194,9 +124,75 @@ class AddContentViewController: BaseUIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         
-        let closeButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self,
-                                              action: #selector(closeButtonItemDidTap))
+        let closeButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeButtonItemDidTap))
         navigationItem.rightBarButtonItem = closeButtonItem
+    }
+    
+    override func setUI() {
+        setNavigationBar()
+        
+        memoContainerView.addSubviews([memoTextView, memoTextCountLabel])
+        
+        view.addSubviews([induceURLLabel, induceMemoLabel, induceCategoryLabel,
+                          URLTextField, URLTextFieldStateLabel, memoContainerView, selectCategoryCollectionView, addContentButton])
+    }
+    
+    override func setLayout() {
+        induceURLLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(60)
+            $0.leading.equalTo(20)
+            $0.trailing.equalTo(-20)
+        }
+        URLTextField.snp.makeConstraints {
+            $0.top.equalTo(induceURLLabel.snp.bottom).offset(14)
+            $0.leading.trailing.equalTo(induceURLLabel)
+            $0.height.equalTo(48)
+        }
+        URLTextFieldStateLabel.snp.makeConstraints {
+            $0.top.equalTo(URLTextField.snp.bottom).offset(8)
+            $0.leading.trailing.equalTo(induceURLLabel)
+        }
+        induceMemoLabel.snp.makeConstraints {
+            $0.top.equalTo(URLTextFieldStateLabel.snp.bottom).offset(8)
+            $0.leading.trailing.equalTo(induceURLLabel)
+        }
+        memoContainerView.snp.makeConstraints {
+            $0.top.equalTo(induceMemoLabel.snp.bottom).offset(14)
+            $0.leading.trailing.equalTo(induceURLLabel)
+            $0.height.equalTo(142)
+        }
+        memoTextView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        memoTextCountLabel.snp.makeConstraints {
+            $0.trailing.equalToSuperview().offset(-8)
+            $0.bottom.equalToSuperview().offset(-8)
+        }
+        induceCategoryLabel.snp.makeConstraints {
+            $0.top.equalTo(memoTextView.snp.bottom).offset(28)
+            $0.leading.trailing.equalTo(induceURLLabel)
+        }
+        selectCategoryCollectionView.snp.makeConstraints {
+            $0.top.equalTo(induceCategoryLabel.snp.bottom).offset(8)
+            $0.leading.trailing.equalTo(induceURLLabel)
+            $0.trailing.equalTo(-20)
+            $0.height.equalTo(160)
+        }
+        addContentButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
+            $0.leading.trailing.equalTo(induceURLLabel)
+            $0.height.equalTo(60)
+        }
+    }
+    
+    override func setDelegate() {
+        URLTextField.delegate = self
+        memoTextView.delegate = self
+    }
+    
+    override func addTarget() {
+        addContentButton.addTarget(self, action: #selector(addContentButtonDidTap), for: .touchUpInside)
+        URLTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
 }
@@ -205,27 +201,46 @@ class AddContentViewController: BaseUIViewController {
 
 extension AddContentViewController {
     
-    @objc
-    private func keyboardWillShow(_ notification: Notification) {
-        guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
-            return
+    private func updateAddContentButtonState(with text: String) {
+        if isValidURL(with: sourceURL), !sourceURL.isEmpty {
+            addContentButton.setUI(to: .enable)
+            URLTextFieldStateLabel.isHidden = false
+            URLTextFieldStateLabel.textColor = .systemBlue
+            URLTextFieldStateLabel.text = "올바른 형식의 링크입니다."
         }
         
-        let keyboardHeight = view.convert(keyboardFrame, from: nil).size.height
+        if sourceURL.isEmpty {
+            addContentButton.setUI(to: .disable)
+            URLTextFieldStateLabel.isHidden = false
+            URLTextFieldStateLabel.textColor = .systemRed
+            URLTextFieldStateLabel.text = "링크를 추가해야 합니다."
+        }
         
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.addContentButton.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight)
-            self?.view.layoutIfNeeded()
+        if sourceURL.range(of: ".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*", options: .regularExpression) != nil {
+            addContentButton.setUI(to: .disable)
+            URLTextFieldStateLabel.isHidden = false
+            URLTextFieldStateLabel.textColor = .systemRed
+            URLTextFieldStateLabel.text = "지원하지 않는 형식의 링크입니다."
         }
     }
     
-    @objc
-    func keyboardWillHide(_ notification: Notification) {
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.addContentButton.transform = .identity
-            self?.view.layoutIfNeeded()
+    private func isValidURL(with text: String) -> Bool {
+        if let url = NSURL(string: text) {
+            return UIApplication.shared.canOpenURL(url as URL)
         }
+        return false
+    }
+    
+}
+
+// MARK: - @objc
+
+extension AddContentViewController {
+    
+    @objc
+    func textFieldDidChange(_ textField: UITextField) {
+        sourceURL = URLTextField.text ?? ""
+        updateAddContentButtonState(with: sourceURL)
     }
     
     @objc
@@ -262,7 +277,7 @@ extension AddContentViewController {
     
 }
 
-// MARK: - UITextField 델리게이트
+// MARK: - 텍스트필드 델리게이트
 
 extension AddContentViewController: UITextFieldDelegate {
     
@@ -278,55 +293,50 @@ extension AddContentViewController: UITextFieldDelegate {
         URLTextField.backgroundColor = .subgray3
         URLTextField.layer.borderWidth = CGFloat(0)
         URLTextField.layer.borderColor = .none
-        addContentButton.updateButtonState(with: URLTextField.text)
     }
     
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let updateText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
-        addContentButton.updateButtonState(with: updateText)
+        let updateText = (sourceURL as NSString).replacingCharacters(in: range, with: string)
+        
+        updateAddContentButtonState(with: updateText)
         return true
     }
     
 }
 
-// MARK: - UITextView 델리게이트
+// MARK: - 텍스트 뷰 델리게이트
 
 extension AddContentViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        let memoTextViewPlaceholder = "내용"
-        if textView.text == memoTextViewPlaceholder {
-            textView.text = nil
-        }
-        
         memoTextView.backgroundColor = .background
         memoTextView.layer.borderColor = UIColor.main.cgColor
         memoTextView.layer.borderWidth = CGFloat(2)
         memoTextView.layer.cornerRadius = CGFloat(5)
         memoTextView.layer.masksToBounds = true
+        
+        if memoTextView.textColor == .subgray1 {
+            memoTextView.text = nil
+            memoTextView.textColor = .text1
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        let memoTextViewPlaceholder = "내용"
-        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            textView.text = memoTextViewPlaceholder
-            textView.textColor = .subgray1
-        }
-        
+        memoTextView.textColor = .text1
         memoTextView.backgroundColor = .subgray3
         memoTextView.layer.borderWidth = CGFloat(0)
         memoTextView.layer.borderColor = .none
+        
+        if memoTextView.textColor == .subgray1 {
+            memoTextView.text = "메모가 필요한 경우 내용을 작성할 수 있습니다. (선택)"
+            memoTextView.textColor = .subgray1
+        }
     }
     
     func textViewDidChange(_ textView: UITextView) {
         let count = textView.text.count
         memoTextCountLabel.text = "\(count)/75자"
-        if count >= 75 {
-            memoTextCountLabel.textColor = .red
-        } else {
-            memoTextCountLabel.textColor = .subgray1
-        }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -339,14 +349,37 @@ extension AddContentViewController: UITextViewDelegate {
     
 }
 
+// MARK: - 콜렉션 뷰 델리게이트
+
 extension AddContentViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let category = categories[indexPath.item]
+        selectedCategoryId = category.id
+        
+        if let cell = collectionView.cellForItem(at: indexPath) as? SelectCategoryCell {
+            cell.isSelected = true
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? SelectCategoryCell {
+            cell.isSelected = false
+        }
+    }
+    
+}
+
+// MARK: - 콜렉션 뷰 DataSource
+
+extension AddContentViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SetCategoryCell", for: indexPath) as? SetCategoryCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SetCategoryCell", for: indexPath) as? SelectCategoryCell else {
             return UICollectionViewCell()
         }
         
@@ -356,25 +389,15 @@ extension AddContentViewController: UICollectionViewDelegate {
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let category = categories[indexPath.item]
-        selectedCategoryId = category.id
-        
-        // 모든 셀의 선택 상태를 업데이트합니다.
-        for visibleIndexPath in collectionView.indexPathsForVisibleItems {
-            if let cell = collectionView.cellForItem(at: visibleIndexPath) as? SetCategoryCell {
-                cell.isSelected = visibleIndexPath == indexPath
-            }
-        }
-    }
-    
 }
 
-extension AddContentViewController: UICollectionViewDataSource {
+// MARK: - 콜렉션 뷰 FlowLayout 델리게이트
+
+extension AddContentViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.bounds.width - 16) / 3 // 3개의 셀을 가로로 표시하므로 셀의 너비를 계산합니다.
-        return CGSize(width: width, height: 48) // 셀의 높이는 48로 설정합니다.
+        let width = (collectionView.bounds.width / 4) - 4
+        return CGSize(width: width, height: 48)
     }
     
 }

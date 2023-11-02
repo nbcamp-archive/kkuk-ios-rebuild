@@ -46,7 +46,6 @@
 		1C2844242ADED52B00A87E99 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C28441F2ADED52B00A87E99 /* Pretendard-Bold.otf */; };
 		1C2844252ADED52B00A87E99 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C2844202ADED52B00A87E99 /* Pretendard-SemiBold.otf */; };
 		1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */; };
-		1C2844292AE0ECE000A87E99 /* AddContentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844282AE0ECE000A87E99 /* AddContentButton.swift */; };
 		1C328F892AE92F8D0040D883 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C328F882AE92F8D0040D883 /* WebViewController.swift */; };
 		1C328F8D2AE9368D0040D883 /* WebViewToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C328F8C2AE9368D0040D883 /* WebViewToolbar.swift */; };
 		1C79EFF62AE7641000B5A97A /* UIImage+LoadAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFF52AE7641000B5A97A /* UIImage+LoadAsset.swift */; };
@@ -56,8 +55,9 @@
 		1C79F0062AE7F67300B5A97A /* AppTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79F0052AE7F67300B5A97A /* AppTabBarItem.swift */; };
 		1CAEBE672AEBE8CA00FF4CF2 /* CompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE662AEBE8CA00FF4CF2 /* CompleteButton.swift */; };
 		1CAEBE692AEBFD5500FF4CF2 /* InduceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE682AEBFD5500FF4CF2 /* InduceLabel.swift */; };
-		1CAEBE6B2AECE98000FF4CF2 /* SetCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE6A2AECE98000FF4CF2 /* SetCategoryCell.swift */; };
 		1CAEBE6D2AED434700FF4CF2 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE6C2AED434700FF4CF2 /* Toast.swift */; };
+		1CAEBE6F2AF1278500FF4CF2 /* OptionalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE6E2AF1278500FF4CF2 /* OptionalLabel.swift */; };
+		1CB63FF82AF271F6003BDB62 /* SelectCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB63FF72AF271F6003BDB62 /* SelectCategoryCell.swift */; };
 		55791AC02AE7AEC7005C06C4 /* CategoryInnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */; };
 		55791AC42AE7AED9005C06C4 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */; };
 		55791AD22AEBC0FF005C06C4 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AD12AEBC0FF005C06C4 /* Category.swift */; };
@@ -127,7 +127,6 @@
 		1C28441F2ADED52B00A87E99 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		1C2844202ADED52B00A87E99 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+FontSizes.swift"; sourceTree = "<group>"; };
-		1C2844282AE0ECE000A87E99 /* AddContentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentButton.swift; sourceTree = "<group>"; };
 		1C328F882AE92F8D0040D883 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		1C328F8C2AE9368D0040D883 /* WebViewToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewToolbar.swift; sourceTree = "<group>"; };
 		1C79EFF52AE7641000B5A97A /* UIImage+LoadAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+LoadAsset.swift"; sourceTree = "<group>"; };
@@ -137,8 +136,9 @@
 		1C79F0052AE7F67300B5A97A /* AppTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarItem.swift; sourceTree = "<group>"; };
 		1CAEBE662AEBE8CA00FF4CF2 /* CompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteButton.swift; sourceTree = "<group>"; };
 		1CAEBE682AEBFD5500FF4CF2 /* InduceLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InduceLabel.swift; sourceTree = "<group>"; };
-		1CAEBE6A2AECE98000FF4CF2 /* SetCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCategoryCell.swift; sourceTree = "<group>"; };
 		1CAEBE6C2AED434700FF4CF2 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		1CAEBE6E2AF1278500FF4CF2 /* OptionalLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalLabel.swift; sourceTree = "<group>"; };
+		1CB63FF72AF271F6003BDB62 /* SelectCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCategoryCell.swift; sourceTree = "<group>"; };
 		55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryInnerViewController.swift; sourceTree = "<group>"; };
 		55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		55791AD12AEBC0FF005C06C4 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -430,8 +430,7 @@
 		1C2843C92ADD0FF500A87E99 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				1C2844282AE0ECE000A87E99 /* AddContentButton.swift */,
-				1CAEBE6A2AECE98000FF4CF2 /* SetCategoryCell.swift */,
+				1CB63FF72AF271F6003BDB62 /* SelectCategoryCell.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -547,6 +546,7 @@
 				1CAEBE662AEBE8CA00FF4CF2 /* CompleteButton.swift */,
 				1CAEBE682AEBFD5500FF4CF2 /* InduceLabel.swift */,
 				1CAEBE6C2AED434700FF4CF2 /* Toast.swift */,
+				1CAEBE6E2AF1278500FF4CF2 /* OptionalLabel.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -742,7 +742,6 @@
 				1C328F892AE92F8D0040D883 /* WebViewController.swift in Sources */,
 				ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */,
 				1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */,
-				1C2844292AE0ECE000A87E99 /* AddContentButton.swift in Sources */,
 				1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */,
 				C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */,
 				C352F4AE2AEB87330016398A /* ContentManager.swift in Sources */,
@@ -760,6 +759,7 @@
 				1C2843DC2ADD388700A87E99 /* And.swift in Sources */,
 				55791AC02AE7AEC7005C06C4 /* CategoryInnerViewController.swift in Sources */,
 				1CAEBE6D2AED434700FF4CF2 /* Toast.swift in Sources */,
+				1CAEBE6F2AF1278500FF4CF2 /* OptionalLabel.swift in Sources */,
 				1C2843D82ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift in Sources */,
 				1C79F0022AE7E94400B5A97A /* OpenGraphService.swift in Sources */,
 				C3A65F082AE0326500A100A7 /* RecommendView.swift in Sources */,
@@ -777,7 +777,7 @@
 				1C79F0002AE7E6EF00B5A97A /* HTMLParseService.swift in Sources */,
 				0A042EDB2ADFF9D0002ED30D /* RecentSearchContentViewController.swift in Sources */,
 				1C28438E2ADB9D0D00A87E99 /* SceneDelegate.swift in Sources */,
-				1CAEBE6B2AECE98000FF4CF2 /* SetCategoryCell.swift in Sources */,
+				1CB63FF82AF271F6003BDB62 /* SelectCategoryCell.swift in Sources */,
 				1C79EFF62AE7641000B5A97A /* UIImage+LoadAsset.swift in Sources */,
 				55791AD22AEBC0FF005C06C4 /* Category.swift in Sources */,
 				1C2843B12ADD0D6300A87E99 /* AppInfoViewController.swift in Sources */,

@@ -13,29 +13,36 @@ protocol AddCategoryViewControllerDelegate: AnyObject {
 }
 
 class AddCategoryViewController: BaseUIViewController {
+    
     weak var delegate: AddCategoryViewControllerDelegate?
     
-    var savedText: String? // 저장된 텍스트 변수
-    var selectedIcon: UIImage? // 선택된 아이콘 변수
-    var selectedIconButton: IconSelectButton?
+    private var categoryManager = RealmCategoryManager.shared
     
-    private let categoryManager = RealmCategoryManager.shared
-    private let category = Category()
-    private let iconImageNames = ["plant", "education", "animal", "trip", "cafe"]
+    private var category = Category()
+    
+    private var categoryName: String = ""
+    
     private var index: Int?
+    
+    private let iconImageNames = ["plant", "education", "animal", "trip", "cafe"]
+    
+    private var selectedIcon: UIImage? // 선택된 아이콘 변수
+    
+    private var selectedIconButton: IconSelectButton?
+    
     private var iconButtons: [IconSelectButton] = []
     
     private lazy var induceCategoryNameLabel = InduceLabel(text: "카테고리 이름 입력하기", font: .title2)
     
     private lazy var induceCategoryIconLabel = InduceLabel(text: "아이콘 선택하기", font: .title2)
     
-    private lazy var addCategoryButton = AddContentButton(frame: .zero)
+    private lazy var addCategoryButton = CompleteButton(frame: .zero)
     
-    private lazy var categoryNameLimitLabel: UILabel = {
+    private lazy var categoryNameTextCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "0/20"
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = .gray
+        label.text = "0/20자"
+        label.font = .body3
+        label.textColor = .subgray1
         label.textAlignment = .right
         return label
     }()
@@ -79,7 +86,7 @@ class AddCategoryViewController: BaseUIViewController {
         setNavigationBar()
         
         view.addSubviews([induceCategoryNameLabel, categoryNameTextField,
-                          categoryNameLimitLabel, induceCategoryIconLabel, addCategoryButton])
+                          categoryNameTextCountLabel, induceCategoryIconLabel, addCategoryButton])
         
         iconImageNames.forEach { imageName in
             let button = IconSelectButton()
@@ -94,23 +101,22 @@ class AddCategoryViewController: BaseUIViewController {
     
     override func setLayout() {
         induceCategoryNameLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(60)
-            $0.leading.equalTo(view.snp.leading).offset(20)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(60)
+            $0.leading.equalTo(20)
+            $0.trailing.equalTo(-20)
         }
         categoryNameTextField.snp.makeConstraints {
-            $0.top.equalTo(induceCategoryNameLabel.snp.bottom).offset(10)
-            $0.leading.equalTo(view.snp.leading).offset(20)
-            $0.trailing.equalTo(view.snp.trailing).offset(-20)
+            $0.top.equalTo(induceCategoryNameLabel.snp.bottom).offset(14)
+            $0.leading.trailing.equalTo(induceCategoryNameLabel)
             $0.height.equalTo(48)
         }
-        categoryNameLimitLabel.snp.makeConstraints {
+        categoryNameTextCountLabel.snp.makeConstraints {
             $0.top.equalTo(categoryNameTextField.snp.bottom).offset(5)
-            $0.trailing.equalTo(categoryNameTextField.snp.trailing)
+            $0.trailing.equalTo(induceCategoryNameLabel)
         }
         induceCategoryIconLabel.snp.makeConstraints {
-            $0.top.equalTo(categoryNameLimitLabel.snp.bottom).offset(5)
-            $0.leading.equalTo(induceCategoryNameLabel.snp.leading)
-            $0.trailing.equalTo(categoryNameLimitLabel.snp.trailing)
+            $0.top.equalTo(categoryNameTextCountLabel.snp.bottom).offset(14)
+            $0.leading.trailing.equalTo(induceCategoryNameLabel)
         }
         
         let buttonsPerRow = 5
@@ -137,8 +143,8 @@ class AddCategoryViewController: BaseUIViewController {
             }
         }
         addCategoryButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
+            $0.leading.trailing.equalTo(induceCategoryNameLabel)
             $0.height.equalTo(60)
         }
     }
@@ -166,13 +172,6 @@ class AddCategoryViewController: BaseUIViewController {
         categoryNameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         addCategoryButton.addTarget(self, action: #selector(addCategoryButtonDidTap), for: .touchUpInside)
-        
-        addCategoryButton.addTarget(self, action: #selector(addCategoryButtonDidTap), for: .touchUpInside)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
-                                               name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
-                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
 }
@@ -180,7 +179,28 @@ class AddCategoryViewController: BaseUIViewController {
 // MARK: - 커스텀 메서드
 
 extension AddCategoryViewController {
-    // IconSelectButton 인스턴스의 동작 처리
+    
+    private func updateAddCategoryButtonState() {
+        if !categoryName.isEmpty, categoryName != "" {
+            addCategoryButton.setUI(to: .enable)
+        } else {
+            addCategoryButton.setUI(to: .disable)
+        }
+    }
+    
+}
+
+// MARK: - @objc
+
+extension AddCategoryViewController {
+    
+    @objc
+    private func textFieldDidChange(_ textField: UITextField) {
+        categoryName = categoryNameTextField.text ?? ""
+        
+        updateAddCategoryButtonState()
+    }
+    
     @objc
     private func iconButtonTapped(_ sender: IconSelectButton) {
         // 기존 선택된 버튼의 오버레이 뷰 제거
@@ -214,12 +234,6 @@ extension AddCategoryViewController {
     }
     
     @objc
-    private func textFieldDidChange(_ textField: UITextField) {
-        let count = textField.text?.count ?? 0
-        categoryNameLimitLabel.text = "\(count)/20"
-    }
-    
-    @objc
     private func addCategoryButtonDidTap() {
         guard let text = categoryNameTextField.text, !text.isEmpty else {
             print("카테고리 이름을 입력해주세요") // 입력 필드가 비어 있을 경우 알림 또는 처리
@@ -232,8 +246,8 @@ extension AddCategoryViewController {
         }
         
         // 카테고리 이름 저장
-        savedText = text
-        category.name = savedText!
+        categoryName = text
+        category.name = categoryName
         index = iconIndex
         category.iconId = index!
         
@@ -256,29 +270,6 @@ extension AddCategoryViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc
-    private func keyboardWillShow(_ notification: Notification) {
-        guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
-            return
-        }
-        
-        let keyboardHeight = view.convert(keyboardFrame, from: nil).size.height
-        
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.addCategoryButton.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight)
-            self?.view.layoutIfNeeded()
-        }
-    }
-    
-    @objc
-    func keyboardWillHide(_ notification: Notification) {
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.addCategoryButton.transform = .identity
-            self?.view.layoutIfNeeded()
-        }
-    }
-    
 }
 
 // MARK: - 텍스트필드 델리게이트
@@ -297,11 +288,9 @@ extension AddCategoryViewController: UITextFieldDelegate {
         categoryNameTextField.backgroundColor = .subgray3
         categoryNameTextField.layer.borderWidth = CGFloat(0)
         categoryNameTextField.layer.borderColor = .none
-        addCategoryButton.updateButtonState(with: textField.text)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // 현재 조합 중인 문자열이 있는지 확인
         if let markedTextRange = textField.markedTextRange, textField.position(from: markedTextRange.start, offset: 0) != nil {
             return true
         }
@@ -310,8 +299,8 @@ extension AddCategoryViewController: UITextFieldDelegate {
         
         let newLength = currentText.count + string.count - range.length
         
-        categoryNameLimitLabel.text = "\(newLength)/20"
+        categoryNameTextCountLabel.text = "\(newLength)/20자"
         
-        return newLength <= 20
+        return newLength < 20
     }
 }
