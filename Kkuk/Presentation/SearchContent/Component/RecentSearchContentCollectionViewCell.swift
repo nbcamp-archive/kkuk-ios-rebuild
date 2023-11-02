@@ -38,6 +38,7 @@ class RecentSearchContentCollectionViewCell: BaseUICollectionViewCell {
         deleteButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview()
+            make.width.height.equalTo(contentView.snp.height).dividedBy(2)
         }
     }
     
