@@ -10,7 +10,7 @@ import UIKit
 class EmptyStateView: UIStackView {
     private var emptyStateImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "empty")
+        imageView.image = Asset.refresh
         imageView.contentMode = .scaleAspectFit
         
         return imageView
