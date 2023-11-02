@@ -83,12 +83,7 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         else { return UITableViewCell() }
         let item = recentItems[indexPath.row]
         
-        cell.configureCell(title: item.title,
-                           memo: item.memo,
-                           image: item.imageURL,
-                           url: item.sourceURL,
-                           isPinned: false,
-                           index: indexPath.row)
+        cell.configureCell(content: item, index: indexPath.row)
         return cell
     }
     

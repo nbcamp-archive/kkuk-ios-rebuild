@@ -151,7 +151,7 @@ extension SearchContentViewController: UITableViewDataSource, UITableViewDelegat
         }
         
         let content = contentList[indexPath.row]
-        cell.configureCell(title: content.title, memo: content.memo, image: content.imageURL, url: content.sourceURL, isPinned: false, index: indexPath.row)
+        cell.configureCell(content: content, index: indexPath.row)
         return cell
     }
     
