@@ -117,7 +117,7 @@ extension AppInfoViewController: UITableViewDelegate, UITableViewDataSource {
         headerView.backgroundColor = UIColor.background
 
         let label = UILabel()
-        label.textColor = UIColor.orange
+        label.textColor = UIColor.main
         label.font = UIFont.title2
         label.text = section == 0 ? "서비스 정보" : "기타"
         headerView.addSubview(label)

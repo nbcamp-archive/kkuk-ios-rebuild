@@ -33,7 +33,7 @@ class AddCategoryViewController: BaseUIViewController {
     
     private lazy var categoryNameLimitLabel: UILabel = {
         let label = UILabel()
-        label.text = "0/15"
+        label.text = "0/20"
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .gray
         label.textAlignment = .right
@@ -216,7 +216,7 @@ extension AddCategoryViewController {
     @objc
     private func textFieldDidChange(_ textField: UITextField) {
         let count = textField.text?.count ?? 0
-        categoryNameLimitLabel.text = "\(count)/15"
+        categoryNameLimitLabel.text = "\(count)/20"
     }
     
     @objc
@@ -310,8 +310,8 @@ extension AddCategoryViewController: UITextFieldDelegate {
         
         let newLength = currentText.count + string.count - range.length
         
-        categoryNameLimitLabel.text = "\(newLength)/15"
+        categoryNameLimitLabel.text = "\(newLength)/20"
         
-        return newLength <= 15
+        return newLength <= 20
     }
 }
