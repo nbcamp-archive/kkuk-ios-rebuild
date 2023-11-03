@@ -44,7 +44,7 @@ class ContentManager {
     func read(at searchText: String) -> [Content] {
         do {
             let realm = try Realm()
-            let query = NSPredicate(format: "title CONTAINS %@", searchText)
+            let query = NSPredicate(format: "title CONTAINS[c] %@ ", searchText)
             let result = realm.objects(Content.self).filter(query).sorted(byKeyPath: "createDate", ascending: false)
             return Array(result)
         } catch {
