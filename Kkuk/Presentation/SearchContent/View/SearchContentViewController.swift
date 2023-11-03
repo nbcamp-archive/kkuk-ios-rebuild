@@ -154,7 +154,7 @@ class SearchContentViewController: BaseUIViewController {
     
     func setNoContentLabelLayout() {
         noContentLabel.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(48)
+            make.top.equalTo(segmentedControl.snp.bottom).offset(36)
             make.centerX.equalToSuperview()
         }
     }
