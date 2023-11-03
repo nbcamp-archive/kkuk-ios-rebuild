@@ -83,6 +83,12 @@ class SearchContentViewController: BaseUIViewController {
         setNavigationBar()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        searchBar.text = ""
+        toggleContainerViewVisibility(isShow: true)
+    }
+    
     override func setNavigationBar() {
         title = "검색"
     }
