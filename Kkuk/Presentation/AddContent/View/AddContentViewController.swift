@@ -350,8 +350,12 @@ extension AddContentViewController: UITextViewDelegate {
         memoTextView.layer.borderColor = .none
         
         if memoTextView.textColor == .subgray1 {
-            memoTextView.text = "메모가 필요한 경우 내용을 작성할 수 있습니다. (선택)"
+            memoTextView.text = "메모할 내용을 입력"
             memoTextView.textColor = .subgray1
+        }
+        
+        if memoTextView.text == "메모할 내용을 입력" {
+            memoTextView.text = ""
         }
     }
     
