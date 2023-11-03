@@ -107,4 +107,7 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }    
 }
