@@ -60,10 +60,7 @@ class CategoryViewController: BaseUIViewController {
     
     override func setNavigationBar() {
         title = "카테고리"
-//        let secondButton = UIBarButtonItem(customView: editButton)
-//        let firstButton = UIBarButtonItem(customView: addButton)
         navigationItem.rightBarButtonItems = [addBarButton, editBarButton]
-//        navigationItem.setRightBarButtonItems([UIBarButtonItem(customView: editButton), UIBarButtonItem(customView: addButton)], animated: false)
     }
     
     override func setUI() {
@@ -86,7 +83,6 @@ class CategoryViewController: BaseUIViewController {
     }
 
     override func addTarget() {
-//        addButton.addTarget(self, action: #selector(plusButtonDidTap), for: .touchUpInside)
         editButton.addTarget(self, action: #selector(editButtonDidTap), for: .touchUpInside)
     }
 }
