@@ -179,10 +179,6 @@ extension AddCategoryViewController {
 
 extension AddCategoryViewController {
     
-    @objc func closeButtonItemDidTap() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     @objc
     private func textFieldDidChange(_ textField: UITextField) {
         categoryName = categoryNameTextField.text ?? ""
@@ -251,14 +247,10 @@ extension AddCategoryViewController {
         presentSuccessAlert()
     }
     
-    @objc
-    private func presentAlert(message: String) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+    @objc func closeButtonItemDidTap() {
+        self.dismiss(animated: true, completion: nil)
     }
     
-    @objc
     private func presentSuccessAlert() {
         let alert = UIAlertController(title: "", message: "카테고리가 정상적으로 추가 되었습니다.", preferredStyle: .alert)
         
@@ -267,11 +259,7 @@ extension AddCategoryViewController {
             self.dismiss(animated: true, completion: nil)
         }))
         
-        if let messageLabel = alert.view.subviews.first?.subviews.first as? UILabel {
-            messageLabel.font = UIFont.systemFont(ofSize: 30)
-            
-            self.present(alert, animated: true, completion: nil)
-        }
+        self.present(alert, animated: true, completion: nil)
     }
 }
 // MARK: - 텍스트필드 델리게이트
