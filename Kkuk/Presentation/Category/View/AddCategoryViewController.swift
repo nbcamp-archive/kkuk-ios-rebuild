@@ -53,7 +53,7 @@ class AddCategoryViewController: BaseUIViewController {
         textField.backgroundColor = .subgray3
         textField.clearButtonMode = .whileEditing
         textField.font = .body1
-        textField.placeholder = "카테고리 이름"
+        textField.placeholder = "카테고리 이름을 입력해주세요."
         textField.tintColor = .main
         return textField
     }()
@@ -63,25 +63,7 @@ class AddCategoryViewController: BaseUIViewController {
         barButtonItem.target = self
         return barButtonItem
     }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        categoryNameTextField.becomeFirstResponder()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        setIQKeyboardManagerEnable(true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        setIQKeyboardManagerEnable(false)
-    }
-    
+
     override func setUI() {
         setNavigationBar()
         
