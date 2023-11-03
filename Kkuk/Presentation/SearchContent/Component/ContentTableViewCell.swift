@@ -54,8 +54,6 @@ class ContentTableViewCell: BaseUITableViewCell {
         return label
     }()
     
-    // pin 기능을 연결하기 위한 임시 버튼
-    // 향후 컨텐츠 수정 및 삭제 등과 연결해서 변경 예정
     private lazy var pinButton: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(tappedPinButton(_:)), for: .touchUpInside)
@@ -128,7 +126,7 @@ class ContentTableViewCell: BaseUITableViewCell {
                 url.replaceSubrange(range, with: "https:")
             }
         // http 미포함 -> https를 접두에 추가
-        // (이 조건은 https가 포함되어 있을 때도 만족하기 떄문에 조건에서 제거해줘야함)
+        // (이 조건은 https가 포함되어 있을 때도 만족하기 때문에 조건에서 제거해줘야함)
         } else if !url.contains("https:") {
             url = "https:" + url
         }
