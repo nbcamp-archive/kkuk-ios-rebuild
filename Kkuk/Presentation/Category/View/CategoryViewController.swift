@@ -112,6 +112,8 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for: indexPath)
             as? CategoryTableViewCell else { return UITableViewCell() }
         let category = category[indexPath.item]
+        cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .none
         cell.configure(category: category)
         cell.delegate = self
         return cell
