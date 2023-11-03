@@ -24,21 +24,25 @@ class CategoryViewController: BaseUIViewController {
         let button = UIButton()
         button.setTitle("수정", for: .normal)
         button.setTitle("완료", for: .selected)
-        
-        button.setTitleColor(.background, for: .normal)
-        button.setTitleColor(.background, for: [.normal, .highlighted])
-        
-        button.setTitleColor(.background, for: .selected)
-        button.setTitleColor(.background, for: [.selected, .highlighted])
-        
+
+        button.setTitleColor(.text1, for: .normal)
+        button.setTitleColor(.text1, for: [.normal, .highlighted])
+
+        button.setTitleColor(.text1, for: .selected)
+        button.setTitleColor(.text1, for: [.selected, .highlighted])
+
         return button
     }()
     
-    private var topFrameView: UIStackView = {
-        let view = UIStackView()
-        view.backgroundColor = .main
-        
-        return view
+    private lazy var editBarButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(customView: editButton)
+        return button
+    }()
+    
+    private lazy var addBarButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(named: "addCategory"), style: .plain, target: self, action: #selector(plusButtonDidTap))
+        button.tintColor = .text1
+        return button
     }()
     
     private var titleLabel: UILabel = {
@@ -49,54 +53,30 @@ class CategoryViewController: BaseUIViewController {
         return label
     }()
     
-    private var plusButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .main
-        button.layer.cornerRadius = 30
-        button.setImage(UIImage(named: "Plus"), for: .normal)
-        button.tintColor = .background
-        
-        return button
-    }()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setNavigationBar()
+    }
     
     override func setNavigationBar() {
         title = "카테고리"
+//        let secondButton = UIBarButtonItem(customView: editButton)
+//        let firstButton = UIBarButtonItem(customView: addButton)
+        navigationItem.rightBarButtonItems = [addBarButton, editBarButton]
+//        navigationItem.setRightBarButtonItems([UIBarButtonItem(customView: editButton), UIBarButtonItem(customView: addButton)], animated: false)
     }
     
     override func setUI() {
         view.backgroundColor = .background
-        view.addSubviews([topFrameView, categoryTableView, plusButton, editButton])
-        topFrameView.addSubviews([titleLabel])
+        view.addSubviews([categoryTableView, editButton])
         category = categoryManager.read()
     }
 
     override func setLayout() {
-        topFrameView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.width.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        titleLabel.snp.makeConstraints { constraint in
-            constraint.top.equalTo(view.safeAreaLayoutGuide).offset(28)
-            constraint.leading.equalTo(20)
-        }
-        
-        editButton.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel)
-            make.right.equalToSuperview().inset(20)
-        }
-        
         categoryTableView.snp.makeConstraints { constraint in
-            constraint.top.equalTo(titleLabel.snp.bottom).offset(20)
+            constraint.top.equalTo(view.safeAreaLayoutGuide)
             constraint.leading.trailing.equalToSuperview()
-            constraint.bottom.equalTo(topFrameView.snp.bottom)
-        }
-        
-        plusButton.snp.makeConstraints { constraint in
-            constraint.bottom.equalTo(view.safeAreaLayoutGuide).offset(-32)
-            constraint.trailing.equalTo(-20)
-            constraint.height.width.equalTo(60)
+            constraint.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 
@@ -106,7 +86,7 @@ class CategoryViewController: BaseUIViewController {
     }
 
     override func addTarget() {
-        plusButton.addTarget(self, action: #selector(plusButtonDidTap), for: .touchUpInside)
+//        addButton.addTarget(self, action: #selector(plusButtonDidTap), for: .touchUpInside)
         editButton.addTarget(self, action: #selector(editButtonDidTap), for: .touchUpInside)
     }
 }
@@ -155,6 +135,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
+        
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
