@@ -77,6 +77,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     private var tableView: UITableView = {
         let view = UITableView()
         view.register(ContentTableViewCell.self, forCellReuseIdentifier: "ContentTableViewCell")
+        view.showsVerticalScrollIndicator = false
        
         return view
     }()
