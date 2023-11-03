@@ -39,7 +39,9 @@ class SearchContentViewController: BaseUIViewController {
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
         searchBar.searchTextField.snp.makeConstraints { make in
+            make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
+            make.height.equalTo(48)
         }
         return searchBar
     }()
