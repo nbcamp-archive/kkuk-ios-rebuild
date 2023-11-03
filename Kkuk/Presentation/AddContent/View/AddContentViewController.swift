@@ -160,6 +160,10 @@ class AddContentViewController: BaseUIViewController {
             $0.top.equalTo(URLTextFieldStateLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalTo(induceURLLabel)
         }
+//        optionalLabel.snp.makeConstraints {
+//            $0.top.trailing.equalTo(induceMemoLabel)
+//            $0.height.equalTo(induceMemoLabel)
+//        }
         memoContainerView.snp.makeConstraints {
             $0.top.equalTo(induceMemoLabel.snp.bottom).offset(14)
             $0.leading.trailing.equalTo(induceURLLabel)
@@ -184,7 +188,6 @@ class AddContentViewController: BaseUIViewController {
         selectCategoryCollectionView.snp.makeConstraints {
             $0.top.equalTo(induceCategoryLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalTo(induceURLLabel)
-            $0.trailing.equalTo(-20)
             $0.height.equalTo(160)
         }
         addContentButton.snp.makeConstraints {
