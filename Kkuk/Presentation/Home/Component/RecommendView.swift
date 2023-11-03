@@ -20,9 +20,11 @@ final class RecommendView: UIView {
     
     private let imageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .subgray2
+        view.backgroundColor = .subgray3
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
+        view.layer.borderColor = UIColor.subgray2.cgColor
+        view.layer.borderWidth = 0.7
         
         return view
     }()
@@ -117,4 +119,13 @@ final class RecommendView: UIView {
         delegate?.selectedPin()
     }
 
+}
+
+extension CALayer {
+    func addBottomBorder(with color: UIColor, width: CGFloat) {
+        let border = CALayer()
+        border.backgroundColor = UIColor.subgray3.cgColor
+        border.frame = CGRect(x: 0, y: frame.size.height - width, width: frame.width, height: width)
+        addSublayer(border)
+    }
 }
