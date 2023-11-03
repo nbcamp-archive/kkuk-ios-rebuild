@@ -365,6 +365,12 @@ extension AddContentViewController: UITextViewDelegate {
         guard let stringRange = Range(range, in: currentMemoText) else { return false }
         
         let updateMemoText = currentMemoText.replacingCharacters(in: stringRange, with: text)
+        
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        
         return updateMemoText.count <= 75
     }
     
