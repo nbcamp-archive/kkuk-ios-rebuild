@@ -24,7 +24,12 @@ class AddCategoryViewController: BaseUIViewController {
     
     private var index: Int?
     
-    private let iconImageNames = ["trip", "cafe", "education", "animal", "plant", "book", "food", "it", "finance", "car", "baby", "kitchen", "fashion", "culture", "beauty"]
+    private let iconImageNames = [
+        "trip", "cafe", "education", "animal", "plant",
+        "book", "food", "it", "finance", "car",
+        "baby", "interier", "health", "exercise", "music",
+        "shopping", "kitchen", "fashion", "culture", "beauty"
+    ]
     
     private var selectedIcon: UIImage? // 선택된 아이콘 변수
     
@@ -109,7 +114,7 @@ class AddCategoryViewController: BaseUIViewController {
                 let col = index % buttonsPerRow
                 
                 if col == 0 {
-                    $0.leading.equalTo(view.snp.leading).offset(30) // 첫 번째 열
+                    $0.leading.equalTo(view.snp.leading).offset(36) // 첫 번째 열
                 } else {
                     $0.leading.equalTo(iconButtons[index - 1].snp.trailing).offset(20) // 이전 버튼 오른쪽
                 }
