@@ -50,6 +50,8 @@ class AddContentViewController: BaseUIViewController {
         textField.font = .body1
         textField.placeholder = "https://www.example.com"
         textField.tintColor = .main
+        textField.layer.cornerRadius = CGFloat(8)
+        textField.clipsToBounds = true
         return textField
     }()
     
@@ -71,7 +73,7 @@ class AddContentViewController: BaseUIViewController {
         textView.backgroundColor = .subgray3
         textView.tintColor = .main
         textView.font = .body1
-        textView.layer.cornerRadius = CGFloat(5)
+        textView.layer.cornerRadius = CGFloat(8)
         textView.contentInset = UIEdgeInsets(top: 4, left: 4, bottom: 0, right: 4)
         return textView
     }()
@@ -298,7 +300,7 @@ extension AddContentViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         URLTextField.backgroundColor = .background
         URLTextField.layer.borderWidth = CGFloat(2)
-        URLTextField.layer.cornerRadius = CGFloat(5)
+        URLTextField.layer.cornerRadius = CGFloat(8)
         URLTextField.layer.borderColor = UIColor.main.cgColor
         URLTextField.layer.masksToBounds = true
     }
@@ -327,7 +329,7 @@ extension AddContentViewController: UITextViewDelegate {
         memoTextView.backgroundColor = .background
         memoTextView.layer.borderColor = UIColor.main.cgColor
         memoTextView.layer.borderWidth = CGFloat(2)
-        memoTextView.layer.cornerRadius = CGFloat(5)
+        memoTextView.layer.cornerRadius = CGFloat(8)
         memoTextView.layer.masksToBounds = true
         
         if memoTextView.textColor == .subgray1 {
