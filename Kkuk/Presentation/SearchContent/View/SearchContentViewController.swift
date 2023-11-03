@@ -185,6 +185,7 @@ extension SearchContentViewController: UITableViewDataSource, UITableViewDelegat
         
         let content = contentList[indexPath.row]
         cell.configureCell(content: content, index: indexPath.row)
+        cell.selectionStyle = .none
         return cell
     }
     

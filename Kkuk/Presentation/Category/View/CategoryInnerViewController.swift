@@ -93,6 +93,7 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         let item = recentItems[indexPath.row]
         
         cell.configureCell(content: item, index: indexPath.row)
+        cell.selectionStyle = .none
         return cell
     }
     

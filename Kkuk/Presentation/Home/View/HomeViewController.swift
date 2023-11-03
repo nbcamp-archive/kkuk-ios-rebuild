@@ -197,6 +197,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let item = recentItems[indexPath.row]
         cell.delegate = self
         cell.configureCell(content: item, index: indexPath.row)
+        cell.selectionStyle = .none
         return cell
     }
     
