@@ -65,7 +65,7 @@ class SearchContentViewController: BaseUIViewController {
     
     private lazy var noContentLabel: UILabel = {
         let label = UILabel()
-        label.text = "아카이브가 없습니다"
+        label.text = "콘텐츠가 없습니다"
         label.font = .subtitle2
         label.textColor = .text1
         label.numberOfLines = 1
