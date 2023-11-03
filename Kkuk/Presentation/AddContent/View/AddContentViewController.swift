@@ -143,7 +143,7 @@ class AddContentViewController: BaseUIViewController {
     
     override func setLayout() {
         induceURLLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(60)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
             $0.leading.equalTo(20)
             $0.trailing.equalTo(-20)
         }
