@@ -20,7 +20,7 @@ class ContentTableViewCell: BaseUITableViewCell {
     private lazy var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo")
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 8
         imageView.layer.masksToBounds = true
         imageView.layer.borderColor = UIColor.subgray2.cgColor
