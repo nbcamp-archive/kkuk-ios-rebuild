@@ -72,7 +72,7 @@ class CategoryViewController: BaseUIViewController {
     override func setLayout() {
         categoryTableView.snp.makeConstraints { constraint in
             constraint.top.equalTo(view.safeAreaLayoutGuide)
-            constraint.leading.trailing.equalToSuperview()
+            constraint.leading.trailing.equalToSuperview().inset(20)
             constraint.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
