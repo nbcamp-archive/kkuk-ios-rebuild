@@ -38,6 +38,8 @@ class AddContentViewController: BaseUIViewController {
     
     private lazy var optionalLabel = OptionalLabel(frame: .zero)
     
+    private lazy var addCategoryButton = RedirectAddCategoryButton(frame: .zero)
+    
     private lazy var memoContainerView = UIView()
     
     private lazy var URLTextField: UITextField = {
@@ -63,7 +65,7 @@ class AddContentViewController: BaseUIViewController {
     
     private lazy var memoTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "메모가 필요한 경우 내용을 작성할 수 있습니다. (선택)"
+        textView.text = "메모할 내용을 입력"
         textView.textColor = .subgray1
         textView.isScrollEnabled = false
         textView.backgroundColor = .subgray3
@@ -133,8 +135,8 @@ class AddContentViewController: BaseUIViewController {
         
         memoContainerView.addSubviews([memoTextView, memoTextCountLabel])
         
-        view.addSubviews([induceURLLabel, induceMemoLabel, induceCategoryLabel,
-                          URLTextField, URLTextFieldStateLabel, memoContainerView, selectCategoryCollectionView, addContentButton])
+        view.addSubviews([induceURLLabel, induceMemoLabel, induceCategoryLabel, optionalLabel, URLTextField,
+                          URLTextFieldStateLabel, memoContainerView, selectCategoryCollectionView, addContentButton, addCategoryButton])
     }
     
     override func setLayout() {
@@ -170,7 +172,12 @@ class AddContentViewController: BaseUIViewController {
         }
         induceCategoryLabel.snp.makeConstraints {
             $0.top.equalTo(memoTextView.snp.bottom).offset(28)
-            $0.leading.trailing.equalTo(induceURLLabel)
+            $0.leading.equalTo(induceURLLabel)
+        }
+        addCategoryButton.snp.makeConstraints {
+            $0.top.equalTo(induceCategoryLabel)
+            $0.trailing.equalTo(induceURLLabel)
+            $0.height.equalTo(induceCategoryLabel.snp.height)
         }
         selectCategoryCollectionView.snp.makeConstraints {
             $0.top.equalTo(induceCategoryLabel.snp.bottom).offset(8)
@@ -192,6 +199,7 @@ class AddContentViewController: BaseUIViewController {
     
     override func addTarget() {
         addContentButton.addTarget(self, action: #selector(addContentButtonDidTap), for: .touchUpInside)
+        addCategoryButton.addTarget(self, action: #selector(addCategoryButtonDidTap), for: .touchUpInside)
         URLTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
@@ -273,6 +281,12 @@ extension AddContentViewController {
                 print("Open Graph Property Data를 추출하는데 문제가 발생했습니다. \(error.localizedDescription)")
             }
         }
+    }
+    
+    @objc
+    private func addCategoryButtonDidTap() {
+        let viewController = AddCategoryViewController()
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
 }
