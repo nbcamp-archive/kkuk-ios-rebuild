@@ -83,11 +83,6 @@ class SearchContentViewController: BaseUIViewController {
         setNavigationBar()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        toggleTextFieldStyle(isTapped: false)
-    }
-    
     override func setNavigationBar() {
         title = "검색"
     }
@@ -213,8 +208,9 @@ extension SearchContentViewController: UISearchBarDelegate {
             searchBar.searchTextField.layer.borderWidth = 0
             searchBar.searchTextField.layer.borderColor = .none
             searchBar.searchTextField.resignFirstResponder()
-            searchBar.searchTextField.text = .none
         }
+        
+        setIQKeyboardManagerEnable(isTapped)
     }
 }
 

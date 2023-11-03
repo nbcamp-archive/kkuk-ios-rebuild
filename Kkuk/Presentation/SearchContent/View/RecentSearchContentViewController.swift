@@ -152,6 +152,7 @@ extension RecentSearchContentViewController: UICollectionViewDelegate, UICollect
             searchContentViewController.searchBar.text = searchText
             searchContentViewController.reloadData()
             searchContentViewController.toggleContainerViewVisibility(isShow: false)
+            searchContentViewController.searchBar.searchTextField.becomeFirstResponder()
          }
     }
 }
