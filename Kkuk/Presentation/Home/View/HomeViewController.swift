@@ -76,6 +76,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     private var tableView: UITableView = {
         let view = UITableView()
+        view.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         view.register(ContentTableViewCell.self, forCellReuseIdentifier: "ContentTableViewCell")
        
         return view
