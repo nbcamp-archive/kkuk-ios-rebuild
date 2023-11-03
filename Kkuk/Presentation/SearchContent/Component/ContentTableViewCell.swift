@@ -20,6 +20,7 @@ class ContentTableViewCell: BaseUITableViewCell {
     private lazy var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo")
+        imageView.contentMode = .scaleToFill
         imageView.layer.cornerRadius = 8
         imageView.layer.masksToBounds = true
         imageView.layer.borderColor = UIColor.subgray2.cgColor
@@ -81,7 +82,7 @@ class ContentTableViewCell: BaseUITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0))
     }
     
     override func setUI() {
@@ -95,10 +96,8 @@ class ContentTableViewCell: BaseUITableViewCell {
     
     override func setLayout() {
         thumbnailImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.bottom.equalToSuperview().inset(12)
-            make.width.height.equalTo(68)
+            make.top.leading.bottom.equalToSuperview()
+            make.width.equalTo(contentView.snp.height).multipliedBy(4.0/3.0)
         }
         
         siteTitleLabel.snp.makeConstraints { make in
@@ -108,30 +107,29 @@ class ContentTableViewCell: BaseUITableViewCell {
         }
         
         memoLabel.snp.makeConstraints { make in
-            make.top.equalTo(siteTitleLabel.snp.bottom).offset(4)
             make.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
-            make.trailing.equalToSuperview()
+            make.trailing.lessThanOrEqualTo(moreButton.snp.leading).offset(-12)
         }
         
         urlLabel.snp.makeConstraints { make in
             make.top.equalTo(memoLabel.snp.bottom).offset(4)
             make.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
             make.trailing.lessThanOrEqualTo(pinButton.snp.leading).offset(-12)
-            make.bottom.equalToSuperview().inset(12)
+            make.bottom.equalToSuperview()
         }
         
         pinButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
-            make.height.equalTo(18)
+            make.height.equalTo(16)
             make.width.equalTo(12)
             make.centerY.equalTo(urlLabel)
         }
         
         moreButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
-            make.centerY.equalTo(siteTitleLabel)
-            make.height.equalTo(18)
+            make.height.equalTo(16)
             make.width.equalTo(12)
+            make.centerY.equalTo(siteTitleLabel)
         }
     }
     
