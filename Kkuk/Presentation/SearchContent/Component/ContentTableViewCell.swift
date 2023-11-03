@@ -57,7 +57,13 @@ class ContentTableViewCell: BaseUITableViewCell {
     private lazy var pinButton: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(tappedPinButton(_:)), for: .touchUpInside)
-        
+        return button
+    }()
+    
+    private lazy var moreButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "more_vertical"), for: .normal)
+        button.addTarget(self, action: #selector(tappedMenuButton), for: .touchUpInside)
         return button
     }()
     
@@ -79,7 +85,12 @@ class ContentTableViewCell: BaseUITableViewCell {
     }
     
     override func setUI() {
-        contentView.addSubviews([thumbnailImageView, siteTitleLabel, memoLabel, urlLabel, pinButton])
+        contentView.addSubviews([thumbnailImageView,
+                                 siteTitleLabel,
+                                 memoLabel,
+                                 urlLabel,
+                                 pinButton,
+                                 moreButton])
     }
     
     override func setLayout() {
@@ -93,7 +104,7 @@ class ContentTableViewCell: BaseUITableViewCell {
         siteTitleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
-            make.trailing.equalToSuperview()
+            make.trailing.lessThanOrEqualTo(moreButton.snp.leading).offset(-12)
         }
         
         memoLabel.snp.makeConstraints { make in
@@ -114,6 +125,13 @@ class ContentTableViewCell: BaseUITableViewCell {
             make.height.equalTo(18)
             make.width.equalTo(12)
             make.centerY.equalTo(urlLabel)
+        }
+        
+        moreButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview()
+            make.centerY.equalTo(siteTitleLabel)
+            make.height.equalTo(18)
+            make.width.equalTo(12)
         }
     }
     
@@ -153,5 +171,8 @@ class ContentTableViewCell: BaseUITableViewCell {
 
     @objc func tappedPinButton(_ sender: UIButton) {
         delegate?.togglePin(index: sender.tag)
+    }
+    
+    @objc func tappedMenuButton(_ sender: UIButton) {
     }
 }
