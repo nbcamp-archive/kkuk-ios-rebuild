@@ -319,6 +319,11 @@ extension AddContentViewController: UITextFieldDelegate {
         return true
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        URLTextField.resignFirstResponder()
+        return true
+    }
+    
 }
 
 // MARK: - 텍스트 뷰 델리게이트
