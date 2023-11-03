@@ -22,8 +22,8 @@ class ContentTableViewCell: BaseUITableViewCell {
         imageView.image = UIImage(systemName: "photo")
         imageView.layer.cornerRadius = 8
         imageView.layer.masksToBounds = true
-        imageView.layer.borderColor = UIColor.gray.cgColor
-        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.subgray2.cgColor
+        imageView.layer.borderWidth = 0.5
         return imageView
     }()
     
