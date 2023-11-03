@@ -25,6 +25,14 @@ class SearchContentViewController: BaseUIViewController {
         return searchBar
     }()
     
+    lazy var segmentedControl: UISegmentedControl = {
+        let segment = UISegmentedControl(items: ["사이트", "카테고리", "메모"])
+        segment.isHidden = contentList.isEmpty
+        segment.selectedSegmentIndex = 0
+        segment.addTarget(self, action: #selector(didChangeSegmentIndex(_:)), for: .valueChanged)
+        return segment
+    }()
+    
     private lazy var contentTableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
@@ -69,11 +77,16 @@ class SearchContentViewController: BaseUIViewController {
         addChild(recentSearchContentViewController)
         recentSearchContentViewController.didMove(toParent: self)
         
-        view.addSubviews([searchBar, contentTableView, noContentLabel, containerView])
+        view.addSubviews([searchBar,
+                          segmentedControl,
+                          contentTableView,
+                          noContentLabel,
+                          containerView])
     }
     
     override func setLayout() {
         setSearchBarLayout()
+        setSegmentedControl()
         setContentTableViewLayout()
         setNoContentLabelLayout()
         setContainerViewLayout()
@@ -87,6 +100,7 @@ class SearchContentViewController: BaseUIViewController {
         let realm = ContentManager()
         contentList = realm.read(at: searchText)
         contentTableView.reloadData()
+        segmentedControl.isHidden = contentList.isEmpty
         noContentLabel.isHidden = !contentList.isEmpty
     }
     
@@ -97,9 +111,16 @@ class SearchContentViewController: BaseUIViewController {
         }
     }
     
+    func setSegmentedControl() {
+        segmentedControl.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom).offset(20)
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
+    }
+    
     func setContentTableViewLayout() {
         contentTableView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(48)
+            make.top.equalTo(segmentedControl.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
@@ -122,6 +143,10 @@ class SearchContentViewController: BaseUIViewController {
         recentSearchContentViewController.view.snp.makeConstraints { make in
             make.edges.equalTo(containerView.snp.edges)
         }
+    }
+    
+    @objc func didChangeSegmentIndex(_ sender: UISegmentedControl) {
+        
     }
 }
 
