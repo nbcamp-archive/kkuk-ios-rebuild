@@ -150,7 +150,7 @@ extension RecentSearchContentViewController: UICollectionViewDelegate, UICollect
         if let searchContentViewController = parent as? SearchContentViewController {
             let searchText = searchList[indexPath.row]
             searchContentViewController.searchBar.text = searchText
-            searchContentViewController.reloadData(with: searchText)
+            searchContentViewController.reloadData()
             searchContentViewController.toggleContainerViewVisibility(isShow: false)
          }
     }

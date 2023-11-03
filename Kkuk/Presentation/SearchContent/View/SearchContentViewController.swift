@@ -7,6 +7,25 @@
 
 import UIKit
 
+enum SegmentMenu: Int {
+    case title
+    case memo
+
+    var name: String {
+        switch self {
+        case .title: return "사이트"
+        case .memo: return "메모"
+        }
+    }
+
+    var column: String {
+        switch self {
+        case .title: return "title"
+        case .memo: return "memo"
+        }
+    }
+}
+
 class SearchContentViewController: BaseUIViewController {
     
     var contentList: [Content] = []
@@ -26,9 +45,9 @@ class SearchContentViewController: BaseUIViewController {
     }()
     
     lazy var segmentedControl: UISegmentedControl = {
-        let segment = UISegmentedControl(items: ["사이트", "카테고리", "메모"])
-        segment.isHidden = contentList.isEmpty
-        segment.selectedSegmentIndex = 0
+        let items = [SegmentMenu.title.name, SegmentMenu.memo.name]
+        let segment = UISegmentedControl(items: items)
+        segment.selectedSegmentIndex = items.startIndex
         segment.addTarget(self, action: #selector(didChangeSegmentIndex(_:)), for: .valueChanged)
         return segment
     }()
@@ -96,11 +115,15 @@ class SearchContentViewController: BaseUIViewController {
     
     override func addTarget() {}
     
-    func reloadData(with searchText: String) {
+    func reloadData() {
+        guard let searchText = searchBar.text else { return }
+        guard let column = SegmentMenu(rawValue: segmentedControl.selectedSegmentIndex) else { return }
+
         let realm = ContentManager()
-        contentList = realm.read(at: searchText)
+        
+        contentList = realm.read(at: column, with: searchText)
+        
         contentTableView.reloadData()
-        segmentedControl.isHidden = contentList.isEmpty
         noContentLabel.isHidden = !contentList.isEmpty
     }
     
@@ -146,7 +169,7 @@ class SearchContentViewController: BaseUIViewController {
     }
     
     @objc func didChangeSegmentIndex(_ sender: UISegmentedControl) {
-        
+        reloadData()
     }
 }
 
@@ -168,11 +191,8 @@ extension SearchContentViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text else { return }
-        reloadData(with: searchText)
-
+        reloadData()
         toggleContainerViewVisibility(isShow: false)
-        
-        guard let searchText = searchBar.text else { return }
         recenteSearchManager.add(to: searchText)
     }
     
