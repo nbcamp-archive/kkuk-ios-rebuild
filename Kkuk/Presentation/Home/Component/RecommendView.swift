@@ -40,6 +40,8 @@ final class RecommendView: UIView {
         let view = UIView()
         view.backgroundColor = .background
         view.layer.cornerRadius = 15
+        view.layer.borderColor = UIColor.subgray2.cgColor
+        view.layer.borderWidth = 1
         
         return view
     }()
