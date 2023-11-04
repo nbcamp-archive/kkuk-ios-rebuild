@@ -11,6 +11,8 @@ import SnapKit
 
 final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
+    var selectedRow: Int = 0
+    
     private var contentManager = ContentManager()
     
     private var recentItems: [Content] = [] {
@@ -101,10 +103,16 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         tableView.addSubviews([emptyLabel])
     }
     
+    func setSelectedItem(row: Int) {
+        selectedRow = row
+    }
+    
     private func updateItems() {
         let contents = contentManager.read()
         recentItems = contents.prefix(5).map { $0 as Content }
-        tableView.reloadData()
+        
+        let selectedIndexPath = IndexPath(row: selectedRow, section: 0)
+        tableView.reloadRows(at: [selectedIndexPath], with: .none)
         
         let isPinnedItems = contents.filter { $0.isPinned }
         recommendPagingView.setItems(items: isPinnedItems)
@@ -139,7 +147,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         
         recommendPagingView.snp.makeConstraints { constraint in
             constraint.horizontalEdges.equalToSuperview()
-            constraint.top.equalTo(titleLabel.snp.bottom).offset(28)
+            constraint.top.equalTo(titleLabel.snp.bottom).offset(20)
             constraint.bottom.equalToSuperview()
         }
         
@@ -216,6 +224,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension HomeViewController: ContentTableViewCellDelegate {
     func togglePin(index: Int) {
+        setSelectedItem(row: index)
         contentManager.update(content: self.recentItems[index]) { [weak self] content in
             content.isPinned.toggle()
             self?.updateItems()

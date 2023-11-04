@@ -18,6 +18,7 @@ final class RecommendPagingView: UIView {
     
     let itemStackView: UIStackView = {
         let view = UIStackView()
+        view.distribution = .fillEqually
         view.spacing = 50
 
         return view
@@ -56,18 +57,17 @@ final class RecommendPagingView: UIView {
         self.itemStackView.snp.makeConstraints { constraint in
             constraint.top.equalToSuperview()
             constraint.horizontalEdges.equalToSuperview().inset(25)
+            constraint.bottom.equalTo(pageControl.snp.top).offset(-8)
         }
         
         self.pageControl.snp.makeConstraints { constraint in
-            constraint.top.equalTo(itemStackView.snp.bottom).offset(12)
             constraint.centerX.equalToSuperview()
-            constraint.bottom.equalTo(scrollView.snp.bottom).offset(-12)
+            constraint.bottom.equalTo(scrollView.snp.bottom).offset(-8)
         }
         
         emptyStateView.snp.makeConstraints { constraint in
             constraint.centerX.equalToSuperview()
-            constraint.top.equalToSuperview()
-            constraint.bottom.equalToSuperview().offset(-28)
+            constraint.centerY.equalToSuperview()
         }
     }
         

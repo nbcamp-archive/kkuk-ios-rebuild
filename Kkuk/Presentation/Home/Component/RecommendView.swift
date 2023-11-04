@@ -42,7 +42,7 @@ final class RecommendView: UIView {
         let view = UIView()
         view.backgroundColor = .background
         view.layer.cornerRadius = 15
-        view.layer.borderColor = UIColor.subgray2.cgColor
+        view.layer.borderColor = UIColor.subgray3.cgColor
         view.layer.borderWidth = 1
         
         return view
@@ -74,12 +74,12 @@ final class RecommendView: UIView {
     private func setLayout() {
         imageView.snp.makeConstraints { constraint in
             constraint.horizontalEdges.top.equalToSuperview()
-            constraint.height.equalTo(150)
         }
         
         contentLabel.snp.makeConstraints { constraint in
-            constraint.bottom.horizontalEdges.equalToSuperview().inset(14)
-            constraint.top.equalTo(imageView.snp.bottom).offset(14)
+            constraint.horizontalEdges.equalToSuperview().inset(14)
+            constraint.bottom.equalToSuperview().offset(-8)
+            constraint.top.equalTo(imageView.snp.bottom).offset(8)
         }
         
         circleView.snp.makeConstraints { constraint in
@@ -99,6 +99,7 @@ final class RecommendView: UIView {
     func configureRecommend(content: Content) {
         self.item = content
         self.contentLabel.text = content.title
+        self.contentLabel.font = .subtitle2
         let url = content.imageURL
         DispatchQueue.global().async {
             guard let url = URL(string: url ?? ""),
