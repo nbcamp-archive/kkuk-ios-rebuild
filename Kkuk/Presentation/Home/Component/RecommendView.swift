@@ -20,8 +20,9 @@ final class RecommendView: UIView {
     
     private let imageView: UIImageView = {
         let view = UIImageView()
+        view.image = UIImage(named: "emptyBoard")
+        view.contentMode = .scaleAspectFit
         view.backgroundColor = .subgray3
-        view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
         view.layer.borderColor = UIColor.subgray2.cgColor
         view.layer.borderWidth = 0.7
@@ -33,7 +34,6 @@ final class RecommendView: UIView {
         let label = UILabel()
         label.numberOfLines = 2
         label.font = .subtitle2
-        label.text = "성은 적을 방어하기 위한 거점으로 흙이나 돌 등을 높이 쌓아 만든 군사적 건축물을 알아보자"
         
         return label
     }()
@@ -66,8 +66,8 @@ final class RecommendView: UIView {
         setLayout()
     }
     
-    @available(*, unavailable) 
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -75,11 +75,12 @@ final class RecommendView: UIView {
         imageView.snp.makeConstraints { constraint in
             constraint.horizontalEdges.top.equalToSuperview()
         }
-        
+
         contentLabel.snp.makeConstraints { constraint in
+            constraint.top.equalTo(imageView.snp.bottom).offset(8)
             constraint.horizontalEdges.equalToSuperview().inset(14)
             constraint.bottom.equalToSuperview().offset(-8)
-            constraint.top.equalTo(imageView.snp.bottom).offset(8)
+            constraint.height.equalTo(40)
         }
         
         circleView.snp.makeConstraints { constraint in
@@ -100,12 +101,14 @@ final class RecommendView: UIView {
         self.item = content
         self.contentLabel.text = content.title
         self.contentLabel.font = .subtitle2
+        
         let url = content.imageURL
         DispatchQueue.global().async {
             guard let url = URL(string: url ?? ""),
                   let data = try? Data(contentsOf: url) else { return }
             
             DispatchQueue.main.async {
+                self.imageView.contentMode = .scaleAspectFill
                 self.imageView.image = UIImage(data: data)
             }
         }
@@ -119,7 +122,6 @@ final class RecommendView: UIView {
         
         delegate?.selectedPin()
     }
-
 }
 
 extension CALayer {

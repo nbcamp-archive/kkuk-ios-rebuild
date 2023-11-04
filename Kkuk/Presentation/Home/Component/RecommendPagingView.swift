@@ -18,7 +18,8 @@ final class RecommendPagingView: UIView {
     
     let itemStackView: UIStackView = {
         let view = UIStackView()
-        view.distribution = .fillEqually
+        view.axis = .horizontal
+        view.alignment = .center
         view.spacing = 50
 
         return view
@@ -39,7 +40,7 @@ final class RecommendPagingView: UIView {
         
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addSubviews([scrollView, pageControl, emptyStateView])
+        self.addSubviews([emptyStateView, scrollView, pageControl])
         self.scrollView.addSubview(itemStackView)
         self.scrollView.delegate = self
         setLayout()
@@ -50,24 +51,27 @@ final class RecommendPagingView: UIView {
     }
     
     private func setLayout() {
-        self.scrollView.snp.makeConstraints { constraint in
-            constraint.leading.trailing.top.bottom.equalToSuperview()
-        }
-        
-        self.itemStackView.snp.makeConstraints { constraint in
-            constraint.top.equalToSuperview()
-            constraint.horizontalEdges.equalToSuperview().inset(25)
+        emptyStateView.snp.makeConstraints { constraint in
+            constraint.top.leading.trailing.equalToSuperview()
             constraint.bottom.equalTo(pageControl.snp.top).offset(-8)
         }
         
-        self.pageControl.snp.makeConstraints { constraint in
-            constraint.centerX.equalToSuperview()
-            constraint.bottom.equalTo(scrollView.snp.bottom).offset(-8)
+        self.scrollView.snp.makeConstraints { constraint in
+            constraint.leading.trailing.top.equalToSuperview()
+            constraint.bottom.equalTo(pageControl.snp.top).offset(-8)
+            constraint.height.equalTo(itemStackView)
         }
         
-        emptyStateView.snp.makeConstraints { constraint in
+        self.itemStackView.snp.makeConstraints { constraint in
+            constraint.bottom.top.equalToSuperview()
+            constraint.horizontalEdges.equalToSuperview().inset(25)
+        }
+        
+        pageControl.setContentHuggingPriority(.required, for: .vertical)
+        pageControl.setContentCompressionResistancePriority(.required, for: .vertical)
+        self.pageControl.snp.makeConstraints { constraint in
             constraint.centerX.equalToSuperview()
-            constraint.centerY.equalToSuperview()
+            constraint.bottom.equalToSuperview().offset(-8)
         }
     }
         
@@ -75,7 +79,7 @@ final class RecommendPagingView: UIView {
         resetItem()
         if items.isEmpty {
             emptyStateView.isHidden = false
-            pageControl.isHidden = true
+            pageControl.numberOfPages = 0
             return
         }
         
@@ -87,9 +91,8 @@ final class RecommendPagingView: UIView {
             
             let view = RecommendView()
             view.configureRecommend(content: items[index])
-                        
+            
             itemStackView.addArrangedSubview(view)
-
             view.snp.makeConstraints { constraint in
                 constraint.width.equalTo(width)
             }

@@ -21,7 +21,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         }
     }
     
-    private var topFrameView: UIStackView = {
+    private var topFrameView: UIView = {
         let view = UIStackView()
         view.backgroundColor = .main
         
@@ -126,15 +126,19 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     override func setLayout() {
         topFrameView.snp.makeConstraints { constraint in
             constraint.top.equalToSuperview()
-            constraint.width.equalTo(view.safeAreaLayoutGuide)
+            constraint.horizontalEdges.equalToSuperview()
             constraint.height.equalTo(view.snp.height).multipliedBy(0.55)
         }
         
+        subTitleLabel.setContentHuggingPriority(.required, for: .vertical)
+        subTitleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         subTitleLabel.snp.makeConstraints { constraint in
             constraint.top.equalTo(view.safeAreaLayoutGuide)
             constraint.leading.equalTo(20)
         }
         
+        titleLabel.setContentHuggingPriority(.required, for: .vertical)
+        titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         titleLabel.snp.makeConstraints { constraint in
             constraint.top.equalTo(subTitleLabel.snp.bottom).offset(8)
             constraint.leading.equalTo(20)

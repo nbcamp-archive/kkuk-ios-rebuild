@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EmptyStateView: UIStackView {
+class EmptyStateView: UIView {
     private var emptyStateImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "empty")
@@ -38,12 +38,12 @@ class EmptyStateView: UIStackView {
     
     private func setLayout() {
         emptyStateImageView.snp.makeConstraints { constraint in
-            constraint.top.equalToSuperview()
+            constraint.top.equalToSuperview().offset(12)
             constraint.leading.trailing.equalToSuperview()
-            constraint.bottom.equalTo(emptyStateLabel.snp.top).offset(-16)
         }
         
         emptyStateLabel.snp.makeConstraints { constraint in
+            constraint.top.equalTo(emptyStateImageView.snp.bottom).offset(14)
             constraint.centerX.bottom.equalToSuperview()
         }
     }
