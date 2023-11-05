@@ -9,6 +9,10 @@ import PanModal
 import SnapKit
 import UIKit
 
+protocol PanModalTableViewControllerDelegate: AnyObject {
+    func modifyTitle(title: String)
+}
+
 enum PanModalOption: String {
     case modify = "수정"
     case delete = "삭제"
@@ -16,7 +20,11 @@ enum PanModalOption: String {
 }
 
 class PanModalTableViewController: BaseUIViewController {
-    var category: Category?
+    private var category: Category?
+    
+    private var modifyTitle: String?
+    
+    weak var delegate: PanModalTableViewControllerDelegate?
     
     private lazy var deleteModifyTableView: UITableView = {
         let tableView = UITableView()
@@ -48,6 +56,16 @@ class PanModalTableViewController: BaseUIViewController {
         deleteModifyTableView.dataSource = self
         deleteModifyTableView.allowsSelection = true
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        delegate?.modifyTitle(title: self.modifyTitle ?? self.category!.name)
+    }
+}
+
+extension PanModalTableViewController {
+    func setCategory(category: Category) {
+        self.category = category
+    }
 }
 
 extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSource {
@@ -72,6 +90,7 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
         case 0:
             let viewController = EditCategoryViewController()
             viewController.category = category
+            viewController.delegate = self
             let navigationController = UINavigationController(rootViewController: viewController)
             navigationController.modalPresentationStyle = .fullScreen
             navigationController.modalTransitionStyle = .coverVertical
@@ -84,6 +103,12 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
         default:
             return
         }
+    }
+}
+
+extension PanModalTableViewController: EditCategoryViewControllerDelegate {
+    func setTitle(title: String) {
+        modifyTitle = title
     }
 }
 

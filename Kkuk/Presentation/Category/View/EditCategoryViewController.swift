@@ -7,8 +7,12 @@
 
 import UIKit
 
+protocol EditCategoryViewControllerDelegate: AnyObject {
+    func setTitle(title: String)
+}
+
 class EditCategoryViewController: BaseUIViewController {
-    weak var delegate: AddCategoryViewControllerDelegate?
+    weak var delegate: EditCategoryViewControllerDelegate?
     
     private var categoryManager = RealmCategoryManager.shared
     
@@ -196,7 +200,6 @@ extension EditCategoryViewController {
     @objc
     private func iconButtonTapped(_ sender: IconSelectButton) {
         // 기존 선택된 버튼의 오버레이 뷰 제거
-        print(sender)
         selectedIconButton?.subviews.forEach { if $0.tag == 999 { $0.removeFromSuperview() } }
         
         // 버튼의 이미지 뷰의 프레임을 사용하여 오버레이 뷰의 프레임 설정
@@ -255,7 +258,7 @@ extension EditCategoryViewController {
         }
         
         // 화면 닫기
-        delegate?.reloadTableView()
+        delegate?.setTitle(title: categoryName)
         dismiss(animated: true, completion: nil)
     }
     

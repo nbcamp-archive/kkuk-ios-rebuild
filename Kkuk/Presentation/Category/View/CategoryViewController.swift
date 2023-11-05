@@ -66,7 +66,7 @@ class CategoryViewController: BaseUIViewController {
     override func addTarget() {}
 }
 
-extension CategoryViewController {
+extension CategoryViewController {    
     @objc func plusButtonDidTap() {
         let viewController = AddCategoryViewController()
         let navigationController = UINavigationController(rootViewController: viewController)
@@ -99,10 +99,11 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let customVC = CategoryInnerViewController()
-        customVC.modalPresentationStyle = .fullScreen
-        let category = category[indexPath.row]
-        customVC.category = category
-        navigationController?.pushViewController(customVC, animated: true)
+        customVC.setCategory(category: category[indexPath.row])
+        let navigationController = UINavigationController(rootViewController: customVC)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.modalTransitionStyle = .coverVertical
+        self.present(navigationController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

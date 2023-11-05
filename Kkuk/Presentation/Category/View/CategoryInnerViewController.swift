@@ -9,6 +9,7 @@ import SnapKit
 import UIKit
 
 class CategoryInnerViewController: BaseUIViewController {
+    
     private var contentManager = ContentManager()
     
     private var recentItems: [Content] = [] {
@@ -17,7 +18,7 @@ class CategoryInnerViewController: BaseUIViewController {
         }
     }
     
-    var category = Category()
+    private var category: Category?
     
     private lazy var contentTableView: UITableView = {
         let tableView = UITableView()
@@ -37,6 +38,12 @@ class CategoryInnerViewController: BaseUIViewController {
         return label
     }()
     
+    private lazy var backButtonItem: UIBarButtonItem = {
+        let buttonItem = UIBarButtonItem(image: Asset.back.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(backButtonDidTap))
+        buttonItem.tintColor = .selected
+        return buttonItem
+    }()
+    
     private lazy var editButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(named: "editCategory"), style: .plain, target: self, action: #selector(editButtonDidTapped))
         button.tintColor = .text1
@@ -45,18 +52,20 @@ class CategoryInnerViewController: BaseUIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("H@@1")
         setNavigationBar()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.category = Category()
+        guard category != nil else {
+            return self.category = Category()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let contents = contentManager.readInCategory(at: category.id).map { $0 as Content }
+        let contents = contentManager.readInCategory(at: category?.id ?? Category().id).map { $0 as Content }
         recentItems = contents
+        navigationController?.title = category?.name
         contentTableView.reloadData()
     }
 
@@ -83,15 +92,33 @@ class CategoryInnerViewController: BaseUIViewController {
     }
     
     override func setNavigationBar() {
-        title = category.name
+        title = category?.name
+        navigationItem.leftBarButtonItem = backButtonItem
         navigationItem.rightBarButtonItem = editButton
+    }
+}
+
+extension CategoryInnerViewController {
+    @objc func backButtonDidTap() {
+        self.dismiss(animated: true)
     }
     
     @objc func editButtonDidTapped() {
         let customVC = PanModalTableViewController()
+        customVC.delegate = self
         customVC.modalPresentationStyle = .popover
-        customVC.category = self.category
+        customVC.setCategory(category: self.category!)
         self.presentPanModal(customVC)
+    }
+    
+    func setCategory(category: Category) {
+        self.category = category
+    }
+}
+
+extension CategoryInnerViewController: PanModalTableViewControllerDelegate {
+    func modifyTitle(title: String) {
+        self.navigationItem.title = title
     }
 }
 
@@ -106,7 +133,6 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
                                                        for: indexPath) as? ContentTableViewCell
         else { return UITableViewCell() }
         let item = recentItems[indexPath.row]
-        
         cell.configureCell(content: item, index: indexPath.row)
         return cell
     }
