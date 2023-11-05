@@ -26,7 +26,7 @@ class AddCategoryViewController: BaseUIViewController {
     
     private let iconImageNames = [
         "trip", "cafe", "education", "animal", "plant",
-        "book", "food", "it", "finance", "car",
+        "book", "food", "tech", "finance", "car",
         "baby", "interier", "health", "exercise", "music",
         "shopping", "kitchen", "fashion", "culture", "beauty"
     ]
