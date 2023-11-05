@@ -17,7 +17,7 @@ class CategoryInnerViewController: BaseUIViewController {
         }
     }
     
-    var category: Category?
+    var category = Category()
     
     private lazy var contentTableView: UITableView = {
         let tableView = UITableView()
@@ -37,14 +37,25 @@ class CategoryInnerViewController: BaseUIViewController {
         return label
     }()
     
+    private lazy var editButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(named: "editCategory"), style: .plain, target: self, action: #selector(editButtonDidTapped))
+        button.tintColor = .text1
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("H@@1")
         setNavigationBar()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.category = Category()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let contents = contentManager.readInCategory(at: category!.id).map { $0 as Content }
+        let contents = contentManager.readInCategory(at: category.id).map { $0 as Content }
         recentItems = contents
         contentTableView.reloadData()
     }
@@ -71,12 +82,16 @@ class CategoryInnerViewController: BaseUIViewController {
         contentTableView.dataSource = self
     }
     
-    @objc func categoryButtonTapped() {
-        navigationController?.popViewController(animated: true)
+    override func setNavigationBar() {
+        title = category.name
+        navigationItem.rightBarButtonItem = editButton
     }
     
-    override func setNavigationBar() {
-        title = category?.name
+    @objc func editButtonDidTapped() {
+        let customVC = PanModalTableViewController()
+        customVC.modalPresentationStyle = .popover
+        customVC.category = self.category
+        self.presentPanModal(customVC)
     }
 }
 

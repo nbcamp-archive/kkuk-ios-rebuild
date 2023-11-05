@@ -251,7 +251,7 @@ extension AddCategoryViewController {
         index = iconIndex
         category.iconId = index!
         
-        // UserDefaults를 사용하여 텍스트 필드에 입력된 카테고리 이름 저장
+        // realm을 사용하여 텍스트 필드에 입력된 카테고리 이름 저장
         categoryManager.write(category)
         
         // 선택된 아이콘 저장

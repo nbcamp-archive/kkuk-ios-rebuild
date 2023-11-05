@@ -20,25 +20,6 @@ class CategoryViewController: BaseUIViewController {
         return tableView
     }()
     
-    private var editButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("수정", for: .normal)
-        button.setTitle("완료", for: .selected)
-
-        button.setTitleColor(.text1, for: .normal)
-        button.setTitleColor(.text1, for: [.normal, .highlighted])
-
-        button.setTitleColor(.text1, for: .selected)
-        button.setTitleColor(.text1, for: [.selected, .highlighted])
-
-        return button
-    }()
-    
-    private lazy var editBarButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(customView: editButton)
-        return button
-    }()
-    
     private lazy var addBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(named: "addCategory"), style: .plain, target: self, action: #selector(plusButtonDidTap))
         button.tintColor = .text1
@@ -60,12 +41,12 @@ class CategoryViewController: BaseUIViewController {
     
     override func setNavigationBar() {
         title = "카테고리"
-        navigationItem.rightBarButtonItems = [addBarButton, editBarButton]
+        navigationItem.rightBarButtonItem = addBarButton
     }
     
     override func setUI() {
         view.backgroundColor = .background
-        view.addSubviews([categoryTableView, editButton])
+        view.addSubview(categoryTableView)
         category = categoryManager.read()
     }
 
@@ -82,9 +63,7 @@ class CategoryViewController: BaseUIViewController {
         categoryTableView.dataSource = self
     }
 
-    override func addTarget() {
-        editButton.addTarget(self, action: #selector(editButtonDidTap), for: .touchUpInside)
-    }
+    override func addTarget() {}
 }
 
 extension CategoryViewController {
@@ -95,12 +74,6 @@ extension CategoryViewController {
         navigationController.modalTransitionStyle = .coverVertical
         present(navigationController, animated: true)
     }
-    
-    @objc func editButtonDidTap() {
-        let shouldBeEdited = !categoryTableView.isEditing
-        categoryTableView.setEditing(shouldBeEdited, animated: true)
-        editButton.isSelected = shouldBeEdited
-    }
 }
 
 extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -110,8 +83,13 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for: indexPath)
-            as? CategoryTableViewCell else { return UITableViewCell() }
+                as? CategoryTableViewCell else { return UITableViewCell() }
         let category = category[indexPath.item]
+        if tableView.isEditing {
+            cell.editCategoryButton.isHidden = false
+        } else {
+            cell.editCategoryButton.isHidden = true
+        }
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
         cell.configure(category: category)
@@ -133,7 +111,6 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
-        
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -143,12 +120,6 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
             tableView.deleteRows(at: [indexPath], with: .none)
             tableView.reloadData()
         }
-    }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let targetItem: Category = category[sourceIndexPath.row]
-        category.remove(at: sourceIndexPath.row)
-        category.insert(targetItem, at: destinationIndexPath.row)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

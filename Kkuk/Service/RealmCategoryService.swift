@@ -47,7 +47,7 @@ final class RealmCategoryManager: Storage {
             print(error)
         }
     }
-
+    
     func update<T: Object>(_ object: T, completion: @escaping ((T) -> Void)) {
         do {
             try database.write {

@@ -42,11 +42,19 @@ class CategoryTableViewCell: BaseUITableViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "조제 호랑이 그리고 물고기들과 상어 장어 거북이"
+        label.text = "레이블"
         label.textColor = .text1
         label.numberOfLines = 1
         label.font = .title3
         return label
+    }()
+    
+    var editCategoryButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.isHidden = true
+        button.addTarget(self, action: #selector(editCategoryButtonTapped), for: .touchUpInside)
+        return button
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -61,21 +69,26 @@ class CategoryTableViewCell: BaseUITableViewCell {
     }
     
     override func setUI() {
-        contentView.addSubviews([titleImage, titleLabel])
+        contentView.addSubviews([titleImage, titleLabel, editCategoryButton])
         contentView.backgroundColor = .clear
     }
     
     override func setLayout() {
         titleImage.snp.makeConstraints { make in
-            make.left.equalTo(contentView.snp.left)
+            make.left.equalTo(contentView.snp.left).inset(4)
             make.centerY.equalTo(contentView.snp.centerY)
             make.width.height.equalTo(45)
         }
         
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(titleImage.snp.trailing).offset(16)
-            make.trailing.equalToSuperview()
+            make.trailing.equalTo(editCategoryButton).inset(10)
             make.centerY.equalToSuperview()
+        }
+        
+        editCategoryButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().inset(6)
         }
     }
     
@@ -100,5 +113,9 @@ class CategoryTableViewCell: BaseUITableViewCell {
         default:
             return
         }
+    }
+    @objc func editCategoryButtonTapped() {
+        let editCategory = self.category
+        
     }
 }
