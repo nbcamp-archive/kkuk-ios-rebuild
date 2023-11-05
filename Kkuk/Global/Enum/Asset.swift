@@ -41,6 +41,14 @@ enum Asset {
     static var shopping: UIImage { .loadAsset(named: "shopping") }
     static var trip: UIImage { .loadAsset(named: "trip") }
     
+    // MARK: - CategoryInnerView
+    
+    static var editCategory: UIImage { .loadAsset(named: "lucide_circle_ellipsis") }
+    
+    // MARK: - CategoryView
+    
+    static var addCategory: UIImage { .loadAsset(named: "lucide_folder_plus_white") }
+    
     // MARK: - TabBarItem
     
     static var home: UIImage { .loadAsset(named: "lucide_home") }
