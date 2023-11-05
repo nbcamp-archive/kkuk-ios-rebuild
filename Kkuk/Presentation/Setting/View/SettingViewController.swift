@@ -1,14 +1,15 @@
 //
-//  AppInfoViewController.swift
+//  SettingViewController.swift
 //  Kkuk
 //
 //  Created by Yujin Kim on 2023-10-16.
 //
 
-import UIKit
 import SnapKit
 
-class AppInfoViewController: BaseUIViewController {
+import UIKit
+
+class SettingViewController: BaseUIViewController {
     
     let settingItems = ["시스템 설정", "이용약관", "개인정보 정책", "서비스 이용방법"]
     let serviceInfoItems = ["고객 문의", "앱 버전"]
@@ -95,7 +96,7 @@ class AppInfoViewController: BaseUIViewController {
     }
 }
 
-extension AppInfoViewController: UITableViewDelegate, UITableViewDataSource {
+extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
