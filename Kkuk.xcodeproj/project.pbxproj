@@ -59,6 +59,9 @@
 		1CAEBE6F2AF1278500FF4CF2 /* OptionalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE6E2AF1278500FF4CF2 /* OptionalLabel.swift */; };
 		1CB63FFA2AF33EC9003BDB62 /* SelectCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB63FF92AF33EC9003BDB62 /* SelectCategoryCell.swift */; };
 		1CB63FFC2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB63FFB2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift */; };
+		1CB6400D2AF7EC78003BDB62 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB6400C2AF7EC78003BDB62 /* ShareViewController.swift */; };
+		1CB640102AF7EC78003BDB62 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CB6400E2AF7EC78003BDB62 /* MainInterface.storyboard */; };
+		1CB640142AF7EC78003BDB62 /* KkukShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1CB6400A2AF7EC78003BDB62 /* KkukShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		55791AC02AE7AEC7005C06C4 /* CategoryInnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */; };
 		55791AC42AE7AED9005C06C4 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */; };
 		55791AD22AEBC0FF005C06C4 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AD12AEBC0FF005C06C4 /* Category.swift */; };
@@ -92,7 +95,28 @@
 			remoteGlobalIDString = 1C2843562ADB969A00A87E99;
 			remoteInfo = Kkuk;
 		};
+		1CB640122AF7EC78003BDB62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C28434F2ADB969A00A87E99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1CB640092AF7EC78003BDB62;
+			remoteInfo = KkukShareExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1CB640182AF7EC78003BDB62 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1CB640142AF7EC78003BDB62 /* KkukShareExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0A042ED82ADFE48E002ED30D /* ContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewCell.swift; sourceTree = "<group>"; };
@@ -142,6 +166,10 @@
 		1CAEBE6E2AF1278500FF4CF2 /* OptionalLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalLabel.swift; sourceTree = "<group>"; };
 		1CB63FF92AF33EC9003BDB62 /* SelectCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCategoryCell.swift; sourceTree = "<group>"; };
 		1CB63FFB2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedirectAddCategoryButton.swift; sourceTree = "<group>"; };
+		1CB6400A2AF7EC78003BDB62 /* KkukShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KkukShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CB6400C2AF7EC78003BDB62 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		1CB6400F2AF7EC78003BDB62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		1CB640112AF7EC78003BDB62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryInnerViewController.swift; sourceTree = "<group>"; };
 		55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		55791AD12AEBC0FF005C06C4 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -191,6 +219,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1CB640072AF7EC78003BDB62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -200,6 +235,7 @@
 				1C2843592ADB969A00A87E99 /* Kkuk */,
 				1C2843702ADB969C00A87E99 /* KkukTests */,
 				1C28437A2ADB969C00A87E99 /* KkukUITests */,
+				1CB6400B2AF7EC78003BDB62 /* KkukShareExtension */,
 				1C2843582ADB969A00A87E99 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -210,6 +246,7 @@
 				1C2843572ADB969A00A87E99 /* Kkuk.app */,
 				1C28436D2ADB969C00A87E99 /* KkukTests.xctest */,
 				1C2843772ADB969C00A87E99 /* KkukUITests.xctest */,
+				1CB6400A2AF7EC78003BDB62 /* KkukShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -551,6 +588,16 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		1CB6400B2AF7EC78003BDB62 /* KkukShareExtension */ = {
+			isa = PBXGroup;
+			children = (
+				1CB6400C2AF7EC78003BDB62 /* ShareViewController.swift */,
+				1CB6400E2AF7EC78003BDB62 /* MainInterface.storyboard */,
+				1CB640112AF7EC78003BDB62 /* Info.plist */,
+			);
+			path = KkukShareExtension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -562,10 +609,12 @@
 				1C2843532ADB969A00A87E99 /* Sources */,
 				1C2843542ADB969A00A87E99 /* Frameworks */,
 				1C2843552ADB969A00A87E99 /* Resources */,
+				1CB640182AF7EC78003BDB62 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1CB640132AF7EC78003BDB62 /* PBXTargetDependency */,
 			);
 			name = Kkuk;
 			packageProductDependencies = (
@@ -619,6 +668,23 @@
 			productReference = 1C2843772ADB969C00A87E99 /* KkukUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		1CB640092AF7EC78003BDB62 /* KkukShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1CB640152AF7EC78003BDB62 /* Build configuration list for PBXNativeTarget "KkukShareExtension" */;
+			buildPhases = (
+				1CB640062AF7EC78003BDB62 /* Sources */,
+				1CB640072AF7EC78003BDB62 /* Frameworks */,
+				1CB640082AF7EC78003BDB62 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KkukShareExtension;
+			productName = KkukShareExtension;
+			productReference = 1CB6400A2AF7EC78003BDB62 /* KkukShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -639,6 +705,9 @@
 					1C2843762ADB969C00A87E99 = {
 						CreatedOnToolsVersion = 14.3.1;
 						TestTargetID = 1C2843562ADB969A00A87E99;
+					};
+					1CB640092AF7EC78003BDB62 = {
+						CreatedOnToolsVersion = 14.3.1;
 					};
 				};
 			};
@@ -668,6 +737,7 @@
 				1C2843562ADB969A00A87E99 /* Kkuk */,
 				1C28436C2ADB969C00A87E99 /* KkukTests */,
 				1C2843762ADB969C00A87E99 /* KkukUITests */,
+				1CB640092AF7EC78003BDB62 /* KkukShareExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -698,6 +768,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1CB640082AF7EC78003BDB62 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CB640102AF7EC78003BDB62 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -799,6 +877,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1CB640062AF7EC78003BDB62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CB6400D2AF7EC78003BDB62 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -812,7 +898,23 @@
 			target = 1C2843562ADB969A00A87E99 /* Kkuk */;
 			targetProxy = 1C2843782ADB969C00A87E99 /* PBXContainerItemProxy */;
 		};
+		1CB640132AF7EC78003BDB62 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1CB640092AF7EC78003BDB62 /* KkukShareExtension */;
+			targetProxy = 1CB640122AF7EC78003BDB62 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1CB6400E2AF7EC78003BDB62 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1CB6400F2AF7EC78003BDB62 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1C28437F2ADB969C00A87E99 /* Debug */ = {
@@ -932,6 +1034,7 @@
 		1C2843822ADB969C00A87E99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -962,6 +1065,7 @@
 		1C2843832ADB969C00A87E99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1065,6 +1169,58 @@
 			};
 			name = Release;
 		};
+		1CB640162AF7EC78003BDB62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 347XA53QJK;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KkukShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = KkukShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = archive.nbcamp.Kkuk.KkukShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1CB640172AF7EC78003BDB62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 347XA53QJK;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KkukShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = KkukShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = archive.nbcamp.Kkuk.KkukShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1100,6 +1256,15 @@
 			buildConfigurations = (
 				1C2843882ADB969C00A87E99 /* Debug */,
 				1C2843892ADB969C00A87E99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1CB640152AF7EC78003BDB62 /* Build configuration list for PBXNativeTarget "KkukShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CB640162AF7EC78003BDB62 /* Debug */,
+				1CB640172AF7EC78003BDB62 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
