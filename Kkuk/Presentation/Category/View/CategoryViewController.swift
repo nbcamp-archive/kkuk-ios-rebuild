@@ -9,21 +9,22 @@ import SnapKit
 import UIKit
 
 class CategoryViewController: BaseUIViewController {
-    private var category: [Category] = []
+    
+    private var category = [Category]()
+    
     private var categoryManager = RealmCategoryManager.shared
 
     private let sectionInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+    
+    private lazy var addCategoryButtonItem: UIBarButtonItem = {
+        let buttonItem = UIBarButtonItem(image: Asset.addCategory.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
+        return buttonItem
+    }()
 
     private lazy var categoryTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategoryTableViewCell")
         return tableView
-    }()
-    
-    private lazy var addBarButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(named: "addCategory"), style: .plain, target: self, action: #selector(plusButtonDidTap))
-        button.tintColor = .text1
-        return button
     }()
     
     private var titleLabel: UILabel = {
@@ -36,18 +37,26 @@ class CategoryViewController: BaseUIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setNavigationBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        category = categoryManager.read()
     }
     
     override func setNavigationBar() {
         title = "카테고리"
-        navigationItem.rightBarButtonItem = addBarButton
+        
+        navigationController?.navigationBar.backgroundColor = .main
+        
+        navigationItem.rightBarButtonItem = addCategoryButtonItem
     }
     
     override func setUI() {
-        view.backgroundColor = .background
         view.addSubview(categoryTableView)
-        category = categoryManager.read()
     }
 
     override func setLayout() {
@@ -63,17 +72,27 @@ class CategoryViewController: BaseUIViewController {
         categoryTableView.dataSource = self
     }
 
-    override func addTarget() {}
+    override func addTarget() {
+        addCategoryButtonItem.target = self
+        addCategoryButtonItem.action = #selector(plusButtonDidTap)
+    }
+    
 }
 
+// MARK: - @objc
+
 extension CategoryViewController {    
-    @objc func plusButtonDidTap() {
+    
+    @objc
+    func plusButtonDidTap() {
         let viewController = AddCategoryViewController()
+        
         let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        navigationController.modalTransitionStyle = .coverVertical
-        present(navigationController, animated: true)
+        navigationController.modalPresentationStyle = .overFullScreen
+        
+        present(navigationController, animated: true, completion: nil)
     }
+
 }
 
 extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -100,10 +119,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let customVC = CategoryInnerViewController()
         customVC.setCategory(category: category[indexPath.row])
-        let navigationController = UINavigationController(rootViewController: customVC)
-        navigationController.modalPresentationStyle = .fullScreen
-        navigationController.modalTransitionStyle = .coverVertical
-        self.present(navigationController, animated: true)
+        navigationController?.pushViewController(customVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
