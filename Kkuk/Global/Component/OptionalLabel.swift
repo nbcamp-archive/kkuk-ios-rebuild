@@ -15,7 +15,7 @@ class OptionalLabel: UILabel {
         self.adjustsFontSizeToFitWidth = true
         self.font = .body2
         self.textColor = .subgray1
-        self.text = "선택"
+        self.text = "선택사항"
     }
     
     @available(*, unavailable)
