@@ -5,8 +5,9 @@
 //  Created by Yujin Kim on 2023-10-24.
 //
 
-import Foundation
 import SwiftSoup
+
+import Foundation
 
 struct OpenGraph {
     let ogURL: String?

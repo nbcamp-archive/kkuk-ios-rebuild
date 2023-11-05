@@ -6,7 +6,8 @@
 //
 
 import RealmSwift
-import UIKit
+
+import Foundation
 
 protocol Storage {
     func write<T: Object>(_ object: T)
@@ -14,8 +15,8 @@ protocol Storage {
     func sort<T: Object>(_ object: T.Type, by keyPath: String, ascending: Bool) -> Results<T>
 }
 
-final class RealmCategoryManager: Storage {
-    static let shared = RealmCategoryManager()
+final class CategoryHelper: Storage {
+    static let shared = CategoryHelper()
 
     private let database: Realm
 
@@ -73,4 +74,5 @@ final class RealmCategoryManager: Storage {
     func sort<T: Object>(_ object: T.Type, by keyPath: String, ascending: Bool = true) -> Results<T> {
         return database.objects(object).sorted(byKeyPath: keyPath, ascending: ascending)
     }
+    
 }

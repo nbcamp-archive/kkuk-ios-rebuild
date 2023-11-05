@@ -14,7 +14,7 @@ protocol CategoryTableViewCellDelegate: AnyObject {
 }
 
 class CategoryTableViewCell: BaseUITableViewCell {
-    private let categoryManager = RealmCategoryManager.shared
+    private let categoryHelper = CategoryHelper.shared
     weak var delegate: CategoryTableViewCellDelegate?
     private var category: Category?
     private var id: Int?

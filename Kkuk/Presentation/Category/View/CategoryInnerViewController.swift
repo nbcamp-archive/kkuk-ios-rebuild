@@ -10,7 +10,7 @@ import UIKit
 
 class CategoryInnerViewController: BaseUIViewController {
     
-    private var contentManager = ContentManager()
+    private var contentManager = ContentHelper()
     
     private var recentItems: [Content] = [] {
         didSet {

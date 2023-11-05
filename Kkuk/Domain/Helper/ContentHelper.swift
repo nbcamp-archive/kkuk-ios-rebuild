@@ -5,10 +5,12 @@
 //  Created by se-ryeong on 2023/10/27.
 //
 
-import Foundation
 import RealmSwift
 
-class ContentManager {
+import Foundation
+
+class ContentHelper {
+    
     func getLocationOfDefaultRealm() {
         do {
             let realm = try Realm()

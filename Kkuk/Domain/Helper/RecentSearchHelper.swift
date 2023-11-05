@@ -5,9 +5,9 @@
 //  Created by Jooyeon Kang on 2023/10/24.
 //
 
-import UIKit
+import Foundation
 
-struct RecentSearchManager {
+struct RecentSearchHelper {
     
     var keyNmae: String {
         return String(describing: self)
@@ -37,4 +37,5 @@ struct RecentSearchManager {
         allSearches.remove(at: index)
         UserDefaults.standard.set(allSearches, forKey: keyNmae)
     }
+    
 }

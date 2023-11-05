@@ -11,7 +11,7 @@ class RecentSearchContentViewController: BaseUIViewController {
     let cellSpacing: CGFloat = 16
     let cellHeight: CGFloat = 16
     
-    let manager = RecentSearchManager()
+    let manager = RecentSearchHelper()
     
     var searchList: [String] = []
 

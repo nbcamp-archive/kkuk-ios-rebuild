@@ -12,7 +12,7 @@ class CategoryViewController: BaseUIViewController {
     
     private var category = [Category]()
     
-    private var categoryManager = RealmCategoryManager.shared
+    private var categoryHelper = CategoryHelper.shared
 
     private let sectionInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     
@@ -44,7 +44,7 @@ class CategoryViewController: BaseUIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        category = categoryManager.read()
+        category = categoryHelper.read()
     }
     
     override func setNavigationBar() {
@@ -132,7 +132,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
-            categoryManager.delete(category[indexPath.row])
+            categoryHelper.delete(category[indexPath.row])
             category.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .none)
             tableView.reloadData()
@@ -142,7 +142,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         if tableView.isEditing {
             let delete = UIContextualAction(style: .destructive, title: "Delete") { [self] _, _, _ in
-                categoryManager.delete(category[indexPath.row])
+                categoryHelper.delete(category[indexPath.row])
                 category.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
@@ -159,14 +159,14 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension CategoryViewController: AddCategoryViewControllerDelegate {
     func reloadTableView() {
-        category = categoryManager.read()
+        category = categoryHelper.read()
         categoryTableView.reloadData()
     }
 }
 
 extension CategoryViewController: CategoryTableViewCellDelegate {
     func deleteTableViewCell() {
-        category = categoryManager.read()
+        category = categoryHelper.read()
         categoryTableView.reloadData()
     }
 }

@@ -16,7 +16,7 @@ final class RecommendView: UIView {
     
     weak var delegate: RecommendViewDelegate?
     
-    private var contentManager = ContentManager()
+    private var contentManager = ContentHelper()
     
     private let imageView: UIImageView = {
         let view = UIImageView()

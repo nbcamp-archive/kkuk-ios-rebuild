@@ -5,10 +5,12 @@
 //  Created by se-ryeong on 2023/10/27.
 //
 
-import UIKit
 import RealmSwift
 
+import Foundation
+
 class Content: Object, Identifiable {
+    
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var sourceURL: String
     @Persisted var title: String
@@ -39,4 +41,5 @@ class Content: Object, Identifiable {
             self.isPinned = isPinned
             self.category = category
         }
+    
 }

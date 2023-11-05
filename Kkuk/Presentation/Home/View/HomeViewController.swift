@@ -13,7 +13,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     var selectedRow: Int = 0
     
-    private var contentManager = ContentManager()
+    private var contentManager = ContentHelper()
     
     private var recentItems: [Content] = [] {
         didSet {

@@ -16,7 +16,7 @@ class AddCategoryViewController: BaseUIViewController {
     
     weak var delegate: AddCategoryViewControllerDelegate?
     
-    private var categoryManager = RealmCategoryManager.shared
+    private var categoryHelper = CategoryHelper.shared
     
     private var category = Category()
     
@@ -237,7 +237,7 @@ extension AddCategoryViewController {
         category.iconId = index!
 
         // realm을 사용하여 텍스트 필드에 입력된 카테고리 이름 저장
-        categoryManager.write(category)
+        categoryHelper.write(category)
         
         // 선택된 아이콘 저장
         for button in iconButtons where button.isSelected {
