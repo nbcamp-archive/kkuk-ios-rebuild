@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol RecommendViewDelegate: AnyObject {
     func selectedPin()
@@ -102,16 +103,10 @@ final class RecommendView: UIView {
         self.contentLabel.text = content.title
         self.contentLabel.font = .subtitle2
         
-        let url = content.imageURL
-        DispatchQueue.global().async {
-            guard let url = URL(string: url ?? ""),
-                  let data = try? Data(contentsOf: url) else { return }
-            
-            DispatchQueue.main.async {
-                self.imageView.contentMode = .scaleAspectFill
-                self.imageView.image = UIImage(data: data)
-            }
-        }
+        let imageUrl = content.imageURL
+        guard let url = URL(string: imageUrl ?? "") else { return }
+        self.imageView.kf.setImage(with: url)
+        self.imageView.contentMode = .scaleAspectFill
     }
     
     @objc func tapPinButton(_ sender: UIButton) {
