@@ -28,7 +28,7 @@ class SelectCategoryCell: BaseUICollectionViewCell {
     override func setUI() {
         layer.borderWidth = CGFloat(2)
         layer.borderColor = UIColor.subgray3.cgColor
-        layer.cornerRadius = CGFloat(5)
+        layer.cornerRadius = CGFloat(8)
         contentView.addSubview(nameLabel)
     }
     

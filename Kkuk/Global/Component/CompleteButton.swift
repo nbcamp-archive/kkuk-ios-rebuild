@@ -34,7 +34,7 @@ class CompleteButton: UIButton {
         
         configuration.attributedTitle = AttributedString("완료", attributes: attributeContainer)
         configuration.baseForegroundColor = .white
-        configuration.background.cornerRadius = CGFloat(5)
+        configuration.background.cornerRadius = CGFloat(8)
         
         switch state {
         case .disable:

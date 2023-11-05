@@ -14,6 +14,9 @@ enum Asset {
     static var back: UIImage { .loadAsset(named: "lucide_chevron_left") }
     static var refresh: UIImage { .loadAsset(named: "lucide_rotate") }
     
+    // MARK: - AddContentView
+    static var redirectAddCategory: UIImage { .loadAsset(named: "lucide_folder_plus") }
+    
     // MARK: - TabBarItem
     
     static var home: UIImage { .loadAsset(named: "lucide_home") }
