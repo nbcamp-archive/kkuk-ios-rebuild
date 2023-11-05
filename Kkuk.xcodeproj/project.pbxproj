@@ -63,6 +63,9 @@
 		55791AC42AE7AED9005C06C4 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */; };
 		55791AD22AEBC0FF005C06C4 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AD12AEBC0FF005C06C4 /* Category.swift */; };
 		55791AD42AEBC136005C06C4 /* RealmCategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AD32AEBC136005C06C4 /* RealmCategoryService.swift */; };
+		55B505102AF7325200869130 /* PanModalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B5050F2AF7325200869130 /* PanModalTableViewCell.swift */; };
+		55B505122AF7326E00869130 /* PanModalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B505112AF7326E00869130 /* PanModalTableViewController.swift */; };
+		55B505142AF75F3F00869130 /* EditCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B505132AF75F3F00869130 /* EditCategoryViewController.swift */; };
 		C352F49F2AE7980F0016398A /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F49E2AE7980F0016398A /* EmptyStateView.swift */; };
 		C352F4A32AE825F40016398A /* SettingItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A22AE825F40016398A /* SettingItemCell.swift */; };
 		C352F4AA2AEB81170016398A /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A92AEB81170016398A /* ContentModel.swift */; };
@@ -145,6 +148,9 @@
 		55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		55791AD12AEBC0FF005C06C4 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		55791AD32AEBC136005C06C4 /* RealmCategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCategoryService.swift; sourceTree = "<group>"; };
+		55B5050F2AF7325200869130 /* PanModalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanModalTableViewCell.swift; sourceTree = "<group>"; };
+		55B505112AF7326E00869130 /* PanModalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanModalTableViewController.swift; sourceTree = "<group>"; };
+		55B505132AF75F3F00869130 /* EditCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryViewController.swift; sourceTree = "<group>"; };
 		C352F49E2AE7980F0016398A /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		C352F4A22AE825F40016398A /* SettingItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingItemCell.swift; sourceTree = "<group>"; };
 		C352F4A92AEB81170016398A /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
@@ -372,6 +378,8 @@
 				55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */,
 				1C2843B82ADD0DD400A87E99 /* CategoryViewController.swift */,
 				ECF81C422AE050FF000C05DC /* AddCategoryViewController.swift */,
+				55B505112AF7326E00869130 /* PanModalTableViewController.swift */,
+				55B505132AF75F3F00869130 /* EditCategoryViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -417,6 +425,7 @@
 			children = (
 				55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */,
 				ECD225642AE7883B009CA421 /* AddCategoryView.swift */,
+				55B5050F2AF7325200869130 /* PanModalTableViewCell.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -754,6 +763,7 @@
 				1C328F8D2AE9368D0040D883 /* WebViewToolbar.swift in Sources */,
 				1CB63FFC2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift in Sources */,
 				0A042ED92ADFE48E002ED30D /* ContentTableViewCell.swift in Sources */,
+				55B505142AF75F3F00869130 /* EditCategoryViewController.swift in Sources */,
 				1C79EFF92AE7675A00B5A97A /* Asset.swift in Sources */,
 				1C2843A82ADD0C0F00A87E99 /* HomeViewController.swift in Sources */,
 				1C28438D2ADB9D0D00A87E99 /* AppDelegate.swift in Sources */,
@@ -786,6 +796,8 @@
 				55791AD22AEBC0FF005C06C4 /* Category.swift in Sources */,
 				1C2843B12ADD0D6300A87E99 /* AppInfoViewController.swift in Sources */,
 				1C2843A32ADC2F7000A87E99 /* Coordinator.swift in Sources */,
+				55B505122AF7326E00869130 /* PanModalTableViewController.swift in Sources */,
+				55B505102AF7325200869130 /* PanModalTableViewCell.swift in Sources */,
 				1C2843D32ADD2C6800A87E99 /* BaseUICollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

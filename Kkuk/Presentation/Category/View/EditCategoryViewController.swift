@@ -1,35 +1,26 @@
 //
-//  AddCategoryViewController.swift
+//  EditCategoryViewController.swift
 //  Kkuk
 //
-//  Created by 손영하 on 2023/10/19.
+//  Created by 장가겸 on 11/3/23.
 //
 
-import SnapKit
 import UIKit
 
-protocol AddCategoryViewControllerDelegate: AnyObject {
-    func reloadTableView()
+protocol EditCategoryViewControllerDelegate: AnyObject {
+    func setTitle(title: String)
 }
 
-class AddCategoryViewController: BaseUIViewController {
-    
-    weak var delegate: AddCategoryViewControllerDelegate?
+class EditCategoryViewController: BaseUIViewController {
+    weak var delegate: EditCategoryViewControllerDelegate?
     
     private var categoryManager = RealmCategoryManager.shared
-    
-    private var category = Category()
     
     private var categoryName: String = ""
     
     private var index: Int?
     
-    private let iconImageNames = [
-        "trip", "cafe", "education", "animal", "plant",
-        "book", "food", "it", "finance", "car",
-        "baby", "interier", "health", "exercise", "music",
-        "shopping", "kitchen", "fashion", "culture", "beauty"
-    ]
+    private let iconImageNames = ["plant", "education", "animal", "trip", "cafe"]
     
     private var selectedIcon: UIImage? // 선택된 아이콘 변수
     
@@ -42,6 +33,8 @@ class AddCategoryViewController: BaseUIViewController {
     private lazy var induceCategoryIconLabel = InduceLabel(text: "아이콘 선택하기", font: .title2)
     
     private lazy var addCategoryButton = CompleteButton(frame: .zero)
+    
+    var category: Category?
     
     private lazy var categoryNameTextCountLabel: UILabel = {
         let label = UILabel()
@@ -58,7 +51,7 @@ class AddCategoryViewController: BaseUIViewController {
         textField.backgroundColor = .subgray3
         textField.clearButtonMode = .whileEditing
         textField.font = .body1
-        textField.placeholder = "카테고리 이름을 입력해주세요."
+        textField.text = category?.name
         textField.tintColor = .main
         return textField
     }()
@@ -68,10 +61,30 @@ class AddCategoryViewController: BaseUIViewController {
         barButtonItem.target = self
         return barButtonItem
     }()
-
-    override func setUI() {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         setNavigationBar()
+        categoryNameTextField.becomeFirstResponder()
+        categoryName = category!.name
+        selectedIconButton = iconButtons[category!.iconId]
+        iconButtonTapped(selectedIconButton!)
+        updateAddCategoryButtonState()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        setIQKeyboardManagerEnable(true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        setIQKeyboardManagerEnable(false)
+    }
+    
+    override func setUI() {
         view.addSubviews([induceCategoryNameLabel, categoryNameTextField,
                           categoryNameTextCountLabel, induceCategoryIconLabel, addCategoryButton])
         
@@ -88,7 +101,7 @@ class AddCategoryViewController: BaseUIViewController {
     
     override func setLayout() {
         induceCategoryNameLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(60)
             $0.leading.equalTo(20)
             $0.trailing.equalTo(-20)
         }
@@ -114,7 +127,7 @@ class AddCategoryViewController: BaseUIViewController {
                 let col = index % buttonsPerRow
                 
                 if col == 0 {
-                    $0.leading.equalTo(view.snp.leading).offset(36) // 첫 번째 열
+                    $0.leading.equalTo(view.snp.leading).offset(30) // 첫 번째 열
                 } else {
                     $0.leading.equalTo(iconButtons[index - 1].snp.trailing).offset(20) // 이전 버튼 오른쪽
                 }
@@ -137,11 +150,11 @@ class AddCategoryViewController: BaseUIViewController {
     }
     
     override func setNavigationBar() {
-        title = "카테고리 추가"
+        title = "카테고리 수정"
         
         let appearance = UINavigationBarAppearance()
-        appearance.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.title3 ]
-        appearance.backgroundColor = .background
+        appearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.title3]
+        appearance.backgroundColor = .white
         appearance.shadowColor = .none
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
@@ -164,8 +177,7 @@ class AddCategoryViewController: BaseUIViewController {
 
 // MARK: - 커스텀 메서드
 
-extension AddCategoryViewController {
-    
+extension EditCategoryViewController {
     private func updateAddCategoryButtonState() {
         if !categoryName.isEmpty, categoryName != "" {
             addCategoryButton.setUI(to: .enable)
@@ -173,12 +185,11 @@ extension AddCategoryViewController {
             addCategoryButton.setUI(to: .disable)
         }
     }
-    
 }
+
 // MARK: - @objc
 
-extension AddCategoryViewController {
-    
+extension EditCategoryViewController {
     @objc
     private func textFieldDidChange(_ textField: UITextField) {
         categoryName = categoryNameTextField.text ?? ""
@@ -232,12 +243,13 @@ extension AddCategoryViewController {
         
         // 카테고리 이름 저장
         categoryName = text
-        category.name = categoryName
         index = iconIndex
-        category.iconId = index!
-
-        // realm을 사용하여 텍스트 필드에 입력된 카테고리 이름 저장
-        categoryManager.write(category)
+        
+//         realm를 사용하여 텍스트 필드에 입력된 카테고리 이름 저장
+        categoryManager.update(category!) { [self] in
+            $0.name = categoryName
+            $0.iconId = index!
+        }
         
         // 선택된 아이콘 저장
         for button in iconButtons where button.isSelected {
@@ -245,28 +257,20 @@ extension AddCategoryViewController {
             break
         }
         
-        presentSuccessAlert()
+        // 화면 닫기
+        delegate?.setTitle(title: categoryName)
+        dismiss(animated: true, completion: nil)
     }
     
-    @objc func closeButtonItemDidTap() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    private func presentSuccessAlert() {
-        let alert = UIAlertController(title: "", message: "카테고리가 정상적으로 추가 되었습니다.", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-            self.delegate?.reloadTableView()
-            self.dismiss(animated: true, completion: nil)
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
+    @objc
+    private func closeButtonItemDidTap() {
+        dismiss(animated: true, completion: nil)
     }
 }
+
 // MARK: - 텍스트필드 델리게이트
 
-extension AddCategoryViewController: UITextFieldDelegate {
-    
+extension EditCategoryViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         categoryNameTextField.backgroundColor = .background
         categoryNameTextField.layer.borderWidth = CGFloat(2)
