@@ -57,7 +57,7 @@ class PanModalTableViewController: BaseUIViewController {
         deleteModifyTableView.allowsSelection = true
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         delegate?.modifyTitle(title: self.modifyTitle ?? self.category!.name)
     }
 }
