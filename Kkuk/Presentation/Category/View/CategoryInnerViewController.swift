@@ -134,6 +134,7 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         else { return UITableViewCell() }
         let item = recentItems[indexPath.row]
         cell.configureCell(content: item, index: indexPath.row)
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -148,4 +149,7 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }    
 }

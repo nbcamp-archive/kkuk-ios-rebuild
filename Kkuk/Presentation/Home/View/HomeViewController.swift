@@ -78,6 +78,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     private var tableView: UITableView = {
         let view = UITableView()
+        view.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         view.register(ContentTableViewCell.self, forCellReuseIdentifier: "ContentTableViewCell")
         view.showsVerticalScrollIndicator = false
        
@@ -210,6 +211,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let item = recentItems[indexPath.row]
         cell.delegate = self
         cell.configureCell(content: item, index: indexPath.row)
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -224,6 +226,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
 }
 
 extension HomeViewController: ContentTableViewCellDelegate {

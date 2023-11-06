@@ -215,6 +215,7 @@ extension SearchContentViewController: UITableViewDataSource, UITableViewDelegat
         
         let content = contentList[indexPath.row]
         cell.configureCell(content: content, index: indexPath.row)
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -227,5 +228,9 @@ extension SearchContentViewController: UITableViewDataSource, UITableViewDelegat
         let viewController = WebViewController(sourceURL: url, sourceTitle: title)
         viewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
 }
