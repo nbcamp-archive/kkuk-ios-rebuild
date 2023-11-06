@@ -268,16 +268,15 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
-        print(proposedContentOffset)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = bookmarkItems[indexPath.item]
         
-        return proposedContentOffset
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if scrollView == collectionView {
-//            self.pageControl.currentPage = Int(round(scrollView.contentOffset.x / (UIScreen.main.bounds.width)))
-//        }
+        let url = item.sourceURL
+        let title = item.title
+        
+        let viewController = WebViewController(sourceURL: url, sourceTitle: title)
+        viewController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
