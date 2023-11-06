@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import RealmSwift
 import SnapKit
 
 final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
@@ -210,6 +210,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let item = recentItems[indexPath.row]
         cell.delegate = self
         cell.configureCell(content: item, index: indexPath.row)
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -237,7 +238,10 @@ extension HomeViewController: ContentTableViewCellDelegate {
 }
 
 extension HomeViewController: RecommendViewDelegate {
-    func selectedPin() {
+    func selectedPin(id: ObjectId) {
+        if let idx = recentItems.firstIndex(where: { $0.id == id }) {
+            self.setSelectedItem(row: idx)
+        }
         updateItems()
     }
 }

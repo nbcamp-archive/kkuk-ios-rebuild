@@ -90,7 +90,7 @@ final class RecommendPagingView: UIView {
         for index in 0..<items.count {
             
             let view = RecommendView()
-            view.configureRecommend(content: items[index])
+            view.configureRecommend(content: items[index])//
             
             itemStackView.addArrangedSubview(view)
             view.snp.makeConstraints { constraint in

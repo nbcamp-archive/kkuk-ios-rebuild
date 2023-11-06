@@ -7,9 +7,10 @@
 
 import UIKit
 import Kingfisher
+import RealmSwift
 
 protocol RecommendViewDelegate: AnyObject {
-    func selectedPin()
+    func selectedPin(id: ObjectId)
 }
 
 final class RecommendView: UIView {
@@ -102,7 +103,6 @@ final class RecommendView: UIView {
         self.item = content
         self.contentLabel.text = content.title
         self.contentLabel.font = .subtitle2
-        
         let imageUrl = content.imageURL
         guard let url = URL(string: imageUrl ?? "") else { return }
         self.imageView.kf.setImage(with: url)
@@ -115,7 +115,7 @@ final class RecommendView: UIView {
             item.isPinned.toggle()
         }
         
-        delegate?.selectedPin()
+        delegate?.selectedPin(id: item.id)
     }
 }
 
