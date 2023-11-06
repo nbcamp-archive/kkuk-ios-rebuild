@@ -31,7 +31,7 @@ class SearchContentViewController: BaseUIViewController {
     var contentList: [Content] = []
     
     let recentSearchContentViewController = RecentSearchContentViewController()
-    let recenteSearchManager = RecentSearchManager()
+    let recenteSearchManager = RecentSearchHelper()
     
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -122,7 +122,7 @@ class SearchContentViewController: BaseUIViewController {
         guard let searchText = searchBar.text else { return }
         guard let column = SegmentMenu(rawValue: segmentedControl.selectedSegmentIndex) else { return }
 
-        let realm = ContentManager()
+        let realm = ContentHelper()
         
         contentList = realm.read(at: column, with: searchText)
         

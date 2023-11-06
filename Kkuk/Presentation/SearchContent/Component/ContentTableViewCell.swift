@@ -15,7 +15,7 @@ protocol ContentTableViewCellDelegate: AnyObject {
 class ContentTableViewCell: BaseUITableViewCell {
     weak var delegate: ContentTableViewCellDelegate?
     
-    private var contentManager = ContentManager()
+    private var contentManager = ContentHelper()
     
     private lazy var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()

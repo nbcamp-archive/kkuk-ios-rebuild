@@ -16,9 +16,9 @@ class AddContentViewController: BaseUIViewController {
     
     // MARK: - 프로퍼티
     
-    private var contentManager = ContentManager()
+    private var contentHelper = ContentHelper()
     
-    private var categoryManager = RealmCategoryManager.shared
+    private var categoryHelper = CategoryHelper.shared
     
     private var categories = [Category]()
     
@@ -38,6 +38,8 @@ class AddContentViewController: BaseUIViewController {
     
     private lazy var optionalLabel = OptionalLabel(frame: .zero)
     
+    private lazy var addCategoryButton = RedirectAddCategoryButton(frame: .zero)
+    
     private lazy var memoContainerView = UIView()
     
     private lazy var URLTextField: UITextField = {
@@ -48,6 +50,8 @@ class AddContentViewController: BaseUIViewController {
         textField.font = .body1
         textField.placeholder = "https://www.example.com"
         textField.tintColor = .main
+        textField.layer.cornerRadius = CGFloat(8)
+        textField.clipsToBounds = true
         return textField
     }()
     
@@ -63,13 +67,13 @@ class AddContentViewController: BaseUIViewController {
     
     private lazy var memoTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "메모가 필요한 경우 내용을 작성할 수 있습니다. (선택)"
+        textView.text = "메모할 내용을 입력"
         textView.textColor = .subgray1
         textView.isScrollEnabled = false
         textView.backgroundColor = .subgray3
         textView.tintColor = .main
         textView.font = .body1
-        textView.layer.cornerRadius = CGFloat(5)
+        textView.layer.cornerRadius = CGFloat(8)
         textView.contentInset = UIEdgeInsets(top: 4, left: 4, bottom: 0, right: 4)
         return textView
     }()
@@ -99,7 +103,7 @@ class AddContentViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        categories = categoryManager.read()
+        categories = categoryHelper.read()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -133,13 +137,13 @@ class AddContentViewController: BaseUIViewController {
         
         memoContainerView.addSubviews([memoTextView, memoTextCountLabel])
         
-        view.addSubviews([induceURLLabel, induceMemoLabel, induceCategoryLabel,
-                          URLTextField, URLTextFieldStateLabel, memoContainerView, selectCategoryCollectionView, addContentButton])
+        view.addSubviews([induceURLLabel, induceMemoLabel, induceCategoryLabel, optionalLabel, URLTextField,
+                          URLTextFieldStateLabel, memoContainerView, selectCategoryCollectionView, addContentButton, addCategoryButton])
     }
     
     override func setLayout() {
         induceURLLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(60)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
             $0.leading.equalTo(20)
             $0.trailing.equalTo(-20)
         }
@@ -156,6 +160,10 @@ class AddContentViewController: BaseUIViewController {
             $0.top.equalTo(URLTextFieldStateLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalTo(induceURLLabel)
         }
+//        optionalLabel.snp.makeConstraints {
+//            $0.top.trailing.equalTo(induceMemoLabel)
+//            $0.height.equalTo(induceMemoLabel)
+//        }
         memoContainerView.snp.makeConstraints {
             $0.top.equalTo(induceMemoLabel.snp.bottom).offset(14)
             $0.leading.trailing.equalTo(induceURLLabel)
@@ -170,12 +178,16 @@ class AddContentViewController: BaseUIViewController {
         }
         induceCategoryLabel.snp.makeConstraints {
             $0.top.equalTo(memoTextView.snp.bottom).offset(28)
-            $0.leading.trailing.equalTo(induceURLLabel)
+            $0.leading.equalTo(induceURLLabel)
+        }
+        addCategoryButton.snp.makeConstraints {
+            $0.top.equalTo(induceCategoryLabel)
+            $0.trailing.equalTo(induceURLLabel)
+            $0.height.equalTo(induceCategoryLabel.snp.height)
         }
         selectCategoryCollectionView.snp.makeConstraints {
             $0.top.equalTo(induceCategoryLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalTo(induceURLLabel)
-            $0.trailing.equalTo(-20)
             $0.height.equalTo(160)
         }
         addContentButton.snp.makeConstraints {
@@ -192,6 +204,7 @@ class AddContentViewController: BaseUIViewController {
     
     override func addTarget() {
         addContentButton.addTarget(self, action: #selector(addContentButtonDidTap), for: .touchUpInside)
+        addCategoryButton.addTarget(self, action: #selector(addCategoryButtonDidTap), for: .touchUpInside)
         URLTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
@@ -262,7 +275,7 @@ extension AddContentViewController {
                                          imageURL: openGraph.ogImage,
                                          memo: self?.memoTextView.text,
                                          category: (self?.selectedCategoryId)!)
-                self?.contentManager.create(content: newContent)
+                self?.contentHelper.create(content: newContent)
                 
                 self?.dismiss(animated: true)
                 
@@ -275,6 +288,12 @@ extension AddContentViewController {
         }
     }
     
+    @objc
+    private func addCategoryButtonDidTap() {
+        let viewController = AddCategoryViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
 }
 
 // MARK: - 텍스트필드 델리게이트
@@ -284,7 +303,7 @@ extension AddContentViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         URLTextField.backgroundColor = .background
         URLTextField.layer.borderWidth = CGFloat(2)
-        URLTextField.layer.cornerRadius = CGFloat(5)
+        URLTextField.layer.cornerRadius = CGFloat(8)
         URLTextField.layer.borderColor = UIColor.main.cgColor
         URLTextField.layer.masksToBounds = true
     }
@@ -303,6 +322,11 @@ extension AddContentViewController: UITextFieldDelegate {
         return true
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        URLTextField.resignFirstResponder()
+        return true
+    }
+    
 }
 
 // MARK: - 텍스트 뷰 델리게이트
@@ -313,7 +337,7 @@ extension AddContentViewController: UITextViewDelegate {
         memoTextView.backgroundColor = .background
         memoTextView.layer.borderColor = UIColor.main.cgColor
         memoTextView.layer.borderWidth = CGFloat(2)
-        memoTextView.layer.cornerRadius = CGFloat(5)
+        memoTextView.layer.cornerRadius = CGFloat(8)
         memoTextView.layer.masksToBounds = true
         
         if memoTextView.textColor == .subgray1 {
@@ -329,8 +353,12 @@ extension AddContentViewController: UITextViewDelegate {
         memoTextView.layer.borderColor = .none
         
         if memoTextView.textColor == .subgray1 {
-            memoTextView.text = "메모가 필요한 경우 내용을 작성할 수 있습니다. (선택)"
+            memoTextView.text = "메모할 내용을 입력"
             memoTextView.textColor = .subgray1
+        }
+        
+        if memoTextView.text == "메모할 내용을 입력" {
+            memoTextView.text = ""
         }
     }
     
@@ -344,6 +372,12 @@ extension AddContentViewController: UITextViewDelegate {
         guard let stringRange = Range(range, in: currentMemoText) else { return false }
         
         let updateMemoText = currentMemoText.replacingCharacters(in: stringRange, with: text)
+        
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        
         return updateMemoText.count <= 75
     }
     

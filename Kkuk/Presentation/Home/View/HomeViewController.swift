@@ -11,7 +11,9 @@ import SnapKit
 
 final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
-    private var contentManager = ContentManager()
+    var selectedRow: Int = 0
+    
+    private var contentManager = ContentHelper()
     
     private var recentItems: [Content] = [] {
         didSet {
@@ -19,7 +21,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         }
     }
     
-    private var topFrameView: UIStackView = {
+    private var topFrameView: UIView = {
         let view = UIStackView()
         view.backgroundColor = .main
         
@@ -77,6 +79,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     private var tableView: UITableView = {
         let view = UITableView()
         view.register(ContentTableViewCell.self, forCellReuseIdentifier: "ContentTableViewCell")
+        view.showsVerticalScrollIndicator = false
        
         return view
     }()
@@ -100,10 +103,16 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         tableView.addSubviews([emptyLabel])
     }
     
+    func setSelectedItem(row: Int) {
+        selectedRow = row
+    }
+    
     private func updateItems() {
         let contents = contentManager.read()
         recentItems = contents.prefix(5).map { $0 as Content }
-        tableView.reloadData()
+        
+        let selectedIndexPath = IndexPath(row: selectedRow, section: 0)
+        tableView.reloadRows(at: [selectedIndexPath], with: .none)
         
         let isPinnedItems = contents.filter { $0.isPinned }
         recommendPagingView.setItems(items: isPinnedItems)
@@ -117,15 +126,19 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     override func setLayout() {
         topFrameView.snp.makeConstraints { constraint in
             constraint.top.equalToSuperview()
-            constraint.width.equalTo(view.safeAreaLayoutGuide)
+            constraint.horizontalEdges.equalToSuperview()
             constraint.height.equalTo(view.snp.height).multipliedBy(0.55)
         }
         
+        subTitleLabel.setContentHuggingPriority(.required, for: .vertical)
+        subTitleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         subTitleLabel.snp.makeConstraints { constraint in
             constraint.top.equalTo(view.safeAreaLayoutGuide)
             constraint.leading.equalTo(20)
         }
         
+        titleLabel.setContentHuggingPriority(.required, for: .vertical)
+        titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         titleLabel.snp.makeConstraints { constraint in
             constraint.top.equalTo(subTitleLabel.snp.bottom).offset(8)
             constraint.leading.equalTo(20)
@@ -138,7 +151,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         
         recommendPagingView.snp.makeConstraints { constraint in
             constraint.horizontalEdges.equalToSuperview()
-            constraint.top.equalTo(titleLabel.snp.bottom).offset(28)
+            constraint.top.equalTo(titleLabel.snp.bottom).offset(20)
             constraint.bottom.equalToSuperview()
         }
         
@@ -215,6 +228,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension HomeViewController: ContentTableViewCellDelegate {
     func togglePin(index: Int) {
+        setSelectedItem(row: index)
         contentManager.update(content: self.recentItems[index]) { [weak self] content in
             content.isPinned.toggle()
             self?.updateItems()

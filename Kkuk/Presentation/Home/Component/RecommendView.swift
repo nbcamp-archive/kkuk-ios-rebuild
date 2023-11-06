@@ -16,13 +16,16 @@ final class RecommendView: UIView {
     
     weak var delegate: RecommendViewDelegate?
     
-    private var contentManager = ContentManager()
+    private var contentManager = ContentHelper()
     
     private let imageView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .subgray2
-        view.contentMode = .scaleAspectFill
+        view.image = UIImage(named: "emptyBoard")
+        view.contentMode = .scaleAspectFit
+        view.backgroundColor = .subgray3
         view.clipsToBounds = true
+        view.layer.borderColor = UIColor.subgray2.cgColor
+        view.layer.borderWidth = 0.7
         
         return view
     }()
@@ -31,7 +34,6 @@ final class RecommendView: UIView {
         let label = UILabel()
         label.numberOfLines = 2
         label.font = .subtitle2
-        label.text = "성은 적을 방어하기 위한 거점으로 흙이나 돌 등을 높이 쌓아 만든 군사적 건축물을 알아보자"
         
         return label
     }()
@@ -40,6 +42,8 @@ final class RecommendView: UIView {
         let view = UIView()
         view.backgroundColor = .background
         view.layer.cornerRadius = 15
+        view.layer.borderColor = UIColor.subgray3.cgColor
+        view.layer.borderWidth = 1
         
         return view
     }()
@@ -62,20 +66,21 @@ final class RecommendView: UIView {
         setLayout()
     }
     
-    @available(*, unavailable) 
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     private func setLayout() {
         imageView.snp.makeConstraints { constraint in
             constraint.horizontalEdges.top.equalToSuperview()
-            constraint.height.equalTo(150)
         }
-        
+
         contentLabel.snp.makeConstraints { constraint in
-            constraint.bottom.horizontalEdges.equalToSuperview().inset(14)
-            constraint.top.equalTo(imageView.snp.bottom).offset(14)
+            constraint.top.equalTo(imageView.snp.bottom).offset(8)
+            constraint.horizontalEdges.equalToSuperview().inset(14)
+            constraint.bottom.equalToSuperview().offset(-8)
+            constraint.height.equalTo(40)
         }
         
         circleView.snp.makeConstraints { constraint in
@@ -95,12 +100,15 @@ final class RecommendView: UIView {
     func configureRecommend(content: Content) {
         self.item = content
         self.contentLabel.text = content.title
+        self.contentLabel.font = .subtitle2
+        
         let url = content.imageURL
         DispatchQueue.global().async {
             guard let url = URL(string: url ?? ""),
                   let data = try? Data(contentsOf: url) else { return }
             
             DispatchQueue.main.async {
+                self.imageView.contentMode = .scaleAspectFill
                 self.imageView.image = UIImage(data: data)
             }
         }
@@ -114,5 +122,13 @@ final class RecommendView: UIView {
         
         delegate?.selectedPin()
     }
+}
 
+extension CALayer {
+    func addBottomBorder(with color: UIColor, width: CGFloat) {
+        let border = CALayer()
+        border.backgroundColor = UIColor.subgray3.cgColor
+        border.frame = CGRect(x: 0, y: frame.size.height - width, width: frame.width, height: width)
+        addSublayer(border)
+    }
 }

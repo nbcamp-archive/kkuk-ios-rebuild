@@ -16,7 +16,7 @@ class AddCategoryViewController: BaseUIViewController {
     
     weak var delegate: AddCategoryViewControllerDelegate?
     
-    private var categoryManager = RealmCategoryManager.shared
+    private var categoryHelper = CategoryHelper.shared
     
     private var category = Category()
     
@@ -24,7 +24,12 @@ class AddCategoryViewController: BaseUIViewController {
     
     private var index: Int?
     
-    private let iconImageNames = ["plant", "education", "animal", "trip", "cafe"]
+    private let iconImageNames = [
+        "trip", "cafe", "education", "animal", "plant",
+        "book", "food", "tech", "finance", "car",
+        "baby", "interier", "health", "exercise", "music",
+        "shopping", "kitchen", "fashion", "culture", "beauty"
+    ]
     
     private var selectedIcon: UIImage? // 선택된 아이콘 변수
     
@@ -53,7 +58,7 @@ class AddCategoryViewController: BaseUIViewController {
         textField.backgroundColor = .subgray3
         textField.clearButtonMode = .whileEditing
         textField.font = .body1
-        textField.placeholder = "카테고리 이름"
+        textField.placeholder = "카테고리 이름을 입력해주세요."
         textField.tintColor = .main
         return textField
     }()
@@ -63,25 +68,7 @@ class AddCategoryViewController: BaseUIViewController {
         barButtonItem.target = self
         return barButtonItem
     }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        categoryNameTextField.becomeFirstResponder()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        setIQKeyboardManagerEnable(true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        setIQKeyboardManagerEnable(false)
-    }
-    
+
     override func setUI() {
         setNavigationBar()
         
@@ -101,7 +88,7 @@ class AddCategoryViewController: BaseUIViewController {
     
     override func setLayout() {
         induceCategoryNameLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(60)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
             $0.leading.equalTo(20)
             $0.trailing.equalTo(-20)
         }
@@ -127,7 +114,7 @@ class AddCategoryViewController: BaseUIViewController {
                 let col = index % buttonsPerRow
                 
                 if col == 0 {
-                    $0.leading.equalTo(view.snp.leading).offset(30) // 첫 번째 열
+                    $0.leading.equalTo(view.snp.leading).offset(36) // 첫 번째 열
                 } else {
                     $0.leading.equalTo(iconButtons[index - 1].snp.trailing).offset(20) // 이전 버튼 오른쪽
                 }
@@ -154,7 +141,7 @@ class AddCategoryViewController: BaseUIViewController {
         
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.title3 ]
-        appearance.backgroundColor = .white
+        appearance.backgroundColor = .background
         appearance.shadowColor = .none
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
@@ -173,7 +160,6 @@ class AddCategoryViewController: BaseUIViewController {
         
         addCategoryButton.addTarget(self, action: #selector(addCategoryButtonDidTap), for: .touchUpInside)
     }
-    
 }
 
 // MARK: - 커스텀 메서드
@@ -189,7 +175,6 @@ extension AddCategoryViewController {
     }
     
 }
-
 // MARK: - @objc
 
 extension AddCategoryViewController {
@@ -250,9 +235,9 @@ extension AddCategoryViewController {
         category.name = categoryName
         index = iconIndex
         category.iconId = index!
-        
-        // UserDefaults를 사용하여 텍스트 필드에 입력된 카테고리 이름 저장
-        categoryManager.write(category)
+
+        // realm을 사용하여 텍스트 필드에 입력된 카테고리 이름 저장
+        categoryHelper.write(category)
         
         // 선택된 아이콘 저장
         for button in iconButtons where button.isSelected {
@@ -260,18 +245,24 @@ extension AddCategoryViewController {
             break
         }
         
-        // 화면 닫기
-        delegate?.reloadTableView()
-        dismiss(animated: true, completion: nil)
+        presentSuccessAlert()
     }
     
-    @objc
-    private func closeButtonItemDidTap() {
-        dismiss(animated: true, completion: nil)
+    @objc func closeButtonItemDidTap() {
+        self.dismiss(animated: true, completion: nil)
     }
     
+    private func presentSuccessAlert() {
+        let alert = UIAlertController(title: "", message: "카테고리가 정상적으로 추가 되었습니다.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+            self.delegate?.reloadTableView()
+            self.dismiss(animated: true, completion: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
 }
-
 // MARK: - 텍스트필드 델리게이트
 
 extension AddCategoryViewController: UITextFieldDelegate {

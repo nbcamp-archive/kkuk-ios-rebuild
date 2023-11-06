@@ -9,7 +9,7 @@ import UIKit
 
 class RecentSearchContentCollectionViewCell: BaseUICollectionViewCell {
     
-    let manager = RecentSearchManager()
+    let manager = RecentSearchHelper()
     
     private lazy var searchWordLabel: UILabel = {
         var label = UILabel()

@@ -19,9 +19,9 @@ class AppTabBarController: UITabBarController {
         let homeViewController = HomeViewController()
         let categoryViewController = CategoryViewController()
         let searchContentViewController = SearchContentViewController()
-        let appInfoViewController = AppInfoViewController()
+        let settingViewController = SettingViewController()
         
-        viewControllers = [homeViewController, categoryViewController, searchContentViewController, appInfoViewController]
+        viewControllers = [homeViewController, categoryViewController, searchContentViewController, settingViewController]
             .enumerated().map { index, viewController in
                 setTabBarItem(for: viewController, tabBarItem: tabBarItems[index])
             }
