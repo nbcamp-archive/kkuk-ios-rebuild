@@ -10,6 +10,7 @@
 		0A042ED92ADFE48E002ED30D /* ContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042ED82ADFE48E002ED30D /* ContentTableViewCell.swift */; };
 		0A042EDB2ADFF9D0002ED30D /* RecentSearchContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042EDA2ADFF9D0002ED30D /* RecentSearchContentViewController.swift */; };
 		0A042EDD2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042EDC2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift */; };
+		0A7B93402AF89D3B0006B348 /* SegmentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B933F2AF89D3B0006B348 /* SegmentMenu.swift */; };
 		0A95434A2AE7C60300907579 /* RecentSearchHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9543492AE7C60300907579 /* RecentSearchHelper.swift */; };
 		1C2843722ADB969C00A87E99 /* KkukTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843712ADB969C00A87E99 /* KkukTests.swift */; };
 		1C28437C2ADB969C00A87E99 /* KkukUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C28437B2ADB969C00A87E99 /* KkukUITests.swift */; };
@@ -122,6 +123,7 @@
 		0A042ED82ADFE48E002ED30D /* ContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewCell.swift; sourceTree = "<group>"; };
 		0A042EDA2ADFF9D0002ED30D /* RecentSearchContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchContentViewController.swift; sourceTree = "<group>"; };
 		0A042EDC2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchContentCollectionViewCell.swift; sourceTree = "<group>"; };
+		0A7B933F2AF89D3B0006B348 /* SegmentMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentMenu.swift; sourceTree = "<group>"; };
 		0A9543492AE7C60300907579 /* RecentSearchHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchHelper.swift; sourceTree = "<group>"; };
 		1C2843572ADB969A00A87E99 /* Kkuk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kkuk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C28436D2ADB969C00A87E99 /* KkukTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KkukTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -229,6 +231,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A7B933E2AF89D220006B348 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				0A7B933F2AF89D3B0006B348 /* SegmentMenu.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		1C28434E2ADB969A00A87E99 = {
 			isa = PBXGroup;
 			children = (
@@ -430,6 +440,7 @@
 		1C2843BC2ADD0F3D00A87E99 /* SearchContent */ = {
 			isa = PBXGroup;
 			children = (
+				0A7B933E2AF89D220006B348 /* Enum */,
 				1C2843C02ADD0F6B00A87E99 /* Component */,
 				1C2843BD2ADD0F4600A87E99 /* View */,
 			);
@@ -812,6 +823,7 @@
 				1C328F892AE92F8D0040D883 /* WebViewController.swift in Sources */,
 				ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */,
 				1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */,
+				0A7B93402AF89D3B0006B348 /* SegmentMenu.swift in Sources */,
 				1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */,
 				C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */,
 				C352F4AE2AEB87330016398A /* ContentHelper.swift in Sources */,

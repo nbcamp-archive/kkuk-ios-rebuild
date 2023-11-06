@@ -20,9 +20,19 @@ class SearchContentViewController: BaseUIViewController {
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
         searchBar.searchTextField.snp.makeConstraints { make in
+            make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
+            make.height.equalTo(48)
         }
         return searchBar
+    }()
+    
+    lazy var segmentedControl: UISegmentedControl = {
+        let items = [SegmentMenu.title.name, SegmentMenu.memo.name]
+        let segment = UISegmentedControl(items: items)
+        segment.selectedSegmentIndex = items.startIndex
+        segment.addTarget(self, action: #selector(didChangeSegmentIndex(_:)), for: .valueChanged)
+        return segment
     }()
     
     private lazy var contentTableView: UITableView = {
@@ -36,7 +46,7 @@ class SearchContentViewController: BaseUIViewController {
     
     private lazy var noContentLabel: UILabel = {
         let label = UILabel()
-        label.text = "아카이브가 없습니다"
+        label.text = "콘텐츠가 없습니다"
         label.font = .subtitle2
         label.textColor = .text1
         label.numberOfLines = 1
@@ -56,9 +66,10 @@ class SearchContentViewController: BaseUIViewController {
         setNavigationBar()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        toggleTextFieldStyle(isTapped: false)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        searchBar.text = ""
+        toggleContainerViewVisibility(isShow: true)
     }
     
     override func setNavigationBar() {
@@ -69,11 +80,16 @@ class SearchContentViewController: BaseUIViewController {
         addChild(recentSearchContentViewController)
         recentSearchContentViewController.didMove(toParent: self)
         
-        view.addSubviews([searchBar, contentTableView, noContentLabel, containerView])
+        view.addSubviews([searchBar,
+                          segmentedControl,
+                          contentTableView,
+                          noContentLabel,
+                          containerView])
     }
     
     override func setLayout() {
         setSearchBarLayout()
+        setSegmentedControl()
         setContentTableViewLayout()
         setNoContentLabelLayout()
         setContainerViewLayout()
@@ -83,9 +99,14 @@ class SearchContentViewController: BaseUIViewController {
     
     override func addTarget() {}
     
-    func reloadData(with searchText: String) {
+    func reloadData() {
+        guard let searchText = searchBar.text else { return }
+        guard let column = SegmentMenu(rawValue: segmentedControl.selectedSegmentIndex) else { return }
+
         let realm = ContentHelper()
-        contentList = realm.read(at: searchText)
+        
+        contentList = realm.read(at: column, with: searchText)
+        
         contentTableView.reloadData()
         noContentLabel.isHidden = !contentList.isEmpty
     }
@@ -97,9 +118,16 @@ class SearchContentViewController: BaseUIViewController {
         }
     }
     
+    func setSegmentedControl() {
+        segmentedControl.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom).offset(20)
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
+    }
+    
     func setContentTableViewLayout() {
         contentTableView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(48)
+            make.top.equalTo(segmentedControl.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
@@ -107,7 +135,7 @@ class SearchContentViewController: BaseUIViewController {
     
     func setNoContentLabelLayout() {
         noContentLabel.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(48)
+            make.top.equalTo(segmentedControl.snp.bottom).offset(36)
             make.centerX.equalToSuperview()
         }
     }
@@ -122,6 +150,10 @@ class SearchContentViewController: BaseUIViewController {
         recentSearchContentViewController.view.snp.makeConstraints { make in
             make.edges.equalTo(containerView.snp.edges)
         }
+    }
+    
+    @objc func didChangeSegmentIndex(_ sender: UISegmentedControl) {
+        reloadData()
     }
 }
 
@@ -143,11 +175,8 @@ extension SearchContentViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text else { return }
-        reloadData(with: searchText)
-
+        reloadData()
         toggleContainerViewVisibility(isShow: false)
-        
-        guard let searchText = searchBar.text else { return }
         recenteSearchManager.add(to: searchText)
     }
     
@@ -168,8 +197,9 @@ extension SearchContentViewController: UISearchBarDelegate {
             searchBar.searchTextField.layer.borderWidth = 0
             searchBar.searchTextField.layer.borderColor = .none
             searchBar.searchTextField.resignFirstResponder()
-            searchBar.searchTextField.text = .none
         }
+        
+        setIQKeyboardManagerEnable(isTapped)
     }
 }
 
