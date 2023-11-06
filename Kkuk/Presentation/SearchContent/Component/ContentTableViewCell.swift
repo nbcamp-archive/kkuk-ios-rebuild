@@ -64,6 +64,7 @@ class ContentTableViewCell: BaseUITableViewCell {
     private lazy var moreButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "more_vertical"), for: .normal)
+        button.contentMode = .center
         button.addTarget(self, action: #selector(tappedMenuButton), for: .touchUpInside)
         return button
     }()
@@ -127,8 +128,7 @@ class ContentTableViewCell: BaseUITableViewCell {
         
         moreButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
-            make.height.equalTo(16)
-            make.width.equalTo(12)
+            make.height.width.equalTo(16)
             make.centerY.equalTo(siteTitleLabel)
         }
     }
