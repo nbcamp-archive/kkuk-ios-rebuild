@@ -53,7 +53,7 @@ enum Asset {
     
     static var home: UIImage { .loadAsset(named: "lucide_home") }
     static var category: UIImage { .loadAsset(named: "lucide_category") }
-    static var plus: UIImage { .loadAsset(named: "lucide_plus_action") }
+    static var action: UIImage { .loadAsset(named: "lucide_plus_action") }
     static var search: UIImage { .loadAsset(named: "lucide_search") }
     static var setting: UIImage { .loadAsset(named: "lucide_setting") }
     
