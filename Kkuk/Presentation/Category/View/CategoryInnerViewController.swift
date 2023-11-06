@@ -9,7 +9,6 @@ import SnapKit
 import UIKit
 
 class CategoryInnerViewController: BaseUIViewController {
-    
     private var contentManager = ContentHelper()
     
     private var recentItems: [Content] = [] {
@@ -57,12 +56,13 @@ class CategoryInnerViewController: BaseUIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         guard category != nil else {
-            return self.category = Category()
+            return category = Category()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setNavigationBar()
         let contents = contentManager.readInCategory(at: category?.id ?? Category().id).map { $0 as Content }
         recentItems = contents
         navigationController?.title = category?.name
@@ -75,7 +75,7 @@ class CategoryInnerViewController: BaseUIViewController {
     
     override func setLayout() {
         contentTableView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
@@ -100,15 +100,16 @@ class CategoryInnerViewController: BaseUIViewController {
 
 extension CategoryInnerViewController {
     @objc func backButtonDidTap() {
-        self.dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func editButtonDidTapped() {
         let customVC = PanModalTableViewController()
         customVC.delegate = self
         customVC.modalPresentationStyle = .popover
-        customVC.setCategory(category: self.category!)
-        self.presentPanModal(customVC)
+        customVC.selfNavi = navigationController
+        customVC.setCategory(category: category!)
+        presentPanModal(customVC)
     }
     
     func setCategory(category: Category) {
@@ -118,12 +119,11 @@ extension CategoryInnerViewController {
 
 extension CategoryInnerViewController: PanModalTableViewControllerDelegate {
     func modifyTitle(title: String) {
-        self.navigationItem.title = title
+        navigationItem.title = title
     }
 }
 
 extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recentItems.count
     }
@@ -147,5 +147,4 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         viewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(viewController, animated: true)
     }
-    
 }

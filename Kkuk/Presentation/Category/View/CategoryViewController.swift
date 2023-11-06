@@ -9,7 +9,6 @@ import SnapKit
 import UIKit
 
 class CategoryViewController: BaseUIViewController {
-    
     private var category = [Category]()
     
     private var categoryHelper = CategoryHelper.shared
@@ -45,6 +44,7 @@ class CategoryViewController: BaseUIViewController {
         super.viewWillAppear(animated)
         
         category = categoryHelper.read()
+        categoryTableView.reloadData()
     }
     
     override func setNavigationBar() {
@@ -76,23 +76,18 @@ class CategoryViewController: BaseUIViewController {
         addCategoryButtonItem.target = self
         addCategoryButtonItem.action = #selector(plusButtonDidTap)
     }
-    
 }
 
 // MARK: - @objc
 
-extension CategoryViewController {    
-    
-    @objc
-    func plusButtonDidTap() {
+extension CategoryViewController {
+    @objc func plusButtonDidTap() {
         let viewController = AddCategoryViewController()
-        
+        viewController.delegate = self
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.modalPresentationStyle = .overFullScreen
-        
         present(navigationController, animated: true, completion: nil)
     }
-
 }
 
 extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -102,13 +97,8 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for: indexPath)
-                as? CategoryTableViewCell else { return UITableViewCell() }
+            as? CategoryTableViewCell else { return UITableViewCell() }
         let category = category[indexPath.item]
-        if tableView.isEditing {
-            cell.editCategoryButton.isHidden = false
-        } else {
-            cell.editCategoryButton.isHidden = true
-        }
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
         cell.configure(category: category)
@@ -124,36 +114,6 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
-    }
-    
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCell.EditingStyle.delete {
-            categoryHelper.delete(category[indexPath.row])
-            category.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .none)
-            tableView.reloadData()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        if tableView.isEditing {
-            let delete = UIContextualAction(style: .destructive, title: "Delete") { [self] _, _, _ in
-                categoryHelper.delete(category[indexPath.row])
-                category.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            let swipeAction = UISwipeActionsConfiguration(actions: [delete])
-            swipeAction.performsFirstActionWithFullSwipe = false
-            return swipeAction
-        } else {
-            let config = UISwipeActionsConfiguration()
-            config.performsFirstActionWithFullSwipe = false
-            return config
-        }
     }
 }
 
