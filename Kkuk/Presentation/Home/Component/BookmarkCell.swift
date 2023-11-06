@@ -1,29 +1,30 @@
 //
-//  RecommendView.swift
+//  BookmarkCell.swift
 //  Kkuk
 //
-//  Created by se-ryeong on 2023/10/19.
+//  Created by se-ryeong on 2023/11/06.
 //
 
 import UIKit
-import Kingfisher
 import RealmSwift
 
-protocol RecommendViewDelegate: AnyObject {
-    func selectedPin(id: ObjectId)
+protocol BookmarkCellDelegate: AnyObject {
+    func removePin(id: ObjectId)
 }
 
-final class RecommendView: UIView {
+final class BookmarkCell: UICollectionViewCell {
+    static let identifier = "BookmarkCell"
+    
     private var item: Content?
     
-    weak var delegate: RecommendViewDelegate?
+    weak var delegate: BookmarkCellDelegate?
     
     private var contentManager = ContentManager()
     
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "emptyBoard")
-        view.contentMode = .scaleAspectFit
+        view.contentMode = .scaleAspectFill
         view.backgroundColor = .subgray3
         view.clipsToBounds = true
         view.layer.borderColor = UIColor.subgray2.cgColor
@@ -99,14 +100,34 @@ final class RecommendView: UIView {
         }
     }
     
-    func configureRecommend(content: Content) {
+    func configureCell(content: Content) {
         self.item = content
         self.contentLabel.text = content.title
         self.contentLabel.font = .subtitle2
-        let imageUrl = content.imageURL
-        guard let url = URL(string: imageUrl ?? "") else { return }
-        self.imageView.kf.setImage(with: url)
-        self.imageView.contentMode = .scaleAspectFill
+        
+        setUpImage(imageURL: content.imageURL)
+    }
+    
+    func setUpImage(imageURL: String?) {
+        guard var url = imageURL else { return }
+
+        // http 포함 -> https로 변경
+        if url.contains("http:") {
+            if let range = url.range(of: "http:") {
+                url.replaceSubrange(range, with: "https:")
+            }
+        // http 미포함 -> https를 접두에 추가
+        // (이 조건은 https가 포함되어 있을 때도 만족하기 떄문에 조건에서 제거해줘야함)
+        } else if !url.contains("https:") {
+            url = "https:" + url
+        }
+        
+        guard let https = url.range(of: "https:") else { return }
+  
+        url = String(url.suffix(from: https.lowerBound))
+
+        guard let urlSource = URL(string: url) else { return }
+        self.imageView.kf.setImage(with: urlSource)
     }
     
     @objc func tapPinButton(_ sender: UIButton) {
@@ -115,15 +136,6 @@ final class RecommendView: UIView {
             item.isPinned.toggle()
         }
         
-        delegate?.selectedPin(id: item.id)
-    }
-}
-
-extension CALayer {
-    func addBottomBorder(with color: UIColor, width: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = UIColor.subgray3.cgColor
-        border.frame = CGRect(x: 0, y: frame.size.height - width, width: frame.width, height: width)
-        addSublayer(border)
+        delegate?.removePin(id: item.id)
     }
 }

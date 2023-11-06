@@ -10,14 +10,18 @@ import RealmSwift
 import SnapKit
 
 final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
-    
-    var selectedRow: Int = 0
-    
     private var contentManager = ContentManager()
     
     private var recentItems: [Content] = [] {
         didSet {
             emptyLabel.isHidden = !recentItems.isEmpty
+        }
+    }
+    
+    private var bookmarkItems: [Content] = [] {
+        didSet {
+            pageControl.numberOfPages = bookmarkItems.count
+            emptyStateView.isHidden = !bookmarkItems.isEmpty
         }
     }
     
@@ -74,7 +78,27 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         return label
     }()
     
-    private var recommendPagingView = RecommendPagingView()
+    private let pageControl: UIPageControl = {
+        let control = UIPageControl()
+        control.currentPage = 0
+        control.pageIndicatorTintColor = .subgray2
+        control.currentPageIndicatorTintColor = .white
+        
+        return control
+    }()
+    
+    private var emptyStateView = EmptyStateView()
+    
+    private lazy var collectionView: UICollectionView = {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        view.register(BookmarkCell.self, forCellWithReuseIdentifier: BookmarkCell.identifier)
+        view.isPagingEnabled = true
+        view.backgroundColor = .main
+        view.backgroundView = emptyStateView
+        view.bounces = false
+        
+        return view
+    }()
     
     private var tableView: UITableView = {
         let view = UITableView()
@@ -92,35 +116,30 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateItems()
+        updateUI()
     }
   
     override func setUI() {
         view.addSubviews([topFrameView, recentLabel, tableView, plusButton])
         
-        topFrameView.addSubviews([subTitleLabel, titleLabel, recommendPagingView])
+        topFrameView.addSubviews([subTitleLabel, titleLabel, collectionView, pageControl])
         
         tableView.addSubviews([emptyLabel])
     }
     
-    func setSelectedItem(row: Int) {
-        selectedRow = row
-    }
-    
-    private func updateItems() {
+    private func updateUI() {
         let contents = contentManager.read()
         recentItems = contents.prefix(5).map { $0 as Content }
-        
-        let selectedIndexPath = IndexPath(row: selectedRow, section: 0)
-        tableView.reloadRows(at: [selectedIndexPath], with: .none)
-        
-        let isPinnedItems = contents.filter { $0.isPinned }
-        recommendPagingView.setItems(items: isPinnedItems)
-        
-        recommendPagingView.itemStackView.subviews.forEach {
-            let view = $0 as? RecommendView
-            view?.delegate = self
-        }
+        bookmarkItems = contents.filter { $0.isPinned }.prefix(5).map { $0 as Content }
+        collectionView.reloadData()
+        tableView.reloadData()
+    }
+    
+    private func updatePin(index: Int) {
+        let contents = contentManager.read()
+        bookmarkItems = contents.filter { $0.isPinned }.prefix(5).map { $0 as Content }
+        collectionView.reloadData()
+        tableView.reloadRows(at: [.init(row: index, section: 0)], with: .automatic)
     }
     
     override func setLayout() {
@@ -149,10 +168,15 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
             constraint.leading.equalTo(20)
         }
         
-        recommendPagingView.snp.makeConstraints { constraint in
+        collectionView.snp.makeConstraints { constraint in
             constraint.horizontalEdges.equalToSuperview()
             constraint.top.equalTo(titleLabel.snp.bottom).offset(20)
-            constraint.bottom.equalToSuperview()
+            constraint.bottom.equalTo(pageControl.snp.top).offset(-12)
+        }
+        
+        pageControl.snp.makeConstraints { constraint in
+            constraint.bottom.equalToSuperview().offset(-12)
+            constraint.centerX.equalToSuperview()
         }
         
         plusButton.snp.makeConstraints { constraint in
@@ -175,6 +199,8 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     override func setDelegate() {
         tableView.dataSource = self
         tableView.delegate = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
     
     override func addTarget() {
@@ -195,7 +221,6 @@ extension HomeViewController {
         navigationController.modalTransitionStyle = .coverVertical
         present(navigationController, animated: true)
     }
-  
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -224,24 +249,75 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         viewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(viewController, animated: true)
     }
+}
+
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return bookmarkItems.count
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookmarkCell.identifier,
+                                                            for: indexPath) as? BookmarkCell
+        else { return .init() }
+        
+        let content = bookmarkItems[indexPath.row]
+        cell.configureCell(content: content)
+        cell.delegate = self
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+        print(proposedContentOffset)
+        
+        return proposedContentOffset
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if scrollView == collectionView {
+//            self.pageControl.currentPage = Int(round(scrollView.contentOffset.x / (UIScreen.main.bounds.width)))
+//        }
+    }
+}
+
+extension HomeViewController {
+    private func createLayout() -> UICollectionViewLayout {
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .absolute(view.frame.width-40),
+                                                            heightDimension: .fractionalHeight(1.0)))
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1.0),
+                                                                         heightDimension: .fractionalHeight(1.0)),
+                                                       subitems: [item])
+    
+        group.contentInsets = .init(top: 0, leading: 20, bottom: 0, trailing: 0)
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .groupPagingCentered
+        
+        section.visibleItemsInvalidationHandler = { [weak self] visibleItems, _, _ in
+            self?.pageControl.currentPage = visibleItems.last?.indexPath.row ?? 0
+        }
+        
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        
+        return layout
+    }
 }
 
 extension HomeViewController: ContentTableViewCellDelegate {
     func togglePin(index: Int) {
-        setSelectedItem(row: index)
         contentManager.update(content: self.recentItems[index]) { [weak self] content in
             content.isPinned.toggle()
-            self?.updateItems()
+            self?.updatePin(index: index)
         }
     }
 }
 
-extension HomeViewController: RecommendViewDelegate {
-    func selectedPin(id: ObjectId) {
-        if let idx = recentItems.firstIndex(where: { $0.id == id }) {
-            self.setSelectedItem(row: idx)
+extension HomeViewController: BookmarkCellDelegate {
+    func removePin(id: ObjectId) {
+        if let index = recentItems.firstIndex(where: { $0.id == id }) {
+            self.updatePin(index: index)
         }
-        updateItems()
     }
 }
