@@ -231,6 +231,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A70AB842AF9FEEC00CAAC48 /* PanModal */ = {
+			isa = PBXGroup;
+			children = (
+				55B5050F2AF7325200869130 /* PanModalTableViewCell.swift */,
+				55B505112AF7326E00869130 /* PanModalTableViewController.swift */,
+			);
+			path = PanModal;
+			sourceTree = "<group>";
+		};
 		0A7B933E2AF89D220006B348 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
@@ -334,6 +343,7 @@
 		1C2843992ADC2CD400A87E99 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				0A70AB842AF9FEEC00CAAC48 /* PanModal */,
 				0A7B93412AF9D9320006B348 /* Content */,
 				1C328F862AE92F6E0040D883 /* Web */,
 				1C2843BC2ADD0F3D00A87E99 /* SearchContent */,
@@ -431,7 +441,6 @@
 				55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */,
 				1C2843B82ADD0DD400A87E99 /* CategoryViewController.swift */,
 				ECF81C422AE050FF000C05DC /* AddCategoryViewController.swift */,
-				55B505112AF7326E00869130 /* PanModalTableViewController.swift */,
 				55B505132AF75F3F00869130 /* EditCategoryViewController.swift */,
 			);
 			path = View;
@@ -478,7 +487,6 @@
 			children = (
 				55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */,
 				ECD225642AE7883B009CA421 /* AddCategoryView.swift */,
-				55B5050F2AF7325200869130 /* PanModalTableViewCell.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
