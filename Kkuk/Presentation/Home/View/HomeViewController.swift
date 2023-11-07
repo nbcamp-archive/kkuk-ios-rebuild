@@ -62,16 +62,6 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         return label
     }()
     
-    private var plusButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .main
-        button.layer.cornerRadius = 30
-        button.setImage(UIImage(named: "Plus"), for: .normal)
-        button.tintColor = .background
-        
-        return button
-    }()
-    
     private var emptyLabel: UILabel = {
         let label = UILabel()
         label.text = "최근에 추가한 콘텐츠가 없습니다."
@@ -124,7 +114,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     }
   
     override func setUI() {
-        view.addSubviews([topFrameView, recentLabel, tableView, plusButton])
+        view.addSubviews([topFrameView, recentLabel, tableView])
         
         topFrameView.addSubviews([subTitleLabel, titleLabel, collectionView, pageControl])
         
@@ -187,12 +177,6 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
             constraint.centerX.equalToSuperview()
         }
         
-        plusButton.snp.makeConstraints { constraint in
-            constraint.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
-            constraint.trailing.equalTo(-20)
-            constraint.height.width.equalTo(60)
-        }
-        
         tableView.snp.makeConstraints { constraint in
             constraint.top.equalTo(recentLabel.snp.bottom).offset(16)
             constraint.leading.trailing.equalToSuperview().inset(20)
@@ -210,25 +194,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         collectionView.delegate = self
         collectionView.dataSource = self
     }
-    
-    override func addTarget() {
-        plusButton.addTarget(self, action: #selector(plusButtonDidTap), for: .touchUpInside)
-    }
 
-}
-
-// MARK: - 커스텀 메서드
-
-extension HomeViewController {
-
-    @objc
-    private func plusButtonDidTap() {
-        let viewController = AddContentViewController()
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        navigationController.modalTransitionStyle = .coverVertical
-        present(navigationController, animated: true)
-    }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
