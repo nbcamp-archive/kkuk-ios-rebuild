@@ -239,6 +239,17 @@ extension HomeViewController: ContentTableViewCellDelegate {
             self?.updateItems()
         }
     }
+    
+    func presenteMoreMenu(content: Content) {
+        let title = [PanModalOption.Title.modify,
+                     PanModalOption.Title.delete,
+                     PanModalOption.Title.share,
+                     PanModalOption.Title.cancel]
+        let option = PanModalOption(screenType: .content, title: title)
+        let modalVC = PanModalTableViewController(option: option, content: content)
+        modalVC.modalPresentationStyle = .popover
+        presentPanModal(modalVC)
+    }
 }
 
 extension HomeViewController: RecommendViewDelegate {

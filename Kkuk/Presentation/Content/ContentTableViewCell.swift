@@ -10,12 +10,13 @@ import Alamofire
 
 protocol ContentTableViewCellDelegate: AnyObject {
     func togglePin(index: Int)
+    func presenteMoreMenu(content: Content)
 }
 
 class ContentTableViewCell: BaseUITableViewCell {
     weak var delegate: ContentTableViewCellDelegate?
     
-    private var contentManager = ContentHelper()
+    private var content: Content?
     
     private lazy var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
@@ -68,11 +69,13 @@ class ContentTableViewCell: BaseUITableViewCell {
         button.contentMode = .center
         button.imageView?.layer.transform = CATransform3DMakeScale(0.8, 0.8, 0.8)
 
-        button.addTarget(self, action: #selector(tappedMenuButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tappedMoreButton), for: .touchUpInside)
         return button
     }()
     
     func configureCell(content: Content, index: Int) {
+        self.content = content
+        
         siteTitleLabel.text = content.title
         memoLabel.text = content.memo
         urlLabel.text = content.sourceURL
@@ -175,6 +178,8 @@ class ContentTableViewCell: BaseUITableViewCell {
         delegate?.togglePin(index: sender.tag)
     }
     
-    @objc func tappedMenuButton(_ sender: UIButton) {
+    @objc func tappedMoreButton(_ sender: UIButton) {
+        guard let content = content else { return }
+        delegate?.presenteMoreMenu(content: content)
     }
 }

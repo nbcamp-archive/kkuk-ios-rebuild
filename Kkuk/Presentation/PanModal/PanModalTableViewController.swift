@@ -22,6 +22,10 @@ class PanModalTableViewController: BaseUIViewController {
     
     private var panModalOption: PanModalOption?
     
+    private var content: Content?
+    
+    private var helper = ContentHelper()
+    
     private lazy var deleteModifyTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(PanModalTableViewCell.self, forCellReuseIdentifier: "PanModalTableViewCell")
@@ -33,9 +37,10 @@ class PanModalTableViewController: BaseUIViewController {
         return tableView
     }()
     
-    init(option: PanModalOption) {
+    init(option: PanModalOption, content: Content? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.panModalOption = option
+        self.content = content
     }
     
     required init?(coder: NSCoder) {
@@ -120,7 +125,16 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func didSelectedContentScreen(_ menu: PanModalOption.Title) {
-
+        guard let content = content else { return }
+        
+        switch menu {
+        case .modify: return
+        case .delete:
+            helper.delete(content)
+            dismiss(animated: true)
+        case .share: return
+        case .cancel: dismiss(animated: true)
+        }
     }
 }
 

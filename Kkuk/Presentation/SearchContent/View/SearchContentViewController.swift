@@ -216,6 +216,7 @@ extension SearchContentViewController: UITableViewDataSource, UITableViewDelegat
         let content = contentList[indexPath.row]
         cell.configureCell(content: content, index: indexPath.row)
         cell.selectionStyle = .none
+        cell.delegate = self
         return cell
     }
     
@@ -232,5 +233,21 @@ extension SearchContentViewController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+}
+
+extension SearchContentViewController: ContentTableViewCellDelegate {
+    func togglePin(index: Int) {
+    }
+    
+    func presenteMoreMenu(content: Content) {
+        let title = [PanModalOption.Title.modify,
+                     PanModalOption.Title.delete,
+                     PanModalOption.Title.share,
+                     PanModalOption.Title.cancel]
+        let option = PanModalOption(screenType: .content, title: title)
+        let modalVC = PanModalTableViewController(option: option, content: content)
+        modalVC.modalPresentationStyle = .popover
+        presentPanModal(modalVC)
     }
 }
