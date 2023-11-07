@@ -123,7 +123,7 @@ class AddContentViewController: BaseUIViewController {
         
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.title3 ]
-        appearance.backgroundColor = .white
+        appearance.backgroundColor = .background
         appearance.shadowColor = .none
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
@@ -160,10 +160,10 @@ class AddContentViewController: BaseUIViewController {
             $0.top.equalTo(URLTextFieldStateLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalTo(induceURLLabel)
         }
-//        optionalLabel.snp.makeConstraints {
-//            $0.top.trailing.equalTo(induceMemoLabel)
-//            $0.height.equalTo(induceMemoLabel)
-//        }
+        optionalLabel.snp.makeConstraints {
+            $0.top.trailing.equalTo(induceMemoLabel)
+            $0.height.equalTo(induceMemoLabel)
+        }
         memoContainerView.snp.makeConstraints {
             $0.top.equalTo(induceMemoLabel.snp.bottom).offset(14)
             $0.leading.trailing.equalTo(induceURLLabel)
@@ -210,6 +210,76 @@ class AddContentViewController: BaseUIViewController {
     
 }
 
+// MARK: - @objc
+
+extension AddContentViewController {
+    
+    @objc
+    func textFieldDidChange(_ textField: UITextField) {
+        sourceURL = URLTextField.text ?? ""
+        updateAddContentButtonState(with: sourceURL)
+    }
+    
+    @objc
+    private func closeButtonItemDidTap() {
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.presentingViewController?.viewWillAppear(true)
+    }
+    
+    @objc
+    private func addContentButtonDidTap() {
+        addContentButton.isEnabled = false
+        updateActivityIndicatorState(true)
+        
+        guard let text = URLTextField.text, !text.isEmpty, let URL = URL(string: text) else { return }
+        
+        let openGraphService = OpenGraphService()
+        
+        openGraphService.extractOpenGraphData(from: URL) { [weak self] result in
+            switch result {
+            case .success(let openGraph):
+                let newContent = Content(sourceURL: text,
+                                         title: openGraph.ogTitle ?? "",
+                                         imageURL: openGraph.ogImage,
+                                         memo: self?.memoTextView.text,
+                                         category: (self?.selectedCategoryId)!)
+                self?.contentHelper.create(content: newContent)
+                self?.updateActivityIndicatorState(false)
+                self?.addContentButton.isEnabled = true
+                
+                let alertController = UIAlertController(title: "콘텐츠를 추가했어요", message: nil, preferredStyle: .alert)
+                
+                let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
+                    self?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    self?.presentingViewController?.viewWillAppear(true)
+                })
+                
+                alertController.addAction(okAction)
+                self?.present(alertController, animated: true, completion: nil)
+                
+                print("ogURL: \(openGraph.ogURL ?? "No Data")")
+                print("ogTitle: \(openGraph.ogTitle ?? "No Data")")
+                print("ogGraph: \(openGraph.ogImage ?? "No Data")")
+            case .failure(let error):
+                print("Open Graph Data를 추출하는데 문제가 발생했습니다. \(error.localizedDescription)")
+                
+                DispatchQueue.main.async {
+                    self?.updateActivityIndicatorState(false)
+                    self?.addContentButton.isEnabled = false
+                }
+            }
+        }
+    }
+    
+    @objc
+    private func addCategoryButtonDidTap() {
+        let viewController = AddCategoryViewController()
+        let navigationController = UINavigationController(rootViewController: viewController)
+        present(navigationController, animated: true)
+    }
+    
+}
+
 // MARK: - 커스텀 메서드
 
 extension AddContentViewController {
@@ -244,54 +314,8 @@ extension AddContentViewController {
         return false
     }
     
-}
-
-// MARK: - @objc
-
-extension AddContentViewController {
-    
-    @objc
-    func textFieldDidChange(_ textField: UITextField) {
-        sourceURL = URLTextField.text ?? ""
-        updateAddContentButtonState(with: sourceURL)
-    }
-    
-    @objc
-    private func closeButtonItemDidTap() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc
-    private func addContentButtonDidTap() {
-        guard let text = URLTextField.text, !text.isEmpty, let URL = URL(string: text) else { return }
-        
-        let openGraphService = OpenGraphService()
-        
-        openGraphService.extractOpenGraphData(from: URL) { [weak self] result in
-            switch result {
-            case .success(let openGraph):
-                let newContent = Content(sourceURL: text,
-                                         title: openGraph.ogTitle ?? "",
-                                         imageURL: openGraph.ogImage,
-                                         memo: self?.memoTextView.text,
-                                         category: (self?.selectedCategoryId)!)
-                self?.contentHelper.create(content: newContent)
-                
-                self?.dismiss(animated: true)
-                
-                print("ogURL: \(openGraph.ogURL ?? "No data")")
-                print("ogTitle: \(openGraph.ogTitle ?? "No data")")
-                print("ogGraph: \(openGraph.ogImage ?? "No data")")
-            case .failure(let error):
-                print("Open Graph Property Data를 추출하는데 문제가 발생했습니다. \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    @objc
-    private func addCategoryButtonDidTap() {
-        let viewController = AddCategoryViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+    private func updateActivityIndicatorState(_ isEnabled: Bool) {
+        addContentButton.configuration?.showsActivityIndicator = isEnabled
     }
     
 }
