@@ -68,6 +68,10 @@ class CategoryInnerViewController: BaseUIViewController {
         navigationController?.title = category?.name
         contentTableView.reloadData()
     }
+    
+    private func updatePin(index: Int) {
+        contentTableView.reloadRows(at: [.init(row: index, section: 0)], with: .automatic)
+    }
 
     override func setUI() {
         view.addSubviews([contentTableView, noContentLabel])
@@ -99,6 +103,7 @@ class CategoryInnerViewController: BaseUIViewController {
 }
 
 extension CategoryInnerViewController {
+    
     @objc func backButtonDidTap() {
         self.dismiss(animated: true)
     }
@@ -114,12 +119,15 @@ extension CategoryInnerViewController {
     func setCategory(category: Category) {
         self.category = category
     }
+
 }
 
 extension CategoryInnerViewController: PanModalTableViewControllerDelegate {
+    
     func modifyTitle(title: String) {
         self.navigationItem.title = title
     }
+
 }
 
 extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSource {
@@ -134,6 +142,7 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         else { return UITableViewCell() }
         let item = recentItems[indexPath.row]
         cell.configureCell(content: item, index: indexPath.row)
+        cell.delegate = self
         cell.selectionStyle = .none
         return cell
     }
@@ -148,8 +157,19 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         viewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(viewController, animated: true)
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
-    }    
+    }
+}
+
+extension CategoryInnerViewController: ContentTableViewCellDelegate {
+
+    func togglePin(index: Int) {
+        contentManager.update(content: self.recentItems[index]) { [weak self] content in
+            content.isPinned.toggle()
+            self?.updatePin(index: index)
+        }
+    }
+
 }

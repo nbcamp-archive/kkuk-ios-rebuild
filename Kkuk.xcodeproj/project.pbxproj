@@ -75,8 +75,7 @@
 		C352F4AA2AEB81170016398A /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A92AEB81170016398A /* Content.swift */; };
 		C352F4AE2AEB87330016398A /* ContentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4AD2AEB87330016398A /* ContentHelper.swift */; };
 		C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */; };
-		C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */; };
-		C3A65F082AE0326500A100A7 /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F072AE0326500A100A7 /* RecommendView.swift */; };
+		C3D641F82AF92ABE00DA39E4 /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D641F72AF92ABE00DA39E4 /* BookmarkCell.swift */; };
 		ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD225642AE7883B009CA421 /* AddCategoryView.swift */; };
 		ECF81C432AE050FF000C05DC /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF81C422AE050FF000C05DC /* AddCategoryViewController.swift */; };
 /* End PBXBuildFile section */
@@ -185,8 +184,7 @@
 		C352F4A92AEB81170016398A /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		C352F4AD2AEB87330016398A /* ContentHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentHelper.swift; sourceTree = "<group>"; };
 		C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
-		C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendPagingView.swift; sourceTree = "<group>"; };
-		C3A65F072AE0326500A100A7 /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
+		C3D641F72AF92ABE00DA39E4 /* BookmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
 		ECD225642AE7883B009CA421 /* AddCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryView.swift; sourceTree = "<group>"; };
 		ECF81C422AE050FF000C05DC /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -385,9 +383,8 @@
 		1C2843A62ADD0C0200A87E99 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */,
-				C3A65F072AE0326500A100A7 /* RecommendView.swift */,
 				C352F49E2AE7980F0016398A /* EmptyStateView.swift */,
+				C3D641F72AF92ABE00DA39E4 /* BookmarkCell.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -825,6 +822,7 @@
 				1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */,
 				0A7B93402AF89D3B0006B348 /* SegmentMenu.swift in Sources */,
 				1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */,
+				C352F4AE2AEB87330016398A /* ContentManager.swift in Sources */,
 				C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */,
 				C352F4AE2AEB87330016398A /* ContentHelper.swift in Sources */,
 				55791AC42AE7AED9005C06C4 /* CategoryTableViewCell.swift in Sources */,
@@ -846,7 +844,6 @@
 				1CAEBE6F2AF1278500FF4CF2 /* OptionalLabel.swift in Sources */,
 				1C2843D82ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift in Sources */,
 				1C79F0022AE7E94400B5A97A /* OpenGraphService.swift in Sources */,
-				C3A65F082AE0326500A100A7 /* RecommendView.swift in Sources */,
 				1C2843BF2ADD0F5300A87E99 /* SearchContentViewController.swift in Sources */,
 				C352F4A32AE825F40016398A /* SettingItemCell.swift in Sources */,
 				ECF81C432AE050FF000C05DC /* AddCategoryViewController.swift in Sources */,
@@ -864,6 +861,8 @@
 				1CB63FFA2AF33EC9003BDB62 /* SelectCategoryCell.swift in Sources */,
 				1C79EFF62AE7641000B5A97A /* UIImage+LoadAsset.swift in Sources */,
 				55791AD22AEBC0FF005C06C4 /* Category.swift in Sources */,
+				1C2843B12ADD0D6300A87E99 /* AppInfoViewController.swift in Sources */,
+				C3D641F82AF92ABE00DA39E4 /* BookmarkCell.swift in Sources */,
 				1C2843B12ADD0D6300A87E99 /* SettingViewController.swift in Sources */,
 				1C2843A32ADC2F7000A87E99 /* Coordinator.swift in Sources */,
 				55B505122AF7326E00869130 /* PanModalTableViewController.swift in Sources */,
