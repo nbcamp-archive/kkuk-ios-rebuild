@@ -68,6 +68,10 @@ class CategoryInnerViewController: BaseUIViewController {
         navigationController?.title = category?.name
         contentTableView.reloadData()
     }
+    
+    private func updatePin(index: Int) {
+        contentTableView.reloadRows(at: [.init(row: index, section: 0)], with: .automatic)
+    }
 
     override func setUI() {
         view.addSubviews([contentTableView, noContentLabel])
@@ -134,6 +138,7 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         else { return UITableViewCell() }
         let item = recentItems[indexPath.row]
         cell.configureCell(content: item, index: indexPath.row)
+        cell.delegate = self
         return cell
     }
     
@@ -147,5 +152,13 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         viewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(viewController, animated: true)
     }
-    
+}
+
+extension CategoryInnerViewController: ContentTableViewCellDelegate {
+    func togglePin(index: Int) {
+        contentManager.update(content: self.recentItems[index]) { [weak self] content in
+            content.isPinned.toggle()
+            self?.updatePin(index: index)
+        }
+    }
 }

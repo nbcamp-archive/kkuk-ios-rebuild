@@ -140,6 +140,14 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         bookmarkItems = contents.filter { $0.isPinned }.prefix(5).map { $0 as Content }
         collectionView.reloadData()
         tableView.reloadRows(at: [.init(row: index, section: 0)], with: .automatic)
+        
+        // 업데이트되는 아이템으로 스크롤
+        if let scrollToIndex = bookmarkItems.firstIndex(of: recentItems[index]) {
+            collectionView.scrollToItem(at: .init(item: scrollToIndex, section: 0), at: .left, animated: true)
+        } else {
+            collectionView.scrollToItem(at: .init(item: 0, section: 0), at: .centeredVertically, animated: true)
+        }
+        
     }
     
     override func setLayout() {
@@ -149,15 +157,11 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
             constraint.height.equalTo(view.snp.height).multipliedBy(0.55)
         }
         
-        subTitleLabel.setContentHuggingPriority(.required, for: .vertical)
-        subTitleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         subTitleLabel.snp.makeConstraints { constraint in
             constraint.top.equalTo(view.safeAreaLayoutGuide)
             constraint.leading.equalTo(20)
         }
         
-        titleLabel.setContentHuggingPriority(.required, for: .vertical)
-        titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         titleLabel.snp.makeConstraints { constraint in
             constraint.top.equalTo(subTitleLabel.snp.bottom).offset(8)
             constraint.leading.equalTo(20)
@@ -282,7 +286,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 extension HomeViewController {
     private func createLayout() -> UICollectionViewLayout {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .absolute(view.frame.width-40),
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .absolute(view.frame.width - 40),
                                                             heightDimension: .fractionalHeight(1.0)))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1.0),
