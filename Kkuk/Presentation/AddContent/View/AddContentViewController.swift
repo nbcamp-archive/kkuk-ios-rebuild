@@ -110,6 +110,14 @@ class AddContentViewController: BaseUIViewController {
         super.viewWillAppear(animated)
         
         setIQKeyboardManagerEnable(true)
+        
+        if let pasteboardValue = UIPasteboard.general.string, !pasteboardValue.isEmpty {
+            DispatchQueue.main.async {
+                self.URLTextField.text = pasteboardValue
+                self.sourceURL = pasteboardValue
+                self.updateAddContentButtonState(with: pasteboardValue)
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -216,7 +224,7 @@ extension AddContentViewController {
     
     @objc
     func textFieldDidChange(_ textField: UITextField) {
-        sourceURL = URLTextField.text ?? ""
+        sourceURL = textField.text ?? ""
         updateAddContentButtonState(with: sourceURL)
     }
     
@@ -325,29 +333,29 @@ extension AddContentViewController {
 extension AddContentViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        URLTextField.backgroundColor = .background
-        URLTextField.layer.borderWidth = CGFloat(2)
-        URLTextField.layer.cornerRadius = CGFloat(8)
-        URLTextField.layer.borderColor = UIColor.main.cgColor
-        URLTextField.layer.masksToBounds = true
+        textField.backgroundColor = .background
+        textField.layer.borderWidth = CGFloat(2)
+        textField.layer.cornerRadius = CGFloat(8)
+        textField.layer.borderColor = UIColor.main.cgColor
+        textField.layer.masksToBounds = true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        URLTextField.backgroundColor = .subgray3
-        URLTextField.layer.borderWidth = CGFloat(0)
-        URLTextField.layer.borderColor = .none
+        textField.backgroundColor = .subgray3
+        textField.layer.borderWidth = CGFloat(0)
+        textField.layer.borderColor = .none
     }
     
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let updateText = (sourceURL as NSString).replacingCharacters(in: range, with: string)
+        let updateText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         
         updateAddContentButtonState(with: updateText)
         return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        URLTextField.resignFirstResponder()
+        textField.resignFirstResponder()
         return true
     }
     
@@ -358,31 +366,31 @@ extension AddContentViewController: UITextFieldDelegate {
 extension AddContentViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        memoTextView.backgroundColor = .background
-        memoTextView.layer.borderColor = UIColor.main.cgColor
-        memoTextView.layer.borderWidth = CGFloat(2)
-        memoTextView.layer.cornerRadius = CGFloat(8)
-        memoTextView.layer.masksToBounds = true
+        textView.backgroundColor = .background
+        textView.layer.borderColor = UIColor.main.cgColor
+        textView.layer.borderWidth = CGFloat(2)
+        textView.layer.cornerRadius = CGFloat(8)
+        textView.layer.masksToBounds = true
         
-        if memoTextView.textColor == .subgray1 {
-            memoTextView.text = nil
-            memoTextView.textColor = .text1
+        if textView.textColor == .subgray1 {
+            textView.text = nil
+            textView.textColor = .text1
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        memoTextView.textColor = .text1
-        memoTextView.backgroundColor = .subgray3
-        memoTextView.layer.borderWidth = CGFloat(0)
-        memoTextView.layer.borderColor = .none
+        textView.textColor = .text1
+        textView.backgroundColor = .subgray3
+        textView.layer.borderWidth = CGFloat(0)
+        textView.layer.borderColor = .none
         
-        if memoTextView.textColor == .subgray1 {
-            memoTextView.text = "메모할 내용을 입력"
-            memoTextView.textColor = .subgray1
+        if textView.textColor == .subgray1 {
+            textView.text = "메모할 내용을 입력"
+            textView.textColor = .subgray1
         }
         
-        if memoTextView.text == "메모할 내용을 입력" {
-            memoTextView.text = ""
+        if textView.text == "메모할 내용을 입력" {
+            textView.text = ""
         }
     }
     
