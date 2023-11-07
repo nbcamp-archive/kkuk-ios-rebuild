@@ -22,7 +22,6 @@
 		1C2843A32ADC2F7000A87E99 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843A02ADC2F7000A87E99 /* Coordinator.swift */; };
 		1C2843A42ADC2F7000A87E99 /* BaseUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843A22ADC2F7000A87E99 /* BaseUIViewController.swift */; };
 		1C2843A82ADD0C0F00A87E99 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843A72ADD0C0F00A87E99 /* HomeViewController.swift */; };
-		1C2843B12ADD0D6300A87E99 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843B02ADD0D6300A87E99 /* SettingViewController.swift */; };
 		1C2843B92ADD0DD400A87E99 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843B82ADD0DD400A87E99 /* CategoryViewController.swift */; };
 		1C2843BF2ADD0F5300A87E99 /* SearchContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843BE2ADD0F5300A87E99 /* SearchContentViewController.swift */; };
 		1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843C72ADD0FD600A87E99 /* AddContentViewController.swift */; };
@@ -48,6 +47,8 @@
 		1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */; };
 		1C328F892AE92F8D0040D883 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C328F882AE92F8D0040D883 /* WebViewController.swift */; };
 		1C328F8D2AE9368D0040D883 /* WebViewToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C328F8C2AE9368D0040D883 /* WebViewToolbar.swift */; };
+		1C688AF62AFA913500E27714 /* ContentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4AD2AEB87330016398A /* ContentHelper.swift */; };
+		1C688AF72AFA915900E27714 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843B02ADD0D6300A87E99 /* SettingViewController.swift */; };
 		1C6ABCE42AFA8B8900FF9E56 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C6ABCE32AFA8B8900FF9E56 /* Settings.bundle */; };
 		1C79EFF62AE7641000B5A97A /* UIImage+LoadAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFF52AE7641000B5A97A /* UIImage+LoadAsset.swift */; };
 		1C79EFF92AE7675A00B5A97A /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFF82AE7675A00B5A97A /* Asset.swift */; };
@@ -73,7 +74,6 @@
 		C352F49F2AE7980F0016398A /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F49E2AE7980F0016398A /* EmptyStateView.swift */; };
 		C352F4A32AE825F40016398A /* SettingItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A22AE825F40016398A /* SettingItemCell.swift */; };
 		C352F4AA2AEB81170016398A /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A92AEB81170016398A /* Content.swift */; };
-		C352F4AE2AEB87330016398A /* ContentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4AD2AEB87330016398A /* ContentHelper.swift */; };
 		C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */; };
 		C3D641F82AF92ABE00DA39E4 /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D641F72AF92ABE00DA39E4 /* BookmarkCell.swift */; };
 		ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD225642AE7883B009CA421 /* AddCategoryView.swift */; };
@@ -816,15 +816,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C688AF72AFA915900E27714 /* SettingViewController.swift in Sources */,
+				1C688AF62AFA913500E27714 /* ContentHelper.swift in Sources */,
 				1CAEBE692AEBFD5500FF4CF2 /* InduceLabel.swift in Sources */,
 				1C328F892AE92F8D0040D883 /* WebViewController.swift in Sources */,
 				ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */,
 				1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */,
 				0A7B93402AF89D3B0006B348 /* SegmentMenu.swift in Sources */,
 				1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */,
-				C352F4AE2AEB87330016398A /* ContentManager.swift in Sources */,
-				C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */,
-				C352F4AE2AEB87330016398A /* ContentHelper.swift in Sources */,
 				55791AC42AE7AED9005C06C4 /* CategoryTableViewCell.swift in Sources */,
 				1C79F0062AE7F67300B5A97A /* AppTabBarItem.swift in Sources */,
 				1C2843CF2ADD11B600A87E99 /* AppTabBarController.swift in Sources */,
@@ -861,9 +860,7 @@
 				1CB63FFA2AF33EC9003BDB62 /* SelectCategoryCell.swift in Sources */,
 				1C79EFF62AE7641000B5A97A /* UIImage+LoadAsset.swift in Sources */,
 				55791AD22AEBC0FF005C06C4 /* Category.swift in Sources */,
-				1C2843B12ADD0D6300A87E99 /* AppInfoViewController.swift in Sources */,
 				C3D641F82AF92ABE00DA39E4 /* BookmarkCell.swift in Sources */,
-				1C2843B12ADD0D6300A87E99 /* SettingViewController.swift in Sources */,
 				1C2843A32ADC2F7000A87E99 /* Coordinator.swift in Sources */,
 				55B505122AF7326E00869130 /* PanModalTableViewController.swift in Sources */,
 				55B505102AF7325200869130 /* PanModalTableViewCell.swift in Sources */,
