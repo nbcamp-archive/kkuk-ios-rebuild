@@ -57,6 +57,7 @@ class ContentTableViewCell: BaseUITableViewCell {
     
     private lazy var pinButton: UIButton = {
         let button = UIButton()
+        button.imageView?.layer.transform = CATransform3DMakeScale(0.8, 0.8, 0.8)
         button.addTarget(self, action: #selector(tappedPinButton(_:)), for: .touchUpInside)
         return button
     }()
@@ -65,6 +66,8 @@ class ContentTableViewCell: BaseUITableViewCell {
         let button = UIButton()
         button.setImage(UIImage(named: "more_vertical"), for: .normal)
         button.contentMode = .center
+        button.imageView?.layer.transform = CATransform3DMakeScale(0.8, 0.8, 0.8)
+
         button.addTarget(self, action: #selector(tappedMenuButton), for: .touchUpInside)
         return button
     }()
@@ -121,14 +124,15 @@ class ContentTableViewCell: BaseUITableViewCell {
         
         pinButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
-            make.height.equalTo(16)
-            make.width.equalTo(12)
+            make.height.equalToSuperview().dividedBy(2)
+            make.width.equalTo(24)
             make.centerY.equalTo(urlLabel)
         }
         
         moreButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
-            make.height.width.equalTo(16)
+            make.height.equalToSuperview().dividedBy(2)
+            make.width.equalTo(24)
             make.centerY.equalTo(siteTitleLabel)
         }
     }
