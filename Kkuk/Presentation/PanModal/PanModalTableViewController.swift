@@ -13,18 +13,14 @@ protocol PanModalTableViewControllerDelegate: AnyObject {
     func modifyTitle(title: String)
 }
 
-enum PanModalOption: String {
-    case modify = "수정"
-    case delete = "삭제"
-    case cancel = "취소"
-}
-
 class PanModalTableViewController: BaseUIViewController {
     private var category: Category?
     
     private var modifyTitle: String?
     
     weak var delegate: PanModalTableViewControllerDelegate?
+    
+    private var panModalOption: PanModalOption?
     
     private lazy var deleteModifyTableView: UITableView = {
         let tableView = UITableView()
@@ -37,7 +33,14 @@ class PanModalTableViewController: BaseUIViewController {
         return tableView
     }()
     
-    private let modalOption = [PanModalOption.modify, PanModalOption.delete, PanModalOption.cancel]
+    init(option: PanModalOption) {
+        super.init(nibName: nil, bundle: nil)
+        self.panModalOption = option
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func setUI() {
         view.addSubview(deleteModifyTableView)
@@ -70,13 +73,15 @@ extension PanModalTableViewController {
 
 extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        modalOption.count
+        guard let count = panModalOption?.title.count else { return 0 }
+        return count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let title = panModalOption?.title[indexPath.row] else { return UITableViewCell() }
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PanModalTableViewCell",
                                                        for: indexPath) as? PanModalTableViewCell else { return UITableViewCell() }
-        cell.configure(name: modalOption[indexPath.row].rawValue)
+        cell.configure(name: title.rawValue)
         cell.selectionStyle = .none
         return cell
     }
@@ -86,6 +91,14 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch panModalOption?.screenType {
+        case .category: didSelectCategoryScreen(indexPath)
+        case .content: break
+        default: return
+        }
+    }
+    
+    func didSelectCategoryScreen(_ indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
             let viewController = EditCategoryViewController()

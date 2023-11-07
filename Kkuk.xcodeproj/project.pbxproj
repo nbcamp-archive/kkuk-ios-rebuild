@@ -10,6 +10,7 @@
 		0A042ED92ADFE48E002ED30D /* ContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042ED82ADFE48E002ED30D /* ContentTableViewCell.swift */; };
 		0A042EDB2ADFF9D0002ED30D /* RecentSearchContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042EDA2ADFF9D0002ED30D /* RecentSearchContentViewController.swift */; };
 		0A042EDD2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042EDC2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift */; };
+		0A70AB872AF9FF3A00CAAC48 /* PanModalOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A70AB862AF9FF3A00CAAC48 /* PanModalOption.swift */; };
 		0A7B93402AF89D3B0006B348 /* SegmentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B933F2AF89D3B0006B348 /* SegmentMenu.swift */; };
 		0A95434A2AE7C60300907579 /* RecentSearchHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9543492AE7C60300907579 /* RecentSearchHelper.swift */; };
 		1C2843722ADB969C00A87E99 /* KkukTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843712ADB969C00A87E99 /* KkukTests.swift */; };
@@ -123,6 +124,7 @@
 		0A042ED82ADFE48E002ED30D /* ContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewCell.swift; sourceTree = "<group>"; };
 		0A042EDA2ADFF9D0002ED30D /* RecentSearchContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchContentViewController.swift; sourceTree = "<group>"; };
 		0A042EDC2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchContentCollectionViewCell.swift; sourceTree = "<group>"; };
+		0A70AB862AF9FF3A00CAAC48 /* PanModalOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanModalOption.swift; sourceTree = "<group>"; };
 		0A7B933F2AF89D3B0006B348 /* SegmentMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentMenu.swift; sourceTree = "<group>"; };
 		0A9543492AE7C60300907579 /* RecentSearchHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchHelper.swift; sourceTree = "<group>"; };
 		1C2843572ADB969A00A87E99 /* Kkuk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kkuk.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -234,10 +236,19 @@
 		0A70AB842AF9FEEC00CAAC48 /* PanModal */ = {
 			isa = PBXGroup;
 			children = (
+				0A70AB852AF9FF2B00CAAC48 /* Enum */,
 				55B5050F2AF7325200869130 /* PanModalTableViewCell.swift */,
 				55B505112AF7326E00869130 /* PanModalTableViewController.swift */,
 			);
 			path = PanModal;
+			sourceTree = "<group>";
+		};
+		0A70AB852AF9FF2B00CAAC48 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				0A70AB862AF9FF3A00CAAC48 /* PanModalOption.swift */,
+			);
+			path = Enum;
 			sourceTree = "<group>";
 		};
 		0A7B933E2AF89D220006B348 /* Enum */ = {
@@ -846,6 +857,7 @@
 				55791AC42AE7AED9005C06C4 /* CategoryTableViewCell.swift in Sources */,
 				1C79F0062AE7F67300B5A97A /* AppTabBarItem.swift in Sources */,
 				1C2843CF2ADD11B600A87E99 /* AppTabBarController.swift in Sources */,
+				0A70AB872AF9FF3A00CAAC48 /* PanModalOption.swift in Sources */,
 				1C328F8D2AE9368D0040D883 /* WebViewToolbar.swift in Sources */,
 				1CB63FFC2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift in Sources */,
 				0A042ED92ADFE48E002ED30D /* ContentTableViewCell.swift in Sources */,

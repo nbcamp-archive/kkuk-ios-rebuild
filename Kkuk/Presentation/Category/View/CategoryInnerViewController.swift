@@ -104,7 +104,11 @@ extension CategoryInnerViewController {
     }
     
     @objc func editButtonDidTapped() {
-        let customVC = PanModalTableViewController()
+        let title = [PanModalOption.Title.modify,
+                     PanModalOption.Title.delete,
+                     PanModalOption.Title.cancel]
+        
+        let customVC = PanModalTableViewController(option: PanModalOption(screenType: .category, title: title))
         customVC.delegate = self
         customVC.modalPresentationStyle = .popover
         customVC.setCategory(category: self.category!)
