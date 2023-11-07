@@ -16,9 +16,9 @@ class AddContentViewController: BaseUIViewController {
     
     // MARK: - 프로퍼티
     
-    private var contentManager = ContentManager()
+    private var contentHelper = ContentHelper()
     
-    private var categoryManager = RealmCategoryManager.shared
+    private var categoryHelper = CategoryHelper.shared
     
     private var categories = [Category]()
     
@@ -103,7 +103,7 @@ class AddContentViewController: BaseUIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        categories = categoryManager.read()
+        categories = categoryHelper.read()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -275,7 +275,7 @@ extension AddContentViewController {
                                          imageURL: openGraph.ogImage,
                                          memo: self?.memoTextView.text,
                                          category: (self?.selectedCategoryId)!)
-                self?.contentManager.create(content: newContent)
+                self?.contentHelper.create(content: newContent)
                 
                 self?.dismiss(animated: true)
                 

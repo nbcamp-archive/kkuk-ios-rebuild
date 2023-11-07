@@ -11,7 +11,7 @@ class RecentSearchContentViewController: BaseUIViewController {
     let cellSpacing: CGFloat = 16
     let cellHeight: CGFloat = 16
     
-    let manager = RecentSearchManager()
+    let manager = RecentSearchHelper()
     
     var searchList: [String] = []
 
@@ -59,7 +59,7 @@ class RecentSearchContentViewController: BaseUIViewController {
     }()
     
     override func setUI() {
-        searchList = manager.fetchAllSearches()
+        searchList = manager.fetchAllSearches().reversed()
         
         view.addSubviews([recentSearchesLabel,
                           allDelegateButton,
@@ -79,7 +79,7 @@ class RecentSearchContentViewController: BaseUIViewController {
     }
     
     func reloadData() {
-        searchList = manager.fetchAllSearches()
+        searchList = manager.fetchAllSearches().reversed()
         collectionView.reloadData()
         noRecentSearchesLabel.isHidden = !searchList.isEmpty
     }
@@ -150,8 +150,9 @@ extension RecentSearchContentViewController: UICollectionViewDelegate, UICollect
         if let searchContentViewController = parent as? SearchContentViewController {
             let searchText = searchList[indexPath.row]
             searchContentViewController.searchBar.text = searchText
-            searchContentViewController.reloadData(with: searchText)
+            searchContentViewController.reloadData()
             searchContentViewController.toggleContainerViewVisibility(isShow: false)
+            searchContentViewController.searchBar.searchTextField.becomeFirstResponder()
          }
     }
 }

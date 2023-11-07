@@ -14,7 +14,7 @@ protocol EditCategoryViewControllerDelegate: AnyObject {
 class EditCategoryViewController: BaseUIViewController {
     weak var delegate: EditCategoryViewControllerDelegate?
     
-    private var categoryManager = RealmCategoryManager.shared
+    private var categoryHelper = CategoryHelper.shared
     
     private var categoryName: String = ""
     
@@ -246,7 +246,7 @@ extension EditCategoryViewController {
         index = iconIndex
         
 //         realm를 사용하여 텍스트 필드에 입력된 카테고리 이름 저장
-        categoryManager.update(category!) { [self] in
+        categoryHelper.update(category!) { [self] in
             $0.name = categoryName
             $0.iconId = index!
         }

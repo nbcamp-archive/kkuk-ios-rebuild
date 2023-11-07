@@ -19,7 +19,7 @@ final class BookmarkCell: UICollectionViewCell {
     
     weak var delegate: BookmarkCellDelegate?
     
-    private var contentManager = ContentManager()
+    private var contentManager = ContentHelper()
     
     private let imageView: UIImageView = {
         let view = UIImageView()

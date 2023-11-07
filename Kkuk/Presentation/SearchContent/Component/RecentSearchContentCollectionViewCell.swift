@@ -9,7 +9,7 @@ import UIKit
 
 class RecentSearchContentCollectionViewCell: BaseUICollectionViewCell {
     
-    let manager = RecentSearchManager()
+    let manager = RecentSearchHelper()
     
     private lazy var searchWordLabel: UILabel = {
         var label = UILabel()
@@ -37,6 +37,7 @@ class RecentSearchContentCollectionViewCell: BaseUICollectionViewCell {
         
         deleteButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
+            make.leading.greaterThanOrEqualTo(searchWordLabel.snp.trailing).offset(4)
             make.trailing.equalToSuperview()
             make.width.height.equalTo(contentView.snp.height).dividedBy(2)
         }

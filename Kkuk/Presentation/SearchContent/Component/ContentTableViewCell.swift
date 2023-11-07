@@ -16,15 +16,16 @@ protocol ContentTableViewCellDelegate: AnyObject {
 class ContentTableViewCell: BaseUITableViewCell {
     weak var delegate: ContentTableViewCellDelegate?
     
-    private var contentManager = ContentManager()
+    private var contentManager = ContentHelper()
     
     private lazy var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo")
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 8
         imageView.layer.masksToBounds = true
-        imageView.layer.borderColor = UIColor.gray.cgColor
-        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.subgray2.cgColor
+        imageView.layer.borderWidth = 0.5
         return imageView
     }()
     
@@ -55,12 +56,17 @@ class ContentTableViewCell: BaseUITableViewCell {
         return label
     }()
     
-    // pin 기능을 연결하기 위한 임시 버튼
-    // 향후 컨텐츠 수정 및 삭제 등과 연결해서 변경 예정
     private lazy var pinButton: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(tappedPinButton(_:)), for: .touchUpInside)
-        
+        return button
+    }()
+    
+    private lazy var moreButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "more_vertical"), for: .normal)
+        button.contentMode = .center
+        button.addTarget(self, action: #selector(tappedMenuButton), for: .touchUpInside)
         return button
     }()
     
@@ -83,45 +89,53 @@ class ContentTableViewCell: BaseUITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0))
     }
     
     override func setUI() {
-        contentView.addSubviews([thumbnailImageView, siteTitleLabel, memoLabel, urlLabel, pinButton])
+        contentView.addSubviews([thumbnailImageView,
+                                 siteTitleLabel,
+                                 memoLabel,
+                                 urlLabel,
+                                 pinButton,
+                                 moreButton])
     }
     
     override func setLayout() {
         thumbnailImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.bottom.equalToSuperview().inset(12)
-            make.width.height.equalTo(68)
+            make.top.leading.bottom.equalToSuperview()
+            make.width.equalTo(contentView.snp.height).multipliedBy(4.0/3.0)
         }
         
         siteTitleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
-            make.trailing.equalToSuperview()
+            make.trailing.lessThanOrEqualTo(moreButton.snp.leading).offset(-12)
         }
         
         memoLabel.snp.makeConstraints { make in
-            make.top.equalTo(siteTitleLabel.snp.bottom).offset(4)
             make.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
-            make.trailing.equalToSuperview()
+            make.trailing.lessThanOrEqualTo(moreButton.snp.leading).offset(-12)
         }
         
         urlLabel.snp.makeConstraints { make in
             make.top.equalTo(memoLabel.snp.bottom).offset(4)
             make.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
             make.trailing.lessThanOrEqualTo(pinButton.snp.leading).offset(-12)
-            make.bottom.equalToSuperview().inset(12)
+            make.bottom.equalToSuperview()
         }
         
         pinButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
-            make.height.equalTo(18)
+            make.height.equalTo(16)
             make.width.equalTo(12)
             make.centerY.equalTo(urlLabel)
+        }
+        
+        moreButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview()
+            make.height.width.equalTo(16)
+            make.centerY.equalTo(siteTitleLabel)
         }
     }
     
@@ -134,7 +148,7 @@ class ContentTableViewCell: BaseUITableViewCell {
                 url.replaceSubrange(range, with: "https:")
             }
         // http 미포함 -> https를 접두에 추가
-        // (이 조건은 https가 포함되어 있을 때도 만족하기 떄문에 조건에서 제거해줘야함)
+        // (이 조건은 https가 포함되어 있을 때도 만족하기 때문에 조건에서 제거해줘야함)
         } else if !url.contains("https:") {
             url = "https:" + url
         }
@@ -167,5 +181,8 @@ class ContentTableViewCell: BaseUITableViewCell {
 
     @objc func tappedPinButton(_ sender: UIButton) {
         delegate?.togglePin(index: sender.tag)
+    }
+    
+    @objc func tappedMenuButton(_ sender: UIButton) {
     }
 }

@@ -10,7 +10,8 @@
 		0A042ED92ADFE48E002ED30D /* ContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042ED82ADFE48E002ED30D /* ContentTableViewCell.swift */; };
 		0A042EDB2ADFF9D0002ED30D /* RecentSearchContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042EDA2ADFF9D0002ED30D /* RecentSearchContentViewController.swift */; };
 		0A042EDD2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042EDC2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift */; };
-		0A95434A2AE7C60300907579 /* RecentSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9543492AE7C60300907579 /* RecentSearchManager.swift */; };
+		0A7B93402AF89D3B0006B348 /* SegmentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B933F2AF89D3B0006B348 /* SegmentMenu.swift */; };
+		0A95434A2AE7C60300907579 /* RecentSearchHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9543492AE7C60300907579 /* RecentSearchHelper.swift */; };
 		1C2843722ADB969C00A87E99 /* KkukTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843712ADB969C00A87E99 /* KkukTests.swift */; };
 		1C28437C2ADB969C00A87E99 /* KkukUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C28437B2ADB969C00A87E99 /* KkukUITests.swift */; };
 		1C28437E2ADB969C00A87E99 /* KkukUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C28437D2ADB969C00A87E99 /* KkukUITestsLaunchTests.swift */; };
@@ -21,7 +22,7 @@
 		1C2843A32ADC2F7000A87E99 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843A02ADC2F7000A87E99 /* Coordinator.swift */; };
 		1C2843A42ADC2F7000A87E99 /* BaseUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843A22ADC2F7000A87E99 /* BaseUIViewController.swift */; };
 		1C2843A82ADD0C0F00A87E99 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843A72ADD0C0F00A87E99 /* HomeViewController.swift */; };
-		1C2843B12ADD0D6300A87E99 /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843B02ADD0D6300A87E99 /* AppInfoViewController.swift */; };
+		1C2843B12ADD0D6300A87E99 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843B02ADD0D6300A87E99 /* SettingViewController.swift */; };
 		1C2843B92ADD0DD400A87E99 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843B82ADD0DD400A87E99 /* CategoryViewController.swift */; };
 		1C2843BF2ADD0F5300A87E99 /* SearchContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843BE2ADD0F5300A87E99 /* SearchContentViewController.swift */; };
 		1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843C72ADD0FD600A87E99 /* AddContentViewController.swift */; };
@@ -59,17 +60,20 @@
 		1CAEBE6F2AF1278500FF4CF2 /* OptionalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE6E2AF1278500FF4CF2 /* OptionalLabel.swift */; };
 		1CB63FFA2AF33EC9003BDB62 /* SelectCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB63FF92AF33EC9003BDB62 /* SelectCategoryCell.swift */; };
 		1CB63FFC2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB63FFB2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift */; };
+		1CB6400D2AF7EC78003BDB62 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB6400C2AF7EC78003BDB62 /* ShareViewController.swift */; };
+		1CB640102AF7EC78003BDB62 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CB6400E2AF7EC78003BDB62 /* MainInterface.storyboard */; };
+		1CB640142AF7EC78003BDB62 /* KkukShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1CB6400A2AF7EC78003BDB62 /* KkukShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		55791AC02AE7AEC7005C06C4 /* CategoryInnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */; };
 		55791AC42AE7AED9005C06C4 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */; };
 		55791AD22AEBC0FF005C06C4 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AD12AEBC0FF005C06C4 /* Category.swift */; };
-		55791AD42AEBC136005C06C4 /* RealmCategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AD32AEBC136005C06C4 /* RealmCategoryService.swift */; };
+		55791AD42AEBC136005C06C4 /* CategoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AD32AEBC136005C06C4 /* CategoryHelper.swift */; };
 		55B505102AF7325200869130 /* PanModalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B5050F2AF7325200869130 /* PanModalTableViewCell.swift */; };
 		55B505122AF7326E00869130 /* PanModalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B505112AF7326E00869130 /* PanModalTableViewController.swift */; };
 		55B505142AF75F3F00869130 /* EditCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B505132AF75F3F00869130 /* EditCategoryViewController.swift */; };
 		C352F49F2AE7980F0016398A /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F49E2AE7980F0016398A /* EmptyStateView.swift */; };
 		C352F4A32AE825F40016398A /* SettingItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A22AE825F40016398A /* SettingItemCell.swift */; };
-		C352F4AA2AEB81170016398A /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A92AEB81170016398A /* ContentModel.swift */; };
-		C352F4AE2AEB87330016398A /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4AD2AEB87330016398A /* ContentManager.swift */; };
+		C352F4AA2AEB81170016398A /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A92AEB81170016398A /* Content.swift */; };
+		C352F4AE2AEB87330016398A /* ContentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4AD2AEB87330016398A /* ContentHelper.swift */; };
 		C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */; };
 		C3D641F82AF92ABE00DA39E4 /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D641F72AF92ABE00DA39E4 /* BookmarkCell.swift */; };
 		ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD225642AE7883B009CA421 /* AddCategoryView.swift */; };
@@ -91,13 +95,35 @@
 			remoteGlobalIDString = 1C2843562ADB969A00A87E99;
 			remoteInfo = Kkuk;
 		};
+		1CB640122AF7EC78003BDB62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C28434F2ADB969A00A87E99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1CB640092AF7EC78003BDB62;
+			remoteInfo = KkukShareExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1CB640182AF7EC78003BDB62 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1CB640142AF7EC78003BDB62 /* KkukShareExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0A042ED82ADFE48E002ED30D /* ContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewCell.swift; sourceTree = "<group>"; };
 		0A042EDA2ADFF9D0002ED30D /* RecentSearchContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchContentViewController.swift; sourceTree = "<group>"; };
 		0A042EDC2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchContentCollectionViewCell.swift; sourceTree = "<group>"; };
-		0A9543492AE7C60300907579 /* RecentSearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchManager.swift; sourceTree = "<group>"; };
+		0A7B933F2AF89D3B0006B348 /* SegmentMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentMenu.swift; sourceTree = "<group>"; };
+		0A9543492AE7C60300907579 /* RecentSearchHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchHelper.swift; sourceTree = "<group>"; };
 		1C2843572ADB969A00A87E99 /* Kkuk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kkuk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C28436D2ADB969C00A87E99 /* KkukTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KkukTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C2843712ADB969C00A87E99 /* KkukTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KkukTests.swift; sourceTree = "<group>"; };
@@ -112,7 +138,7 @@
 		1C2843A02ADC2F7000A87E99 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		1C2843A22ADC2F7000A87E99 /* BaseUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseUIViewController.swift; sourceTree = "<group>"; };
 		1C2843A72ADD0C0F00A87E99 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		1C2843B02ADD0D6300A87E99 /* AppInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
+		1C2843B02ADD0D6300A87E99 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		1C2843B82ADD0DD400A87E99 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		1C2843BE2ADD0F5300A87E99 /* SearchContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContentViewController.swift; sourceTree = "<group>"; };
 		1C2843C72ADD0FD600A87E99 /* AddContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentViewController.swift; sourceTree = "<group>"; };
@@ -122,8 +148,6 @@
 		1C2843D52ADD2F9300A87E99 /* UIView+AddSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddSubviews.swift"; sourceTree = "<group>"; };
 		1C2843D72ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+AddArrangedSubviews.swift"; sourceTree = "<group>"; };
 		1C2843DB2ADD388700A87E99 /* And.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = And.swift; sourceTree = "<group>"; };
-		1C2843E12ADD478A00A87E99 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		1C2843E32ADD479400A87E99 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		1C28441C2ADED52B00A87E99 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		1C28441D2ADED52B00A87E99 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		1C28441E2ADED52B00A87E99 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
@@ -143,17 +167,21 @@
 		1CAEBE6E2AF1278500FF4CF2 /* OptionalLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalLabel.swift; sourceTree = "<group>"; };
 		1CB63FF92AF33EC9003BDB62 /* SelectCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCategoryCell.swift; sourceTree = "<group>"; };
 		1CB63FFB2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedirectAddCategoryButton.swift; sourceTree = "<group>"; };
+		1CB6400A2AF7EC78003BDB62 /* KkukShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KkukShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CB6400C2AF7EC78003BDB62 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		1CB6400F2AF7EC78003BDB62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		1CB640112AF7EC78003BDB62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryInnerViewController.swift; sourceTree = "<group>"; };
 		55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		55791AD12AEBC0FF005C06C4 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		55791AD32AEBC136005C06C4 /* RealmCategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCategoryService.swift; sourceTree = "<group>"; };
+		55791AD32AEBC136005C06C4 /* CategoryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHelper.swift; sourceTree = "<group>"; };
 		55B5050F2AF7325200869130 /* PanModalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanModalTableViewCell.swift; sourceTree = "<group>"; };
 		55B505112AF7326E00869130 /* PanModalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanModalTableViewController.swift; sourceTree = "<group>"; };
 		55B505132AF75F3F00869130 /* EditCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryViewController.swift; sourceTree = "<group>"; };
 		C352F49E2AE7980F0016398A /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		C352F4A22AE825F40016398A /* SettingItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingItemCell.swift; sourceTree = "<group>"; };
-		C352F4A92AEB81170016398A /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
-		C352F4AD2AEB87330016398A /* ContentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
+		C352F4A92AEB81170016398A /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
+		C352F4AD2AEB87330016398A /* ContentHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentHelper.swift; sourceTree = "<group>"; };
 		C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
 		C3D641F72AF92ABE00DA39E4 /* BookmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
 		ECD225642AE7883B009CA421 /* AddCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryView.swift; sourceTree = "<group>"; };
@@ -191,15 +219,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1CB640072AF7EC78003BDB62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A7B933E2AF89D220006B348 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				0A7B933F2AF89D3B0006B348 /* SegmentMenu.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		1C28434E2ADB969A00A87E99 = {
 			isa = PBXGroup;
 			children = (
 				1C2843592ADB969A00A87E99 /* Kkuk */,
 				1C2843702ADB969C00A87E99 /* KkukTests */,
 				1C28437A2ADB969C00A87E99 /* KkukUITests */,
+				1CB6400B2AF7EC78003BDB62 /* KkukShareExtension */,
 				1C2843582ADB969A00A87E99 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -210,6 +254,7 @@
 				1C2843572ADB969A00A87E99 /* Kkuk.app */,
 				1C28436D2ADB969C00A87E99 /* KkukTests.xctest */,
 				1C2843772ADB969C00A87E99 /* KkukUITests.xctest */,
+				1CB6400A2AF7EC78003BDB62 /* KkukShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -217,8 +262,7 @@
 		1C2843592ADB969A00A87E99 /* Kkuk */ = {
 			isa = PBXGroup;
 			children = (
-				1C79EFFE2AE7E46700B5A97A /* Service */,
-				1C2843DD2ADD477A00A87E99 /* Core */,
+				1CB640012AF7E4D5003BDB62 /* Domain */,
 				1C2843992ADC2CD400A87E99 /* Presentation */,
 				1C28438F2ADB9D8800A87E99 /* Global */,
 				1C28438A2ADB9D0D00A87E99 /* Application */,
@@ -283,7 +327,7 @@
 				1C328F862AE92F6E0040D883 /* Web */,
 				1C2843BC2ADD0F3D00A87E99 /* SearchContent */,
 				1C2843BA2ADD0F0000A87E99 /* AddContent */,
-				1C2843AE2ADD0D6300A87E99 /* AppInfo */,
+				1C2843AE2ADD0D6300A87E99 /* Setting */,
 				1C28439A2ADC2D2C00A87E99 /* Category */,
 				1C28439B2ADC2D2C00A87E99 /* Home */,
 			);
@@ -344,19 +388,19 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
-		1C2843AE2ADD0D6300A87E99 /* AppInfo */ = {
+		1C2843AE2ADD0D6300A87E99 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
 				1C2843B42ADD0D9C00A87E99 /* Component */,
 				1C2843AF2ADD0D6300A87E99 /* View */,
 			);
-			path = AppInfo;
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		1C2843AF2ADD0D6300A87E99 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1C2843B02ADD0D6300A87E99 /* AppInfoViewController.swift */,
+				1C2843B02ADD0D6300A87E99 /* SettingViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -393,6 +437,7 @@
 		1C2843BC2ADD0F3D00A87E99 /* SearchContent */ = {
 			isa = PBXGroup;
 			children = (
+				0A7B933E2AF89D220006B348 /* Enum */,
 				1C2843C02ADD0F6B00A87E99 /* Component */,
 				1C2843BD2ADD0F4600A87E99 /* View */,
 			);
@@ -456,43 +501,6 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		1C2843DD2ADD477A00A87E99 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				1C2843DE2ADD477A00A87E99 /* Mock */,
-				1C2843DF2ADD477A00A87E99 /* Network */,
-				1C2843E02ADD477A00A87E99 /* Model */,
-				C352F4AC2AEB87040016398A /* Manager */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		1C2843DE2ADD477A00A87E99 /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-				1C2843E12ADD478A00A87E99 /* .gitkeep */,
-			);
-			path = Mock;
-			sourceTree = "<group>";
-		};
-		1C2843DF2ADD477A00A87E99 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				1C2843E32ADD479400A87E99 /* .gitkeep */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
-		1C2843E02ADD477A00A87E99 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				0A9543492AE7C60300907579 /* RecentSearchManager.swift */,
-				55791AD12AEBC0FF005C06C4 /* Category.swift */,
-				C352F4A92AEB81170016398A /* ContentModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		1C28441B2ADED52B00A87E99 /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -544,7 +552,6 @@
 			children = (
 				1C79EFFF2AE7E6EF00B5A97A /* HTMLParseService.swift */,
 				1C79F0012AE7E94400B5A97A /* OpenGraphService.swift */,
-				55791AD32AEBC136005C06C4 /* RealmCategoryService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -560,12 +567,43 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
-		C352F4AC2AEB87040016398A /* Manager */ = {
+		1CB640012AF7E4D5003BDB62 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				C352F4AD2AEB87330016398A /* ContentManager.swift */,
+				1CB640052AF7E633003BDB62 /* Helper */,
+				1C79EFFE2AE7E46700B5A97A /* Service */,
+				1CB640022AF7E4DD003BDB62 /* Entity */,
 			);
-			path = Manager;
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		1CB640022AF7E4DD003BDB62 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				55791AD12AEBC0FF005C06C4 /* Category.swift */,
+				C352F4A92AEB81170016398A /* Content.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		1CB640052AF7E633003BDB62 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				C352F4AD2AEB87330016398A /* ContentHelper.swift */,
+				0A9543492AE7C60300907579 /* RecentSearchHelper.swift */,
+				55791AD32AEBC136005C06C4 /* CategoryHelper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		1CB6400B2AF7EC78003BDB62 /* KkukShareExtension */ = {
+			isa = PBXGroup;
+			children = (
+				1CB6400C2AF7EC78003BDB62 /* ShareViewController.swift */,
+				1CB6400E2AF7EC78003BDB62 /* MainInterface.storyboard */,
+				1CB640112AF7EC78003BDB62 /* Info.plist */,
+			);
+			path = KkukShareExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -579,10 +617,12 @@
 				1C2843532ADB969A00A87E99 /* Sources */,
 				1C2843542ADB969A00A87E99 /* Frameworks */,
 				1C2843552ADB969A00A87E99 /* Resources */,
+				1CB640182AF7EC78003BDB62 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1CB640132AF7EC78003BDB62 /* PBXTargetDependency */,
 			);
 			name = Kkuk;
 			packageProductDependencies = (
@@ -636,6 +676,23 @@
 			productReference = 1C2843772ADB969C00A87E99 /* KkukUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		1CB640092AF7EC78003BDB62 /* KkukShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1CB640152AF7EC78003BDB62 /* Build configuration list for PBXNativeTarget "KkukShareExtension" */;
+			buildPhases = (
+				1CB640062AF7EC78003BDB62 /* Sources */,
+				1CB640072AF7EC78003BDB62 /* Frameworks */,
+				1CB640082AF7EC78003BDB62 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KkukShareExtension;
+			productName = KkukShareExtension;
+			productReference = 1CB6400A2AF7EC78003BDB62 /* KkukShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -656,6 +713,9 @@
 					1C2843762ADB969C00A87E99 = {
 						CreatedOnToolsVersion = 14.3.1;
 						TestTargetID = 1C2843562ADB969A00A87E99;
+					};
+					1CB640092AF7EC78003BDB62 = {
+						CreatedOnToolsVersion = 14.3.1;
 					};
 				};
 			};
@@ -685,6 +745,7 @@
 				1C2843562ADB969A00A87E99 /* Kkuk */,
 				1C28436C2ADB969C00A87E99 /* KkukTests */,
 				1C2843762ADB969C00A87E99 /* KkukUITests */,
+				1CB640092AF7EC78003BDB62 /* KkukShareExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -715,6 +776,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1CB640082AF7EC78003BDB62 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CB640102AF7EC78003BDB62 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -751,8 +820,11 @@
 				1C328F892AE92F8D0040D883 /* WebViewController.swift in Sources */,
 				ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */,
 				1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */,
+				0A7B93402AF89D3B0006B348 /* SegmentMenu.swift in Sources */,
 				1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */,
 				C352F4AE2AEB87330016398A /* ContentManager.swift in Sources */,
+				C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */,
+				C352F4AE2AEB87330016398A /* ContentHelper.swift in Sources */,
 				55791AC42AE7AED9005C06C4 /* CategoryTableViewCell.swift in Sources */,
 				1C79F0062AE7F67300B5A97A /* AppTabBarItem.swift in Sources */,
 				1C2843CF2ADD11B600A87E99 /* AppTabBarController.swift in Sources */,
@@ -776,11 +848,11 @@
 				C352F4A32AE825F40016398A /* SettingItemCell.swift in Sources */,
 				ECF81C432AE050FF000C05DC /* AddCategoryViewController.swift in Sources */,
 				1CAEBE672AEBE8CA00FF4CF2 /* CompleteButton.swift in Sources */,
-				55791AD42AEBC136005C06C4 /* RealmCategoryService.swift in Sources */,
+				55791AD42AEBC136005C06C4 /* CategoryHelper.swift in Sources */,
 				0A042EDD2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift in Sources */,
-				C352F4AA2AEB81170016398A /* ContentModel.swift in Sources */,
+				C352F4AA2AEB81170016398A /* Content.swift in Sources */,
 				C352F49F2AE7980F0016398A /* EmptyStateView.swift in Sources */,
-				0A95434A2AE7C60300907579 /* RecentSearchManager.swift in Sources */,
+				0A95434A2AE7C60300907579 /* RecentSearchHelper.swift in Sources */,
 				1C2843D62ADD2F9300A87E99 /* UIView+AddSubviews.swift in Sources */,
 				1C2843D12ADD2C5C00A87E99 /* BaseUITableViewCell.swift in Sources */,
 				1C79F0002AE7E6EF00B5A97A /* HTMLParseService.swift in Sources */,
@@ -791,6 +863,7 @@
 				55791AD22AEBC0FF005C06C4 /* Category.swift in Sources */,
 				1C2843B12ADD0D6300A87E99 /* AppInfoViewController.swift in Sources */,
 				C3D641F82AF92ABE00DA39E4 /* BookmarkCell.swift in Sources */,
+				1C2843B12ADD0D6300A87E99 /* SettingViewController.swift in Sources */,
 				1C2843A32ADC2F7000A87E99 /* Coordinator.swift in Sources */,
 				55B505122AF7326E00869130 /* PanModalTableViewController.swift in Sources */,
 				55B505102AF7325200869130 /* PanModalTableViewCell.swift in Sources */,
@@ -815,6 +888,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1CB640062AF7EC78003BDB62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CB6400D2AF7EC78003BDB62 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -828,7 +909,23 @@
 			target = 1C2843562ADB969A00A87E99 /* Kkuk */;
 			targetProxy = 1C2843782ADB969C00A87E99 /* PBXContainerItemProxy */;
 		};
+		1CB640132AF7EC78003BDB62 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1CB640092AF7EC78003BDB62 /* KkukShareExtension */;
+			targetProxy = 1CB640122AF7EC78003BDB62 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1CB6400E2AF7EC78003BDB62 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1CB6400F2AF7EC78003BDB62 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1C28437F2ADB969C00A87E99 /* Debug */ = {
@@ -948,6 +1045,7 @@
 		1C2843822ADB969C00A87E99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -978,6 +1076,7 @@
 		1C2843832ADB969C00A87E99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1081,6 +1180,58 @@
 			};
 			name = Release;
 		};
+		1CB640162AF7EC78003BDB62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 347XA53QJK;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KkukShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = KkukShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = archive.nbcamp.Kkuk.KkukShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1CB640172AF7EC78003BDB62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 347XA53QJK;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KkukShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = KkukShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = archive.nbcamp.Kkuk.KkukShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1116,6 +1267,15 @@
 			buildConfigurations = (
 				1C2843882ADB969C00A87E99 /* Debug */,
 				1C2843892ADB969C00A87E99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1CB640152AF7EC78003BDB62 /* Build configuration list for PBXNativeTarget "KkukShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CB640162AF7EC78003BDB62 /* Debug */,
+				1CB640172AF7EC78003BDB62 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -10,7 +10,10 @@ import RealmSwift
 import SnapKit
 
 final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
-    private var contentManager = ContentManager()
+
+    var selectedRow: Int = 0
+    
+    private var contentManager = ContentHelper()
     
     private var recentItems: [Content] = [] {
         didSet {
@@ -102,6 +105,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     private var tableView: UITableView = {
         let view = UITableView()
+        view.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         view.register(ContentTableViewCell.self, forCellReuseIdentifier: "ContentTableViewCell")
         view.showsVerticalScrollIndicator = false
        
@@ -253,9 +257,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         viewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(viewController, animated: true)
     }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+    
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return bookmarkItems.count
     }
@@ -285,6 +295,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 }
 
 extension HomeViewController {
+
     private func createLayout() -> UICollectionViewLayout {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .absolute(view.frame.width - 40),
                                                             heightDimension: .fractionalHeight(1.0)))

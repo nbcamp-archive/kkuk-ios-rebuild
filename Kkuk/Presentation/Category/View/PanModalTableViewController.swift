@@ -97,7 +97,7 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
             present(navigationController, animated: true)
         case 1:
             self.dismiss(animated: true)
-            RealmCategoryManager.shared.delete(category!)
+            CategoryHelper.shared.delete(category!)
         case 2:
             self.dismiss(animated: true)
         default:
