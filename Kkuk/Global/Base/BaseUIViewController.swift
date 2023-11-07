@@ -46,3 +46,16 @@ extension BaseUIViewController {
     }
     
 }
+
+extension BaseUIViewController {
+    func showAlert(title: String?, message: String?, actionTitle: String = "확인", completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        let action = UIAlertAction(title: actionTitle, style: .default) { _ in
+            completion?()
+        }
+        alert.addAction(cancel)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+}

@@ -130,8 +130,10 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
         switch menu {
         case .modify: return
         case .delete:
-            helper.delete(content)
-            dismiss(animated: true)
+            showAlert(title: "삭제하시겠습니까?", message: nil, completion: {
+                self.helper.delete(content)
+                self.dismiss(animated: true)
+            })
         case .share: return
         case .cancel: dismiss(animated: true)
         }
