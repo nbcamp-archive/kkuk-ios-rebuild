@@ -9,8 +9,8 @@ import UIKit
 
 class AppTabBarController: UITabBarController {
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         delegate = self
         
@@ -31,6 +31,14 @@ class AppTabBarController: UITabBarController {
             .map { wrapNavigationController(from: $0) }
         
         prepareTabBarController()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     
 }
@@ -71,7 +79,8 @@ extension AppTabBarController {
     
     private func presentAddContentViewController() {
         let viewController = AddContentViewController()
-        viewController.hidesBottomBarWhenPushed = true
+        // viewController.hidesBottomBarWhenPushed = true
+        
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.modalPresentationStyle = .overFullScreen
         present(navigationController, animated: true, completion: nil)
