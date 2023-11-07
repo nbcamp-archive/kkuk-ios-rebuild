@@ -48,6 +48,7 @@
 		1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */; };
 		1C328F892AE92F8D0040D883 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C328F882AE92F8D0040D883 /* WebViewController.swift */; };
 		1C328F8D2AE9368D0040D883 /* WebViewToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C328F8C2AE9368D0040D883 /* WebViewToolbar.swift */; };
+		1C6ABCE42AFA8B8900FF9E56 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C6ABCE32AFA8B8900FF9E56 /* Settings.bundle */; };
 		1C79EFF62AE7641000B5A97A /* UIImage+LoadAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFF52AE7641000B5A97A /* UIImage+LoadAsset.swift */; };
 		1C79EFF92AE7675A00B5A97A /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFF82AE7675A00B5A97A /* Asset.swift */; };
 		1C79F0002AE7E6EF00B5A97A /* HTMLParseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFFF2AE7E6EF00B5A97A /* HTMLParseService.swift */; };
@@ -156,6 +157,7 @@
 		1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+FontSizes.swift"; sourceTree = "<group>"; };
 		1C328F882AE92F8D0040D883 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		1C328F8C2AE9368D0040D883 /* WebViewToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewToolbar.swift; sourceTree = "<group>"; };
+		1C6ABCE32AFA8B8900FF9E56 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		1C79EFF52AE7641000B5A97A /* UIImage+LoadAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+LoadAsset.swift"; sourceTree = "<group>"; };
 		1C79EFF82AE7675A00B5A97A /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 		1C79EFFF2AE7E6EF00B5A97A /* HTMLParseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParseService.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 				1C2843932ADC2C5600A87E99 /* LaunchScreen.storyboard */,
 				1C2843942ADC2C5600A87E99 /* Assets.xcassets */,
 				1C2843952ADC2C5600A87E99 /* Info.plist */,
+				1C6ABCE32AFA8B8900FF9E56 /* Settings.bundle */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -754,6 +757,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C6ABCE42AFA8B8900FF9E56 /* Settings.bundle in Resources */,
 				1C2843972ADC2C5600A87E99 /* Assets.xcassets in Resources */,
 				1C2844242ADED52B00A87E99 /* Pretendard-Bold.otf in Resources */,
 				1C2844252ADED52B00A87E99 /* Pretendard-SemiBold.otf in Resources */,
