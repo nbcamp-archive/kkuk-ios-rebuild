@@ -12,7 +12,7 @@ class SearchContentViewController: BaseUIViewController {
     var contentList: [Content] = []
     
     let recentSearchContentViewController = RecentSearchContentViewController()
-    let contentManager = ContentManager()
+    let contentManager = ContentHelper()
     let recenteSearchManager = RecentSearchHelper()
     
     lazy var searchBar: UISearchBar = {
