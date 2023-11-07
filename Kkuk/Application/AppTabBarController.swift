@@ -12,16 +12,19 @@ class AppTabBarController: UITabBarController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        delegate = self
+        
         let tabBarItemCases = AppTabBarItem.allCases
         
         let tabBarItems = tabBarItemCases.map { makeTabBarItem(from: $0) }
         
         let homeViewController = HomeViewController()
         let categoryViewController = CategoryViewController()
+        let addContentViewController = UIViewController()
         let searchContentViewController = SearchContentViewController()
         let settingViewController = SettingViewController()
         
-        viewControllers = [homeViewController, categoryViewController, searchContentViewController, settingViewController]
+        viewControllers = [homeViewController, categoryViewController, addContentViewController, searchContentViewController, settingViewController]
             .enumerated().map { index, viewController in
                 setTabBarItem(for: viewController, tabBarItem: tabBarItems[index])
             }
@@ -66,4 +69,30 @@ extension AppTabBarController {
         tabBar.tintColor = .selected
     }
     
+    private func presentAddContentViewController() {
+        let viewController = AddContentViewController()
+        viewController.hidesBottomBarWhenPushed = true
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .overFullScreen
+        present(navigationController, animated: true, completion: nil)
+    }
+    
+}
+
+extension AppTabBarController: UITabBarControllerDelegate {
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        guard let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController) else {
+            return true
+        }
+
+        if selectedIndex == 2 {
+            presentAddContentViewController()
+            
+            return false
+        }
+
+        return true
+    }
+
 }
