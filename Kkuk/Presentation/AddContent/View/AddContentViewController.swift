@@ -123,7 +123,7 @@ class AddContentViewController: BaseUIViewController {
         
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.title3 ]
-        appearance.backgroundColor = .white
+        appearance.backgroundColor = .background
         appearance.shadowColor = .none
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
