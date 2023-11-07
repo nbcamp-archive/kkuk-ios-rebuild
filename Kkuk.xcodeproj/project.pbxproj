@@ -239,6 +239,14 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
+		0A7B93412AF9D9320006B348 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				0A042ED82ADFE48E002ED30D /* ContentTableViewCell.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
 		1C28434E2ADB969A00A87E99 = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +334,7 @@
 		1C2843992ADC2CD400A87E99 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				0A7B93412AF9D9320006B348 /* Content */,
 				1C328F862AE92F6E0040D883 /* Web */,
 				1C2843BC2ADD0F3D00A87E99 /* SearchContent */,
 				1C2843BA2ADD0F0000A87E99 /* AddContent */,
@@ -459,7 +468,6 @@
 		1C2843C02ADD0F6B00A87E99 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				0A042ED82ADFE48E002ED30D /* ContentTableViewCell.swift */,
 				0A042EDC2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift */,
 			);
 			path = Component;
