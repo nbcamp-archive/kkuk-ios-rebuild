@@ -39,8 +39,8 @@ class SettingItemCell: UITableViewCell {
     }
     
     private func setupViews() {
-        addSubview(titleLabel)
-        addSubview(subTitleLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(subTitleLabel)
     }
     
     private func setupLayout() {

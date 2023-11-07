@@ -6,12 +6,11 @@
 //
 
 import SnapKit
-
 import UIKit
 
 class SettingViewController: BaseUIViewController {
     
-    let settingItems = ["시스템 설정", "이용약관", "개인정보 정책", "서비스 이용방법"]
+    let settingItems = ["시스템 설정", "이용약관", "서비스 이용방법"]
     let serviceInfoItems = ["고객 문의", "앱 버전"]
     
     let tableView: UITableView = {
@@ -19,82 +18,93 @@ class SettingViewController: BaseUIViewController {
         view.backgroundColor = UIColor.background
         view.separatorStyle = .none
         view.register(SettingItemCell.self, forCellReuseIdentifier: SettingItemCell.identifier)
-        
+        view.rowHeight = UITableView.automaticDimension
         return view
     }()
     
     let clearDataButton = UIButton(type: .system)
     
+    let topContainerView = UIView()
+    let titleLabel = UILabel()
+    
+    override func setNavigationBar() {
+        navigationController?.navigationBar.backgroundColor = .main
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
     
         view.backgroundColor = UIColor.background
-        view.addSubviews([tableView, clearDataButton])
-        
-        tableView.isScrollEnabled = false
         
         setNavigationBar()
-        
         setUI()
         setLayout()
         setDelegate()
         setupClearDataButton()
     }
     
-    override func setNavigationBar() {
-    title = "설정"
-    }
-    
-    func setupClearDataButton() {
-        clearDataButton.setTitle("모든 데이터 지우기", for: .normal)
-        clearDataButton.setTitleColor(.subgray1, for: .normal)
-
-            // 밑줄 스타일을 적용하기 위해 NSAttributedString을 사용
-        let attributes: [NSAttributedString.Key: Any] = [
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .font: UIFont.subtitle3
-            ]
-        
-        let attributedString = NSAttributedString(string: "모든 데이터 지우기", attributes: attributes)
-            clearDataButton.setAttributedTitle(attributedString, for: .normal)
-
-            // 버튼의 액션을 추가
-            clearDataButton.addTarget(self, action: #selector(clearData), for: .touchUpInside)
-        
-            view.addSubview(clearDataButton)
-        }
-
-        @objc func clearData() {
-            // "모든 데이터 지우기" 버튼이 클릭되었을 때의 액션을 정의
-            // ex, 사용자에게 경고 메시지를 표시하거나 데이터 삭제 작업을 시작
-        }
-
     override func setUI() {
-        view.addSubviews([tableView, clearDataButton])
+        view.addSubviews([topContainerView, tableView, clearDataButton])
+        topContainerView.backgroundColor = .main // 적절한 색상 설정
+        titleLabel.text = "설정"
+        titleLabel.font = UIFont.title1
+        titleLabel.textColor = UIColor.white
+                topContainerView.addSubview(titleLabel)
+                
+                tableView.isScrollEnabled = false
     }
     
     override func setLayout() {
-        tableView.snp.makeConstraints { constraint in
-            constraint.leading.trailing.equalToSuperview().inset(20)
-            constraint.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            constraint.bottom.equalToSuperview()
-            constraint.height.equalTo(tableView)
-            tableView.rowHeight = 60
+        // 상단 컨테이너 뷰의 제약 조건을 설정합니다.
+        topContainerView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(100) // 적절한 높이 설정
         }
         
+        titleLabel.snp.makeConstraints { make in
+            make.leftMargin.equalToSuperview().inset(32)
+            make.top.equalTo(topContainerView.snp.top).offset(12)
+        }
+        
+        // tableView 제약 조건을 설정합니다.
+        tableView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.equalTo(topContainerView.snp.bottom).offset(20)
+            make.bottom.equalTo(clearDataButton.snp.top).offset(-20)
+        }
+        
+        // clearDataButton 제약 조건을 설정합니다.
         clearDataButton.snp.makeConstraints { make in
-               make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-44)
-               make.centerX.equalToSuperview()
-               make.width.equalTo(200)
-               make.height.equalTo(40)
-           }
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-44)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(200)
+            make.height.equalTo(40)
+        }
     }
     
     override func setDelegate() {
-        tableView.dataSource = self
-        tableView.delegate = self
+            tableView.dataSource = self
+            tableView.delegate = self
+        }
+    
+        func setupClearDataButton() {
+            clearDataButton.setTitle("모든 데이터 지우기", for: .normal)
+            clearDataButton.setTitleColor(.subgray1, for: .normal)
+            clearDataButton.addTarget(self, action: #selector(clearData), for: .touchUpInside)
+            
+                // 밑줄 스타일을 적용하기 위해 NSAttributedString을 사용
+            let attributes: [NSAttributedString.Key: Any] = [
+                .underlineStyle: NSUnderlineStyle.single.rawValue,
+                .font: UIFont.subtitle3
+                ]
+            
+            let attributedString = NSAttributedString(string: "모든 데이터 지우기", attributes: attributes)
+                clearDataButton.setAttributedTitle(attributedString, for: .normal)
+            
+                view.addSubview(clearDataButton)
+            }
     }
-}
 
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -118,7 +128,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         headerView.backgroundColor = UIColor.background
 
         let label = UILabel()
-        label.textColor = UIColor.main
+        label.textColor = UIColor.systemGray
         label.font = UIFont.title2
         label.text = section == 0 ? "서비스 정보" : "기타"
         headerView.addSubview(label)
@@ -131,7 +141,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+        return 36
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -150,7 +160,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         case 1:
             _ = serviceInfoItems[indexPath.row]
             if indexPath.row == 0 {
-                cell.configureCell(title: serviceInfoItems[indexPath.row], subTitle: "kkuk.us@gmail.com")
+                cell.configureCell(title: serviceInfoItems[indexPath.row], subTitle: "kkuk.help@gmail.com")
             } else if indexPath.row == 1 {
                 cell.configureCell(title: serviceInfoItems[indexPath.row], subTitle: "v1.0")
             } else {
@@ -161,5 +171,9 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         }
 
         return cell
+    }
+    @objc func clearData() {
+        // "모든 데이터 지우기" 버튼이 클릭되었을 때의 액션을 정의
+        // ex, 사용자에게 경고 메시지를 표시하거나 데이터 삭제 작업을 시작
     }
 }
