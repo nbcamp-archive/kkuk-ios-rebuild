@@ -39,7 +39,6 @@
 		1C2843F62ADE9AB600A87E99 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843F52ADE9AB600A87E99 /* Realm */; };
 		1C2843F82ADE9AB600A87E99 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843F72ADE9AB600A87E99 /* RealmSwift */; };
 		1C2843FB2ADE9AE200A87E99 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843FA2ADE9AE200A87E99 /* SnapKit */; };
-		1C2843FE2ADE9AF400A87E99 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843FD2ADE9AF400A87E99 /* SkeletonView */; };
 		1C2844012ADE9B0100A87E99 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2844002ADE9B0100A87E99 /* SwiftSoup */; };
 		1C2844212ADED52B00A87E99 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C28441C2ADED52B00A87E99 /* Pretendard-Regular.otf */; };
 		1C2844222ADED52B00A87E99 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C28441D2ADED52B00A87E99 /* Pretendard-Medium.otf */; };
@@ -199,7 +198,6 @@
 				1C2843F32ADE9A1400A87E99 /* PanModal in Frameworks */,
 				1C2843F02ADE99EF00A87E99 /* Kingfisher in Frameworks */,
 				1C2843FB2ADE9AE200A87E99 /* SnapKit in Frameworks */,
-				1C2843FE2ADE9AF400A87E99 /* SkeletonView in Frameworks */,
 				1C2843EA2ADE996200A87E99 /* Alamofire in Frameworks */,
 				1C2843ED2ADE99D400A87E99 /* IQKeyboardManagerSwift in Frameworks */,
 				1C2843F62ADE9AB600A87E99 /* Realm in Frameworks */,
@@ -636,7 +634,6 @@
 				1C2843F52ADE9AB600A87E99 /* Realm */,
 				1C2843F72ADE9AB600A87E99 /* RealmSwift */,
 				1C2843FA2ADE9AE200A87E99 /* SnapKit */,
-				1C2843FD2ADE9AF400A87E99 /* SkeletonView */,
 				1C2844002ADE9B0100A87E99 /* SwiftSoup */,
 			);
 			productName = Kkuk;
@@ -738,7 +735,6 @@
 				1C2843F12ADE9A1400A87E99 /* XCRemoteSwiftPackageReference "PanModal" */,
 				1C2843F42ADE9AB600A87E99 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				1C2843F92ADE9AE200A87E99 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				1C2843FC2ADE9AF400A87E99 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				1C2843FF2ADE9B0100A87E99 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = 1C2843582ADB969A00A87E99 /* Products */;
@@ -1332,14 +1328,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		1C2843FC2ADE9AF400A87E99 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		1C2843FF2ADE9B0100A87E99 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
@@ -1385,11 +1373,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1C2843F92ADE9AE200A87E99 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		1C2843FD2ADE9AF400A87E99 /* SkeletonView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1C2843FC2ADE9AF400A87E99 /* XCRemoteSwiftPackageReference "SkeletonView" */;
-			productName = SkeletonView;
 		};
 		1C2844002ADE9B0100A87E99 /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
