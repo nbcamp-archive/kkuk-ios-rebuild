@@ -91,16 +91,17 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let menu = panModalOption?.title[indexPath.row] else { return }
         switch panModalOption?.screenType {
-        case .category: didSelectCategoryScreen(indexPath)
-        case .content: break
+        case .category: didSelectedCategoryScreen(menu)
+        case .content: didSelectedContentScreen(menu)
         default: return
         }
     }
     
-    func didSelectCategoryScreen(_ indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0:
+    func didSelectedCategoryScreen(_ menu: PanModalOption.Title) {
+        switch menu {
+        case .modify:
             let viewController = EditCategoryViewController()
             viewController.category = category
             viewController.delegate = self
@@ -108,14 +109,18 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
             navigationController.modalPresentationStyle = .fullScreen
             navigationController.modalTransitionStyle = .coverVertical
             present(navigationController, animated: true)
-        case 1:
+        case .delete:
             self.dismiss(animated: true)
             CategoryHelper.shared.delete(category!)
-        case 2:
+        case .cancel:
             self.dismiss(animated: true)
         default:
             return
         }
+    }
+    
+    func didSelectedContentScreen(_ menu: PanModalOption.Title) {
+
     }
 }
 
