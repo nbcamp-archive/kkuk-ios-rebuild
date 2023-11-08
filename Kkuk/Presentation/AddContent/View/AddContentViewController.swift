@@ -109,8 +109,6 @@ class AddContentViewController: BaseUIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setIQKeyboardManagerEnable(true)
-        
         if let pasteboardValue = UIPasteboard.general.string, !pasteboardValue.isEmpty {
             DispatchQueue.main.async {
                 self.URLTextField.text = pasteboardValue
@@ -122,8 +120,6 @@ class AddContentViewController: BaseUIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        setIQKeyboardManagerEnable(false)
     }
     
     override func setNavigationBar() {
