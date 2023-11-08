@@ -10,11 +10,25 @@ import UIKit
 
 class BaseUIViewController: UIViewController {
     
+    lazy var topView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .main
+        return view
+    }()
+    
+    lazy var topTitle: UILabel = {
+        let label = UILabel()
+        label.font = .title1
+        label.textColor = .background
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .background
         
+        setTopView()
         setUI()
         setLayout()
         setDelegate()
@@ -32,8 +46,10 @@ class BaseUIViewController: UIViewController {
         
         setIQKeyboardManagerEnable(false)
     }
+    
     // `BaseUIViewController`를 상속받은 객체는 해당 함수를 사용할 수 있습니다.
-    //
+    /// TopView를 추가하는 함수입니다.
+    func setTopView() {}
     /// 네비게이션 바 구성을 위한 사용자 정의 함수 입니다.
     func setNavigationBar() {}
     /// UI 구성을 위한 사용자 정의 함수입니다.
