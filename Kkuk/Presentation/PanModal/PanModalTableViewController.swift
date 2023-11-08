@@ -92,7 +92,8 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (UIScreen.main.bounds.height * 0.25 ) / 3
+        guard let count = panModalOption?.title.count else { return 0 }
+        return (UIScreen.main.bounds.height * 0.25 ) / CGFloat(count)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
