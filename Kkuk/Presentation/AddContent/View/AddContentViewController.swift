@@ -230,8 +230,8 @@ extension AddContentViewController {
     
     @objc
     private func closeButtonItemDidTap() {
-        self.presentingViewController?.dismiss(animated: true, completion: nil)
-        self.presentingViewController?.viewWillAppear(true)
+        self.dismiss(animated: true, completion: nil)
+        self.presentingViewController?.viewDidLoad()
     }
     
     @objc
@@ -258,8 +258,8 @@ extension AddContentViewController {
                 let alertController = UIAlertController(title: "콘텐츠를 추가했어요", message: nil, preferredStyle: .alert)
                 
                 let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
-                    self?.presentingViewController?.dismiss(animated: true, completion: nil)
-                    self?.presentingViewController?.viewWillAppear(true)
+                    self?.dismiss(animated: true, completion: nil)
+                    self?.presentingViewController?.viewDidLoad()
                 })
                 
                 alertController.addAction(okAction)
