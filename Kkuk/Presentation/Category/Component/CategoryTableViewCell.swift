@@ -9,6 +9,54 @@ import RealmSwift
 import SnapKit
 import UIKit
 
+extension UIImage {
+    static func bringAsset(named name: String) -> UIImage {
+        // 이미지를 찾을 수 없는 경우 이미지 또는 플레이스홀더를 반환합니다.
+        return UIImage(named: name) ?? UIImage()
+    }
+}
+
+enum IconAsset: Int {
+    case trip = 0, cafe, education, animal, plant,
+         book, kitchen, tech, finance, car,
+         baby, interier, health, exercise, music,
+         shopping, fashion, culture, beauty, food
+
+    var imageName: String {
+        switch self {
+        case .trip: return "trip"
+        case .cafe: return "cafe"
+        case .education: return "education"
+        case .animal: return "animal"
+        case .plant: return "plant"
+        case .book: return "book"
+        case .food: return "food"
+        case .tech: return "tech"
+        case .finance: return "finance"
+        case .car: return "car"
+        case .baby: return "baby"
+        case .interier: return"interier"
+        case .health: return "health"
+        case .exercise: return "exercise"
+        case .music: return "music"
+        case .shopping: return "shopping"
+        case .kitchen: return "kitchen"
+        case .fashion: return "fashion"
+        case .culture: return "culture"
+        case .beauty: return "beauty"
+        }
+    }
+    
+    var image: UIImage? {
+           return UIImage.bringAsset(named: imageName)
+       }
+       
+       static func image(for id: Int) -> UIImage? {
+           guard let item = IconAsset(rawValue: id) else { return nil }
+           return item.image
+       }
+   }
+
 protocol CategoryTableViewCellDelegate: AnyObject {
     func deleteTableViewCell()
 }
@@ -49,7 +97,7 @@ class CategoryTableViewCell: BaseUITableViewCell {
         return label
     }()
     
-    var editCategoryButton: UIButton = {
+    lazy var editCategoryButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.isHidden = true
@@ -91,31 +139,17 @@ class CategoryTableViewCell: BaseUITableViewCell {
             make.trailing.equalToSuperview().inset(6)
         }
     }
-    
-    func configure(category: Category) {
-        self.category = category
-        titleLabel.text = category.name
-        setCategoryCell(id: category.iconId)
-    }
-    
-    @objc func setCategoryCell(id: Int) {
-        switch id {
-        case 0:
-            titleImage.image = UIImage(named: "plant")
-        case 1:
-            titleImage.image = UIImage(named: "education")
-        case 2:
-            titleImage.image = UIImage(named: "animal")
-        case 3:
-            titleImage.image = UIImage(named: "trip")
-        case 4:
-            titleImage.image = UIImage(named: "cafe")
-        default:
-            return
+        func configure(category: Category) {
+            self.category = category
+            titleLabel.text = category.name
+            setCategoryCell(id: category.iconId)
         }
-    }
-    @objc func editCategoryButtonTapped() {
-        let editCategory = self.category
         
+        @objc func setCategoryCell(id: Int) {
+            titleImage.image = IconAsset.image(for: id)
+        }
+        
+        @objc func editCategoryButtonTapped() {
+            _ = self.category
     }
 }

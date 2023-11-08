@@ -34,7 +34,7 @@ enum Asset {
     static var food: UIImage { .loadAsset(named: "food") }
     static var health: UIImage { .loadAsset(named: "health") }
     static var interier: UIImage { .loadAsset(named: "interier") }
-    static var tech: UIImage { .loadAsset(named: "it") }
+    static var tech: UIImage { .loadAsset(named: "tech") }
     static var kitchen: UIImage { .loadAsset(named: "kitchen") }
     static var music: UIImage { .loadAsset(named: "music") }
     static var plant: UIImage { .loadAsset(named: "plant") }

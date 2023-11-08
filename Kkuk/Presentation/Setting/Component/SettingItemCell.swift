@@ -39,20 +39,20 @@ class SettingItemCell: UITableViewCell {
     }
     
     private func setupViews() {
-        addSubview(titleLabel)
-        addSubview(subTitleLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(subTitleLabel)
     }
     
     private func setupLayout() {
         // titleLabel layout
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
         
         // subTitleLabel layout
         NSLayoutConstraint.activate([
-            subTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            subTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
             subTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
