@@ -139,7 +139,10 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
                 self.helper.delete(content)
                 self.dismiss(animated: true)
             })
-        case .share: return
+        case .share:
+            guard let url = URL(string: content.sourceURL) else { return }
+            let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+            present(activityViewController, animated: true)
         case .cancel: dismiss(animated: true)
         }
     }
