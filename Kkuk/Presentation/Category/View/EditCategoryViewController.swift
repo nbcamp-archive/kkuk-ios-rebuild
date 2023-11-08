@@ -21,7 +21,12 @@ class EditCategoryViewController: BaseUIViewController {
     
     private var index: Int?
     
-    private let iconImageNames = ["plant", "education", "animal", "trip", "cafe"]
+    private let iconImageNames = [
+        "trip", "cafe", "education", "animal", "plant",
+        "book", "food", "tech", "finance", "car",
+        "baby", "interier", "health", "exercise", "music",
+        "shopping", "kitchen", "fashion", "culture", "beauty"
+    ]
     
     private var selectedIcon: UIImage? // 선택된 아이콘 변수
     

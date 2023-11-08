@@ -18,9 +18,9 @@ extension UIImage {
 
 enum IconAsset: Int {
     case trip = 0, cafe, education, animal, plant,
-         book, kitchen, tech, finance, car,
+         book, food, tech, finance, car,
          baby, interier, health, exercise, music,
-         shopping, fashion, culture, beauty, food
+         shopping, kitchen, fashion, culture, beauty
 
     var imageName: String {
         switch self {
