@@ -26,6 +26,10 @@ class AddContentViewController: BaseUIViewController {
     
     private var sourceURL = ""
     
+    private var isAddContent = true
+    
+    private var modifyContent: Content?
+    
     // MARK: - 컴포넌트
 
     private lazy var addContentButton = CompleteButton(frame: .zero)
@@ -100,10 +104,24 @@ class AddContentViewController: BaseUIViewController {
         return view
     }()
     
+    init(isAddContent: Bool = true, modifyContent: Content? = nil) {
+        super.init(nibName: nil, bundle: nil)
+        self.modifyContent = modifyContent
+        self.isAddContent = isAddContent
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         categories = categoryHelper.read()
+        
+        if !isAddContent {
+            modifyConfiguration()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,7 +137,7 @@ class AddContentViewController: BaseUIViewController {
     }
     
     override func setNavigationBar() {
-        title = "추가하기"
+        title = isAddContent ? "추가하기" : "수정하기"
         
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.title3 ]
@@ -208,6 +226,26 @@ class AddContentViewController: BaseUIViewController {
         URLTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
+    func modifyConfiguration() {
+        guard let modifyContent = modifyContent else { return }
+        
+        URLTextField.text = modifyContent.sourceURL
+        memoTextView.text = modifyContent.memo
+
+        selectedCategoryId = categoryHelper.read(at: modifyContent.category)?.id
+
+        for (index, category) in categories.enumerated() {
+            if category.id == selectedCategoryId {
+                let indexPath = IndexPath(item: index, section: 0)
+                selectCategoryCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+            } else {
+                let indexPath = IndexPath(item: index, section: 0)
+                selectCategoryCollectionView.deselectItem(at: indexPath, animated: false)
+            }
+        }
+        
+        addContentButton.setUI(to: .enable)
+    }
 }
 
 // MARK: - 커스텀 메서드
@@ -263,19 +301,34 @@ extension AddContentViewController {
     
     @objc
     private func addContentButtonDidTap() {
-        guard let text = URLTextField.text, !text.isEmpty, let URL = URL(string: text) else { return }
+        guard let text = URLTextField.text, !text.isEmpty,
+              let URL = URL(string: text),
+              let memo = memoTextView.text,
+              let categoryId = selectedCategoryId else { return }
         
         let openGraphService = OpenGraphService()
         
         openGraphService.extractOpenGraphData(from: URL) { [weak self] result in
             switch result {
             case .success(let openGraph):
-                let newContent = Content(sourceURL: text,
-                                         title: openGraph.ogTitle ?? "",
-                                         imageURL: openGraph.ogImage,
-                                         memo: self?.memoTextView.text,
-                                         category: (self?.selectedCategoryId)!)
-                self?.contentHelper.create(content: newContent)
+                
+                if self!.isAddContent {
+                    let newContent = Content(sourceURL: text,
+                                             title: openGraph.ogTitle ?? "",
+                                             imageURL: openGraph.ogImage,
+                                             memo: memo,
+                                             category: categoryId)
+                    
+                    self?.contentHelper.create(content: newContent)
+                } else {
+                    guard let modifyContent = self?.modifyContent else { return }
+                    
+                    self?.contentHelper.update(content: modifyContent, completion: { content in
+                        content.sourceURL = text
+                        content.memo = memo
+                        content.category = categoryId
+                    })
+                }
                 
                 self?.dismiss(animated: true)
                 

@@ -128,7 +128,12 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
         guard let content = content else { return }
         
         switch menu {
-        case .modify: return
+        case .modify:
+            let viewController = AddContentViewController(isAddContent: false, modifyContent: content)
+            let navigationController = UINavigationController(rootViewController: viewController)
+            navigationController.modalPresentationStyle = .fullScreen
+            navigationController.modalTransitionStyle = .coverVertical
+            present(navigationController, animated: true)
         case .delete:
             showAlert(title: "삭제하시겠습니까?", message: nil, completion: {
                 self.helper.delete(content)
