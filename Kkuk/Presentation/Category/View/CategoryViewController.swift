@@ -9,20 +9,36 @@ import SnapKit
 import UIKit
 
 class CategoryViewController: BaseUIViewController {
-    
     private var category = [Category]()
     
     private var categoryHelper = CategoryHelper.shared
-
+    
     private let sectionInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     
-    private lazy var addCategoryButtonItem: UIBarButtonItem = {
-        let buttonItem = UIBarButtonItem(image: Asset.addCategory.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
-        return buttonItem
+    private lazy var topFrameView: UIStackView = {
+        let view = UIStackView()
+        view.backgroundColor = .main
+        
+        return view
     }()
-
+    
+    private lazy var addButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "lucide_folder_plus_white"), for: .normal)
+        button.addTarget(self, action: #selector(plusButtonDidTap), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var middleFrameView: UIStackView = {
+        let view = UIStackView()
+        view.backgroundColor = .background
+        
+        return view
+    }()
+    
     private lazy var categoryTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .background
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategoryTableViewCell")
         return tableView
     }()
@@ -35,35 +51,68 @@ class CategoryViewController: BaseUIViewController {
         return label
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setNavigationBar()
-    }
+    private var emptyCategoryLabel: UILabel = {
+        let label = UILabel()
+        label.text = "카테고리가 없습니다. \n 카테고리를 추가해주세요."
+        label.textAlignment = .center
+        label.font = .subtitle2
+        label.textColor = .text1
+        label.numberOfLines = 2
+        label.isHidden = true
+        return label
+    }()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         category = categoryHelper.read()
+        print("HI")
+        if category.count == 0 {
+            emptyCategoryLabel.isHidden = false
+        } else {
+            emptyCategoryLabel.isHidden = true
+        }
+        categoryTableView.reloadData()
     }
     
-    override func setNavigationBar() {
-        title = "카테고리"
-        
-        navigationController?.navigationBar.backgroundColor = .main
-        
-        navigationItem.rightBarButtonItem = addCategoryButtonItem
-    }
+    override func setNavigationBar() {}
     
     override func setUI() {
-        view.addSubview(categoryTableView)
+        view.addSubviews([topFrameView, middleFrameView])
+        topFrameView.addSubviews([titleLabel, addButton])
+        middleFrameView.addSubviews([categoryTableView, emptyCategoryLabel])
     }
 
     override func setLayout() {
+        topFrameView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.trailing.leading.equalToSuperview()
+            make.height.equalTo(UIScreen.main.bounds.height * 0.2)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(28)
+            make.leading.equalTo(20)
+        }
+        
+        addButton.snp.makeConstraints { make in
+            make.centerY.equalTo(titleLabel)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+        }
+        
+        middleFrameView.snp.makeConstraints { make in
+            make.top.equalTo(topFrameView.snp.bottom)
+            make.trailing.leading.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        emptyCategoryLabel.snp.makeConstraints { make in
+            make.center.equalTo(middleFrameView)
+        }
+        
         categoryTableView.snp.makeConstraints { constraint in
-            constraint.top.equalTo(view.safeAreaLayoutGuide)
-            constraint.leading.trailing.equalToSuperview().inset(20)
-            constraint.bottom.equalTo(view.safeAreaLayoutGuide)
+            constraint.top.bottom.equalTo(middleFrameView)
+            constraint.leading.trailing.equalTo(middleFrameView).inset(20)
         }
     }
 
@@ -72,27 +121,19 @@ class CategoryViewController: BaseUIViewController {
         categoryTableView.dataSource = self
     }
 
-    override func addTarget() {
-        addCategoryButtonItem.target = self
-        addCategoryButtonItem.action = #selector(plusButtonDidTap)
-    }
-    
+    override func addTarget() {}
 }
 
 // MARK: - @objc
 
-extension CategoryViewController {    
-    
-    @objc
-    func plusButtonDidTap() {
+extension CategoryViewController {
+    @objc func plusButtonDidTap() {
         let viewController = AddCategoryViewController()
-        
+        viewController.delegate = self
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.modalPresentationStyle = .overFullScreen
-        
         present(navigationController, animated: true, completion: nil)
     }
-
 }
 
 extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -102,14 +143,10 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for: indexPath)
-                as? CategoryTableViewCell else { return UITableViewCell() }
+            as? CategoryTableViewCell else { return UITableViewCell() }
         let category = category[indexPath.item]
-        if tableView.isEditing {
-            cell.editCategoryButton.isHidden = false
-        } else {
-            cell.editCategoryButton.isHidden = true
-        }
         cell.accessoryType = .disclosureIndicator
+        cell.accessoryView?.backgroundColor = .background
         cell.selectionStyle = .none
         cell.configure(category: category)
         cell.delegate = self
@@ -125,40 +162,11 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
     }
-    
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCell.EditingStyle.delete {
-            categoryHelper.delete(category[indexPath.row])
-            category.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .none)
-            tableView.reloadData()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        if tableView.isEditing {
-            let delete = UIContextualAction(style: .destructive, title: "Delete") { [self] _, _, _ in
-                categoryHelper.delete(category[indexPath.row])
-                category.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            let swipeAction = UISwipeActionsConfiguration(actions: [delete])
-            swipeAction.performsFirstActionWithFullSwipe = false
-            return swipeAction
-        } else {
-            let config = UISwipeActionsConfiguration()
-            config.performsFirstActionWithFullSwipe = false
-            return config
-        }
-    }
 }
 
 extension CategoryViewController: AddCategoryViewControllerDelegate {
     func reloadTableView() {
+        emptyCategoryLabel.isHidden = true
         category = categoryHelper.read()
         categoryTableView.reloadData()
     }
