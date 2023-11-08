@@ -1079,6 +1079,8 @@
 				DEVELOPMENT_TEAM = 347XA53QJK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kkuk/Global/Resource/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Kkuk: 꾹";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
@@ -1110,6 +1112,8 @@
 				DEVELOPMENT_TEAM = 347XA53QJK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kkuk/Global/Resource/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Kkuk: 꾹";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
