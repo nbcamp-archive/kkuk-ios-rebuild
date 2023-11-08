@@ -78,4 +78,14 @@ class ContentHelper {
         return []
     }
     
+    func delete(_ content: Content) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.delete(content)
+            }
+        } catch {
+            print("Failed read ContentObject: \(error)")
+        }
+    }
 }

@@ -37,6 +37,14 @@ final class CategoryHelper: Storage {
         let array: [Category] = Array(result)
         return array
     }
+    
+    func read(at categoryId: ObjectId) -> Category? {
+        do {
+            let query = NSPredicate(format: "id == %@", categoryId)
+            let result = database.objects(Category.self).filter(query).first
+            return result
+        }
+    }
 
     func write<T: Object>(_ object: T) {
         do {

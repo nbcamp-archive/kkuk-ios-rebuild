@@ -109,7 +109,11 @@ extension CategoryInnerViewController {
     }
     
     @objc func editButtonDidTapped() {
-        let customVC = PanModalTableViewController()
+        let title = [PanModalOption.Title.modify,
+                     PanModalOption.Title.delete,
+                     PanModalOption.Title.cancel]
+        
+        let customVC = PanModalTableViewController(option: PanModalOption(screenType: .category, title: title))
         customVC.delegate = self
         customVC.modalPresentationStyle = .popover
         customVC.selfNavi = navigationController
@@ -145,6 +149,7 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         cell.configureCell(content: item, index: indexPath.row)
         cell.delegate = self
         cell.selectionStyle = .none
+        cell.delegate = self
         return cell
     }
     
@@ -165,12 +170,21 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
 }
 
 extension CategoryInnerViewController: ContentTableViewCellDelegate {
-
     func togglePin(index: Int) {
         contentManager.update(content: self.recentItems[index]) { [weak self] content in
             content.isPinned.toggle()
             self?.updatePin(index: index)
         }
     }
-
+    
+    func presenteMoreMenu(content: Content) {
+        let title = [PanModalOption.Title.modify,
+                     PanModalOption.Title.delete,
+                     PanModalOption.Title.share,
+                     PanModalOption.Title.cancel]
+        let option = PanModalOption(screenType: .content, title: title)
+        let modalVC = PanModalTableViewController(option: option, content: content)
+        modalVC.modalPresentationStyle = .popover
+        presentPanModal(modalVC)
+    }
 }
