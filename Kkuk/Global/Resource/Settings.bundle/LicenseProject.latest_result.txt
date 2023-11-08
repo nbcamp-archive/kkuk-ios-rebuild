@@ -1,0 +1,19 @@
+name: Alamofire, nameSpecified: Alamofire, owner: Alamofire, version: 5.8.0, source: https://github.com/Alamofire/Alamofire
+
+name: IQKeyboardManager, nameSpecified: IQKeyboardManagerSwift, owner: hackiftekhar, version: 6.5.15, source: https://github.com/hackiftekhar/IQKeyboardManager
+
+name: Kingfisher, nameSpecified: Kingfisher, owner: onevcat, version: 7.9.1, source: https://github.com/onevcat/Kingfisher
+
+name: PanModal, nameSpecified: PanModal, owner: slackhq, version: 1.2.7, source: https://github.com/slackhq/PanModal
+
+name: realm-core, nameSpecified: realm-core, owner: realm, version: 13.23.1, source: https://github.com/realm/realm-core
+
+name: realm-swift, nameSpecified: realm-swift, owner: realm, version: , source: https://github.com/realm/realm-swift
+
+name: SnapKit, nameSpecified: SnapKit, owner: SnapKit, version: 5.6.0, source: https://github.com/SnapKit/SnapKit
+
+name: SwiftSoup, nameSpecified: SwiftSoup, owner: scinfu, version: 2.6.1, source: https://github.com/scinfu/SwiftSoup
+
+add-version-numbers: true
+
+LicensePlist Version: 3.24.11

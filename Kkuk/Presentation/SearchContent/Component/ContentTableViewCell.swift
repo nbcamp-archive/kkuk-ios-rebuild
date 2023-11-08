@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import Kingfisher
 
 protocol ContentTableViewCellDelegate: AnyObject {
     func togglePin(index: Int)
@@ -68,6 +69,11 @@ class ContentTableViewCell: BaseUITableViewCell {
         button.addTarget(self, action: #selector(tappedMenuButton), for: .touchUpInside)
         return button
     }()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.thumbnailImageView.image = UIImage(systemName: "photo")
+    }
     
     func configureCell(content: Content, index: Int) {
         siteTitleLabel.text = content.title
@@ -151,20 +157,26 @@ class ContentTableViewCell: BaseUITableViewCell {
   
         url = String(url.suffix(from: https.lowerBound))
         
-        AF.request(url)
-            .responseData { response in
-                switch response.result {
-                case .success(let data):
-                    if let image = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            self.thumbnailImageView.image = image
-                        }
-                    }
-                case .failure(let error):
-                    print("AF error : \(error)")
-                    print("AF error URL : \(url)")
-                }
-            }
+        // 내가 추가한거
+        guard let urlSource = URL(string: url) else { return }
+        // 내가 추가한거
+        self.thumbnailImageView.kf.setImage(with: urlSource)
+        
+        // 원래 있던 코드
+//        AF.request(url)
+//            .responseData { response in
+//                switch response.result {
+//                case .success(let data):
+//                    if let image = UIImage(data: data) {
+//                        DispatchQueue.main.async {
+//                            self.thumbnailImageView.image = image
+//                        }
+//                    }
+//                case .failure(let error):
+//                    print("AF error : \(error)")
+//                    print("AF error URL : \(url)")
+//                }
+//            }
     }
 
     @objc func tappedPinButton(_ sender: UIButton) {

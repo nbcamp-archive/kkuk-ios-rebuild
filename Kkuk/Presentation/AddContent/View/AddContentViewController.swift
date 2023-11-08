@@ -110,6 +110,14 @@ class AddContentViewController: BaseUIViewController {
         super.viewWillAppear(animated)
         
         setIQKeyboardManagerEnable(true)
+        
+        if let pasteboardValue = UIPasteboard.general.string, !pasteboardValue.isEmpty {
+            DispatchQueue.main.async {
+                self.URLTextField.text = pasteboardValue
+                self.sourceURL = pasteboardValue
+                self.updateAddContentButtonState(with: pasteboardValue)
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -123,7 +131,7 @@ class AddContentViewController: BaseUIViewController {
         
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.title3 ]
-        appearance.backgroundColor = .white
+        appearance.backgroundColor = .background
         appearance.shadowColor = .none
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
@@ -160,10 +168,10 @@ class AddContentViewController: BaseUIViewController {
             $0.top.equalTo(URLTextFieldStateLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalTo(induceURLLabel)
         }
-//        optionalLabel.snp.makeConstraints {
-//            $0.top.trailing.equalTo(induceMemoLabel)
-//            $0.height.equalTo(induceMemoLabel)
-//        }
+        optionalLabel.snp.makeConstraints {
+            $0.top.trailing.equalTo(induceMemoLabel)
+            $0.height.equalTo(induceMemoLabel)
+        }
         memoContainerView.snp.makeConstraints {
             $0.top.equalTo(induceMemoLabel.snp.bottom).offset(14)
             $0.leading.trailing.equalTo(induceURLLabel)
@@ -210,6 +218,76 @@ class AddContentViewController: BaseUIViewController {
     
 }
 
+// MARK: - @objc
+
+extension AddContentViewController {
+    
+    @objc
+    func textFieldDidChange(_ textField: UITextField) {
+        sourceURL = textField.text ?? ""
+        updateAddContentButtonState(with: sourceURL)
+    }
+    
+    @objc
+    private func closeButtonItemDidTap() {
+        self.dismiss(animated: true, completion: nil)
+        self.presentingViewController?.viewDidLoad()
+    }
+    
+    @objc
+    private func addContentButtonDidTap() {
+        addContentButton.isEnabled = false
+        updateActivityIndicatorState(true)
+        
+        guard let text = URLTextField.text, !text.isEmpty, let URL = URL(string: text) else { return }
+        
+        let openGraphService = OpenGraphService()
+        
+        openGraphService.extractOpenGraphData(from: URL) { [weak self] result in
+            switch result {
+            case .success(let openGraph):
+                let newContent = Content(sourceURL: text,
+                                         title: openGraph.ogTitle ?? "",
+                                         imageURL: openGraph.ogImage,
+                                         memo: self?.memoTextView.text,
+                                         category: (self?.selectedCategoryId)!)
+                self?.contentHelper.create(content: newContent)
+                self?.updateActivityIndicatorState(false)
+                self?.addContentButton.isEnabled = true
+                
+                let alertController = UIAlertController(title: "콘텐츠를 추가했어요", message: nil, preferredStyle: .alert)
+                
+                let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
+                    self?.dismiss(animated: true, completion: nil)
+                    self?.presentingViewController?.viewDidLoad()
+                })
+                
+                alertController.addAction(okAction)
+                self?.present(alertController, animated: true, completion: nil)
+                
+                print("ogURL: \(openGraph.ogURL ?? "No Data")")
+                print("ogTitle: \(openGraph.ogTitle ?? "No Data")")
+                print("ogGraph: \(openGraph.ogImage ?? "No Data")")
+            case .failure(let error):
+                print("Open Graph Data를 추출하는데 문제가 발생했습니다. \(error.localizedDescription)")
+                
+                DispatchQueue.main.async {
+                    self?.updateActivityIndicatorState(false)
+                    self?.addContentButton.isEnabled = false
+                }
+            }
+        }
+    }
+    
+    @objc
+    private func addCategoryButtonDidTap() {
+        let viewController = AddCategoryViewController()
+        let navigationController = UINavigationController(rootViewController: viewController)
+        present(navigationController, animated: true)
+    }
+    
+}
+
 // MARK: - 커스텀 메서드
 
 extension AddContentViewController {
@@ -244,54 +322,8 @@ extension AddContentViewController {
         return false
     }
     
-}
-
-// MARK: - @objc
-
-extension AddContentViewController {
-    
-    @objc
-    func textFieldDidChange(_ textField: UITextField) {
-        sourceURL = URLTextField.text ?? ""
-        updateAddContentButtonState(with: sourceURL)
-    }
-    
-    @objc
-    private func closeButtonItemDidTap() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc
-    private func addContentButtonDidTap() {
-        guard let text = URLTextField.text, !text.isEmpty, let URL = URL(string: text) else { return }
-        
-        let openGraphService = OpenGraphService()
-        
-        openGraphService.extractOpenGraphData(from: URL) { [weak self] result in
-            switch result {
-            case .success(let openGraph):
-                let newContent = Content(sourceURL: text,
-                                         title: openGraph.ogTitle ?? "",
-                                         imageURL: openGraph.ogImage,
-                                         memo: self?.memoTextView.text,
-                                         category: (self?.selectedCategoryId)!)
-                self?.contentHelper.create(content: newContent)
-                
-                self?.dismiss(animated: true)
-                
-                print("ogURL: \(openGraph.ogURL ?? "No data")")
-                print("ogTitle: \(openGraph.ogTitle ?? "No data")")
-                print("ogGraph: \(openGraph.ogImage ?? "No data")")
-            case .failure(let error):
-                print("Open Graph Property Data를 추출하는데 문제가 발생했습니다. \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    @objc
-    private func addCategoryButtonDidTap() {
-        let viewController = AddCategoryViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+    private func updateActivityIndicatorState(_ isEnabled: Bool) {
+        addContentButton.configuration?.showsActivityIndicator = isEnabled
     }
     
 }
@@ -301,29 +333,29 @@ extension AddContentViewController {
 extension AddContentViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        URLTextField.backgroundColor = .background
-        URLTextField.layer.borderWidth = CGFloat(2)
-        URLTextField.layer.cornerRadius = CGFloat(8)
-        URLTextField.layer.borderColor = UIColor.main.cgColor
-        URLTextField.layer.masksToBounds = true
+        textField.backgroundColor = .background
+        textField.layer.borderWidth = CGFloat(2)
+        textField.layer.cornerRadius = CGFloat(8)
+        textField.layer.borderColor = UIColor.main.cgColor
+        textField.layer.masksToBounds = true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        URLTextField.backgroundColor = .subgray3
-        URLTextField.layer.borderWidth = CGFloat(0)
-        URLTextField.layer.borderColor = .none
+        textField.backgroundColor = .subgray3
+        textField.layer.borderWidth = CGFloat(0)
+        textField.layer.borderColor = .none
     }
     
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let updateText = (sourceURL as NSString).replacingCharacters(in: range, with: string)
+        let updateText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         
         updateAddContentButtonState(with: updateText)
         return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        URLTextField.resignFirstResponder()
+        textField.resignFirstResponder()
         return true
     }
     
@@ -334,31 +366,31 @@ extension AddContentViewController: UITextFieldDelegate {
 extension AddContentViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        memoTextView.backgroundColor = .background
-        memoTextView.layer.borderColor = UIColor.main.cgColor
-        memoTextView.layer.borderWidth = CGFloat(2)
-        memoTextView.layer.cornerRadius = CGFloat(8)
-        memoTextView.layer.masksToBounds = true
+        textView.backgroundColor = .background
+        textView.layer.borderColor = UIColor.main.cgColor
+        textView.layer.borderWidth = CGFloat(2)
+        textView.layer.cornerRadius = CGFloat(8)
+        textView.layer.masksToBounds = true
         
-        if memoTextView.textColor == .subgray1 {
-            memoTextView.text = nil
-            memoTextView.textColor = .text1
+        if textView.textColor == .subgray1 {
+            textView.text = nil
+            textView.textColor = .text1
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        memoTextView.textColor = .text1
-        memoTextView.backgroundColor = .subgray3
-        memoTextView.layer.borderWidth = CGFloat(0)
-        memoTextView.layer.borderColor = .none
+        textView.textColor = .text1
+        textView.backgroundColor = .subgray3
+        textView.layer.borderWidth = CGFloat(0)
+        textView.layer.borderColor = .none
         
-        if memoTextView.textColor == .subgray1 {
-            memoTextView.text = "메모할 내용을 입력"
-            memoTextView.textColor = .subgray1
+        if textView.textColor == .subgray1 {
+            textView.text = "메모할 내용을 입력"
+            textView.textColor = .subgray1
         }
         
-        if memoTextView.text == "메모할 내용을 입력" {
-            memoTextView.text = ""
+        if textView.text == "메모할 내용을 입력" {
+            textView.text = ""
         }
     }
     

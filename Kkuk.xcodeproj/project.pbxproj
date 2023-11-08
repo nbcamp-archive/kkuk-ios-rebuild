@@ -22,7 +22,6 @@
 		1C2843A32ADC2F7000A87E99 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843A02ADC2F7000A87E99 /* Coordinator.swift */; };
 		1C2843A42ADC2F7000A87E99 /* BaseUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843A22ADC2F7000A87E99 /* BaseUIViewController.swift */; };
 		1C2843A82ADD0C0F00A87E99 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843A72ADD0C0F00A87E99 /* HomeViewController.swift */; };
-		1C2843B12ADD0D6300A87E99 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843B02ADD0D6300A87E99 /* SettingViewController.swift */; };
 		1C2843B92ADD0DD400A87E99 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843B82ADD0DD400A87E99 /* CategoryViewController.swift */; };
 		1C2843BF2ADD0F5300A87E99 /* SearchContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843BE2ADD0F5300A87E99 /* SearchContentViewController.swift */; };
 		1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843C72ADD0FD600A87E99 /* AddContentViewController.swift */; };
@@ -39,7 +38,6 @@
 		1C2843F62ADE9AB600A87E99 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843F52ADE9AB600A87E99 /* Realm */; };
 		1C2843F82ADE9AB600A87E99 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843F72ADE9AB600A87E99 /* RealmSwift */; };
 		1C2843FB2ADE9AE200A87E99 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843FA2ADE9AE200A87E99 /* SnapKit */; };
-		1C2843FE2ADE9AF400A87E99 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843FD2ADE9AF400A87E99 /* SkeletonView */; };
 		1C2844012ADE9B0100A87E99 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2844002ADE9B0100A87E99 /* SwiftSoup */; };
 		1C2844212ADED52B00A87E99 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C28441C2ADED52B00A87E99 /* Pretendard-Regular.otf */; };
 		1C2844222ADED52B00A87E99 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C28441D2ADED52B00A87E99 /* Pretendard-Medium.otf */; };
@@ -49,6 +47,9 @@
 		1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */; };
 		1C328F892AE92F8D0040D883 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C328F882AE92F8D0040D883 /* WebViewController.swift */; };
 		1C328F8D2AE9368D0040D883 /* WebViewToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C328F8C2AE9368D0040D883 /* WebViewToolbar.swift */; };
+		1C688AF62AFA913500E27714 /* ContentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4AD2AEB87330016398A /* ContentHelper.swift */; };
+		1C688AF72AFA915900E27714 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843B02ADD0D6300A87E99 /* SettingViewController.swift */; };
+		1C6ABCE42AFA8B8900FF9E56 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C6ABCE32AFA8B8900FF9E56 /* Settings.bundle */; };
 		1C79EFF62AE7641000B5A97A /* UIImage+LoadAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFF52AE7641000B5A97A /* UIImage+LoadAsset.swift */; };
 		1C79EFF92AE7675A00B5A97A /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFF82AE7675A00B5A97A /* Asset.swift */; };
 		1C79F0002AE7E6EF00B5A97A /* HTMLParseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFFF2AE7E6EF00B5A97A /* HTMLParseService.swift */; };
@@ -73,10 +74,8 @@
 		C352F49F2AE7980F0016398A /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F49E2AE7980F0016398A /* EmptyStateView.swift */; };
 		C352F4A32AE825F40016398A /* SettingItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A22AE825F40016398A /* SettingItemCell.swift */; };
 		C352F4AA2AEB81170016398A /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A92AEB81170016398A /* Content.swift */; };
-		C352F4AE2AEB87330016398A /* ContentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4AD2AEB87330016398A /* ContentHelper.swift */; };
 		C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */; };
-		C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */; };
-		C3A65F082AE0326500A100A7 /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F072AE0326500A100A7 /* RecommendView.swift */; };
+		C3D641F82AF92ABE00DA39E4 /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D641F72AF92ABE00DA39E4 /* BookmarkCell.swift */; };
 		ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD225642AE7883B009CA421 /* AddCategoryView.swift */; };
 		ECF81C432AE050FF000C05DC /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF81C422AE050FF000C05DC /* AddCategoryViewController.swift */; };
 /* End PBXBuildFile section */
@@ -157,6 +156,7 @@
 		1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+FontSizes.swift"; sourceTree = "<group>"; };
 		1C328F882AE92F8D0040D883 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		1C328F8C2AE9368D0040D883 /* WebViewToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewToolbar.swift; sourceTree = "<group>"; };
+		1C6ABCE32AFA8B8900FF9E56 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		1C79EFF52AE7641000B5A97A /* UIImage+LoadAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+LoadAsset.swift"; sourceTree = "<group>"; };
 		1C79EFF82AE7675A00B5A97A /* Asset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 		1C79EFFF2AE7E6EF00B5A97A /* HTMLParseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParseService.swift; sourceTree = "<group>"; };
@@ -184,8 +184,7 @@
 		C352F4A92AEB81170016398A /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		C352F4AD2AEB87330016398A /* ContentHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentHelper.swift; sourceTree = "<group>"; };
 		C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
-		C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendPagingView.swift; sourceTree = "<group>"; };
-		C3A65F072AE0326500A100A7 /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
+		C3D641F72AF92ABE00DA39E4 /* BookmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
 		ECD225642AE7883B009CA421 /* AddCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryView.swift; sourceTree = "<group>"; };
 		ECF81C422AE050FF000C05DC /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,7 +198,6 @@
 				1C2843F32ADE9A1400A87E99 /* PanModal in Frameworks */,
 				1C2843F02ADE99EF00A87E99 /* Kingfisher in Frameworks */,
 				1C2843FB2ADE9AE200A87E99 /* SnapKit in Frameworks */,
-				1C2843FE2ADE9AF400A87E99 /* SkeletonView in Frameworks */,
 				1C2843EA2ADE996200A87E99 /* Alamofire in Frameworks */,
 				1C2843ED2ADE99D400A87E99 /* IQKeyboardManagerSwift in Frameworks */,
 				1C2843F62ADE9AB600A87E99 /* Realm in Frameworks */,
@@ -319,6 +317,7 @@
 				1C2843932ADC2C5600A87E99 /* LaunchScreen.storyboard */,
 				1C2843942ADC2C5600A87E99 /* Assets.xcassets */,
 				1C2843952ADC2C5600A87E99 /* Info.plist */,
+				1C6ABCE32AFA8B8900FF9E56 /* Settings.bundle */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -384,9 +383,8 @@
 		1C2843A62ADD0C0200A87E99 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				C3A65F052AE0316F00A100A7 /* RecommendPagingView.swift */,
-				C3A65F072AE0326500A100A7 /* RecommendView.swift */,
 				C352F49E2AE7980F0016398A /* EmptyStateView.swift */,
+				C3D641F72AF92ABE00DA39E4 /* BookmarkCell.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -636,7 +634,6 @@
 				1C2843F52ADE9AB600A87E99 /* Realm */,
 				1C2843F72ADE9AB600A87E99 /* RealmSwift */,
 				1C2843FA2ADE9AE200A87E99 /* SnapKit */,
-				1C2843FD2ADE9AF400A87E99 /* SkeletonView */,
 				1C2844002ADE9B0100A87E99 /* SwiftSoup */,
 			);
 			productName = Kkuk;
@@ -738,7 +735,6 @@
 				1C2843F12ADE9A1400A87E99 /* XCRemoteSwiftPackageReference "PanModal" */,
 				1C2843F42ADE9AB600A87E99 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				1C2843F92ADE9AE200A87E99 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				1C2843FC2ADE9AF400A87E99 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				1C2843FF2ADE9B0100A87E99 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = 1C2843582ADB969A00A87E99 /* Products */;
@@ -758,6 +754,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C6ABCE42AFA8B8900FF9E56 /* Settings.bundle in Resources */,
 				1C2843972ADC2C5600A87E99 /* Assets.xcassets in Resources */,
 				1C2844242ADED52B00A87E99 /* Pretendard-Bold.otf in Resources */,
 				1C2844252ADED52B00A87E99 /* Pretendard-SemiBold.otf in Resources */,
@@ -819,14 +816,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C688AF72AFA915900E27714 /* SettingViewController.swift in Sources */,
+				1C688AF62AFA913500E27714 /* ContentHelper.swift in Sources */,
 				1CAEBE692AEBFD5500FF4CF2 /* InduceLabel.swift in Sources */,
 				1C328F892AE92F8D0040D883 /* WebViewController.swift in Sources */,
 				ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */,
 				1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */,
 				0A7B93402AF89D3B0006B348 /* SegmentMenu.swift in Sources */,
 				1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */,
-				C3A65F062AE0316F00A100A7 /* RecommendPagingView.swift in Sources */,
-				C352F4AE2AEB87330016398A /* ContentHelper.swift in Sources */,
 				55791AC42AE7AED9005C06C4 /* CategoryTableViewCell.swift in Sources */,
 				1C79F0062AE7F67300B5A97A /* AppTabBarItem.swift in Sources */,
 				1C2843CF2ADD11B600A87E99 /* AppTabBarController.swift in Sources */,
@@ -846,7 +843,6 @@
 				1CAEBE6F2AF1278500FF4CF2 /* OptionalLabel.swift in Sources */,
 				1C2843D82ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift in Sources */,
 				1C79F0022AE7E94400B5A97A /* OpenGraphService.swift in Sources */,
-				C3A65F082AE0326500A100A7 /* RecommendView.swift in Sources */,
 				1C2843BF2ADD0F5300A87E99 /* SearchContentViewController.swift in Sources */,
 				C352F4A32AE825F40016398A /* SettingItemCell.swift in Sources */,
 				ECF81C432AE050FF000C05DC /* AddCategoryViewController.swift in Sources */,
@@ -864,7 +860,7 @@
 				1CB63FFA2AF33EC9003BDB62 /* SelectCategoryCell.swift in Sources */,
 				1C79EFF62AE7641000B5A97A /* UIImage+LoadAsset.swift in Sources */,
 				55791AD22AEBC0FF005C06C4 /* Category.swift in Sources */,
-				1C2843B12ADD0D6300A87E99 /* SettingViewController.swift in Sources */,
+				C3D641F82AF92ABE00DA39E4 /* BookmarkCell.swift in Sources */,
 				1C2843A32ADC2F7000A87E99 /* Coordinator.swift in Sources */,
 				55B505122AF7326E00869130 /* PanModalTableViewController.swift in Sources */,
 				55B505102AF7325200869130 /* PanModalTableViewCell.swift in Sources */,
@@ -1332,14 +1328,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		1C2843FC2ADE9AF400A87E99 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		1C2843FF2ADE9B0100A87E99 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
@@ -1385,11 +1373,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1C2843F92ADE9AE200A87E99 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		1C2843FD2ADE9AF400A87E99 /* SkeletonView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1C2843FC2ADE9AF400A87E99 /* XCRemoteSwiftPackageReference "SkeletonView" */;
-			productName = SkeletonView;
 		};
 		1C2844002ADE9B0100A87E99 /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
