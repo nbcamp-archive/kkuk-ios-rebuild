@@ -58,6 +58,8 @@ class SettingItemCell: UITableViewCell {
     }
     
     func configureCell(title: String, subTitle: String? = nil) {
+        backgroundColor = .background
+        
         titleLabel.text = title
         subTitleLabel.text = subTitle
         

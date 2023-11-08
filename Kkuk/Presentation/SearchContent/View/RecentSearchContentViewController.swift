@@ -43,6 +43,7 @@ class RecentSearchContentViewController: BaseUIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(RecentSearchContentCollectionViewCell.self, forCellWithReuseIdentifier: "RecentSearchContentCollectionViewCell")
+        collectionView.backgroundColor = .background
         
         return collectionView
     }()

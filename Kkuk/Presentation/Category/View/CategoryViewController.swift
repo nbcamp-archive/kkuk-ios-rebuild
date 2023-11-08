@@ -15,13 +15,6 @@ class CategoryViewController: BaseUIViewController {
     
     private let sectionInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     
-    private lazy var topFrameView: UIStackView = {
-        let view = UIStackView()
-        view.backgroundColor = .main
-        
-        return view
-    }()
-    
     private lazy var addButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "lucide_folder_plus_white"), for: .normal)
@@ -41,14 +34,6 @@ class CategoryViewController: BaseUIViewController {
         tableView.backgroundColor = .background
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategoryTableViewCell")
         return tableView
-    }()
-    
-    private var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "카테고리"
-        label.font = .title1
-        label.textColor = .background
-        return label
     }()
     
     private var emptyCategoryLabel: UILabel = {
@@ -75,33 +60,37 @@ class CategoryViewController: BaseUIViewController {
         categoryTableView.reloadData()
     }
     
+    override func setTopView() {
+        view.addSubview(topView)
+        topView.snp.makeConstraints { make in
+            make.top.trailing.leading.equalToSuperview()
+            make.height.equalTo(UIScreen.main.bounds.height * 0.2)
+        }
+        
+        topTitle.text = "카테고리"
+        topView.addSubviews([topTitle, addButton])
+        topTitle.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(28)
+            make.leading.equalTo(20)
+        }
+    }
+    
     override func setNavigationBar() {}
     
     override func setUI() {
-        view.addSubviews([topFrameView, middleFrameView])
-        topFrameView.addSubviews([titleLabel, addButton])
+        view.addSubviews([middleFrameView])
         middleFrameView.addSubviews([categoryTableView, emptyCategoryLabel])
     }
 
     override func setLayout() {
-        topFrameView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.trailing.leading.equalToSuperview()
-            make.height.equalTo(UIScreen.main.bounds.height * 0.2)
-        }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(28)
-            make.leading.equalTo(20)
-        }
-        
+
         addButton.snp.makeConstraints { make in
-            make.centerY.equalTo(titleLabel)
+            make.centerY.equalTo(topTitle)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         
         middleFrameView.snp.makeConstraints { make in
-            make.top.equalTo(topFrameView.snp.bottom)
+            make.top.equalTo(topView.snp.bottom)
             make.trailing.leading.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
