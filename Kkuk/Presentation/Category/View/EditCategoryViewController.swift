@@ -9,6 +9,7 @@ import UIKit
 
 protocol EditCategoryViewControllerDelegate: AnyObject {
     func setTitle(title: String)
+    func dismissModal()
 }
 
 class EditCategoryViewController: BaseUIViewController {
@@ -81,6 +82,7 @@ class EditCategoryViewController: BaseUIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        delegate?.dismissModal()
         setIQKeyboardManagerEnable(false)
     }
     
@@ -258,8 +260,8 @@ extension EditCategoryViewController {
         }
         
         // 화면 닫기
-        delegate?.setTitle(title: categoryName)
         dismiss(animated: true, completion: nil)
+        delegate?.setTitle(title: categoryName)
     }
     
     @objc

@@ -97,14 +97,6 @@ class CategoryTableViewCell: BaseUITableViewCell {
         return label
     }()
     
-    lazy var editCategoryButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.isHidden = true
-        button.addTarget(self, action: #selector(editCategoryButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUI()
@@ -117,8 +109,8 @@ class CategoryTableViewCell: BaseUITableViewCell {
     }
     
     override func setUI() {
-        contentView.addSubviews([titleImage, titleLabel, editCategoryButton])
-        contentView.backgroundColor = .clear
+        contentView.addSubviews([titleImage, titleLabel])
+        contentView.superview?.backgroundColor = .background
     }
     
     override func setLayout() {
@@ -130,26 +122,18 @@ class CategoryTableViewCell: BaseUITableViewCell {
         
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(titleImage.snp.trailing).offset(16)
-            make.trailing.equalTo(editCategoryButton).inset(10)
             make.centerY.equalToSuperview()
         }
-        
-        editCategoryButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().inset(6)
-        }
     }
-        func configure(category: Category) {
-            self.category = category
-            titleLabel.text = category.name
-            setCategoryCell(id: category.iconId)
-        }
-        
-        @objc func setCategoryCell(id: Int) {
-            titleImage.image = IconAsset.image(for: id)
-        }
-        
-        @objc func editCategoryButtonTapped() {
-            _ = self.category
+  
+    func configure(category: Category) {
+        self.category = category
+        titleLabel.text = category.name
+        setCategoryCell(id: category.iconId)
     }
+
+    @objc func setCategoryCell(id: Int) {
+        titleImage.image = IconAsset.image(for: id)
+    }
+  
 }
