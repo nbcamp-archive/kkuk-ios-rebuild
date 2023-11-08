@@ -15,7 +15,6 @@ import UIKit
 class AddContentViewController: BaseUIViewController {
     
     // MARK: - 프로퍼티
-    
     private var contentHelper = ContentHelper()
     
     private var categoryHelper = CategoryHelper.shared
@@ -31,7 +30,6 @@ class AddContentViewController: BaseUIViewController {
     private var modifyContent: Content?
     
     // MARK: - 컴포넌트
-
     private lazy var addContentButton = CompleteButton(frame: .zero)
     
     private lazy var induceURLLabel = InduceLabel(text: "링크 입력 및 붙여넣기", font: .title2)
@@ -135,11 +133,7 @@ class AddContentViewController: BaseUIViewController {
             }
         }
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
-    
+
     override func setNavigationBar() {
         title = isAddContent ? "추가하기" : "수정하기"
         
@@ -253,7 +247,6 @@ class AddContentViewController: BaseUIViewController {
 }
 
 // MARK: - @objc
-
 extension AddContentViewController {
     
     @objc
@@ -341,7 +334,6 @@ extension AddContentViewController {
 }
 
 // MARK: - 커스텀 메서드
-
 extension AddContentViewController {
     
     private func updateAddContentButtonState(with text: String) {
@@ -376,7 +368,6 @@ extension AddContentViewController {
 }
 
 // MARK: - 텍스트필드 델리게이트
-
 extension AddContentViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -405,11 +396,9 @@ extension AddContentViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
 }
 
 // MARK: - 텍스트 뷰 델리게이트
-
 extension AddContentViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -459,11 +448,9 @@ extension AddContentViewController: UITextViewDelegate {
         
         return updateMemoText.count <= 75
     }
-    
 }
 
 // MARK: - 콜렉션 뷰 델리게이트
-
 extension AddContentViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -480,11 +467,9 @@ extension AddContentViewController: UICollectionViewDelegate {
             cell.isSelected = false
         }
     }
-    
 }
 
 // MARK: - 콜렉션 뷰 DataSource
-
 extension AddContentViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -505,12 +490,10 @@ extension AddContentViewController: UICollectionViewDataSource {
 }
 
 // MARK: - 콜렉션 뷰 FlowLayout 델리게이트
-
 extension AddContentViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (collectionView.bounds.width / 4) - 4
         return CGSize(width: width, height: 48)
     }
-    
 }
