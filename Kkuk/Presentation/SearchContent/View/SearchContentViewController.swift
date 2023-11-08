@@ -62,21 +62,27 @@ class SearchContentViewController: BaseUIViewController {
         return view
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setNavigationBar()
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         searchBar.text = ""
         toggleContainerViewVisibility(isShow: true)
     }
     
-    override func setNavigationBar() {
-        title = "검색"
+    override func setTopView() {
+        view.addSubview(topView)
+        topView.snp.makeConstraints { make in
+            make.top.trailing.leading.equalToSuperview()
+            make.height.equalTo(UIScreen.main.bounds.height * 0.2)
+        }
+        
+        topTitle.text = "검색"
+        topView.addSubviews([topTitle])
+        topTitle.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(28)
+            make.leading.equalTo(20)
+        }
     }
-    
+
     private func updatePin(index: Int) {
         contentTableView.reloadRows(at: [.init(row: index, section: 0)], with: .automatic)
     }
@@ -118,7 +124,7 @@ class SearchContentViewController: BaseUIViewController {
     
     func setSearchBarLayout() {
         searchBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            make.top.equalTo(topView.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
         }
     }
