@@ -20,6 +20,18 @@ class BaseUIViewController: UIViewController {
         setDelegate()
         addTarget()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setIQKeyboardManagerEnable(true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        setIQKeyboardManagerEnable(false)
+    }
     // `BaseUIViewController`를 상속받은 객체는 해당 함수를 사용할 수 있습니다.
     //
     /// 네비게이션 바 구성을 위한 사용자 정의 함수 입니다.

@@ -15,9 +15,9 @@ protocol PanModalTableViewControllerDelegate: AnyObject {
 
 class PanModalTableViewController: BaseUIViewController {
     private var category: Category?
-    
+
     private var modifyTitle: String?
-    
+
     weak var delegate: PanModalTableViewControllerDelegate?
     
     private var panModalOption: PanModalOption?
@@ -26,6 +26,9 @@ class PanModalTableViewController: BaseUIViewController {
     
     private var helper = ContentHelper()
     
+
+    weak var selfNavi: UINavigationController?
+
     private lazy var deleteModifyTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(PanModalTableViewCell.self, forCellReuseIdentifier: "PanModalTableViewCell")
@@ -47,6 +50,8 @@ class PanModalTableViewController: BaseUIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+//    private let modalOption = [PanModalOption.modify, PanModalOption.delete, PanModalOption.cancel]
+
     override func setUI() {
         view.addSubview(deleteModifyTableView)
     }
@@ -64,9 +69,23 @@ class PanModalTableViewController: BaseUIViewController {
         deleteModifyTableView.dataSource = self
         deleteModifyTableView.allowsSelection = true
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
-        delegate?.modifyTitle(title: self.modifyTitle ?? self.category!.name)
+        delegate?.modifyTitle(title: modifyTitle ?? category!.name)
+    }
+
+    private func presentDeleteAlert() {
+        let alert = UIAlertController(title: "", message: "카테고리를 삭제하시겠습니까?", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [self] _ in
+            CategoryHelper.shared.delete(category!)
+            selfNavi?.popToRootViewController(animated: true)
+            self.dismiss(animated: true)
+        }))
+
+        alert.addAction(UIAlertAction(title: "취소", style: .default))
+
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -90,12 +109,12 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
         cell.selectionStyle = .none
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let count = panModalOption?.title.count else { return 0 }
         return (UIScreen.main.bounds.height * 0.25 ) / CGFloat(count)
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let menu = panModalOption?.title[indexPath.row] else { return }
         switch panModalOption?.screenType {
@@ -113,8 +132,8 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
             viewController.delegate = self
             presentFromPanModal(to: viewController)
         case .delete:
-            self.dismiss(animated: true)
             CategoryHelper.shared.delete(category!)
+            self.dismiss(animated: true)
         case .cancel:
             self.dismiss(animated: true)
         default:
@@ -151,12 +170,16 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
 }
 
 extension PanModalTableViewController: EditCategoryViewControllerDelegate {
+    func dismissModal() {
+        dismiss(animated: true)
+    }
+
     func setTitle(title: String) {
         modifyTitle = title
     }
 }
 
- extension PanModalTableViewController: PanModalPresentable {
+extension PanModalTableViewController: PanModalPresentable {
     var panScrollable: UIScrollView? {
         deleteModifyTableView
     }
@@ -164,16 +187,16 @@ extension PanModalTableViewController: EditCategoryViewControllerDelegate {
     var shortFormHeight: PanModalHeight {
         .contentHeight(UIScreen.main.bounds.height * 0.25)
     }
-     
-     var longFormHeight: PanModalHeight {
-         .contentHeight(UIScreen.main.bounds.height * 0.25)
-     }
+
+    var longFormHeight: PanModalHeight {
+        .contentHeight(UIScreen.main.bounds.height * 0.25)
+    }
 
     var allowsTapToDismiss: Bool {
         true
     }
 
     var dragIndicatorBackgroundColor: UIColor {
-         .clear
-     }
- }
+        .clear
+    }
+}

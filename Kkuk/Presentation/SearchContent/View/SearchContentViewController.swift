@@ -12,6 +12,7 @@ class SearchContentViewController: BaseUIViewController {
     var contentList: [Content] = []
     
     let recentSearchContentViewController = RecentSearchContentViewController()
+    let contentManager = ContentHelper()
     let recenteSearchManager = RecentSearchHelper()
     
     lazy var searchBar: UISearchBar = {
@@ -74,6 +75,10 @@ class SearchContentViewController: BaseUIViewController {
     
     override func setNavigationBar() {
         title = "검색"
+    }
+    
+    private func updatePin(index: Int) {
+        contentTableView.reloadRows(at: [.init(row: index, section: 0)], with: .automatic)
     }
 
     override func setUI() {
@@ -215,6 +220,7 @@ extension SearchContentViewController: UITableViewDataSource, UITableViewDelegat
         
         let content = contentList[indexPath.row]
         cell.configureCell(content: content, index: indexPath.row)
+        cell.delegate = self
         cell.selectionStyle = .none
         cell.delegate = self
         return cell
@@ -238,6 +244,10 @@ extension SearchContentViewController: UITableViewDataSource, UITableViewDelegat
 
 extension SearchContentViewController: ContentTableViewCellDelegate {
     func togglePin(index: Int) {
+        contentManager.update(content: self.contentList[index]) { [weak self] content in
+            content.isPinned.toggle()
+            self?.updatePin(index: index)
+        }
     }
     
     func presenteMoreMenu(content: Content) {

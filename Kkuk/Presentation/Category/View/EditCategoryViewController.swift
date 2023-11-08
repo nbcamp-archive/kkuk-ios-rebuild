@@ -9,6 +9,7 @@ import UIKit
 
 protocol EditCategoryViewControllerDelegate: AnyObject {
     func setTitle(title: String)
+    func dismissModal()
 }
 
 class EditCategoryViewController: BaseUIViewController {
@@ -20,7 +21,12 @@ class EditCategoryViewController: BaseUIViewController {
     
     private var index: Int?
     
-    private let iconImageNames = ["plant", "education", "animal", "trip", "cafe"]
+    private let iconImageNames = [
+        "trip", "cafe", "education", "animal", "plant",
+        "book", "food", "tech", "finance", "car",
+        "baby", "interier", "health", "exercise", "music",
+        "shopping", "kitchen", "fashion", "culture", "beauty"
+    ]
     
     private var selectedIcon: UIImage? // 선택된 아이콘 변수
     
@@ -81,6 +87,7 @@ class EditCategoryViewController: BaseUIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        delegate?.dismissModal()
         setIQKeyboardManagerEnable(false)
     }
     
@@ -258,8 +265,8 @@ extension EditCategoryViewController {
         }
         
         // 화면 닫기
-        delegate?.setTitle(title: categoryName)
         dismiss(animated: true, completion: nil)
+        delegate?.setTitle(title: categoryName)
     }
     
     @objc

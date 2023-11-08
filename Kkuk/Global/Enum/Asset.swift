@@ -34,7 +34,7 @@ enum Asset {
     static var food: UIImage { .loadAsset(named: "food") }
     static var health: UIImage { .loadAsset(named: "health") }
     static var interier: UIImage { .loadAsset(named: "interier") }
-    static var tech: UIImage { .loadAsset(named: "it") }
+    static var tech: UIImage { .loadAsset(named: "tech") }
     static var kitchen: UIImage { .loadAsset(named: "kitchen") }
     static var music: UIImage { .loadAsset(named: "music") }
     static var plant: UIImage { .loadAsset(named: "plant") }
@@ -53,6 +53,7 @@ enum Asset {
     
     static var home: UIImage { .loadAsset(named: "lucide_home") }
     static var category: UIImage { .loadAsset(named: "lucide_category") }
+    static var action: UIImage { .loadAsset(named: "lucide_plus_action") }
     static var search: UIImage { .loadAsset(named: "lucide_search") }
     static var setting: UIImage { .loadAsset(named: "lucide_setting") }
     
