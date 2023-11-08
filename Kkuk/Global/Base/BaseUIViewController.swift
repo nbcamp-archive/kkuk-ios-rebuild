@@ -19,7 +19,7 @@ class BaseUIViewController: UIViewController {
     lazy var topTitle: UILabel = {
         let label = UILabel()
         label.font = .title1
-        label.textColor = .background
+        label.textColor = .white
         return label
     }()
     
