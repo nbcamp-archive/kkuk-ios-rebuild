@@ -24,8 +24,20 @@ class SettingViewController: BaseUIViewController {
     
     let clearDataButton = UIButton(type: .system)
     
-    let topContainerView = UIView()
-    let titleLabel = UILabel()
+    override func setTopView() {
+        view.addSubview(topView)
+        topView.snp.makeConstraints { make in
+            make.top.trailing.leading.equalToSuperview()
+            make.height.equalTo(UIScreen.main.bounds.height * 0.2)
+        }
+        
+        topTitle.text = "설정"
+        topView.addSubviews([topTitle])
+        topTitle.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(28)
+            make.leading.equalTo(20)
+        }
+    }
     
     override func setNavigationBar() {
         navigationController?.navigationBar.backgroundColor = .clear
@@ -44,34 +56,15 @@ class SettingViewController: BaseUIViewController {
     }
     
     override func setUI() {
-        view.addSubviews([topContainerView, tableView, clearDataButton])
-        topContainerView.backgroundColor = .main // 적절한 색상 설정
-        titleLabel.text = "설정"
-        titleLabel.font = UIFont.title1
-        titleLabel.textColor = UIColor.white
-                topContainerView.addSubview(titleLabel)
-                
-                tableView.isScrollEnabled = false
+        view.addSubviews([tableView, clearDataButton])
+        tableView.isScrollEnabled = false
     }
 
     override func setLayout() {
-        // 상단 컨테이너 뷰의 제약 조건을 설정합니다.
-        topContainerView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(100) // 적절한 높이 설정
-            
-        }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.leftMargin.equalToSuperview().inset(20)
-            make.top.equalTo(topContainerView.snp.top).offset(12)
-        }
-        
         // tableView 제약 조건을 설정
         tableView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.top.equalTo(topContainerView.snp.bottom).offset(20)
+            make.top.equalTo(topView.snp.bottom).offset(20)
             make.bottom.equalTo(clearDataButton.snp.top).offset(-20)
         }
         
