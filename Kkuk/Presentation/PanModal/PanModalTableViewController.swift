@@ -26,7 +26,6 @@ class PanModalTableViewController: BaseUIViewController {
     
     private var helper = ContentHelper()
     
-
     weak var selfNavi: UINavigationController?
 
     private lazy var deleteModifyTableView: UITableView = {
@@ -49,8 +48,6 @@ class PanModalTableViewController: BaseUIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-//    private let modalOption = [PanModalOption.modify, PanModalOption.delete, PanModalOption.cancel]
 
     override func setUI() {
         view.addSubview(deleteModifyTableView)
@@ -132,10 +129,9 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
             viewController.delegate = self
             presentFromPanModal(to: viewController)
         case .delete:
-            CategoryHelper.shared.delete(category!)
-            self.dismiss(animated: true)
+            self.presentDeleteAlert()
         case .cancel:
-            self.dismiss(animated: true)
+            dismiss(animated: true)
         default:
             return
         }
