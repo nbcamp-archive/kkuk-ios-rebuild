@@ -110,10 +110,7 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
             let viewController = EditCategoryViewController()
             viewController.category = category
             viewController.delegate = self
-            let navigationController = UINavigationController(rootViewController: viewController)
-            navigationController.modalPresentationStyle = .fullScreen
-            navigationController.modalTransitionStyle = .coverVertical
-            present(navigationController, animated: true)
+            presentFromPanModal(to: viewController)
         case .delete:
             self.dismiss(animated: true)
             CategoryHelper.shared.delete(category!)
@@ -130,10 +127,7 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
         switch menu {
         case .modify:
             let viewController = AddContentViewController(isAddContent: false, modifyContent: content)
-            let navigationController = UINavigationController(rootViewController: viewController)
-            navigationController.modalPresentationStyle = .fullScreen
-            navigationController.modalTransitionStyle = .coverVertical
-            present(navigationController, animated: true)
+            presentFromPanModal(to: viewController)
         case .delete:
             showAlert(title: "삭제하시겠습니까?", message: nil, completion: {
                 self.helper.delete(content)
@@ -145,6 +139,13 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
             present(activityViewController, animated: true)
         case .cancel: dismiss(animated: true)
         }
+    }
+    
+    func presentFromPanModal(to viewController: UIViewController) {
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.modalTransitionStyle = .coverVertical
+        present(navigationController, animated: true)
     }
 }
 
