@@ -18,7 +18,7 @@ class SettingViewController: BaseUIViewController {
         view.backgroundColor = UIColor.background
         view.separatorStyle = .none
         view.register(SettingItemCell.self, forCellReuseIdentifier: SettingItemCell.identifier)
-        view.rowHeight = UITableView.automaticDimension
+        view.rowHeight = CGFloat(52)
         return view
     }()
     
@@ -28,7 +28,7 @@ class SettingViewController: BaseUIViewController {
     let titleLabel = UILabel()
     
     override func setNavigationBar() {
-        navigationController?.navigationBar.backgroundColor = .main
+        navigationController?.navigationBar.backgroundColor = .clear
     }
 
     override func viewDidLoad() {
@@ -53,28 +53,29 @@ class SettingViewController: BaseUIViewController {
                 
                 tableView.isScrollEnabled = false
     }
-    
+
     override func setLayout() {
         // 상단 컨테이너 뷰의 제약 조건을 설정합니다.
         topContainerView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(100) // 적절한 높이 설정
+            
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.leftMargin.equalToSuperview().inset(32)
+            make.leftMargin.equalToSuperview().inset(20)
             make.top.equalTo(topContainerView.snp.top).offset(12)
         }
         
-        // tableView 제약 조건을 설정합니다.
+        // tableView 제약 조건을 설정
         tableView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
             make.top.equalTo(topContainerView.snp.bottom).offset(20)
             make.bottom.equalTo(clearDataButton.snp.top).offset(-20)
         }
         
-        // clearDataButton 제약 조건을 설정합니다.
+        // clearDataButton 제약 조건을 설정
         clearDataButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-44)
             make.centerX.equalToSuperview()
@@ -82,7 +83,7 @@ class SettingViewController: BaseUIViewController {
             make.height.equalTo(40)
         }
     }
-    
+
     override func setDelegate() {
             tableView.dataSource = self
             tableView.delegate = self
@@ -133,7 +134,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         label.text = section == 0 ? "서비스 정보" : "기타"
         headerView.addSubview(label)
         label.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(0)
             make.centerY.equalToSuperview()
         }
         
@@ -172,8 +173,36 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
 
         return cell
     }
+    
     @objc func clearData() {
-        // "모든 데이터 지우기" 버튼이 클릭되었을 때의 액션을 정의
-        // ex, 사용자에게 경고 메시지를 표시하거나 데이터 삭제 작업을 시작
+        // UIAlertController를 생성합니다. style을 .alert로 지정하여 팝업 형태로 표시됩니다.
+        let alertController = UIAlertController(title: "모든 데이터 지우기", message: "모든 데이터를 지우겠습니까?", preferredStyle: .alert)
+
+        let confirmAction = UIAlertAction(title: "네", style: .destructive) { _ in
+            // 여기에 데이터를 지우는 코드를 추가
+            print("모든 데이터가 삭제되었습니다.")
+        }
+        
+        // "아니오"를 탭했을 때 실 alert을 닫음
+        let cancelAction = UIAlertAction(title: "아니오", style: .cancel, handler: nil)
+
+        // 생성한 액션들을 UIAlertController에 추가
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+
+        // Alert을 현재 뷰 컨트롤러에 표시
+        present(alertController, animated: true, completion: nil)
+    }
+
+}
+extension SettingViewController {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 첫 번째 섹션의 "시스템 설정" 셀이 선택되었는지 확인
+        if indexPath.section == 0 && indexPath.row == 0 {
+            if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }
+        }
     }
 }

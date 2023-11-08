@@ -46,13 +46,13 @@ class SettingItemCell: UITableViewCell {
     private func setupLayout() {
         // titleLabel layout
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
         
         // subTitleLabel layout
         NSLayoutConstraint.activate([
-            subTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            subTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
             subTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }

@@ -22,35 +22,40 @@ enum IconAsset: Int {
          baby, interier, health, exercise, music,
          shopping, fashion, culture, beauty, food
 
-    var image: UIImage? {
+    var imageName: String {
         switch self {
-        case .trip: return .bringAsset(named: "trip")
-        case .cafe: return .bringAsset(named: "cafe")
-        case .education: return .bringAsset(named: "education")
-        case .animal: return .bringAsset(named: "animal")
-        case .plant: return .bringAsset(named: "plant")
-        case .book: return .bringAsset(named: "book")
-        case .food: return .bringAsset(named: "food")
-        case .tech: return .bringAsset(named: "tech")
-        case .finance: return .bringAsset(named: "finance")
-        case .car: return .bringAsset(named: "car")
-        case .baby: return .bringAsset(named: "baby")
-        case .interier: return .bringAsset(named: "interier")
-        case .health: return .bringAsset(named: "health")
-        case .exercise: return .bringAsset(named: "exercise")
-        case .music: return .bringAsset(named: "music")
-        case .shopping: return .bringAsset(named: "shopping")
-        case .kitchen: return .bringAsset(named: "kitchen")
-        case .fashion: return .bringAsset(named: "fashion")
-        case .culture: return .bringAsset(named: "culture")
-        case .beauty: return .bringAsset(named: "beauty")
+        case .trip: return "trip"
+        case .cafe: return "cafe"
+        case .education: return "education"
+        case .animal: return "animal"
+        case .plant: return "plant"
+        case .book: return "book"
+        case .food: return "food"
+        case .tech: return "tech"
+        case .finance: return "finance"
+        case .car: return "car"
+        case .baby: return "baby"
+        case .interier: return"interier"
+        case .health: return "health"
+        case .exercise: return "exercise"
+        case .music: return "music"
+        case .shopping: return "shopping"
+        case .kitchen: return "kitchen"
+        case .fashion: return "fashion"
+        case .culture: return "culture"
+        case .beauty: return "beauty"
         }
     }
     
-    static func image(for id: Int) -> UIImage? {
-    return IconAsset(rawValue: id)?.image
-    }
-}
+    var image: UIImage? {
+           return UIImage.bringAsset(named: imageName)
+       }
+       
+       static func image(for id: Int) -> UIImage? {
+           guard let item = IconAsset(rawValue: id) else { return nil }
+           return item.image
+       }
+   }
 
 protocol CategoryTableViewCellDelegate: AnyObject {
     func deleteTableViewCell()
