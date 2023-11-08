@@ -42,6 +42,7 @@ class SearchContentViewController: BaseUIViewController {
         tableView.delegate = self
         tableView.register(ContentTableViewCell.self, forCellReuseIdentifier: "ContentTableViewCell")
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = .background
         return tableView
     }()
     
