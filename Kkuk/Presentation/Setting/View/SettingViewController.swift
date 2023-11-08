@@ -204,5 +204,20 @@ extension SettingViewController {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             }
         }
+        let item = settingItems[indexPath.row]
+
+        if indexPath.row == 1 {
+            if let urlString = URL(string: "https://www.notion.so/1f84d3cfd86141efa45316ed358ee4c8?pvs=4")?.absoluteString {
+                let viewController = WebViewController(sourceURL: urlString, sourceTitle: "이용약관")
+                viewController.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(viewController, animated: true)
+            }
+        } else if indexPath.row == 2 {
+            if let urlString = URL(string: "https://www.notion.so/d48ad9e72dd54a2291df22f58b8dada6?pvs=4")?.absoluteString {
+                let viewController = WebViewController(sourceURL: urlString, sourceTitle: "서비스 이용방법")
+                viewController.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(viewController, animated: true)
+            }
+        }
     }
 }
