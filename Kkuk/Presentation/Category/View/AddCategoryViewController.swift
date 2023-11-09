@@ -20,11 +20,6 @@ class AddCategoryViewController: BaseUIViewController {
     weak var delegate: AddCategoryViewControllerDelegate?
     private var categoryHelper = CategoryHelper.shared
     
-//    private var index: Int?
-//    private var selectedIcon: UIImage? // 선택된 아이콘 변수
-//    private var selectedIconButton: IconSelectButton?
-//    private var iconButtons: [IconSelectButton] = []
-    
     // MARK: - 컴포넌트
     private lazy var induceCategoryNameLabel = InduceLabel(text: "카테고리 이름 입력하기", font: .title2)
     private lazy var induceCategoryIconLabel = InduceLabel(text: "아이콘 선택하기", font: .title2)
@@ -217,7 +212,6 @@ extension AddCategoryViewController: UICollectionViewDataSource, UICollectionVie
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellName,
                                                          for: indexPath) as? AddCategoryIconCollectionViewCell {
             cell.configuration(index: indexPath.row)
-//            cell.deleteButton.addTarget(self, action: #selector(deleteSearch(_:)), for: .touchUpInside)
             return cell
         }
         
@@ -227,5 +221,17 @@ extension AddCategoryViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = (collectionView.bounds.width / 5) - (cellSpacing * 4)
         return CGSize(width: size, height: size)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? AddCategoryIconCollectionViewCell {
+            cell.toggleOverlayView(isSelected: true)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? AddCategoryIconCollectionViewCell {
+            cell.toggleOverlayView(isSelected: false)
+        }
     }
 }
