@@ -1,5 +1,5 @@
 //
-//  ShareViewController.swift
+//  AddContentShareViewController.swift
 //  KkukShareExtension
 //
 //  Created by Yujin Kim on 2023-11-06.
@@ -7,31 +7,11 @@
 
 import RealmSwift
 import SnapKit
+
 import Social
 import UIKit
 
-class ShareViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // 1: Set the background and call the function to create the navigation bar
-        view.backgroundColor = .systemGray6
-        setupNavBar()
-        setupViews()
-        setLayout()
-        
-        categories = categoryHelper.read()
-    }
-    
-    // 2: Set the title and the navigation items
-    private func setupNavBar() {
-        navigationItem.title = "컨텐츠 추가하기"
-        
-        let closeButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(cancelAction))
-        navigationItem.rightBarButtonItem = closeButtonItem
-    }
-    
-//    let service = Category
+class AddContentShareViewController: UIViewController {
     
     private var URLLabel: String?
     
@@ -51,7 +31,7 @@ class ShareViewController: UIViewController {
 
     private lazy var addContentButton = CompleteButton(frame: .zero)
     
-    private lazy var induceURLLabel = InduceLabel(text: "링크 입력 및 붙여넣기", font: .title2)
+    private lazy var induceURLLabel = InduceLabel(text: "가져온 콘텐츠 링크", font: .title2)
     
     private lazy var induceMemoLabel = InduceLabel(text: "메모하기", font: .title2)
     
@@ -59,27 +39,14 @@ class ShareViewController: UIViewController {
     
     private lazy var optionalLabel = OptionalLabel(frame: .zero)
     
-    private lazy var addCategoryButton = RedirectAddCategoryButton(frame: .zero)
-    
     private lazy var memoContainerView = UIView()
     
     private lazy var URLTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "https://faith-developer.tistory.com/169"
-        label.font = .body2
+        label.font = .subtitle2
+        label.textColor = .subgray1
         label.numberOfLines = 1
         label.adjustsFontSizeToFitWidth = true
-        label.isHidden = false
-        return label
-    }()
-    
-    private lazy var URLTextFieldStateLabel: UILabel = {
-        let label = UILabel()
-        label.text = " "
-        label.font = .body3
-        label.numberOfLines = 1
-        label.adjustsFontSizeToFitWidth = true
-        label.isHidden = true
         return label
     }()
     
@@ -117,16 +84,37 @@ class ShareViewController: UIViewController {
         view.register(SelectCategoryCell.self, forCellWithReuseIdentifier: "SetCategoryCell")
         return view
     }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .background
+        setNavigationBar()
+        setUI()
+        setLayout()
+        setDelegate()
+        addTarget()
+        
+        categories = categoryHelper.read()
+        
+        let indexPath = IndexPath(item: 0, section: 0)
+        
+        selectedCategoryId = categories[indexPath.row].id
+        selectCategoryCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+    }
+    
+    private func setNavigationBar() {
+        navigationItem.title = "콘텐츠 추가하기"
+        
+        let closeButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(cancelAction))
+        navigationItem.rightBarButtonItem = closeButtonItem
+    }
 
-    private func setupViews() {
+    private func setUI() {
         memoContainerView.addSubviews([memoTextView, memoTextCountLabel])
         
-        view.addSubviews([induceURLLabel, induceMemoLabel, induceCategoryLabel, optionalLabel, URLTextLabel,
-                          URLTextFieldStateLabel, memoContainerView, selectCategoryCollectionView, addContentButton, addCategoryButton])
-        
-        memoTextView.delegate = self
-        
-        addContentButton.addTarget(self, action: #selector(addContentButtonDidTap), for: .touchUpInside)
+        view.addSubviews([induceURLLabel, induceMemoLabel, induceCategoryLabel, optionalLabel,
+                          URLTextLabel, memoContainerView, selectCategoryCollectionView, addContentButton])
         
         addContentButton.setUI(to: .enable)
         didSelectPost()
@@ -139,16 +127,12 @@ class ShareViewController: UIViewController {
             $0.trailing.equalTo(-20)
         }
         URLTextLabel.snp.makeConstraints {
-            $0.top.equalTo(induceURLLabel.snp.bottom).offset(14)
+            $0.top.equalTo(induceURLLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalTo(induceURLLabel)
             $0.height.equalTo(48)
         }
-        URLTextFieldStateLabel.snp.makeConstraints {
-            $0.top.equalTo(URLTextLabel.snp.bottom).offset(8)
-            $0.leading.trailing.equalTo(induceURLLabel)
-        }
         induceMemoLabel.snp.makeConstraints {
-            $0.top.equalTo(URLTextFieldStateLabel.snp.bottom).offset(8)
+            $0.top.equalTo(URLTextLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalTo(induceURLLabel)
         }
         optionalLabel.snp.makeConstraints {
@@ -176,20 +160,29 @@ class ShareViewController: UIViewController {
             $0.leading.trailing.equalTo(induceURLLabel)
             $0.height.equalTo(160)
         }
-        addCategoryButton.snp.makeConstraints {
-            $0.top.equalTo(induceCategoryLabel)
-            $0.trailing.equalTo(induceURLLabel)
-            $0.height.equalTo(induceCategoryLabel.snp.height)
-        }
         addContentButton.snp.makeConstraints {
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
             $0.leading.trailing.equalTo(induceURLLabel)
             $0.height.equalTo(60)
         }
     }
+    
+    private func setDelegate() {
+        memoTextView.delegate = self
+    }
+    
+    private func addTarget() {
+        addContentButton.addTarget(self, action: #selector(addContentButtonDidTap), for: .touchUpInside)
+    }
 
-    // 3: Define the actions for the navigation items
-    @objc private func cancelAction() {
+}
+
+// MARK: - @objc
+
+extension AddContentShareViewController {
+    
+    @objc
+    private func cancelAction() {
         let error = NSError(domain: "some.bundle.identifier", code: 0, userInfo: [NSLocalizedDescriptionKey: "An error description"])
         extensionContext?.cancelRequest(withError: error)
     }
@@ -200,15 +193,14 @@ class ShareViewController: UIViewController {
         updateActivityIndicatorState(true)
         
         guard let text = URLTextLabel.text, !text.isEmpty, let URL = URL(string: text) else { return }
-        print(text)
+        
         let openGraphService = OpenGraphService()
         
         openGraphService.extractOpenGraphData(from: URL) { [weak self] result in
             switch result {
             case .success(let openGraph):
-                
                 guard let isAddContent = self?.isAddContent else { return }
-
+                
                 if isAddContent {
                     let newContent = Content(sourceURL: text,
                                              title: openGraph.ogTitle ?? "",
@@ -227,7 +219,7 @@ class ShareViewController: UIViewController {
                         content.category = (self?.selectedCategoryId)!
                     })
                 }
-
+                
                 let title = isAddContent ? "콘텐츠를 추가했어요" : "콘텐츠를 수정했어요"
                 
                 let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
@@ -253,35 +245,38 @@ class ShareViewController: UIViewController {
         }
     }
     
+}
+
+// MARK: - 커스텀 메서드
+
+extension AddContentShareViewController {
+    
     private func updateActivityIndicatorState(_ isEnabled: Bool) {
         addContentButton.configuration?.showsActivityIndicator = isEnabled
     }
     
-    func didSelectPost() {
-        if let item = extensionContext?.inputItems.first as? NSExtensionItem,
-           let itemProvider = item.attachments?.first as? NSItemProvider,
-           itemProvider.hasItemConformingToTypeIdentifier("public.url")
-        {
-            itemProvider.loadItem(forTypeIdentifier: "public.url", options: nil) { [self] url, _ in
-                if let shareURL = url as? URL {
-                    do {
-                        try URLLabel = shareURL.absoluteString
-                        changeText(string: URLLabel!)
-                    } catch {
-                    }
+    private func didSelectPost() {
+        guard let contextItem = extensionContext?.inputItems.first as? NSExtensionItem else { return }
+        
+        guard let provider = contextItem.attachments?.first as? NSItemProvider else { return }
+        
+        provider.loadItem(forTypeIdentifier: "public.url", options: nil) { [weak self] url, _ in
+            guard let self = self else { return }
+            
+            if let shareUrl = url as? URL {
+                let urlLabel = shareUrl.absoluteString
+                DispatchQueue.main.async {
+                    self.URLTextLabel.text = urlLabel
                 }
             }
         }
     }
-    
-    func changeText(string: String) {
-        URLTextLabel.text = string
-    }
+
 }
 
 // MARK: - 텍스트 뷰 델리게이트
 
-extension ShareViewController: UITextViewDelegate {
+extension AddContentShareViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         textView.backgroundColor = .background
         textView.layer.borderColor = UIColor.main.cgColor
@@ -324,7 +319,10 @@ extension ShareViewController: UITextViewDelegate {
     }
 }
 
-extension ShareViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+// MARK: - 콜렉션 뷰 델리게이트
+
+extension AddContentShareViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let category = categories[indexPath.item]
         selectedCategoryId = category.id
@@ -354,11 +352,14 @@ extension ShareViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         return cell
     }
+    
 }
 
-extension ShareViewController: UICollectionViewDelegateFlowLayout {
+extension AddContentShareViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (collectionView.bounds.width / 4) - 4
         return CGSize(width: width, height: 48)
     }
+    
 }
