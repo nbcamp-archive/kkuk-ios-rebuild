@@ -76,7 +76,7 @@ class ShareViewController: UIViewController {
 //    }()
     private lazy var URLTextField: UILabel = {
         let label = UILabel()
-        label.text = "sdfasdfasdfasdfasfdsadfafsdafsd"
+        label.text = "https://reallywork.tistory.com/82"
         label.font = .body3
         label.numberOfLines = 1
         label.adjustsFontSizeToFitWidth = true
@@ -140,6 +140,7 @@ class ShareViewController: UIViewController {
         addContentButton.addTarget(self, action: #selector(addContentButtonDidTap), for: .touchUpInside)
         addCategoryButton.addTarget(self, action: #selector(addCategoryButtonDidTap), for: .touchUpInside)
         
+        addContentButton.setUI(to: .enable)
 //        didSelectPost()
     }
     
