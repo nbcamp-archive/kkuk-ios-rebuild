@@ -275,12 +275,14 @@ extension AddContentViewController {
             case .success(let openGraph):
                 
                 guard let isAddContent = self?.isAddContent else { return }
+                
+                let memo = self?.memoTextView.text == "메모할 내용을 입력" ? "" : self?.memoTextView.text
 
                 if isAddContent {
                     let newContent = Content(sourceURL: text,
                                              title: openGraph.ogTitle ?? "",
                                              imageURL: openGraph.ogImage,
-                                             memo: self?.memoTextView.text,
+                                             memo: memo,
                                              category: (self?.selectedCategoryId)!)
                     self?.contentHelper.create(content: newContent)
                     self?.updateActivityIndicatorState(false)
@@ -423,10 +425,6 @@ extension AddContentViewController: UITextViewDelegate {
         if textView.textColor == .subgray1 {
             textView.text = "메모할 내용을 입력"
             textView.textColor = .subgray1
-        }
-        
-        if textView.text == "메모할 내용을 입력" {
-            textView.text = ""
         }
     }
     
