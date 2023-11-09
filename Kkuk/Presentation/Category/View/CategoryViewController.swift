@@ -22,8 +22,8 @@ class CategoryViewController: BaseUIViewController {
         return button
     }()
     
-    private lazy var middleFrameView: UIStackView = {
-        let view = UIStackView()
+    private lazy var middleFrameView: UIView = {
+        let view = UIView()
         view.backgroundColor = .background
         
         return view
@@ -33,6 +33,7 @@ class CategoryViewController: BaseUIViewController {
         let tableView = UITableView()
         tableView.backgroundColor = .background
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategoryTableViewCell")
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return tableView
     }()
     

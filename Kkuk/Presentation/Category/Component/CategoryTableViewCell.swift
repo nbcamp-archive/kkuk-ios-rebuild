@@ -115,7 +115,7 @@ class CategoryTableViewCell: BaseUITableViewCell {
     
     override func setLayout() {
         titleImage.snp.makeConstraints { make in
-            make.left.equalTo(contentView.snp.left).inset(4)
+            make.left.equalToSuperview()
             make.centerY.equalTo(contentView.snp.centerY)
             make.width.height.equalTo(45)
         }
