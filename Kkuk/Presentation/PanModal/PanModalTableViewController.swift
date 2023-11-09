@@ -72,17 +72,23 @@ class PanModalTableViewController: BaseUIViewController {
     }
 
     private func presentDeleteAlert() {
-        let alert = UIAlertController(title: "", message: "카테고리를 삭제하시겠습니까?", preferredStyle: .alert)
+        
+        let title = panModalOption?.screenType == .category ? "카테고리" : "콘텐츠"
+        
+        showAlertTwoButton(title: "\(title)를 삭제하시겠습니까?", message: nil, actionCompletion: {
+            
+            switch self.panModalOption?.screenType {
+            case .category:
+                CategoryHelper.shared.delete(self.category!)
+            case .content:
+                guard let content = self.content else { return }
+                self.helper.delete(content)
+            default: return
+            }
 
-        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [self] _ in
-            CategoryHelper.shared.delete(category!)
-            selfNavi?.popToRootViewController(animated: true)
+            self.selfNavi?.popToRootViewController(animated: true)
             self.dismiss(animated: true)
-        }))
-
-        alert.addAction(UIAlertAction(title: "취소", style: .default))
-
-        present(alert, animated: true, completion: nil)
+        })
     }
 }
 
@@ -145,10 +151,7 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
             let viewController = AddContentViewController(isAddContent: false, modifyContent: content)
             presentFromPanModal(to: viewController)
         case .delete:
-            showAlert(title: "삭제하시겠습니까?", message: nil, completion: {
-                self.helper.delete(content)
-                self.dismiss(animated: true)
-            })
+            presentDeleteAlert()
         case .share:
             guard let url = URL(string: content.sourceURL) else { return }
             let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)

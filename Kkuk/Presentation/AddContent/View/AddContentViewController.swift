@@ -291,15 +291,10 @@ extension AddContentViewController {
 
                 let title = isAddContent ? "콘텐츠를 추가했어요" : "콘텐츠를 수정했어요"
                 
-                let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-                
-                let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
+                self?.showAlertOneButton(title: title, message: nil, completion: {
                     self?.dismiss(animated: true, completion: nil)
                     self?.presentingViewController?.viewDidLoad()
                 })
-                
-                alertController.addAction(okAction)
-                self?.present(alertController, animated: true, completion: nil)
                 
                 print("ogURL: \(openGraph.ogURL ?? "No Data")")
                 print("ogTitle: \(openGraph.ogTitle ?? "No Data")")

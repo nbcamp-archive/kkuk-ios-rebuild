@@ -249,14 +249,11 @@ extension AddCategoryViewController {
     }
     
     private func presentSuccessAlert() {
-        let alert = UIAlertController(title: "", message: "카테고리가 정상적으로 추가 되었습니다.", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+
+        showAlertOneButton(title: "", message: "카테고리가 정상적으로 추가 되었습니다.", completion: {
             self.delegate?.reloadTableView()
             self.dismiss(animated: true, completion: nil)
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
+        })
     }
 }
 // MARK: - 텍스트필드 델리게이트
