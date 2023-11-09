@@ -64,7 +64,7 @@
 		1CB63FFC2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB63FFB2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift */; };
 		1CB6400D2AF7EC78003BDB62 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB6400C2AF7EC78003BDB62 /* ShareViewController.swift */; };
 		1CB640142AF7EC78003BDB62 /* KkukShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1CB6400A2AF7EC78003BDB62 /* KkukShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		555C50192AFBB302000E6B72 /* CustomShareNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C50182AFBB302000E6B72 /* CustomShareNavigationController.swift */; };
+		555C50192AFBB302000E6B72 /* EntryShareNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C50182AFBB302000E6B72 /* EntryShareNavigationController.swift */; };
 		555C501A2AFC59C8000E6B72 /* CompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE662AEBE8CA00FF4CF2 /* CompleteButton.swift */; };
 		555C501B2AFC59CD000E6B72 /* InduceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE682AEBFD5500FF4CF2 /* InduceLabel.swift */; };
 		555C501C2AFC59D0000E6B72 /* OptionalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE6E2AF1278500FF4CF2 /* OptionalLabel.swift */; };
@@ -217,7 +217,7 @@
 		1CB6400A2AF7EC78003BDB62 /* KkukShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KkukShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CB6400C2AF7EC78003BDB62 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		1CB640112AF7EC78003BDB62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		555C50182AFBB302000E6B72 /* CustomShareNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShareNavigationController.swift; sourceTree = "<group>"; };
+		555C50182AFBB302000E6B72 /* EntryShareNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryShareNavigationController.swift; sourceTree = "<group>"; };
 		555C504C2AFCB5DC000E6B72 /* KkukShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KkukShareExtension.entitlements; sourceTree = "<group>"; };
 		555C504D2AFCB5E5000E6B72 /* Kkuk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kkuk.entitlements; sourceTree = "<group>"; };
 		555C50502AFCC368000E6B72 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -687,7 +687,7 @@
 				555C504C2AFCB5DC000E6B72 /* KkukShareExtension.entitlements */,
 				1CB6400C2AF7EC78003BDB62 /* ShareViewController.swift */,
 				1CB640112AF7EC78003BDB62 /* Info.plist */,
-				555C50182AFBB302000E6B72 /* CustomShareNavigationController.swift */,
+				555C50182AFBB302000E6B72 /* EntryShareNavigationController.swift */,
 			);
 			path = KkukShareExtension;
 			sourceTree = "<group>";
@@ -1009,7 +1009,7 @@
 				555C501C2AFC59D0000E6B72 /* OptionalLabel.swift in Sources */,
 				555C501B2AFC59CD000E6B72 /* InduceLabel.swift in Sources */,
 				555C50232AFC59F8000E6B72 /* Asset.swift in Sources */,
-				555C50192AFBB302000E6B72 /* CustomShareNavigationController.swift in Sources */,
+				555C50192AFBB302000E6B72 /* EntryShareNavigationController.swift in Sources */,
 				555C50212AFC59E6000E6B72 /* UIImage+LoadAsset.swift in Sources */,
 				555C50452AFC6E22000E6B72 /* ContentHelper.swift in Sources */,
 				555C50202AFC59E3000E6B72 /* UIColor+AppColor.swift in Sources */,

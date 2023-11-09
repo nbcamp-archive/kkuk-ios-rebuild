@@ -15,10 +15,10 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>NSExtensionActivationRule</key>
-            <string>TRUEPREDICATE</string>
+			<string>TRUEPREDICATE</string>
 		</dict>
 		<key>NSExtensionPrincipalClass</key>
-		<string>CustomShareNavigationController</string>
+		<string>EntryShareNavigationController</string>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.share-services</string>
 	</dict>

@@ -1,5 +1,5 @@
 //
-//  CustomShareNavigationController.swift
+//  EntryShareNavigationController.swift
 //  KkukShareExtension
 //
 //  Created by 장가겸 on 11/8/23.
@@ -7,13 +7,12 @@
 
 import UIKit
 
-@objc(CustomShareNavigationController)
-class CustomShareNavigationController: UINavigationController {
+@objc(EntryShareNavigationController)
+class EntryShareNavigationController: UINavigationController {
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 
-        // 2: set the ViewControllers
         self.setViewControllers([ShareViewController()], animated: false)
     }
 
@@ -21,4 +20,5 @@ class CustomShareNavigationController: UINavigationController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
 }
