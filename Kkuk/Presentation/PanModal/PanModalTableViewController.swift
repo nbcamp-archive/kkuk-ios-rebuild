@@ -8,6 +8,7 @@
 import PanModal
 import SnapKit
 import UIKit
+import RealmSwift
 
 protocol PanModalTableViewControllerDelegate: AnyObject {
     func modifyTitle(title: String)
@@ -74,9 +75,23 @@ class PanModalTableViewController: BaseUIViewController {
     private func presentDeleteAlert() {
         let alert = UIAlertController(title: "", message: "카테고리를 삭제하시겠습니까?", preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [self] _ in
-            CategoryHelper.shared.delete(category!)
-            selfNavi?.popToRootViewController(animated: true)
+        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [weak self] _ in
+            guard let self = self, let category = self.category else { return }
+            
+            // ContentHelper 인스턴스를 생성
+            let contentHelper = ContentHelper()
+            
+            // 카테고리에 속한 콘텐츠를 찾아서 삭제
+            let contentsToDelete = contentHelper.readInCategory(at: category.id)
+            for content in contentsToDelete {
+                contentHelper.delete(content)
+            }
+
+            // CategoryHelper를 사용하여 카테고리 삭제
+            CategoryHelper.shared.delete(category)
+            
+            // 뷰 컨트롤러 닫기
+            self.selfNavi?.popToRootViewController(animated: true)
             self.dismiss(animated: true)
         }))
 
@@ -84,6 +99,7 @@ class PanModalTableViewController: BaseUIViewController {
 
         present(alert, animated: true, completion: nil)
     }
+
 }
 
 extension PanModalTableViewController {
