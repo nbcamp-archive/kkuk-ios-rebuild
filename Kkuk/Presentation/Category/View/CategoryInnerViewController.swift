@@ -32,6 +32,7 @@ class CategoryInnerViewController: BaseUIViewController {
         let tableView = UITableView()
         tableView.register(ContentTableViewCell.self, forCellReuseIdentifier: "ContentTableViewCell")
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = .background
         return tableView
     }()
     
@@ -126,10 +127,11 @@ class CategoryInnerViewController: BaseUIViewController {
 extension CategoryInnerViewController {
     
     @objc func editButtonDidTapped() {
-        // "미분류" 카테고리의 ObjectId와 현재 카테고리의 ObjectId를 비교
-        guard let categoryId = category?.id, categoryId != uncategorizedCategoryId else { return }
+        let title = [PanModalOption.Title.modify,
+                     PanModalOption.Title.delete,
+                     PanModalOption.Title.cancel]
         
-        let customVC = PanModalTableViewController()
+        let customVC = PanModalTableViewController(option: PanModalOption(screenType: .category, title: title))
         customVC.delegate = self
         customVC.modalPresentationStyle = .popover
         customVC.selfNavi = navigationController
@@ -161,6 +163,7 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         cell.configureCell(content: item, index: indexPath.row)
         cell.delegate = self
         cell.selectionStyle = .none
+        cell.delegate = self
         return cell
     }
     
@@ -189,4 +192,14 @@ extension CategoryInnerViewController: ContentTableViewCellDelegate {
         }
     }
     
+    func presenteMoreMenu(content: Content) {
+        let title = [PanModalOption.Title.modify,
+                     PanModalOption.Title.delete,
+                     PanModalOption.Title.share,
+                     PanModalOption.Title.cancel]
+        let option = PanModalOption(screenType: .content, title: title)
+        let modalVC = PanModalTableViewController(option: option, content: content)
+        modalVC.modalPresentationStyle = .popover
+        presentPanModal(modalVC)
+    }
 }

@@ -15,7 +15,6 @@ import UIKit
 class AddContentViewController: BaseUIViewController {
     
     // MARK: - 프로퍼티
-    
     private var contentHelper = ContentHelper()
     
     private var categoryHelper = CategoryHelper.shared
@@ -26,8 +25,11 @@ class AddContentViewController: BaseUIViewController {
     
     private var sourceURL = ""
     
+    private var isAddContent = true
+    
+    private var modifyContent: Content?
+    
     // MARK: - 컴포넌트
-
     private lazy var addContentButton = CompleteButton(frame: .zero)
     
     private lazy var induceURLLabel = InduceLabel(text: "링크 입력 및 붙여넣기", font: .title2)
@@ -100,16 +102,28 @@ class AddContentViewController: BaseUIViewController {
         return view
     }()
     
+    init(isAddContent: Bool = true, modifyContent: Content? = nil) {
+        super.init(nibName: nil, bundle: nil)
+        self.modifyContent = modifyContent
+        self.isAddContent = isAddContent
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         categories = categoryHelper.read()
+        
+        if !isAddContent {
+            modifyConfiguration()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        setIQKeyboardManagerEnable(true)
         
         if let pasteboardValue = UIPasteboard.general.string, !pasteboardValue.isEmpty {
             DispatchQueue.main.async {
@@ -119,15 +133,9 @@ class AddContentViewController: BaseUIViewController {
             }
         }
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        setIQKeyboardManagerEnable(false)
-    }
-    
+
     override func setNavigationBar() {
-        title = "추가하기"
+        title = isAddContent ? "추가하기" : "수정하기"
         
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.title3 ]
@@ -216,10 +224,29 @@ class AddContentViewController: BaseUIViewController {
         URLTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
+    func modifyConfiguration() {
+        guard let modifyContent = modifyContent else { return }
+        
+        URLTextField.text = modifyContent.sourceURL
+        memoTextView.text = modifyContent.memo
+
+        selectedCategoryId = categoryHelper.read(at: modifyContent.category)?.id
+
+        for (index, category) in categories.enumerated() {
+            if category.id == selectedCategoryId {
+                let indexPath = IndexPath(item: index, section: 0)
+                selectCategoryCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+            } else {
+                let indexPath = IndexPath(item: index, section: 0)
+                selectCategoryCollectionView.deselectItem(at: indexPath, animated: false)
+            }
+        }
+        
+        addContentButton.setUI(to: .enable)
+    }
 }
 
 // MARK: - @objc
-
 extension AddContentViewController {
     
     @objc
@@ -246,16 +273,31 @@ extension AddContentViewController {
         openGraphService.extractOpenGraphData(from: URL) { [weak self] result in
             switch result {
             case .success(let openGraph):
-                let newContent = Content(sourceURL: text,
-                                         title: openGraph.ogTitle ?? "",
-                                         imageURL: openGraph.ogImage,
-                                         memo: self?.memoTextView.text,
-                                         category: (self?.selectedCategoryId)!)
-                self?.contentHelper.create(content: newContent)
-                self?.updateActivityIndicatorState(false)
-                self?.addContentButton.isEnabled = true
                 
-                let alertController = UIAlertController(title: "콘텐츠를 추가했어요", message: nil, preferredStyle: .alert)
+                guard let isAddContent = self?.isAddContent else { return }
+
+                if isAddContent {
+                    let newContent = Content(sourceURL: text,
+                                             title: openGraph.ogTitle ?? "",
+                                             imageURL: openGraph.ogImage,
+                                             memo: self?.memoTextView.text,
+                                             category: (self?.selectedCategoryId)!)
+                    self?.contentHelper.create(content: newContent)
+                    self?.updateActivityIndicatorState(false)
+                    self?.addContentButton.isEnabled = true
+                } else {
+                    guard let modifyContent = self?.modifyContent else { return }
+                    
+                    self?.contentHelper.update(content: modifyContent, completion: { content in
+                        content.sourceURL = text
+                        content.memo = self?.memoTextView.text
+                        content.category = (self?.selectedCategoryId)!
+                    })
+                }
+
+                let title = isAddContent ? "콘텐츠를 추가했어요" : "콘텐츠를 수정했어요"
+                
+                let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
                 
                 let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
                     self?.dismiss(animated: true, completion: nil)
@@ -286,10 +328,12 @@ extension AddContentViewController {
         present(navigationController, animated: true)
     }
     
+    private func updateActivityIndicatorState(_ isEnabled: Bool) {
+        addContentButton.configuration?.showsActivityIndicator = isEnabled
+    }
 }
 
 // MARK: - 커스텀 메서드
-
 extension AddContentViewController {
     
     private func updateAddContentButtonState(with text: String) {
@@ -321,15 +365,9 @@ extension AddContentViewController {
         }
         return false
     }
-    
-    private func updateActivityIndicatorState(_ isEnabled: Bool) {
-        addContentButton.configuration?.showsActivityIndicator = isEnabled
-    }
-    
 }
 
 // MARK: - 텍스트필드 델리게이트
-
 extension AddContentViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -358,11 +396,9 @@ extension AddContentViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
 }
 
 // MARK: - 텍스트 뷰 델리게이트
-
 extension AddContentViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -412,11 +448,9 @@ extension AddContentViewController: UITextViewDelegate {
         
         return updateMemoText.count <= 75
     }
-    
 }
 
 // MARK: - 콜렉션 뷰 델리게이트
-
 extension AddContentViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -433,11 +467,9 @@ extension AddContentViewController: UICollectionViewDelegate {
             cell.isSelected = false
         }
     }
-    
 }
 
 // MARK: - 콜렉션 뷰 DataSource
-
 extension AddContentViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -458,12 +490,10 @@ extension AddContentViewController: UICollectionViewDataSource {
 }
 
 // MARK: - 콜렉션 뷰 FlowLayout 델리게이트
-
 extension AddContentViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (collectionView.bounds.width / 4) - 4
         return CGSize(width: width, height: 48)
     }
-    
 }

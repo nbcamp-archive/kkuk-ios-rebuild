@@ -11,12 +11,13 @@ import Kingfisher
 
 protocol ContentTableViewCellDelegate: AnyObject {
     func togglePin(index: Int)
+    func presenteMoreMenu(content: Content)
 }
 
 class ContentTableViewCell: BaseUITableViewCell {
     weak var delegate: ContentTableViewCellDelegate?
     
-    private var contentManager = ContentHelper()
+    private var content: Content?
     
     private lazy var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
@@ -58,6 +59,7 @@ class ContentTableViewCell: BaseUITableViewCell {
     
     private lazy var pinButton: UIButton = {
         let button = UIButton()
+        button.imageView?.layer.transform = CATransform3DMakeScale(0.8, 0.8, 0.8)
         button.addTarget(self, action: #selector(tappedPinButton(_:)), for: .touchUpInside)
         return button
     }()
@@ -66,7 +68,9 @@ class ContentTableViewCell: BaseUITableViewCell {
         let button = UIButton()
         button.setImage(UIImage(named: "more_vertical"), for: .normal)
         button.contentMode = .center
-        button.addTarget(self, action: #selector(tappedMenuButton), for: .touchUpInside)
+        button.imageView?.layer.transform = CATransform3DMakeScale(0.8, 0.8, 0.8)
+
+        button.addTarget(self, action: #selector(tappedMoreButton), for: .touchUpInside)
         return button
     }()
     
@@ -76,6 +80,10 @@ class ContentTableViewCell: BaseUITableViewCell {
     }
     
     func configureCell(content: Content, index: Int) {
+        backgroundColor = .background
+
+        self.content = content
+        
         siteTitleLabel.text = content.title
         memoLabel.text = content.memo
         urlLabel.text = content.sourceURL
@@ -127,14 +135,15 @@ class ContentTableViewCell: BaseUITableViewCell {
         
         pinButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
-            make.height.equalTo(16)
-            make.width.equalTo(12)
+            make.height.equalToSuperview().dividedBy(2)
+            make.width.equalTo(24)
             make.centerY.equalTo(urlLabel)
         }
         
         moreButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
-            make.height.width.equalTo(16)
+            make.height.equalToSuperview().dividedBy(2)
+            make.width.equalTo(24)
             make.centerY.equalTo(siteTitleLabel)
         }
     }
@@ -183,6 +192,8 @@ class ContentTableViewCell: BaseUITableViewCell {
         delegate?.togglePin(index: sender.tag)
     }
     
-    @objc func tappedMenuButton(_ sender: UIButton) {
+    @objc func tappedMoreButton(_ sender: UIButton) {
+        guard let content = content else { return }
+        delegate?.presenteMoreMenu(content: content)
     }
 }
