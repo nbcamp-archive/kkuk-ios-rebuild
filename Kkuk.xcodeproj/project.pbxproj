@@ -91,12 +91,10 @@
 		555C50402AFC6A5E000E6B72 /* SelectCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB63FF92AF33EC9003BDB62 /* SelectCategoryCell.swift */; };
 		555C50412AFC6B24000E6B72 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AD12AEBC0FF005C06C4 /* Category.swift */; };
 		555C50422AFC6B27000E6B72 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A92AEB81170016398A /* Content.swift */; };
-		555C50442AFC6D6C000E6B72 /* BaseUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843A22ADC2F7000A87E99 /* BaseUIViewController.swift */; };
 		555C50452AFC6E22000E6B72 /* ContentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4AD2AEB87330016398A /* ContentHelper.swift */; };
 		555C50462AFC6E26000E6B72 /* CategoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AD32AEBC136005C06C4 /* CategoryHelper.swift */; };
 		555C50472AFC6E37000E6B72 /* SegmentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B933F2AF89D3B0006B348 /* SegmentMenu.swift */; };
 		555C50482AFC6E7E000E6B72 /* OpenGraphService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79F0012AE7E94400B5A97A /* OpenGraphService.swift */; };
-		555C50492AFC6E96000E6B72 /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF81C422AE050FF000C05DC /* AddCategoryViewController.swift */; };
 		555C504A2AFC6E9A000E6B72 /* HTMLParseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFFF2AE7E6EF00B5A97A /* HTMLParseService.swift */; };
 		555C504B2AFC6F5D000E6B72 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD225642AE7883B009CA421 /* AddCategoryView.swift */; };
 		555C504F2AFCC353000E6B72 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 555C504E2AFCC353000E6B72 /* Kingfisher */; };
@@ -1001,7 +999,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				555C501F2AFC59E0000E6B72 /* UIView+AddSubviews.swift in Sources */,
-				555C50492AFC6E96000E6B72 /* AddCategoryViewController.swift in Sources */,
 				555C504A2AFC6E9A000E6B72 /* HTMLParseService.swift in Sources */,
 				555C50402AFC6A5E000E6B72 /* SelectCategoryCell.swift in Sources */,
 				555C502B2AFC5C40000E6B72 /* RedirectAddCategoryButton.swift in Sources */,
@@ -1021,7 +1018,6 @@
 				555C50412AFC6B24000E6B72 /* Category.swift in Sources */,
 				555C502E2AFC6205000E6B72 /* BaseUICollectionViewCell.swift in Sources */,
 				555C50482AFC6E7E000E6B72 /* OpenGraphService.swift in Sources */,
-				555C50442AFC6D6C000E6B72 /* BaseUIViewController.swift in Sources */,
 				1CB6400D2AF7EC78003BDB62 /* ShareViewController.swift in Sources */,
 				555C501A2AFC59C8000E6B72 /* CompleteButton.swift in Sources */,
 			);

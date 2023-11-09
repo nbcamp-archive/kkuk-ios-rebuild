@@ -22,16 +22,12 @@ final class CategoryHelper: Storage {
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.archive.nbcamp.Kkuk")
         let realmURL = container?.appendingPathComponent("default.realm")
         let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
-        return try! Realm(configuration: config)
+        do {
+            return try Realm(configuration: config)
+        } catch {
+            fatalError("Error initializing Realm: \(error)")
+        }
     }
-    
-//    private init() {
-//        do {
-//            self.database = try Realm()
-//        } catch {
-//            fatalError("Error initializing Realm: \(error)")
-//        }
-//    }
 
     func getLocationOfDefaultRealm() {
         print("Realm is located at:", database.configuration.fileURL!)

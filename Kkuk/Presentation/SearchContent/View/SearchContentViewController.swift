@@ -211,7 +211,7 @@ extension SearchContentViewController: UISearchBarDelegate {
             searchBar.searchTextField.resignFirstResponder()
         }
         
-//        setIQKeyboardManagerEnable(isTapped)
+        setIQKeyboardManagerEnable(isTapped)
     }
 }
 
