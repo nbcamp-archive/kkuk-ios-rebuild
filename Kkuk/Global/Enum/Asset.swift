@@ -48,7 +48,7 @@ enum Asset {
     // MARK: - CategoryView
     
     static var addCategory: UIImage { .loadAsset(named: "lucide_folder_plus_white") }
-    
+    static var uncategorized: UIImage { .loadAsset(named: "uncategorized") }
     // MARK: - TabBarItem
     
     static var home: UIImage { .loadAsset(named: "lucide_home") }
