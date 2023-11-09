@@ -140,7 +140,10 @@ extension AddCategoryViewController {
     
     private func updateAddCategoryButtonState() {
         guard let categoryName = categoryNameTextField.text, !categoryName.isEmpty,
-                let seletedIconId = iconId, !seletedIconId.words.isEmpty else { return }
+              let seletedIconId = iconId, !seletedIconId.words.isEmpty else {
+            addCategoryButton.setUI(to: .disable)
+            return
+        }
         addCategoryButton.setUI(to: .enable)
     }
 }
