@@ -93,6 +93,7 @@ class AddContentViewController: BaseUIViewController {
         view.delegate = self
         view.dataSource = self
         view.register(SelectCategoryCell.self, forCellWithReuseIdentifier: "SetCategoryCell")
+        view.showsVerticalScrollIndicator = false
         return view
     }()
     

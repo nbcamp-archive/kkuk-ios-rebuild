@@ -19,6 +19,7 @@ class SettingViewController: BaseUIViewController {
         view.separatorStyle = .none
         view.register(SettingItemCell.self, forCellReuseIdentifier: SettingItemCell.identifier)
         view.rowHeight = CGFloat(52)
+        view.showsVerticalScrollIndicator = false
         return view
     }()
     

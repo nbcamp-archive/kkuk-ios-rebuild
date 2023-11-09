@@ -34,6 +34,7 @@ class CategoryViewController: BaseUIViewController {
         tableView.backgroundColor = .background
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategoryTableViewCell")
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
     
