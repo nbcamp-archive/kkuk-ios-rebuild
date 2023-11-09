@@ -67,8 +67,10 @@ class SearchContentViewController: BaseUIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        searchBar.text = ""
-        toggleContainerViewVisibility(isShow: true)
+        guard let presentedViewController = self.presentedViewController as? PanModalTableViewController else {
+            searchBar.text = ""
+            toggleContainerViewVisibility(isShow: true)
+            return }
     }
     
     override func setTopView() {
@@ -227,7 +229,6 @@ extension SearchContentViewController: UITableViewDataSource, UITableViewDelegat
         cell.configureCell(content: content, index: indexPath.row)
         cell.delegate = self
         cell.selectionStyle = .none
-        cell.delegate = self
         return cell
     }
     

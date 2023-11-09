@@ -296,7 +296,7 @@ extension AddContentViewController {
                 self?.showAlertOneButton(title: title, message: nil, completion: {
                     self?.dismiss(animated: true, completion: nil)
                     self?.presentingViewController?.viewDidLoad()
-                    self.dismissPanModal()
+                    self?.dismissPanModal()
                 })
                 
                 print("ogURL: \(openGraph.ogURL ?? "No Data")")
