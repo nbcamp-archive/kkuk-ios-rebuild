@@ -117,6 +117,11 @@ class AddContentViewController: BaseUIViewController {
         
         categories = categoryHelper.read()
         
+        let indexPath = IndexPath(item: 0, section: 0)
+        
+        selectedCategoryId = categories[indexPath.row].id
+        selectCategoryCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+        
         if !isAddContent {
             modifyConfiguration()
         }
@@ -480,6 +485,7 @@ extension AddContentViewController: UICollectionViewDataSource {
         }
         
         let category = categories[indexPath.item]
+        
         cell.configure(with: category)
         
         return cell
@@ -494,4 +500,5 @@ extension AddContentViewController: UICollectionViewDelegateFlowLayout {
         let width = (collectionView.bounds.width / 4) - 4
         return CGSize(width: width, height: 48)
     }
+    
 }
