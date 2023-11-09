@@ -105,7 +105,6 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
-        contentManager.getLocationOfDefaultRealm()
     }
     
     override func viewWillAppear(_ animated: Bool) {

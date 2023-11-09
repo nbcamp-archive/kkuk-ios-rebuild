@@ -18,12 +18,14 @@ protocol Storage {
 final class CategoryHelper: Storage {
     
     static let shared = CategoryHelper()
-    
-    private let database: Realm
-    
-    private init() {
+
+    private var database: Realm {
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.archive.nbcamp.Kkuk")
+        let realmURL = container?.appendingPathComponent("default.realm")
+        let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
+      
         do {
-            self.database = try Realm()
+            return try Realm(configuration: config)
         } catch {
             fatalError("Error initializing Realm: \(error)")
         }

@@ -21,11 +21,21 @@ class ContentHelper {
         }
     }
     
+    private var database: Realm {
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.archive.nbcamp.Kkuk")
+        let realmURL = container?.appendingPathComponent("default.realm")
+        let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
+        do {
+            return try Realm(configuration: config)
+        } catch {
+            fatalError("Error initializing Realm: \(error)")
+        }
+    }
+    
     func create(content: Content) {
         do {
-            let realm = try Realm()
-            try realm.write {
-                realm.add(content)
+            try database.write {
+                database.add(content)
             }
         } catch {
             print("Failed create ContentObject: \(error)")
@@ -34,8 +44,7 @@ class ContentHelper {
     
     func read() -> [Content] {
         do {
-            let realm = try Realm()
-            let contents = realm.objects(Content.self).sorted(byKeyPath: "createDate", ascending: false)
+            let contents = database.objects(Content.self).sorted(byKeyPath: "createDate", ascending: false)
             return Array(contents)
         } catch {
             print("Failed read ContentObject: \(error)")
@@ -45,9 +54,8 @@ class ContentHelper {
     
     func read(at column: SegmentMenu, with searchText: String) -> [Content] {       
         do {
-            let realm = try Realm()
             let query = NSPredicate(format: "\(column) CONTAINS[c] %@", searchText)
-            let result = realm.objects(Content.self).filter(query).sorted(byKeyPath: "createDate", ascending: false)
+            let result = database.objects(Content.self).filter(query).sorted(byKeyPath: "createDate", ascending: false)
             return Array(result)
         } catch {
             print("Error adding user: \(error)")
@@ -57,8 +65,7 @@ class ContentHelper {
     
     func update(content: Content, completion: @escaping (Content) -> Void) {
         do {
-            let realm = try Realm()
-            try realm.write {
+            try database.write {
                 completion(content)
             }
         } catch {
@@ -68,9 +75,8 @@ class ContentHelper {
     
     func readInCategory(at id: ObjectId) -> [Content] {
         do {
-            let realm = try Realm()
             let predicateQuery = NSPredicate(format: "category == %@", id)
-            let contents = realm.objects(Content.self).sorted(byKeyPath: "createDate", ascending: false).filter(predicateQuery)
+            let contents = database.objects(Content.self).sorted(byKeyPath: "createDate", ascending: false).filter(predicateQuery)
             return Array(contents)
         } catch {
             print("Failed read ContentObject: \(error)")
@@ -80,9 +86,8 @@ class ContentHelper {
     
     func delete(_ content: Content) {
         do {
-            let realm = try Realm()
-            try realm.write {
-                realm.delete(content)
+            try database.write {
+                database.delete(content)
             }
         } catch {
             print("Failed read ContentObject: \(error)")

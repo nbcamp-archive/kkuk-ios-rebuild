@@ -67,6 +67,7 @@ class BaseUIViewController: UIViewController {
 
 extension BaseUIViewController {
     
+    @available(iOSApplicationExtension, unavailable)
     func setIQKeyboardManagerEnable(_ enabled: Bool) {
         IQKeyboardManager.shared.enable = enabled
         IQKeyboardManager.shared.shouldResignOnTouchOutside = enabled
