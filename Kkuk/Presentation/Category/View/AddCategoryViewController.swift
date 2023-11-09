@@ -153,11 +153,11 @@ extension AddCategoryViewController {
 extension AddCategoryViewController {
     @objc private func addCategoryButtonDidTap() {
         
-        guard let categoryName = categoryNameTextField.text else { return }
+        guard let categoryName = categoryNameTextField.text, let selectedIconId = iconId  else { return }
         
         var category = Category()
         category.name = categoryName
-        category.iconId = 0
+        category.iconId = selectedIconId
 
         categoryHelper.write(category)
         
