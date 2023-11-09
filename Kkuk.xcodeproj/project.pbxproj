@@ -641,6 +641,15 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		1C84732D2AFD341E005975F1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1CB6400C2AF7EC78003BDB62 /* AddContentShareViewController.swift */,
+				555C50182AFBB302000E6B72 /* EntryShareNavigationController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		1CAEBE652AEBE88B00FF4CF2 /* Component */ = {
 			isa = PBXGroup;
 			children = (
@@ -684,10 +693,9 @@
 		1CB6400B2AF7EC78003BDB62 /* KkukShareExtension */ = {
 			isa = PBXGroup;
 			children = (
+				1C84732D2AFD341E005975F1 /* View */,
 				555C504C2AFCB5DC000E6B72 /* KkukShareExtension.entitlements */,
-				1CB6400C2AF7EC78003BDB62 /* AddContentShareViewController.swift */,
 				1CB640112AF7EC78003BDB62 /* Info.plist */,
-				555C50182AFBB302000E6B72 /* EntryShareNavigationController.swift */,
 			);
 			path = KkukShareExtension;
 			sourceTree = "<group>";
