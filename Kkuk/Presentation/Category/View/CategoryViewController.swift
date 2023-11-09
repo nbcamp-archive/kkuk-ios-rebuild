@@ -91,7 +91,7 @@ class CategoryViewController: BaseUIViewController {
         }
         
         middleFrameView.snp.makeConstraints { make in
-            make.top.equalTo(topView.snp.bottom)
+            make.top.equalTo(topView.snp.bottom).offset(16)
             make.trailing.leading.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }

@@ -64,7 +64,7 @@ class SettingViewController: BaseUIViewController {
         // tableView 제약 조건을 설정
         tableView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.top.equalTo(topView.snp.bottom).offset(20)
+            make.top.equalTo(topView.snp.bottom)
             make.bottom.equalTo(clearDataButton.snp.top).offset(-20)
         }
         
