@@ -17,6 +17,8 @@ class AddCategoryViewController: BaseUIViewController {
     // MARK: - 변수
     let cellSpacing: CGFloat = 4
     
+    var iconId: Int?
+    
     weak var delegate: AddCategoryViewControllerDelegate?
     private var categoryHelper = CategoryHelper.shared
     
@@ -128,8 +130,6 @@ class AddCategoryViewController: BaseUIViewController {
     }
     
     override func addTarget() {
-        categoryNameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
         addCategoryButton.addTarget(self, action: #selector(addCategoryButtonDidTap), for: .touchUpInside)
     }
 }
@@ -139,22 +139,15 @@ class AddCategoryViewController: BaseUIViewController {
 extension AddCategoryViewController {
     
     private func updateAddCategoryButtonState() {
-        if let categoryName = categoryNameTextField.text, !categoryName.isEmpty {
-            addCategoryButton.setUI(to: .enable)
-        } else {
-            addCategoryButton.setUI(to: .disable)
-        }
+        guard let categoryName = categoryNameTextField.text, !categoryName.isEmpty,
+                let seletedIconId = iconId, !seletedIconId.words.isEmpty else { return }
+        addCategoryButton.setUI(to: .enable)
     }
 }
 
 // MARK: - @objc
 
 extension AddCategoryViewController {
-    
-    @objc private func textFieldDidChange(_ textField: UITextField) {
-        updateAddCategoryButtonState()
-    }
-    
     @objc private func addCategoryButtonDidTap() {
         
         guard let categoryName = categoryNameTextField.text else { return }
@@ -177,6 +170,10 @@ extension AddCategoryViewController {
 }
 // MARK: - 텍스트필드 델리게이트
 extension AddCategoryViewController: UITextFieldDelegate {
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        updateAddCategoryButtonState()
+    }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.configureForEditing()
@@ -226,12 +223,15 @@ extension AddCategoryViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? AddCategoryIconCollectionViewCell {
             cell.toggleOverlayView(isSelected: true)
+            iconId = indexPath.row
+            updateAddCategoryButtonState()
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? AddCategoryIconCollectionViewCell {
             cell.toggleOverlayView(isSelected: false)
+            iconId = nil
         }
     }
 }
