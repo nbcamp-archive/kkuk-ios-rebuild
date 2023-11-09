@@ -200,13 +200,13 @@ extension SettingViewController {
         let item = settingItems[indexPath.row]
 
         if indexPath.row == 1 {
-            if let urlString = URL(string: "https://www.notion.so/1f84d3cfd86141efa45316ed358ee4c8?pvs=4")?.absoluteString {
+            if let urlString = URL(string: "https://mammoth-scabiosa-20c.notion.site/8b2d6db3412c46578505d588f8a4d22a?pvs=4")?.absoluteString {
                 let viewController = WebViewController(sourceURL: urlString, sourceTitle: "이용약관")
                 viewController.hidesBottomBarWhenPushed = true
                 navigationController?.pushViewController(viewController, animated: true)
             }
         } else if indexPath.row == 2 {
-            if let urlString = URL(string: "https://www.notion.so/d48ad9e72dd54a2291df22f58b8dada6?pvs=4")?.absoluteString {
+            if let urlString = URL(string: "https://mammoth-scabiosa-20c.notion.site/c0d1bd0595d84f9fbaa2b05dd0cd70f1?pvs=4")?.absoluteString {
                 let viewController = WebViewController(sourceURL: urlString, sourceTitle: "서비스 이용방법")
                 viewController.hidesBottomBarWhenPushed = true
                 navigationController?.pushViewController(viewController, animated: true)
