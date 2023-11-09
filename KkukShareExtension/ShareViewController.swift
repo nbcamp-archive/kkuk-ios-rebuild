@@ -25,7 +25,7 @@ class ShareViewController: UIViewController {
     
     // 2: Set the title and the navigation items
     private func setupNavBar() {
-        navigationItem.title = "My app"
+        navigationItem.title = "컨텐츠 추가하기"
         
         let closeButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(cancelAction))
         navigationItem.rightBarButtonItem = closeButtonItem
@@ -33,6 +33,8 @@ class ShareViewController: UIViewController {
     }
     
 //    let service = Category
+    
+    private var URLLabel: String?
     
     private var contentHelper = ContentHelper()
     
@@ -76,7 +78,7 @@ class ShareViewController: UIViewController {
 //    }()
     private lazy var URLTextField: UILabel = {
         let label = UILabel()
-        label.text = "https://reallywork.tistory.com/82"
+        label.text = "https://faith-developer.tistory.com/169"
         label.font = .body3
         label.numberOfLines = 1
         label.adjustsFontSizeToFitWidth = true
@@ -141,7 +143,7 @@ class ShareViewController: UIViewController {
         addCategoryButton.addTarget(self, action: #selector(addCategoryButtonDidTap), for: .touchUpInside)
         
         addContentButton.setUI(to: .enable)
-//        didSelectPost()
+        didSelectPost()
     }
     
     private func setLayout() {
@@ -315,22 +317,28 @@ class ShareViewController: UIViewController {
         }
     }
     
-//    func didSelectPost() {
-//        if let item = extensionContext?.inputItems.first as? NSExtensionItem,
-//            let itemProvider = item.attachments?.first as? NSItemProvider,
-//            itemProvider.hasItemConformingToTypeIdentifier("public.url") {
-//            itemProvider.loadItem(forTypeIdentifier: "public.url", options: nil) { [self] (url, error) in
-//                if let shareURL = url as? URL {
-//                    do{
-//                        try URLTextField.text = String(contentsOf: shareURL)
-//                    }
-//                    catch{
-//                        print("HI")
-//                    }
-//                }
-//            }
-//        }
-//    }
+    func didSelectPost() {
+        if let item = extensionContext?.inputItems.first as? NSExtensionItem,
+            let itemProvider = item.attachments?.first as? NSItemProvider,
+            itemProvider.hasItemConformingToTypeIdentifier("public.url") {
+            itemProvider.loadItem(forTypeIdentifier: "public.url", options: nil) { [self] (url, error) in
+                if let shareURL = url as? URL {
+                    do{
+                        try! URLLabel = String(contentsOf: shareURL)
+                        print(shareURL)
+                        print(URLLabel)
+                    }
+                    catch{
+                        print("HI")
+                    }
+                }
+            }
+        }
+    }
+    
+    func changeText(string: String) {
+        self.URLTextField.text = string
+    }
     
     @available(iOSApplicationExtension, unavailable)
     private func isValidURL(with text: String) -> Bool {
