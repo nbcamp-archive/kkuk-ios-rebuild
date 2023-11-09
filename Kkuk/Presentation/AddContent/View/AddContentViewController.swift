@@ -117,6 +117,11 @@ class AddContentViewController: BaseUIViewController {
         
         categories = categoryHelper.read()
         
+        let indexPath = IndexPath(item: 0, section: 0)
+        
+        selectedCategoryId = categories[indexPath.row].id
+        selectCategoryCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+        
         if !isAddContent {
             modifyConfiguration()
         }
@@ -132,6 +137,12 @@ class AddContentViewController: BaseUIViewController {
                 self.updateAddContentButtonState(with: pasteboardValue)
             }
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        UIPasteboard.general.string = nil
     }
 
     override func setNavigationBar() {
@@ -275,12 +286,14 @@ extension AddContentViewController {
             case .success(let openGraph):
                 
                 guard let isAddContent = self?.isAddContent else { return }
+                
+                let memo = self?.memoTextView.text == "메모할 내용을 입력" ? "" : self?.memoTextView.text
 
                 if isAddContent {
                     let newContent = Content(sourceURL: text,
                                              title: openGraph.ogTitle ?? "",
                                              imageURL: openGraph.ogImage,
-                                             memo: self?.memoTextView.text,
+                                             memo: memo,
                                              category: (self?.selectedCategoryId)!)
                     self?.contentHelper.create(content: newContent)
                     self?.updateActivityIndicatorState(false)
@@ -424,10 +437,6 @@ extension AddContentViewController: UITextViewDelegate {
             textView.text = "메모할 내용을 입력"
             textView.textColor = .subgray1
         }
-        
-        if textView.text == "메모할 내용을 입력" {
-            textView.text = ""
-        }
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -482,6 +491,7 @@ extension AddContentViewController: UICollectionViewDataSource {
         }
         
         let category = categories[indexPath.item]
+        
         cell.configure(with: category)
         
         return cell
@@ -496,4 +506,5 @@ extension AddContentViewController: UICollectionViewDelegateFlowLayout {
         let width = (collectionView.bounds.width / 4) - 4
         return CGSize(width: width, height: 48)
     }
+    
 }

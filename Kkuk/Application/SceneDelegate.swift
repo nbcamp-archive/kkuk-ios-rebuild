@@ -17,6 +17,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window?.makeKeyAndVisible()
         window?.rootViewController = AppTabBarController()
+        
+        let key: String = "isFirstLaunch"
+        
+        let isFirstLaunch = UserDefaults.standard.bool(forKey: key)
+        
+        if !isFirstLaunch {
+            var unclassifiedCategory = Category()
+            unclassifiedCategory.name = "미분류"
+            unclassifiedCategory.iconId = 0
+            CategoryHelper.shared.write(unclassifiedCategory)
+            UserDefaults.standard.set(true, forKey: key)
+        }
     }
-    
 }
