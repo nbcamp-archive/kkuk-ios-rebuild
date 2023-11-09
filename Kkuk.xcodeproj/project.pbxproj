@@ -11,6 +11,7 @@
 		0A042EDB2ADFF9D0002ED30D /* RecentSearchContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042EDA2ADFF9D0002ED30D /* RecentSearchContentViewController.swift */; };
 		0A042EDD2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A042EDC2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift */; };
 		0A70AB872AF9FF3A00CAAC48 /* PanModalOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A70AB862AF9FF3A00CAAC48 /* PanModalOption.swift */; };
+		0A70AB8D2AFC8CFF00CAAC48 /* UITextField+CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A70AB8C2AFC8CFF00CAAC48 /* UITextField+CustomTextField.swift */; };
 		0A7B93402AF89D3B0006B348 /* SegmentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B933F2AF89D3B0006B348 /* SegmentMenu.swift */; };
 		0A95434A2AE7C60300907579 /* RecentSearchHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9543492AE7C60300907579 /* RecentSearchHelper.swift */; };
 		1C2843722ADB969C00A87E99 /* KkukTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843712ADB969C00A87E99 /* KkukTests.swift */; };
@@ -124,6 +125,7 @@
 		0A042EDA2ADFF9D0002ED30D /* RecentSearchContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchContentViewController.swift; sourceTree = "<group>"; };
 		0A042EDC2AE0F899002ED30D /* RecentSearchContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchContentCollectionViewCell.swift; sourceTree = "<group>"; };
 		0A70AB862AF9FF3A00CAAC48 /* PanModalOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanModalOption.swift; sourceTree = "<group>"; };
+		0A70AB8C2AFC8CFF00CAAC48 /* UITextField+CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+CustomTextField.swift"; sourceTree = "<group>"; };
 		0A7B933F2AF89D3B0006B348 /* SegmentMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentMenu.swift; sourceTree = "<group>"; };
 		0A9543492AE7C60300907579 /* RecentSearchHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchHelper.swift; sourceTree = "<group>"; };
 		1C2843572ADB969A00A87E99 /* Kkuk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kkuk.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -520,6 +522,7 @@
 		1C2843D42ADD2F8000A87E99 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				0A70AB8C2AFC8CFF00CAAC48 /* UITextField+CustomTextField.swift */,
 				1C2843D52ADD2F9300A87E99 /* UIView+AddSubviews.swift */,
 				1C2843D72ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift */,
 				1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */,
@@ -871,6 +874,7 @@
 				1CAEBE6F2AF1278500FF4CF2 /* OptionalLabel.swift in Sources */,
 				1C2843D82ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift in Sources */,
 				1C79F0022AE7E94400B5A97A /* OpenGraphService.swift in Sources */,
+				0A70AB8D2AFC8CFF00CAAC48 /* UITextField+CustomTextField.swift in Sources */,
 				1C2843BF2ADD0F5300A87E99 /* SearchContentViewController.swift in Sources */,
 				C352F4A32AE825F40016398A /* SettingItemCell.swift in Sources */,
 				ECF81C432AE050FF000C05DC /* AddCategoryViewController.swift in Sources */,

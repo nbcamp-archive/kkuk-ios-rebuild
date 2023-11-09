@@ -46,14 +46,8 @@ class AddContentViewController: BaseUIViewController {
     
     private lazy var URLTextField: UITextField = {
         let textField = UITextField()
-        textField.borderStyle = .roundedRect
-        textField.backgroundColor = .subgray3
-        textField.clearButtonMode = .whileEditing
-        textField.font = .body1
+        textField.configureCommonStyle()
         textField.placeholder = "https://www.example.com"
-        textField.tintColor = .main
-        textField.layer.cornerRadius = CGFloat(8)
-        textField.clipsToBounds = true
         return textField
     }()
     
@@ -369,19 +363,13 @@ extension AddContentViewController {
 
 // MARK: - 텍스트필드 델리게이트
 extension AddContentViewController: UITextFieldDelegate {
-    
+  
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.backgroundColor = .background
-        textField.layer.borderWidth = CGFloat(2)
-        textField.layer.cornerRadius = CGFloat(8)
-        textField.layer.borderColor = UIColor.main.cgColor
-        textField.layer.masksToBounds = true
+        textField.configureForEditing()
     }
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.backgroundColor = .subgray3
-        textField.layer.borderWidth = CGFloat(0)
-        textField.layer.borderColor = .none
+        textField.configureCommonStyle()
     }
     
     func textField(_ textField: UITextField,

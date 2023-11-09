@@ -20,6 +20,7 @@ class SearchContentViewController: BaseUIViewController {
         searchBar.placeholder = "검색어를 입력하세요"
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
+        searchBar.searchTextField.configureCommonStyle()
         searchBar.searchTextField.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
@@ -198,17 +199,13 @@ extension SearchContentViewController: UISearchBarDelegate {
     }
     
     func toggleTextFieldStyle(isTapped: Bool) {
+
         if isTapped {
-            searchBar.searchTextField.backgroundColor = .background
-            searchBar.searchTextField.layer.borderWidth = 2
-            searchBar.searchTextField.layer.cornerRadius = 5
-            searchBar.searchTextField.layer.borderColor = UIColor.main.cgColor
-            searchBar.searchTextField.layer.masksToBounds = true
+            searchBar.searchTextField.configureForEditing()
+            searchBar.setSearchFieldBackgroundImage(UIImage(), for: .normal)
+
         } else {
-            searchBar.searchTextField.backgroundColor = .clear
-            searchBar.searchTextField.layer.borderWidth = 0
-            searchBar.searchTextField.layer.borderColor = .none
-            searchBar.searchTextField.resignFirstResponder()
+            searchBar.searchTextField.configureCommonStyle()
         }
         
         setIQKeyboardManagerEnable(isTapped)

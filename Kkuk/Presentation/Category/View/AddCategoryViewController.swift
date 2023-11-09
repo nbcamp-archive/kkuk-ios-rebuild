@@ -54,12 +54,8 @@ class AddCategoryViewController: BaseUIViewController {
     
     private lazy var categoryNameTextField: UITextField = {
         let textField = UITextField()
-        textField.borderStyle = .roundedRect
-        textField.backgroundColor = .subgray3
-        textField.clearButtonMode = .whileEditing
-        textField.font = .body1
+        textField.configureCommonStyle()
         textField.placeholder = "카테고리 이름을 입력해주세요."
-        textField.tintColor = .main
         return textField
     }()
     
@@ -266,19 +262,13 @@ extension AddCategoryViewController {
 // MARK: - 텍스트필드 델리게이트
 
 extension AddCategoryViewController: UITextFieldDelegate {
-    
+
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        categoryNameTextField.backgroundColor = .background
-        categoryNameTextField.layer.borderWidth = CGFloat(2)
-        categoryNameTextField.layer.cornerRadius = CGFloat(5)
-        categoryNameTextField.layer.borderColor = UIColor.main.cgColor
-        categoryNameTextField.layer.masksToBounds = true
+        textField.configureForEditing()
     }
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
-        categoryNameTextField.backgroundColor = .subgray3
-        categoryNameTextField.layer.borderWidth = CGFloat(0)
-        categoryNameTextField.layer.borderColor = .none
+        textField.configureCommonStyle()
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
