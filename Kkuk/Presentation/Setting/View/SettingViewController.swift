@@ -216,7 +216,7 @@ extension SettingViewController {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             }
         }
-        let item = settingItems[indexPath.row]
+        _ = settingItems[indexPath.row]
 
         if indexPath.row == 1 {
             if let urlString = URL(string: "https://mammoth-scabiosa-20c.notion.site/8b2d6db3412c46578505d588f8a4d22a?pvs=4")?.absoluteString {
