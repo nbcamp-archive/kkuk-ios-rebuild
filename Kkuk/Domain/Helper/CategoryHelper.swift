@@ -16,10 +16,11 @@ protocol Storage {
 }
 
 final class CategoryHelper: Storage {
+    
     static let shared = CategoryHelper()
-
+    
     private let database: Realm
-
+    
     private init() {
         do {
             self.database = try Realm()
@@ -27,23 +28,31 @@ final class CategoryHelper: Storage {
             fatalError("Error initializing Realm: \(error)")
         }
     }
-
+    
     func getLocationOfDefaultRealm() {
         print("Realm is located at:", database.configuration.fileURL!)
     }
-
+    
     func read() -> [Category] {
         let result = database.objects(Category.self)
         let array: [Category] = Array(result)
         return array
     }
-
+    
+    func read(at categoryId: ObjectId) -> Category? {
+        do {
+            let query = NSPredicate(format: "id == %@", categoryId)
+            let result = database.objects(Category.self).filter(query).first
+            return result
+        }
+    }
+    
     func write<T: Object>(_ object: T) {
         do {
             try database.write {
                 database.add(object, update: .modified)
             }
-
+            
         } catch {
             print(error)
         }
@@ -58,14 +67,14 @@ final class CategoryHelper: Storage {
             print(error)
         }
     }
-
+    
     func delete<T: Object>(_ object: T) {
         do {
             try database.write {
                 database.delete(object)
                 print("Delete Success")
             }
-
+            
         } catch {
             print(error)
         }
@@ -74,5 +83,4 @@ final class CategoryHelper: Storage {
     func sort<T: Object>(_ object: T.Type, by keyPath: String, ascending: Bool = true) -> Results<T> {
         return database.objects(object).sorted(byKeyPath: keyPath, ascending: ascending)
     }
-    
 }

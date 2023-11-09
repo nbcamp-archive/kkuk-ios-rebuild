@@ -8,6 +8,7 @@
 import PanModal
 import SnapKit
 import UIKit
+import RealmSwift
 
 protocol PanModalTableViewControllerDelegate: AnyObject {
     func modifyTitle(title: String)
