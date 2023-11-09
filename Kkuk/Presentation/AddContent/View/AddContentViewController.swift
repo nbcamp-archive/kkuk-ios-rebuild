@@ -138,6 +138,12 @@ class AddContentViewController: BaseUIViewController {
             }
         }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        UIPasteboard.general.string = nil
+    }
 
     override func setNavigationBar() {
         title = isAddContent ? "추가하기" : "수정하기"
