@@ -166,16 +166,6 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
     }
 }
 
-extension PanModalTableViewController: EditCategoryViewControllerDelegate {
-    func dismissModal() {
-        dismiss(animated: true)
-    }
-
-    func setTitle(title: String) {
-        modifyTitle = title
-    }
-}
-
 extension PanModalTableViewController: PanModalPresentable {
     var panScrollable: UIScrollView? {
         deleteModifyTableView
