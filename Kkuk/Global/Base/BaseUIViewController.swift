@@ -38,13 +38,13 @@ class BaseUIViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setIQKeyboardManagerEnable(true)
+//        setIQKeyboardManagerEnable(true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        setIQKeyboardManagerEnable(false)
+//        setIQKeyboardManagerEnable(false)
     }
     
     // `BaseUIViewController`를 상속받은 객체는 해당 함수를 사용할 수 있습니다.
@@ -67,11 +67,11 @@ class BaseUIViewController: UIViewController {
 
 extension BaseUIViewController {
     
-    func setIQKeyboardManagerEnable(_ enabled: Bool) {
-        IQKeyboardManager.shared.enable = enabled
-        IQKeyboardManager.shared.shouldResignOnTouchOutside = enabled
-        IQKeyboardManager.shared.enableAutoToolbar = !enabled
-    }
+//    func setIQKeyboardManagerEnable(_ enabled: Bool) {
+//        IQKeyboardManager.shared.enable = enabled
+//        IQKeyboardManager.shared.shouldResignOnTouchOutside = enabled
+//        IQKeyboardManager.shared.enableAutoToolbar = !enabled
+//    }
     
 }
 

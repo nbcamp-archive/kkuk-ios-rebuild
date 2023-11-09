@@ -81,14 +81,14 @@ class EditCategoryViewController: BaseUIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setIQKeyboardManagerEnable(true)
+//        setIQKeyboardManagerEnable(true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         delegate?.dismissModal()
-        setIQKeyboardManagerEnable(false)
+//        setIQKeyboardManagerEnable(false)
     }
     
     override func setUI() {

@@ -111,6 +111,8 @@ class CategoryViewController: BaseUIViewController {
     }
 
     override func addTarget() {}
+    
+    
 }
 
 // MARK: - @objc

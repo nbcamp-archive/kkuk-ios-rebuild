@@ -15,7 +15,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let config = Realm.Configuration(schemaVersion: 3)
+        let defaultRealm = Realm.Configuration.defaultConfiguration.fileURL!
+        // Container for newly created App Group Identifier
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.archive.nbcamp.Kkuk")
+        // Shared path of realm config
+        let realmURL = container?.appendingPathComponent("default.realm")
+        // Config init
+        var config: Realm.Configuration!
+
+        // Checking the old realm config is exist
+        if FileManager.default.fileExists(atPath: defaultRealm.path) {
+            do {
+              // Replace old config with the new one
+                _ = try FileManager.default.replaceItemAt(realmURL!, withItemAt: defaultRealm)
+
+               config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
+            } catch {
+               print("Error info: \(error)")
+            }
+        } else {
+             config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
+        }
+
+        // Lastly init realm config to default config
         Realm.Configuration.defaultConfiguration = config
         return true
     }
