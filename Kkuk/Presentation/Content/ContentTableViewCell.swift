@@ -80,6 +80,8 @@ class ContentTableViewCell: BaseUITableViewCell {
     }
     
     func configureCell(content: Content, index: Int) {
+        backgroundColor = .background
+
         self.content = content
         
         siteTitleLabel.text = content.title
