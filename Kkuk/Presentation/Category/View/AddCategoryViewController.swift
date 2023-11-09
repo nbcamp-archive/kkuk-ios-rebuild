@@ -183,6 +183,8 @@ extension AddCategoryViewController {
                 iconCollectionView.deselectItem(at: indexPath, animated: false)
             }
         }
+        
+        addCategoryButton.setUI(to: .enable)
     }
     
     private func addCategory() {
@@ -205,6 +207,12 @@ extension AddCategoryViewController {
             modifyCategory.iconId = selectedIconId
         })
     }
+    
+    private func dismissPanModal() {
+        if let presentingViewController = self.presentingViewController as? PanModalTableViewController {
+            presentingViewController.dismiss(animated: false)
+        }
+    }
 }
 
 // MARK: - @objc
@@ -223,11 +231,13 @@ extension AddCategoryViewController {
         showAlertOneButton(title: "", message: "카테고리가 정상적으로 \(title) 되었습니다.", completion: {
             self.delegate?.reloadTableView()
             self.dismiss(animated: true, completion: nil)
+            self.dismissPanModal()
         })
     }
     
     @objc func closeButtonItemDidTap() {
         self.dismiss(animated: true, completion: nil)
+        self.dismissPanModal()
     }
 }
 // MARK: - 텍스트필드 델리게이트
