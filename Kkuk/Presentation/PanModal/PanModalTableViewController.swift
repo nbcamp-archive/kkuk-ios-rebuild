@@ -130,9 +130,7 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
     func didSelectedCategoryScreen(_ menu: PanModalOption.Title) {
         switch menu {
         case .modify:
-            let viewController = EditCategoryViewController()
-            viewController.category = category
-            viewController.delegate = self
+            let viewController = AddCategoryViewController(isAddCategory: false, modifyCategory: category)
             presentFromPanModal(to: viewController)
         case .delete:
             self.presentDeleteAlert()

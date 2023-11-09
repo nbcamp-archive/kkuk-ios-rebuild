@@ -14,6 +14,12 @@ class AddCategoryIconCollectionViewCell: BaseUICollectionViewCell {
         return imageView
     }()
     
+    override var isSelected: Bool {
+        didSet {
+            iconImageView.alpha = isSelected ? 0.5 : 1.0
+        }
+    }
+    
     override func setUI() {
         contentView.addSubview(iconImageView)
     }
@@ -27,18 +33,5 @@ class AddCategoryIconCollectionViewCell: BaseUICollectionViewCell {
     
     func configuration(index: Int) {
         iconImageView.image = Asset.iconImageList[index]
-    }
-    
-    func toggleOverlayView(isSelected: Bool) {
-        iconImageView.subviews.forEach { if $0.tag == 999 { $0.removeFromSuperview() } }
-
-        if isSelected {
-            let overlayView = UIView(frame: iconImageView.frame)
-            overlayView.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
-            overlayView.layer.cornerRadius = overlayView.frame.height / 2
-            overlayView.clipsToBounds = true
-            overlayView.tag = 999 // 오버레이 뷰 구분을 위한 태그 설정
-            iconImageView.addSubview(overlayView)
-        }
     }
 }

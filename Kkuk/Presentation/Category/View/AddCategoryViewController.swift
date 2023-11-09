@@ -19,6 +19,9 @@ class AddCategoryViewController: BaseUIViewController {
     
     var iconId: Int?
     
+    var isAddCategory: Bool = true
+    var modifyCategory: Category?
+    
     weak var delegate: AddCategoryViewControllerDelegate?
     private var categoryHelper = CategoryHelper.shared
     
@@ -62,7 +65,26 @@ class AddCategoryViewController: BaseUIViewController {
         
         return collectionView
     }()
+    
+    init(isAddCategory: Bool = true, modifyCategory: Category? = nil) {
+        super.init(nibName: nil, bundle: nil)
+        self.modifyCategory = modifyCategory
+        self.isAddCategory = isAddCategory
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if !isAddCategory {
+            configureForEditing()
+        }
+    }
 
+    // MARK: - Setup
     override func setUI() {
         setNavigationBar()
         
@@ -111,7 +133,7 @@ class AddCategoryViewController: BaseUIViewController {
     }
     
     override func setNavigationBar() {
-        title = "카테고리 추가"
+        title = isAddCategory ? "카테고리 추가" : "카테고리 수정"
         
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.title3 ]
@@ -146,22 +168,59 @@ extension AddCategoryViewController {
         }
         addCategoryButton.setUI(to: .enable)
     }
+    
+    private func configureForEditing() {
+        guard let modifyCategory = modifyCategory else { return }
+        
+        categoryNameTextField.text = modifyCategory.name
+        
+        for index in Asset.iconImageList.indices {
+            if index == modifyCategory.iconId {
+                let indexPath = IndexPath(item: index, section: 0)
+                iconCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+            } else {
+                let indexPath = IndexPath(item: index, section: 0)
+                iconCollectionView.deselectItem(at: indexPath, animated: false)
+            }
+        }
+    }
+    
+    private func addCategory() {
+        guard let categoryName = categoryNameTextField.text, let selectedIconId = iconId  else { return }
+        
+        let category = Category()
+        category.name = categoryName
+        category.iconId = selectedIconId
+
+        categoryHelper.write(category)
+    }
+    
+    private func updateCategory() {
+        guard let categoryName = categoryNameTextField.text,
+              let selectedIconId = iconId,
+              let modifyCategory = modifyCategory else { return }
+        
+        categoryHelper.update(modifyCategory, completion: { modifyCategory in
+            modifyCategory.name = categoryName
+            modifyCategory.iconId = selectedIconId
+        })
+    }
 }
 
 // MARK: - @objc
 
 extension AddCategoryViewController {
     @objc private func addCategoryButtonDidTap() {
-        
-        guard let categoryName = categoryNameTextField.text, let selectedIconId = iconId  else { return }
-        
-        var category = Category()
-        category.name = categoryName
-        category.iconId = selectedIconId
 
-        categoryHelper.write(category)
+        if isAddCategory {
+            addCategory()
+        } else {
+            updateCategory()
+        }
         
-        showAlertOneButton(title: "", message: "카테고리가 정상적으로 추가 되었습니다.", completion: {
+        let title = isAddCategory ? "추가" : "수정"
+        
+        showAlertOneButton(title: "", message: "카테고리가 정상적으로 \(title) 되었습니다.", completion: {
             self.delegate?.reloadTableView()
             self.dismiss(animated: true, completion: nil)
         })
@@ -225,7 +284,7 @@ extension AddCategoryViewController: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? AddCategoryIconCollectionViewCell {
-            cell.toggleOverlayView(isSelected: true)
+            cell.isSelected = true
             iconId = indexPath.row
             updateAddCategoryButtonState()
         }
@@ -233,8 +292,7 @@ extension AddCategoryViewController: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? AddCategoryIconCollectionViewCell {
-            cell.toggleOverlayView(isSelected: false)
-            iconId = nil
+            cell.isSelected = false
         }
     }
 }
