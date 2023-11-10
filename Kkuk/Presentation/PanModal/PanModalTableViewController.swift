@@ -152,7 +152,10 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
         
         switch menu {
         case .modify:
-            let viewController = AddContentViewController(isAddContent: false, modifyContent: content)
+            let viewController = AddContentViewController(isAddContent: false, modifyContent: content) { [weak self] in
+                self?.completion?(())
+            }
+            viewController.delegate = self
             presentFromPanModal(to: viewController)
         case .delete:
             presentDeleteAlert()
@@ -194,7 +197,7 @@ extension PanModalTableViewController: PanModalPresentable {
     }
 }
 
-extension PanModalTableViewController: AddCategoryViewControllerDelegate {
+extension PanModalTableViewController: AddCategoryViewControllerDelegate, AddContetnViewControllerDelegate {
     func dismissModal() {
         completion?(())
         dismiss(animated: false)
