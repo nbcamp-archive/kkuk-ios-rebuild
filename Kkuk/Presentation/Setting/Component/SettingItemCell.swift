@@ -62,6 +62,7 @@ class SettingItemCell: UITableViewCell {
         
         titleLabel.text = title
         subTitleLabel.text = subTitle
+        subTitleLabel.textColor = .subgray1
         
         // 부제목이 없으면 숨기기
         subTitleLabel.isHidden = subTitle == nil

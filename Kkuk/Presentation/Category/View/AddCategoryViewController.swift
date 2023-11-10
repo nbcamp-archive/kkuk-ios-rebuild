@@ -270,6 +270,13 @@ extension AddCategoryViewController: UITextFieldDelegate {
         
         return newLength < 20
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return false
+    }
+    
 }
 
 // MARK: - 콜렉션뷰 델리게이트

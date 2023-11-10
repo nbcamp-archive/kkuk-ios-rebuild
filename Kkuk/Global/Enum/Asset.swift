@@ -42,7 +42,7 @@ enum Asset {
     static var trip: UIImage { .loadAsset(named: "trip") }
     
     static var iconImageList: [UIImage] = [
-        animal, baby, beauty, book, cafe, car, culture, education, exercise, fashion,
+        uncategorized, animal, baby, beauty, book, cafe, car, culture, education, exercise, fashion,
         finance, food, health, interier, tech, kitchen, music, plant, shopping, trip
     ]
     
@@ -53,7 +53,7 @@ enum Asset {
     // MARK: - CategoryView
     
     static var addCategory: UIImage { .loadAsset(named: "lucide_folder_plus_white") }
-    
+    static var uncategorized: UIImage { .loadAsset(named: "uncategorized") }
     // MARK: - TabBarItem
     
     static var home: UIImage { .loadAsset(named: "lucide_home") }

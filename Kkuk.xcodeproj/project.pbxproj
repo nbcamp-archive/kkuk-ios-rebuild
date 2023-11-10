@@ -64,9 +64,42 @@
 		1CAEBE6F2AF1278500FF4CF2 /* OptionalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE6E2AF1278500FF4CF2 /* OptionalLabel.swift */; };
 		1CB63FFA2AF33EC9003BDB62 /* SelectCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB63FF92AF33EC9003BDB62 /* SelectCategoryCell.swift */; };
 		1CB63FFC2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB63FFB2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift */; };
-		1CB6400D2AF7EC78003BDB62 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB6400C2AF7EC78003BDB62 /* ShareViewController.swift */; };
-		1CB640102AF7EC78003BDB62 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CB6400E2AF7EC78003BDB62 /* MainInterface.storyboard */; };
+		1CB6400D2AF7EC78003BDB62 /* AddContentShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB6400C2AF7EC78003BDB62 /* AddContentShareViewController.swift */; };
 		1CB640142AF7EC78003BDB62 /* KkukShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1CB6400A2AF7EC78003BDB62 /* KkukShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		555C50192AFBB302000E6B72 /* EntryShareNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555C50182AFBB302000E6B72 /* EntryShareNavigationController.swift */; };
+		555C501A2AFC59C8000E6B72 /* CompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE662AEBE8CA00FF4CF2 /* CompleteButton.swift */; };
+		555C501B2AFC59CD000E6B72 /* InduceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE682AEBFD5500FF4CF2 /* InduceLabel.swift */; };
+		555C501C2AFC59D0000E6B72 /* OptionalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAEBE6E2AF1278500FF4CF2 /* OptionalLabel.swift */; };
+		555C501D2AFC59D8000E6B72 /* UIFont+FontSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */; };
+		555C501E2AFC59DB000E6B72 /* UIStackView+AddArrangedSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843D72ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift */; };
+		555C501F2AFC59E0000E6B72 /* UIView+AddSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843D52ADD2F9300A87E99 /* UIView+AddSubviews.swift */; };
+		555C50202AFC59E3000E6B72 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */; };
+		555C50212AFC59E6000E6B72 /* UIImage+LoadAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFF52AE7641000B5A97A /* UIImage+LoadAsset.swift */; };
+		555C50232AFC59F8000E6B72 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFF82AE7675A00B5A97A /* Asset.swift */; };
+		555C50242AFC59FC000E6B72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C2843942ADC2C5600A87E99 /* Assets.xcassets */; };
+		555C50252AFC5A12000E6B72 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C28441C2ADED52B00A87E99 /* Pretendard-Regular.otf */; };
+		555C50262AFC5A15000E6B72 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C28441D2ADED52B00A87E99 /* Pretendard-Medium.otf */; };
+		555C50272AFC5A18000E6B72 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C28441F2ADED52B00A87E99 /* Pretendard-Bold.otf */; };
+		555C50282AFC5A1C000E6B72 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C28441E2ADED52B00A87E99 /* Pretendard-Light.otf */; };
+		555C50292AFC5A1F000E6B72 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C2844202ADED52B00A87E99 /* Pretendard-SemiBold.otf */; };
+		555C502B2AFC5C40000E6B72 /* RedirectAddCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB63FFB2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift */; };
+		555C502E2AFC6205000E6B72 /* BaseUICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843D22ADD2C6800A87E99 /* BaseUICollectionViewCell.swift */; };
+		555C50312AFC6933000E6B72 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 555C50302AFC6933000E6B72 /* Alamofire */; };
+		555C50332AFC6937000E6B72 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 555C50322AFC6937000E6B72 /* IQKeyboardManagerSwift */; };
+		555C50352AFC693C000E6B72 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 555C50342AFC693C000E6B72 /* Realm */; };
+		555C50372AFC693F000E6B72 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 555C50362AFC693F000E6B72 /* RealmSwift */; };
+		555C50392AFC6945000E6B72 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 555C50382AFC6945000E6B72 /* SnapKit */; };
+		555C503F2AFC694B000E6B72 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 555C503E2AFC694B000E6B72 /* SwiftSoup */; };
+		555C50402AFC6A5E000E6B72 /* SelectCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB63FF92AF33EC9003BDB62 /* SelectCategoryCell.swift */; };
+		555C50412AFC6B24000E6B72 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AD12AEBC0FF005C06C4 /* Category.swift */; };
+		555C50422AFC6B27000E6B72 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A92AEB81170016398A /* Content.swift */; };
+		555C50452AFC6E22000E6B72 /* ContentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4AD2AEB87330016398A /* ContentHelper.swift */; };
+		555C50462AFC6E26000E6B72 /* CategoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AD32AEBC136005C06C4 /* CategoryHelper.swift */; };
+		555C50472AFC6E37000E6B72 /* SegmentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B933F2AF89D3B0006B348 /* SegmentMenu.swift */; };
+		555C50482AFC6E7E000E6B72 /* OpenGraphService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79F0012AE7E94400B5A97A /* OpenGraphService.swift */; };
+		555C504A2AFC6E9A000E6B72 /* HTMLParseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFFF2AE7E6EF00B5A97A /* HTMLParseService.swift */; };
+		555C504F2AFCC353000E6B72 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 555C504E2AFCC353000E6B72 /* Kingfisher */; };
+		555C50512AFCC368000E6B72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555C50502AFCC368000E6B72 /* UIKit.framework */; };
 		55791AC02AE7AEC7005C06C4 /* CategoryInnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */; };
 		55791AC42AE7AED9005C06C4 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */; };
 		55791AD22AEBC0FF005C06C4 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791AD12AEBC0FF005C06C4 /* Category.swift */; };
@@ -78,7 +111,6 @@
 		C352F4AA2AEB81170016398A /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A92AEB81170016398A /* Content.swift */; };
 		C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */; };
 		C3D641F82AF92ABE00DA39E4 /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D641F72AF92ABE00DA39E4 /* BookmarkCell.swift */; };
-		ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD225642AE7883B009CA421 /* AddCategoryView.swift */; };
 		ECF81C432AE050FF000C05DC /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF81C422AE050FF000C05DC /* AddCategoryViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +148,16 @@
 				1CB640142AF7EC78003BDB62 /* KkukShareExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		555C503D2AFC6948000E6B72 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -174,9 +216,12 @@
 		1CB63FF92AF33EC9003BDB62 /* SelectCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCategoryCell.swift; sourceTree = "<group>"; };
 		1CB63FFB2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedirectAddCategoryButton.swift; sourceTree = "<group>"; };
 		1CB6400A2AF7EC78003BDB62 /* KkukShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KkukShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		1CB6400C2AF7EC78003BDB62 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		1CB6400F2AF7EC78003BDB62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		1CB6400C2AF7EC78003BDB62 /* AddContentShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentShareViewController.swift; sourceTree = "<group>"; };
 		1CB640112AF7EC78003BDB62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		555C50182AFBB302000E6B72 /* EntryShareNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryShareNavigationController.swift; sourceTree = "<group>"; };
+		555C504C2AFCB5DC000E6B72 /* KkukShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KkukShareExtension.entitlements; sourceTree = "<group>"; };
+		555C504D2AFCB5E5000E6B72 /* Kkuk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kkuk.entitlements; sourceTree = "<group>"; };
+		555C50502AFCC368000E6B72 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryInnerViewController.swift; sourceTree = "<group>"; };
 		55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		55791AD12AEBC0FF005C06C4 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -189,7 +234,6 @@
 		C352F4AD2AEB87330016398A /* ContentHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentHelper.swift; sourceTree = "<group>"; };
 		C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
 		C3D641F72AF92ABE00DA39E4 /* BookmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
-		ECD225642AE7883B009CA421 /* AddCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryView.swift; sourceTree = "<group>"; };
 		ECF81C422AE050FF000C05DC /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,6 +271,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				555C50372AFC693F000E6B72 /* RealmSwift in Frameworks */,
+				555C50512AFCC368000E6B72 /* UIKit.framework in Frameworks */,
+				555C50352AFC693C000E6B72 /* Realm in Frameworks */,
+				555C504F2AFCC353000E6B72 /* Kingfisher in Frameworks */,
+				555C50312AFC6933000E6B72 /* Alamofire in Frameworks */,
+				555C50332AFC6937000E6B72 /* IQKeyboardManagerSwift in Frameworks */,
+				555C50392AFC6945000E6B72 /* SnapKit in Frameworks */,
+				555C503F2AFC694B000E6B72 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +327,7 @@
 				1C28437A2ADB969C00A87E99 /* KkukUITests */,
 				1CB6400B2AF7EC78003BDB62 /* KkukShareExtension */,
 				1C2843582ADB969A00A87E99 /* Products */,
+				555C502F2AFC6933000E6B72 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -292,6 +345,7 @@
 		1C2843592ADB969A00A87E99 /* Kkuk */ = {
 			isa = PBXGroup;
 			children = (
+				555C504D2AFCB5E5000E6B72 /* Kkuk.entitlements */,
 				1CB640012AF7E4D5003BDB62 /* Domain */,
 				1C2843992ADC2CD400A87E99 /* Presentation */,
 				1C28438F2ADB9D8800A87E99 /* Global */,
@@ -496,7 +550,6 @@
 			isa = PBXGroup;
 			children = (
 				55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */,
-				ECD225642AE7883B009CA421 /* AddCategoryView.swift */,
 				0A70AB8E2AFCEC5900CAAC48 /* AddCategoryIconCollectionViewCell.swift */,
 			);
 			path = Component;
@@ -587,6 +640,15 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		1C84732D2AFD341E005975F1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1CB6400C2AF7EC78003BDB62 /* AddContentShareViewController.swift */,
+				555C50182AFBB302000E6B72 /* EntryShareNavigationController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		1CAEBE652AEBE88B00FF4CF2 /* Component */ = {
 			isa = PBXGroup;
 			children = (
@@ -630,11 +692,19 @@
 		1CB6400B2AF7EC78003BDB62 /* KkukShareExtension */ = {
 			isa = PBXGroup;
 			children = (
-				1CB6400C2AF7EC78003BDB62 /* ShareViewController.swift */,
-				1CB6400E2AF7EC78003BDB62 /* MainInterface.storyboard */,
+				1C84732D2AFD341E005975F1 /* View */,
+				555C504C2AFCB5DC000E6B72 /* KkukShareExtension.entitlements */,
 				1CB640112AF7EC78003BDB62 /* Info.plist */,
 			);
 			path = KkukShareExtension;
+			sourceTree = "<group>";
+		};
+		555C502F2AFC6933000E6B72 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				555C50502AFCC368000E6B72 /* UIKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -713,12 +783,22 @@
 				1CB640062AF7EC78003BDB62 /* Sources */,
 				1CB640072AF7EC78003BDB62 /* Frameworks */,
 				1CB640082AF7EC78003BDB62 /* Resources */,
+				555C503D2AFC6948000E6B72 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = KkukShareExtension;
+			packageProductDependencies = (
+				555C50302AFC6933000E6B72 /* Alamofire */,
+				555C50322AFC6937000E6B72 /* IQKeyboardManagerSwift */,
+				555C50342AFC693C000E6B72 /* Realm */,
+				555C50362AFC693F000E6B72 /* RealmSwift */,
+				555C50382AFC6945000E6B72 /* SnapKit */,
+				555C503E2AFC694B000E6B72 /* SwiftSoup */,
+				555C504E2AFCC353000E6B72 /* Kingfisher */,
+			);
 			productName = KkukShareExtension;
 			productReference = 1CB6400A2AF7EC78003BDB62 /* KkukShareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -813,7 +893,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CB640102AF7EC78003BDB62 /* MainInterface.storyboard in Resources */,
+				555C50242AFC59FC000E6B72 /* Assets.xcassets in Resources */,
+				555C50272AFC5A18000E6B72 /* Pretendard-Bold.otf in Resources */,
+				555C50252AFC5A12000E6B72 /* Pretendard-Regular.otf in Resources */,
+				555C50292AFC5A1F000E6B72 /* Pretendard-SemiBold.otf in Resources */,
+				555C50282AFC5A1C000E6B72 /* Pretendard-Light.otf in Resources */,
+				555C50262AFC5A15000E6B72 /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -850,7 +935,6 @@
 				1C688AF62AFA913500E27714 /* ContentHelper.swift in Sources */,
 				1CAEBE692AEBFD5500FF4CF2 /* InduceLabel.swift in Sources */,
 				1C328F892AE92F8D0040D883 /* WebViewController.swift in Sources */,
-				ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */,
 				1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */,
 				0A7B93402AF89D3B0006B348 /* SegmentMenu.swift in Sources */,
 				1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */,
@@ -921,7 +1005,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CB6400D2AF7EC78003BDB62 /* ShareViewController.swift in Sources */,
+				555C501F2AFC59E0000E6B72 /* UIView+AddSubviews.swift in Sources */,
+				555C504A2AFC6E9A000E6B72 /* HTMLParseService.swift in Sources */,
+				555C50402AFC6A5E000E6B72 /* SelectCategoryCell.swift in Sources */,
+				555C502B2AFC5C40000E6B72 /* RedirectAddCategoryButton.swift in Sources */,
+				555C50422AFC6B27000E6B72 /* Content.swift in Sources */,
+				555C501E2AFC59DB000E6B72 /* UIStackView+AddArrangedSubviews.swift in Sources */,
+				555C50462AFC6E26000E6B72 /* CategoryHelper.swift in Sources */,
+				555C501D2AFC59D8000E6B72 /* UIFont+FontSizes.swift in Sources */,
+				555C501C2AFC59D0000E6B72 /* OptionalLabel.swift in Sources */,
+				555C501B2AFC59CD000E6B72 /* InduceLabel.swift in Sources */,
+				555C50232AFC59F8000E6B72 /* Asset.swift in Sources */,
+				555C50192AFBB302000E6B72 /* EntryShareNavigationController.swift in Sources */,
+				555C50212AFC59E6000E6B72 /* UIImage+LoadAsset.swift in Sources */,
+				555C50452AFC6E22000E6B72 /* ContentHelper.swift in Sources */,
+				555C50202AFC59E3000E6B72 /* UIColor+AppColor.swift in Sources */,
+				555C50472AFC6E37000E6B72 /* SegmentMenu.swift in Sources */,
+				555C50412AFC6B24000E6B72 /* Category.swift in Sources */,
+				555C502E2AFC6205000E6B72 /* BaseUICollectionViewCell.swift in Sources */,
+				555C50482AFC6E7E000E6B72 /* OpenGraphService.swift in Sources */,
+				1CB6400D2AF7EC78003BDB62 /* AddContentShareViewController.swift in Sources */,
+				555C501A2AFC59C8000E6B72 /* CompleteButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -944,17 +1048,6 @@
 			targetProxy = 1CB640122AF7EC78003BDB62 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		1CB6400E2AF7EC78003BDB62 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1CB6400F2AF7EC78003BDB62 /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1C28437F2ADB969C00A87E99 /* Debug */ = {
@@ -1077,6 +1170,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Kkuk/Kkuk.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1110,6 +1204,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Kkuk/Kkuk.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1216,9 +1311,12 @@
 		1CB640162AF7EC78003BDB62 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = KkukShareExtension/KkukShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "Kkuk/Global/Resource/Font/Pretendard-Light.otf Kkuk/Global/Resource/Font/Pretendard-SemiBold.otf Kkuk/Global/Resource/Font/Pretendard-Bold.otf Kkuk/Global/Resource/Font/Pretendard-Regular.otf Kkuk/Global/Resource/Font/Pretendard-Medium.otf";
 				DEVELOPMENT_TEAM = 347XA53QJK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KkukShareExtension/Info.plist;
@@ -1242,9 +1340,12 @@
 		1CB640172AF7EC78003BDB62 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = KkukShareExtension/KkukShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "Kkuk/Global/Resource/Font/Pretendard-Light.otf Kkuk/Global/Resource/Font/Pretendard-SemiBold.otf Kkuk/Global/Resource/Font/Pretendard-Bold.otf Kkuk/Global/Resource/Font/Pretendard-Regular.otf Kkuk/Global/Resource/Font/Pretendard-Medium.otf";
 				DEVELOPMENT_TEAM = 347XA53QJK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KkukShareExtension/Info.plist;
@@ -1414,6 +1515,41 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1C2843FF2ADE9B0100A87E99 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
 			productName = SwiftSoup;
+		};
+		555C50302AFC6933000E6B72 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843E82ADE996200A87E99 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		555C50322AFC6937000E6B72 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843EB2ADE99D400A87E99 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		555C50342AFC693C000E6B72 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843F42ADE9AB600A87E99 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		555C50362AFC693F000E6B72 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843F42ADE9AB600A87E99 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		555C50382AFC6945000E6B72 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843F92ADE9AE200A87E99 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		555C503E2AFC694B000E6B72 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843FF2ADE9B0100A87E99 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+		555C504E2AFCC353000E6B72 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2843EE2ADE99EF00A87E99 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

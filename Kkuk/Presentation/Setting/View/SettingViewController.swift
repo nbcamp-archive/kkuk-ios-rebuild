@@ -7,6 +7,7 @@
 
 import SnapKit
 import UIKit
+import RealmSwift
 
 class SettingViewController: BaseUIViewController {
     
@@ -24,6 +25,13 @@ class SettingViewController: BaseUIViewController {
     }()
     
     let clearDataButton = UIButton(type: .system)
+    
+    var appBundleVersion: String? {
+        guard let dictionary = Bundle.main.infoDictionary,
+              let version = dictionary["CFBundleShortVersionString"] as? String else { return nil }
+        
+        return version
+    }
     
     override func setTopView() {
         view.addSubview(topView)
@@ -106,7 +114,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -121,7 +129,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         headerView.backgroundColor = UIColor.background
-
+        
         let label = UILabel()
         label.textColor = UIColor.systemGray
         label.font = UIFont.title2
@@ -134,11 +142,11 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         
         return headerView
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 36
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: SettingItemCell.identifier,
@@ -157,37 +165,55 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             if indexPath.row == 0 {
                 cell.configureCell(title: serviceInfoItems[indexPath.row], subTitle: "kkuk.help@gmail.com")
             } else if indexPath.row == 1 {
-                cell.configureCell(title: serviceInfoItems[indexPath.row], subTitle: "v1.0")
+                cell.configureCell(title: serviceInfoItems[indexPath.row], subTitle: appBundleVersion)
             } else {
                 cell.configureCell(title: serviceInfoItems[indexPath.row])
             }
         default:
             break
         }
-
+        
         return cell
     }
     
     @objc func clearData() {
-        // UIAlertController를 생성합니다. style을 .alert로 지정하여 팝업 형태로 표시됩니다.
-        let alertController = UIAlertController(title: "모든 데이터 지우기", message: "모든 데이터를 지우겠습니까?", preferredStyle: .alert)
-
-        let confirmAction = UIAlertAction(title: "네", style: .destructive) { _ in
-            // 여기에 데이터를 지우는 코드를 추가
-            print("모든 데이터가 삭제되었습니다.")
+        // UIAlertController를 생성. style을 .alert로 지정하여 팝업 형태로 표시
+        let alertController = UIAlertController(title: "", message: "모든 데이터를 지우겠습니까?", preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "네", style: .destructive) { [weak self] _ in
+            do {
+                // 여기에 데이터를 지우는 코드를 추가
+                let realm = try Realm()
+                try realm.write {
+                    realm.deleteAll()
+                }
+                
+                let uncategorized = Category()
+                let categoryHelper = CategoryHelper.shared
+                uncategorized.name = "미분류"
+                uncategorized.iconId = 0
+                categoryHelper.write(uncategorized)
+                
+                self?.showAlertWith(title: "완료", message: "모든 데이터가 삭제되었습니다.")
+            } catch {
+                self?.showAlertWith(title: "오류", message: "데이터를 삭제하는데 실패했습니다: \(error.localizedDescription)")
+            }
         }
         
         // "아니오"를 탭했을 때 실 alert을 닫음
         let cancelAction = UIAlertAction(title: "아니오", style: .cancel, handler: nil)
-
+        
         // 생성한 액션들을 UIAlertController에 추가
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
-
-        // Alert을 현재 뷰 컨트롤러에 표시
-        present(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
-
+    
+    private func showAlertWith(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 extension SettingViewController {
     
@@ -198,15 +224,15 @@ extension SettingViewController {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             }
         }
-        let item = settingItems[indexPath.row]
+        _ = settingItems[indexPath.row]
 
-        if indexPath.row == 1 {
+        if indexPath.section == 0 && indexPath.row == 1 {
             if let urlString = URL(string: "https://mammoth-scabiosa-20c.notion.site/8b2d6db3412c46578505d588f8a4d22a?pvs=4")?.absoluteString {
                 let viewController = WebViewController(sourceURL: urlString, sourceTitle: "이용약관")
                 viewController.hidesBottomBarWhenPushed = true
                 navigationController?.pushViewController(viewController, animated: true)
             }
-        } else if indexPath.row == 2 {
+        } else if indexPath.section == 0 && indexPath.row == 2 {
             if let urlString = URL(string: "https://mammoth-scabiosa-20c.notion.site/c0d1bd0595d84f9fbaa2b05dd0cd70f1?pvs=4")?.absoluteString {
                 let viewController = WebViewController(sourceURL: urlString, sourceTitle: "서비스 이용방법")
                 viewController.hidesBottomBarWhenPushed = true

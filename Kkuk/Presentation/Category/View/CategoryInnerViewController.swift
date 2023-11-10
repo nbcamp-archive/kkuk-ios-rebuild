@@ -7,6 +7,7 @@
 
 import SnapKit
 import UIKit
+import RealmSwift
 
 class CategoryInnerViewController: BaseUIViewController {
     private var completion: ((Void) -> Void)?
@@ -19,7 +20,15 @@ class CategoryInnerViewController: BaseUIViewController {
         }
     }
     
-    private var category: Category?
+    // "미분류" 카테고리의 ObjectId를 저장할 프로퍼티
+    private var uncategorizedCategoryId: ObjectId?
+    
+    private var category: Category? {
+        didSet {
+            // "미분류" 카테고리의 ObjectId와 현재 카테고리의 ID를 비교하여 팬모달 버튼을 숨김
+            navigationItem.rightBarButtonItem = category?.id == uncategorizedCategoryId ? nil : editButton
+        }
+    }
     
     private lazy var contentTableView: UITableView = {
         let tableView = UITableView()
@@ -64,7 +73,14 @@ class CategoryInnerViewController: BaseUIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setNavigationBar()
+    }
+    
+    func setCategory(category: Category) {
+        self.category = category
+        // "미분류" 카테고리일 경우 팬모달 버튼을 숨김
+        navigationItem.rightBarButtonItem = category.name == "미분류" ? nil: editButton
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -85,7 +101,7 @@ class CategoryInnerViewController: BaseUIViewController {
     private func updatePin(index: Int) {
         contentTableView.reloadRows(at: [.init(row: index, section: 0)], with: .automatic)
     }
-
+    
     override func setUI() {
         view.addSubviews([contentTableView, noContentLabel])
     }
@@ -111,15 +127,16 @@ class CategoryInnerViewController: BaseUIViewController {
     override func setNavigationBar() {
         title = category?.name
         navigationItem.leftBarButtonItem = backButtonItem
-        navigationItem.rightBarButtonItem = editButton
+        navigationItem.rightBarButtonItem = category?.name == "미분류" ? nil: editButton
     }
-}
-
-extension CategoryInnerViewController {
     
     @objc func backButtonDidTap() {
         navigationController?.popViewController(animated: true)
     }
+    
+}
+
+extension CategoryInnerViewController {
     
     @objc func editButtonDidTapped() {
         let title = [PanModalOption.Title.modify,
@@ -137,10 +154,6 @@ extension CategoryInnerViewController {
         presentPanModal(customVC)
     }
     
-    func setCategory(category: Category) {
-        self.category = category
-    }
-
 }
 
 extension CategoryInnerViewController: PanModalTableViewControllerDelegate {
@@ -149,7 +162,7 @@ extension CategoryInnerViewController: PanModalTableViewControllerDelegate {
     func modifyTitle(title: String) {
         navigationItem.title = title
     }
-
+    
 }
 
 extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSource {
@@ -179,13 +192,14 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
         viewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(viewController, animated: true)
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
 }
 
 extension CategoryInnerViewController: ContentTableViewCellDelegate {
+    
     func togglePin(index: Int) {
         contentManager.update(content: self.recentItems[index]) { [weak self] content in
             content.isPinned.toggle()

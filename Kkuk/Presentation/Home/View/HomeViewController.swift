@@ -105,7 +105,6 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
-        contentManager.getLocationOfDefaultRealm()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -311,6 +310,8 @@ extension HomeViewController: ContentTableViewCellDelegate {
 extension HomeViewController: BookmarkCellDelegate {
     func removePin(id: ObjectId) {
         if let index = recentItems.firstIndex(where: { $0.id == id }) {
+            self.updatePin(index: index)
+        } else if let index = bookmarkItems.firstIndex(where: { $0.id == id }) {
             self.updatePin(index: index)
         }
     }

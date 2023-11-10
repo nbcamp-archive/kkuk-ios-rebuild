@@ -6,9 +6,11 @@
 //
 
 import SnapKit
+
 import UIKit
 
 class CategoryViewController: BaseUIViewController {
+    
     private var category = [Category]()
     
     private var categoryHelper = CategoryHelper.shared
@@ -53,7 +55,7 @@ class CategoryViewController: BaseUIViewController {
         super.viewWillAppear(animated)
         
         category = categoryHelper.read()
-        print("HI")
+ 
         if category.count == 0 {
             emptyCategoryLabel.isHidden = false
         } else {
@@ -64,16 +66,17 @@ class CategoryViewController: BaseUIViewController {
     
     override func setTopView() {
         view.addSubview(topView)
-        topView.snp.makeConstraints { make in
-            make.top.trailing.leading.equalToSuperview()
-            make.height.equalTo(UIScreen.main.bounds.height * 0.2)
+        
+        topView.snp.makeConstraints {
+            $0.top.trailing.leading.equalToSuperview()
+            $0.height.equalTo(UIScreen.main.bounds.height * 0.2)
         }
         
         topTitle.text = "카테고리"
         topView.addSubviews([topTitle, addButton])
-        topTitle.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(28)
-            make.leading.equalTo(20)
+        topTitle.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(28)
+            $0.leading.equalTo(20)
         }
     }
     
@@ -81,14 +84,14 @@ class CategoryViewController: BaseUIViewController {
     
     override func setUI() {
         view.addSubviews([middleFrameView])
+        
         middleFrameView.addSubviews([categoryTableView, emptyCategoryLabel])
     }
 
     override func setLayout() {
-
-        addButton.snp.makeConstraints { make in
-            make.centerY.equalTo(topTitle)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+        addButton.snp.makeConstraints {
+            $0.centerY.equalTo(topTitle)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         
         middleFrameView.snp.makeConstraints { make in
@@ -97,13 +100,12 @@ class CategoryViewController: BaseUIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        emptyCategoryLabel.snp.makeConstraints { make in
-            make.center.equalTo(middleFrameView)
+        emptyCategoryLabel.snp.makeConstraints {
+            $0.center.equalTo(middleFrameView)
         }
-        
-        categoryTableView.snp.makeConstraints { constraint in
-            constraint.top.bottom.equalTo(middleFrameView)
-            constraint.leading.trailing.equalTo(middleFrameView).inset(20)
+        categoryTableView.snp.makeConstraints {
+            $0.top.bottom.equalTo(middleFrameView)
+            $0.leading.trailing.equalTo(middleFrameView).inset(20)
         }
     }
 
@@ -113,21 +115,30 @@ class CategoryViewController: BaseUIViewController {
     }
 
     override func addTarget() {}
+    
 }
 
 // MARK: - @objc
 
 extension CategoryViewController {
-    @objc func plusButtonDidTap() {
+    
+    @objc
+    func plusButtonDidTap() {
         let viewController = AddCategoryViewController()
         viewController.delegate = self
+        
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.modalPresentationStyle = .overFullScreen
+        
         present(navigationController, animated: true, completion: nil)
     }
+    
 }
 
+// MARK: - 카테고리 테이블 뷰 델리게이트
+
 extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         category.count
     }
@@ -136,11 +147,13 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableViewCell", for: indexPath)
             as? CategoryTableViewCell else { return UITableViewCell() }
         let category = category[indexPath.item]
+        
         cell.accessoryType = .disclosureIndicator
         cell.accessoryView?.backgroundColor = .background
         cell.selectionStyle = .none
         cell.configure(category: category)
         cell.delegate = self
+        
         return cell
     }
     
@@ -158,6 +171,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
     }
+    
 }
 
 extension CategoryViewController: AddCategoryViewControllerDelegate {
@@ -168,11 +182,14 @@ extension CategoryViewController: AddCategoryViewControllerDelegate {
         category = categoryHelper.read()
         categoryTableView.reloadData()
     }
+    
 }
 
 extension CategoryViewController: CategoryTableViewCellDelegate {
+    
     func deleteTableViewCell() {
         category = categoryHelper.read()
         categoryTableView.reloadData()
     }
+    
 }
