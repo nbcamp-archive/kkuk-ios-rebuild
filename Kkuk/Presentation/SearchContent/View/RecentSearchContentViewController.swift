@@ -60,7 +60,7 @@ class RecentSearchContentViewController: BaseUIViewController {
     }()
     
     override func setUI() {
-        searchList = manager.fetchAllSearches().reversed()
+        searchList = manager.fetchAllSearches()
         
         view.addSubviews([recentSearchesLabel,
                           allDelegateButton,
@@ -80,7 +80,7 @@ class RecentSearchContentViewController: BaseUIViewController {
     }
     
     func reloadData() {
-        searchList = manager.fetchAllSearches().reversed()
+        searchList = manager.fetchAllSearches()
         collectionView.reloadData()
         noRecentSearchesLabel.isHidden = !searchList.isEmpty
     }
