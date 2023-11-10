@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let defaultRealm = Realm.Configuration.defaultConfiguration.fileURL!
         // Container for newly created App Group Identifier
-        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.archive.nbcamp.Kkuk")
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.nbcamp.archive.Kkuk")
         // Shared path of realm config
         let realmURL = container?.appendingPathComponent("default.realm")
         // Config init

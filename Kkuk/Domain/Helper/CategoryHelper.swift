@@ -20,7 +20,7 @@ final class CategoryHelper: Storage {
     static let shared = CategoryHelper()
 
     private var database: Realm {
-        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.archive.nbcamp.Kkuk")
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.nbcamp.archive.Kkuk")
         let realmURL = container?.appendingPathComponent("default.realm")
         let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
       

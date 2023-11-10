@@ -12,7 +12,7 @@ import Foundation
 class ContentHelper {
     
     private var database: Realm {
-        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.archive.nbcamp.Kkuk")
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.nbcamp.archive.Kkuk")
         
         let realmURL = container?.appendingPathComponent("default.realm")
         
