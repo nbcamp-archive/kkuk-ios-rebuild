@@ -144,7 +144,7 @@ class ContentTableViewCell: BaseUITableViewCell {
             make.trailing.equalToSuperview()
             make.height.equalToSuperview().dividedBy(2)
             make.width.equalTo(24)
-            make.centerY.equalTo(siteTitleLabel)
+            make.top.equalTo(thumbnailImageView)
         }
     }
     
