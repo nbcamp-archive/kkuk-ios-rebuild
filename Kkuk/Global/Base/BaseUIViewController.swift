@@ -70,7 +70,7 @@ extension BaseUIViewController {
     func setIQKeyboardManagerEnable(_ enabled: Bool) {
         IQKeyboardManager.shared.enable = enabled
         IQKeyboardManager.shared.shouldResignOnTouchOutside = enabled
-        IQKeyboardManager.shared.enableAutoToolbar = !enabled
+        IQKeyboardManager.shared.enableAutoToolbar = false
     }
     
 }

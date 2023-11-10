@@ -16,22 +16,25 @@ protocol Storage {
 }
 
 final class CategoryHelper: Storage {
+    
     static let shared = CategoryHelper()
 
-    private let database: Realm
-
-    private init() {
+    private var database: Realm {
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.archive.nbcamp.Kkuk")
+        let realmURL = container?.appendingPathComponent("default.realm")
+        let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
+      
         do {
-            self.database = try Realm()
+            return try Realm(configuration: config)
         } catch {
             fatalError("Error initializing Realm: \(error)")
         }
     }
-
+    
     func getLocationOfDefaultRealm() {
         print("Realm is located at:", database.configuration.fileURL!)
     }
-
+    
     func read() -> [Category] {
         let result = database.objects(Category.self)
         let array: [Category] = Array(result)
@@ -45,13 +48,13 @@ final class CategoryHelper: Storage {
             return result
         }
     }
-
+    
     func write<T: Object>(_ object: T) {
         do {
             try database.write {
                 database.add(object, update: .modified)
             }
-
+            
         } catch {
             print(error)
         }
@@ -66,14 +69,14 @@ final class CategoryHelper: Storage {
             print(error)
         }
     }
-
+    
     func delete<T: Object>(_ object: T) {
         do {
             try database.write {
                 database.delete(object)
                 print("Delete Success")
             }
-
+            
         } catch {
             print(error)
         }
@@ -82,5 +85,4 @@ final class CategoryHelper: Storage {
     func sort<T: Object>(_ object: T.Type, by keyPath: String, ascending: Bool = true) -> Results<T> {
         return database.objects(object).sorted(byKeyPath: keyPath, ascending: ascending)
     }
-    
 }

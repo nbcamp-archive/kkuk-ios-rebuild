@@ -8,6 +8,7 @@
 import PanModal
 import SnapKit
 import UIKit
+import RealmSwift
 
 protocol PanModalTableViewControllerDelegate: AnyObject {
     func modifyTitle(title: String)
@@ -79,7 +80,21 @@ class PanModalTableViewController: BaseUIViewController {
             
             switch self.panModalOption?.screenType {
             case .category:
-                CategoryHelper.shared.delete(self.category!)
+                guard let category = self.category else { return }
+                
+                // ContentHelper 인스턴스를 생성
+                let contentHelper = ContentHelper()
+                
+                // 카테고리에 속한 콘텐츠를 찾아서 삭제
+                let contentsToDelete = contentHelper.readInCategory(at: category.id)
+                for content in contentsToDelete {
+                    contentHelper.delete(content)
+                }
+
+                // CategoryHelper를 사용하여 카테고리 삭제
+                CategoryHelper.shared.delete(category)
+                
+                // 뷰 컨트롤러 닫기
             case .content:
                 guard let content = self.content else { return }
                 self.helper.delete(content)
@@ -90,6 +105,7 @@ class PanModalTableViewController: BaseUIViewController {
             self.dismiss(animated: true)
         })
     }
+
 }
 
 extension PanModalTableViewController {

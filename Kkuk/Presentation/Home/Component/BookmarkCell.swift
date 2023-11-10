@@ -38,22 +38,22 @@ final class BookmarkCell: UICollectionViewCell {
         return label
     }()
     
-    private let circleView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .background
-        view.layer.cornerRadius = 15
-        view.layer.borderColor = UIColor.subgray3.cgColor
-        view.layer.borderWidth = 1
-        
-        return view
-    }()
-    
-    private lazy var pinButton: UIButton = {
+    private lazy var circleButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "selectedPin"), for: .normal)
+        button.backgroundColor = .background
+        button.layer.cornerRadius = 15
+        button.layer.borderColor = UIColor.subgray3.cgColor
+        button.layer.borderWidth = 1
         button.addTarget(self, action: #selector(tapPinButton), for: .touchUpInside)
         
         return button
+    }()
+    
+    private lazy var pinImage: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "selectedPin")
+        
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -64,7 +64,7 @@ final class BookmarkCell: UICollectionViewCell {
         self.layer.borderColor = UIColor.subgray2.cgColor
         self.layer.borderWidth = 0.7
         
-        addSubviews([imageView, circleView, pinButton, contentLabel])
+        addSubviews([imageView, circleButton, pinImage, contentLabel])
         setLayout()
     }
     
@@ -85,15 +85,15 @@ final class BookmarkCell: UICollectionViewCell {
             constraint.height.equalTo(40)
         }
         
-        circleView.snp.makeConstraints { constraint in
+        circleButton.snp.makeConstraints { constraint in
             constraint.trailing.equalTo(-11)
             constraint.width.height.equalTo(30)
             constraint.top.equalTo(imageView.snp.top).offset(10)
         }
         
-        pinButton.snp.makeConstraints { constraint in
-            constraint.centerX.equalTo(circleView.snp.centerX)
-            constraint.centerY.equalTo(circleView.snp.centerY)
+        pinImage.snp.makeConstraints { constraint in
+            constraint.centerX.equalTo(circleButton.snp.centerX)
+            constraint.centerY.equalTo(circleButton.snp.centerY)
             constraint.height.equalTo(18)
             constraint.width.equalTo(12)
         }
