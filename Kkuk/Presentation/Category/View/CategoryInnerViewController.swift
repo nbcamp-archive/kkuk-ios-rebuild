@@ -62,7 +62,6 @@ class CategoryInnerViewController: BaseUIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBar()
@@ -200,7 +199,13 @@ extension CategoryInnerViewController: ContentTableViewCellDelegate {
                      PanModalOption.Title.share,
                      PanModalOption.Title.cancel]
         let option = PanModalOption(screenType: .content, title: title)
-        let modalVC = PanModalTableViewController(option: option, content: content)
+        let modalVC = PanModalTableViewController(option: PanModalOption(screenType: .content, title: title), content: content, completion: { [weak self] in
+            let contents = self?.contentManager.readInCategory(at: self?.category?.id ?? Category().id).map { $0 as Content }
+            self?.recentItems = contents ?? []
+            self?.navigationController?.title = self?.category?.name
+            self?.contentTableView.reloadData()
+        })
+
         modalVC.modalPresentationStyle = .popover
         presentPanModal(modalVC)
     }
