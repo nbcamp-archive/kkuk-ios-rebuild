@@ -262,7 +262,9 @@ extension SearchContentViewController: ContentTableViewCellDelegate {
                      PanModalOption.Title.share,
                      PanModalOption.Title.cancel]
         let option = PanModalOption(screenType: .content, title: title)
-        let modalVC = PanModalTableViewController(option: option, content: content)
+        let modalVC = PanModalTableViewController(option: PanModalOption(screenType: .content, title: title), content: content, completion: {
+            self.reloadData()
+        })
         modalVC.modalPresentationStyle = .popover
         presentPanModal(modalVC)
     }
