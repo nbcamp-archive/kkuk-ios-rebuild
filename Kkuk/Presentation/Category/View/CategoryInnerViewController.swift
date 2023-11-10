@@ -143,8 +143,6 @@ extension CategoryInnerViewController {
 }
 
 extension CategoryInnerViewController: PanModalTableViewControllerDelegate {
-    func dismissModal() {}
-    
     func modifyTitle(title: String) {
         navigationItem.title = title
     }

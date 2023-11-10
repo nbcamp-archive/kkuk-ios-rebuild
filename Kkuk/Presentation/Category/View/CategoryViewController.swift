@@ -171,8 +171,6 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension CategoryViewController: AddCategoryViewControllerDelegate {
-    func dismissModal() {}
-
     func reloadTableView() {
         emptyCategoryLabel.isHidden = true
         category = categoryHelper.read()

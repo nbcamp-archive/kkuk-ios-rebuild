@@ -10,7 +10,6 @@ import UIKit
 
 protocol AddCategoryViewControllerDelegate: AnyObject {
     func reloadTableView()
-    func dismissModal()
 }
 
 class AddCategoryViewController: BaseUIViewController {
@@ -230,7 +229,7 @@ extension AddCategoryViewController {
         
         showAlertOneButton(title: "", message: "카테고리가 정상적으로 \(title) 되었습니다.", completion: {
             self.dismiss(animated: true, completion: nil)
-            self.delegate?.dismissModal()
+            self.delegate?.reloadTableView()
         })
     }
     
