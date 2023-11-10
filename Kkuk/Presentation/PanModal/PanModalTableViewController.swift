@@ -15,8 +15,6 @@ protocol PanModalTableViewControllerDelegate: AnyObject {
 }
 
 class PanModalTableViewController: BaseUIViewController {
-    private var completion: ((Void) -> Void)?
-
     private var category: Category?
 
     private var modifyTitle: String?
@@ -42,11 +40,10 @@ class PanModalTableViewController: BaseUIViewController {
         return tableView
     }()
     
-    init(option: PanModalOption, content: Content? = nil, completion: ((Void) -> Void)? = nil) {
+    init(option: PanModalOption, content: Content? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.panModalOption = option
         self.content = content
-        self.completion = completion
     }
     
     required init?(coder: NSCoder) {

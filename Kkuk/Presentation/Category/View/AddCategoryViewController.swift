@@ -14,8 +14,6 @@ protocol AddCategoryViewControllerDelegate: AnyObject {
 }
 
 class AddCategoryViewController: BaseUIViewController {
-    private var completion: ((Void) -> Void)?
-
     // MARK: - 변수
     let cellSpacing: CGFloat = 4
     
@@ -68,11 +66,10 @@ class AddCategoryViewController: BaseUIViewController {
         return collectionView
     }()
     
-    init(isAddCategory: Bool = true, modifyCategory: Category? = nil, completion: ((Void) -> Void)? = nil) {
+    init(isAddCategory: Bool = true, modifyCategory: Category? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.modifyCategory = modifyCategory
         self.isAddCategory = isAddCategory
-        self.completion = completion
     }
     
     required init?(coder: NSCoder) {

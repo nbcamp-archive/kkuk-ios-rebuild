@@ -10,8 +10,6 @@ import UIKit
 import RealmSwift
 
 class CategoryInnerViewController: BaseUIViewController {
-    private var completion: ((Void) -> Void)?
-
     private var contentManager = ContentHelper()
     
     private var recentItems: [Content] = [] {
@@ -61,11 +59,6 @@ class CategoryInnerViewController: BaseUIViewController {
         button.tintColor = .text1
         return button
     }()
-
-    init(completion: ((Void) -> Void)? = nil) {
-        super.init(nibName: nil, bundle: nil)
-        self.completion = completion
-    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

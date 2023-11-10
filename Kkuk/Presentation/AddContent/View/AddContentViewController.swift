@@ -33,9 +33,7 @@ class AddContentViewController: BaseUIViewController {
     private var modifyContent: Content?
     
     weak var delegate: AddContetnViewControllerDelegate?
-    
-    private var completion: ((Void) -> Void)?
-    
+        
     // MARK: - 컴포넌트
     private lazy var addContentButton = CompleteButton(frame: .zero)
     
@@ -104,11 +102,10 @@ class AddContentViewController: BaseUIViewController {
         return view
     }()
 
-    init(isAddContent: Bool = true, modifyContent: Content? = nil, completion: ((Void) -> Void)? = nil) {
+    init(isAddContent: Bool = true, modifyContent: Content? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.modifyContent = modifyContent
         self.isAddContent = isAddContent
-        self.completion = completion
     }
     
     required init?(coder: NSCoder) {
