@@ -20,6 +20,7 @@ class SearchContentViewController: BaseUIViewController {
         searchBar.placeholder = "검색어를 입력하세요"
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
+        searchBar.searchTextField.configureCommonStyle()
         searchBar.searchTextField.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
@@ -43,6 +44,7 @@ class SearchContentViewController: BaseUIViewController {
         tableView.register(ContentTableViewCell.self, forCellReuseIdentifier: "ContentTableViewCell")
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.backgroundColor = .background
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
     
@@ -65,8 +67,11 @@ class SearchContentViewController: BaseUIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        searchBar.text = ""
-        toggleContainerViewVisibility(isShow: true)
+        guard let presentedViewController = self.presentedViewController as? PanModalTableViewController else {
+            searchBar.text = ""
+            toggleContainerViewVisibility(isShow: true)
+            return }
+
     }
     
     override func setTopView() {
@@ -198,17 +203,13 @@ extension SearchContentViewController: UISearchBarDelegate {
     }
     
     func toggleTextFieldStyle(isTapped: Bool) {
+
         if isTapped {
-            searchBar.searchTextField.backgroundColor = .background
-            searchBar.searchTextField.layer.borderWidth = 2
-            searchBar.searchTextField.layer.cornerRadius = 5
-            searchBar.searchTextField.layer.borderColor = UIColor.main.cgColor
-            searchBar.searchTextField.layer.masksToBounds = true
+            searchBar.searchTextField.configureForEditing()
+            searchBar.setSearchFieldBackgroundImage(UIImage(), for: .normal)
+
         } else {
-            searchBar.searchTextField.backgroundColor = .clear
-            searchBar.searchTextField.layer.borderWidth = 0
-            searchBar.searchTextField.layer.borderColor = .none
-            searchBar.searchTextField.resignFirstResponder()
+            searchBar.searchTextField.configureCommonStyle()
         }
         
         setIQKeyboardManagerEnable(isTapped)
@@ -229,7 +230,6 @@ extension SearchContentViewController: UITableViewDataSource, UITableViewDelegat
         cell.configureCell(content: content, index: indexPath.row)
         cell.delegate = self
         cell.selectionStyle = .none
-        cell.delegate = self
         return cell
     }
     

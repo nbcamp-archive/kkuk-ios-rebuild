@@ -39,7 +39,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         let label = UILabel()
         label.text = "내 마음에 드는 콘텐츠를, 꾹"
         label.font = .subtitle2
-        label.textColor = .background
+        label.textColor = .white
         
         return label
     }()
@@ -48,7 +48,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         let label = UILabel()
         label.text = "즐겨찾기"
         label.font = .title1
-        label.textColor = .background
+        label.textColor = .white
         
         return label
     }()

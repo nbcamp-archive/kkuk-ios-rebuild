@@ -73,31 +73,37 @@ class PanModalTableViewController: BaseUIViewController {
     }
 
     private func presentDeleteAlert() {
-        let alert = UIAlertController(title: "", message: "카테고리를 삭제하시겠습니까?", preferredStyle: .alert)
+        
+        let title = panModalOption?.screenType == .category ? "카테고리" : "콘텐츠"
+        
+        showAlertTwoButton(title: "\(title)를 삭제하시겠습니까?", message: nil, actionCompletion: {
+            
+            switch self.panModalOption?.screenType {
+            case .category:
+                guard let category = self.category else { return }
+                
+                // ContentHelper 인스턴스를 생성
+                let contentHelper = ContentHelper()
+                
+                // 카테고리에 속한 콘텐츠를 찾아서 삭제
+                let contentsToDelete = contentHelper.readInCategory(at: category.id)
+                for content in contentsToDelete {
+                    contentHelper.delete(content)
+                }
 
-        alert.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [weak self] _ in
-            guard let self = self, let category = self.category else { return }
-            
-            // ContentHelper 인스턴스를 생성
-            let contentHelper = ContentHelper()
-            
-            // 카테고리에 속한 콘텐츠를 찾아서 삭제
-            let contentsToDelete = contentHelper.readInCategory(at: category.id)
-            for content in contentsToDelete {
-                contentHelper.delete(content)
+                // CategoryHelper를 사용하여 카테고리 삭제
+                CategoryHelper.shared.delete(category)
+                
+                // 뷰 컨트롤러 닫기
+            case .content:
+                guard let content = self.content else { return }
+                self.helper.delete(content)
+            default: return
             }
 
-            // CategoryHelper를 사용하여 카테고리 삭제
-            CategoryHelper.shared.delete(category)
-            
-            // 뷰 컨트롤러 닫기
             self.selfNavi?.popToRootViewController(animated: true)
             self.dismiss(animated: true)
-        }))
-
-        alert.addAction(UIAlertAction(title: "취소", style: .default))
-
-        present(alert, animated: true, completion: nil)
+        })
     }
 
 }
@@ -140,9 +146,7 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
     func didSelectedCategoryScreen(_ menu: PanModalOption.Title) {
         switch menu {
         case .modify:
-            let viewController = EditCategoryViewController()
-            viewController.category = category
-            viewController.delegate = self
+            let viewController = AddCategoryViewController(isAddCategory: false, modifyCategory: category)
             presentFromPanModal(to: viewController)
         case .delete:
             self.presentDeleteAlert()
@@ -161,10 +165,7 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
             let viewController = AddContentViewController(isAddContent: false, modifyContent: content)
             presentFromPanModal(to: viewController)
         case .delete:
-            showAlert(title: "삭제하시겠습니까?", message: nil, completion: {
-                self.helper.delete(content)
-                self.dismiss(animated: true)
-            })
+            presentDeleteAlert()
         case .share:
             guard let url = URL(string: content.sourceURL) else { return }
             let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
@@ -178,16 +179,6 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
         navigationController.modalPresentationStyle = .fullScreen
         navigationController.modalTransitionStyle = .coverVertical
         present(navigationController, animated: true)
-    }
-}
-
-extension PanModalTableViewController: EditCategoryViewControllerDelegate {
-    func dismissModal() {
-        dismiss(animated: true)
-    }
-
-    func setTitle(title: String) {
-        modifyTitle = title
     }
 }
 

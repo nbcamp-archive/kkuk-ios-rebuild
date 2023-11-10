@@ -20,6 +20,7 @@ class SettingViewController: BaseUIViewController {
         view.separatorStyle = .none
         view.register(SettingItemCell.self, forCellReuseIdentifier: SettingItemCell.identifier)
         view.rowHeight = CGFloat(52)
+        view.showsVerticalScrollIndicator = false
         return view
     }()
     
@@ -65,7 +66,7 @@ class SettingViewController: BaseUIViewController {
         // tableView 제약 조건을 설정
         tableView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.top.equalTo(topView.snp.bottom).offset(20)
+            make.top.equalTo(topView.snp.bottom)
             make.bottom.equalTo(clearDataButton.snp.top).offset(-20)
         }
         

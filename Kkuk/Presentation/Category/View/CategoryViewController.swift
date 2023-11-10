@@ -24,8 +24,8 @@ class CategoryViewController: BaseUIViewController {
         return button
     }()
     
-    private lazy var middleFrameView: UIStackView = {
-        let view = UIStackView()
+    private lazy var middleFrameView: UIView = {
+        let view = UIView()
         view.backgroundColor = .background
         
         return view
@@ -35,6 +35,8 @@ class CategoryViewController: BaseUIViewController {
         let tableView = UITableView()
         tableView.backgroundColor = .background
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategoryTableViewCell")
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
     
@@ -91,11 +93,13 @@ class CategoryViewController: BaseUIViewController {
             $0.centerY.equalTo(topTitle)
             $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
-        middleFrameView.snp.makeConstraints {
-            $0.top.equalTo(topView.snp.bottom)
-            $0.trailing.leading.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        
+        middleFrameView.snp.makeConstraints { make in
+            make.top.equalTo(topView.snp.bottom).offset(16)
+            make.trailing.leading.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+        
         emptyCategoryLabel.snp.makeConstraints {
             $0.center.equalTo(middleFrameView)
         }

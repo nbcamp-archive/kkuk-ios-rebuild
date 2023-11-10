@@ -14,33 +14,20 @@ protocol AddCategoryViewControllerDelegate: AnyObject {
 
 class AddCategoryViewController: BaseUIViewController {
     
-    weak var delegate: AddCategoryViewControllerDelegate?
+    // MARK: - 변수
+    let cellSpacing: CGFloat = 4
     
+    var iconId: Int?
+    
+    var isAddCategory: Bool = true
+    var modifyCategory: Category?
+    
+    weak var delegate: AddCategoryViewControllerDelegate?
     private var categoryHelper = CategoryHelper.shared
     
-    private var category = Category()
-    
-    private var categoryName: String = ""
-    
-    private var index: Int?
-    
-    private let iconImageNames = [
-        "trip", "cafe", "education", "animal", "plant",
-        "book", "food", "tech", "finance", "car",
-        "baby", "interier", "health", "exercise", "music",
-        "shopping", "kitchen", "fashion", "culture", "beauty"
-    ]
-    
-    private var selectedIcon: UIImage? // 선택된 아이콘 변수
-    
-    private var selectedIconButton: IconSelectButton?
-    
-    private var iconButtons: [IconSelectButton] = []
-    
+    // MARK: - 컴포넌트
     private lazy var induceCategoryNameLabel = InduceLabel(text: "카테고리 이름 입력하기", font: .title2)
-    
     private lazy var induceCategoryIconLabel = InduceLabel(text: "아이콘 선택하기", font: .title2)
-    
     private lazy var addCategoryButton = CompleteButton(frame: .zero)
     
     private lazy var categoryNameTextCountLabel: UILabel = {
@@ -54,12 +41,8 @@ class AddCategoryViewController: BaseUIViewController {
     
     private lazy var categoryNameTextField: UITextField = {
         let textField = UITextField()
-        textField.borderStyle = .roundedRect
-        textField.backgroundColor = .subgray3
-        textField.clearButtonMode = .whileEditing
-        textField.font = .body1
+        textField.configureCommonStyle()
         textField.placeholder = "카테고리 이름을 입력해주세요."
-        textField.tintColor = .main
         return textField
     }()
     
@@ -68,22 +51,49 @@ class AddCategoryViewController: BaseUIViewController {
         barButtonItem.target = self
         return barButtonItem
     }()
+    
+    private lazy var iconCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.minimumLineSpacing = 20
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(AddCategoryIconCollectionViewCell.self,
+                                forCellWithReuseIdentifier: "AddCategoryIconCollectionViewCell")
+        collectionView.backgroundColor = .background
+        
+        return collectionView
+    }()
+    
+    init(isAddCategory: Bool = true, modifyCategory: Category? = nil) {
+        super.init(nibName: nil, bundle: nil)
+        self.modifyCategory = modifyCategory
+        self.isAddCategory = isAddCategory
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if !isAddCategory {
+            configureForEditing()
+        }
+    }
 
+    // MARK: - Setup
     override func setUI() {
         setNavigationBar()
         
-        view.addSubviews([induceCategoryNameLabel, categoryNameTextField,
-                          categoryNameTextCountLabel, induceCategoryIconLabel, addCategoryButton])
-        
-        iconImageNames.forEach { imageName in
-            let button = IconSelectButton()
-            _ = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
-            
-            button.setImage(UIImage(named: imageName), for: .normal)
-            button.addTarget(self, action: #selector(iconButtonTapped(_:)), for: .touchUpInside)
-            iconButtons.append(button)
-            view.addSubview(button)
-        }
+        view.addSubviews([induceCategoryNameLabel,
+                          categoryNameTextField,
+                          categoryNameTextCountLabel,
+                          induceCategoryIconLabel,
+                          addCategoryButton,
+                          iconCollectionView])
     }
     
     override func setLayout() {
@@ -92,44 +102,30 @@ class AddCategoryViewController: BaseUIViewController {
             $0.leading.equalTo(20)
             $0.trailing.equalTo(-20)
         }
+        
         categoryNameTextField.snp.makeConstraints {
-            $0.top.equalTo(induceCategoryNameLabel.snp.bottom).offset(14)
+            $0.top.equalTo(induceCategoryNameLabel.snp.bottom).offset(12)
             $0.leading.trailing.equalTo(induceCategoryNameLabel)
             $0.height.equalTo(48)
         }
+        
         categoryNameTextCountLabel.snp.makeConstraints {
-            $0.top.equalTo(categoryNameTextField.snp.bottom).offset(5)
+            $0.top.equalTo(categoryNameTextField.snp.bottom).offset(4)
             $0.trailing.equalTo(induceCategoryNameLabel)
         }
+        
         induceCategoryIconLabel.snp.makeConstraints {
-            $0.top.equalTo(categoryNameTextCountLabel.snp.bottom).offset(14)
+            $0.top.equalTo(categoryNameTextCountLabel.snp.bottom).offset(12)
             $0.leading.trailing.equalTo(induceCategoryNameLabel)
         }
         
-        let buttonsPerRow = 5
-        for (index, button) in iconButtons.enumerated() {
-            button.snp.makeConstraints {
-                // 행과 열 계산
-                let row = index / buttonsPerRow
-                let col = index % buttonsPerRow
-                
-                if col == 0 {
-                    $0.leading.equalTo(view.snp.leading).offset(36) // 첫 번째 열
-                } else {
-                    $0.leading.equalTo(iconButtons[index - 1].snp.trailing).offset(20) // 이전 버튼 오른쪽
-                }
-                
-                if row == 0 {
-                    $0.top.equalTo(induceCategoryIconLabel.snp.bottom).offset(20) // 첫 번째 행
-                } else {
-                    $0.top.equalTo(iconButtons[index - buttonsPerRow].snp.bottom).offset(20) // 이전 행 아래쪽
-                }
-                
-                $0.width.equalTo(48)
-                $0.height.equalTo(48)
-            }
+        iconCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(induceCategoryIconLabel.snp.bottom).offset(12)
+            make.leading.trailing.equalToSuperview().inset(20)
         }
+        
         addCategoryButton.snp.makeConstraints {
+            $0.top.equalTo(iconCollectionView.snp.bottom).offset(12)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
             $0.leading.trailing.equalTo(induceCategoryNameLabel)
             $0.height.equalTo(60)
@@ -137,7 +133,7 @@ class AddCategoryViewController: BaseUIViewController {
     }
     
     override func setNavigationBar() {
-        title = "카테고리 추가"
+        title = isAddCategory ? "카테고리 추가" : "카테고리 수정"
         
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = [ NSAttributedString.Key.font: UIFont.title3 ]
@@ -156,8 +152,6 @@ class AddCategoryViewController: BaseUIViewController {
     }
     
     override func addTarget() {
-        categoryNameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
         addCategoryButton.addTarget(self, action: #selector(addCategoryButtonDidTap), for: .touchUpInside)
     }
 }
@@ -167,118 +161,88 @@ class AddCategoryViewController: BaseUIViewController {
 extension AddCategoryViewController {
     
     private func updateAddCategoryButtonState() {
-        if !categoryName.isEmpty, categoryName != "" {
-            addCategoryButton.setUI(to: .enable)
-        } else {
+        guard let categoryName = categoryNameTextField.text, !categoryName.isEmpty,
+              let seletedIconId = iconId, !seletedIconId.words.isEmpty else {
             addCategoryButton.setUI(to: .disable)
+            return
         }
+        addCategoryButton.setUI(to: .enable)
     }
     
-}
-// MARK: - @objc
-
-extension AddCategoryViewController {
-    
-    @objc
-    private func textFieldDidChange(_ textField: UITextField) {
-        categoryName = categoryNameTextField.text ?? ""
+    private func configureForEditing() {
+        guard let modifyCategory = modifyCategory else { return }
         
-        updateAddCategoryButtonState()
-    }
-    
-    @objc
-    private func iconButtonTapped(_ sender: IconSelectButton) {
-        // 기존 선택된 버튼의 오버레이 뷰 제거
-        selectedIconButton?.subviews.forEach { if $0.tag == 999 { $0.removeFromSuperview() } }
+        categoryNameTextField.text = modifyCategory.name
         
-        // 버튼의 이미지 뷰의 프레임을 사용하여 오버레이 뷰의 프레임 설정
-        if let imageViewFrame = sender.imageView?.frame {
-            let overlayView = UIView(frame: imageViewFrame)
-            overlayView.backgroundColor = UIColor(white: 0.5, alpha: 0.5) // 원하는 색상으로 변경
-            overlayView.tag = 999 // 오버레이 뷰 구분을 위한 태그 설정
-            
-            // 오버레이 뷰의 모서리를 둥글게 만들기
-            overlayView.layer.cornerRadius = overlayView.frame.height / 2
-            // 만약 버튼이 완벽한 원이면 이 값을 사용
-            overlayView.clipsToBounds = true // 뷰의 경계 내부만 보이게 설정
-            
-            sender.addSubview(overlayView)
-        }
-        
-        // 선택된 버튼 업데이트
-        selectedIconButton = sender
-        
-        for (index, button) in iconButtons.enumerated() {
-            if button == sender {
-                self.index = index
-                button.isSelected = true
+        for index in Asset.iconImageList.indices {
+            if index == modifyCategory.iconId {
+                let indexPath = IndexPath(item: index, section: 0)
+                iconCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
             } else {
-                button.isSelected = false
+                let indexPath = IndexPath(item: index, section: 0)
+                iconCollectionView.deselectItem(at: indexPath, animated: false)
             }
         }
     }
     
-    @objc
-    private func addCategoryButtonDidTap() {
-        guard let text = categoryNameTextField.text, !text.isEmpty else {
-            print("카테고리 이름을 입력해주세요") // 입력 필드가 비어 있을 경우 알림 또는 처리
-            return
-        }
+    private func addCategory() {
+        guard let categoryName = categoryNameTextField.text, let selectedIconId = iconId  else { return }
         
-        guard let iconIndex = index else {
-            print("인덱스를 선택해주세요") // 입력 필드가 비어 있을 경우 알림 또는 처리
-            return
-        }
-        
-        // 카테고리 이름 저장
-        categoryName = text
+        let category = Category()
         category.name = categoryName
-        index = iconIndex
-        category.iconId = index!
+        category.iconId = selectedIconId
 
-        // realm을 사용하여 텍스트 필드에 입력된 카테고리 이름 저장
         categoryHelper.write(category)
+    }
+    
+    private func updateCategory() {
+        guard let categoryName = categoryNameTextField.text,
+              let selectedIconId = iconId,
+              let modifyCategory = modifyCategory else { return }
         
-        // 선택된 아이콘 저장
-        for button in iconButtons where button.isSelected {
-            selectedIcon = button.imageView?.image
-            break
+        categoryHelper.update(modifyCategory, completion: { modifyCategory in
+            modifyCategory.name = categoryName
+            modifyCategory.iconId = selectedIconId
+        })
+    }
+}
+
+// MARK: - @objc
+
+extension AddCategoryViewController {
+    @objc private func addCategoryButtonDidTap() {
+
+        if isAddCategory {
+            addCategory()
+        } else {
+            updateCategory()
         }
         
-        presentSuccessAlert()
+        let title = isAddCategory ? "추가" : "수정"
+        
+        showAlertOneButton(title: "", message: "카테고리가 정상적으로 \(title) 되었습니다.", completion: {
+            self.delegate?.reloadTableView()
+            self.dismiss(animated: true, completion: nil)
+        })
     }
     
     @objc func closeButtonItemDidTap() {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    private func presentSuccessAlert() {
-        let alert = UIAlertController(title: "", message: "카테고리가 정상적으로 추가 되었습니다.", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-            self.delegate?.reloadTableView()
-            self.dismiss(animated: true, completion: nil)
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
-    }
 }
 // MARK: - 텍스트필드 델리게이트
-
 extension AddCategoryViewController: UITextFieldDelegate {
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        categoryNameTextField.backgroundColor = .background
-        categoryNameTextField.layer.borderWidth = CGFloat(2)
-        categoryNameTextField.layer.cornerRadius = CGFloat(5)
-        categoryNameTextField.layer.borderColor = UIColor.main.cgColor
-        categoryNameTextField.layer.masksToBounds = true
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        updateAddCategoryButtonState()
     }
-    
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.configureForEditing()
+    }
+
     func textFieldDidEndEditing(_ textField: UITextField) {
-        categoryNameTextField.backgroundColor = .subgray3
-        categoryNameTextField.layer.borderWidth = CGFloat(0)
-        categoryNameTextField.layer.borderColor = .none
+        textField.configureCommonStyle()
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -293,5 +257,42 @@ extension AddCategoryViewController: UITextFieldDelegate {
         categoryNameTextCountLabel.text = "\(newLength)/20자"
         
         return newLength < 20
+    }
+}
+
+// MARK: - 콜렉션뷰 델리게이트
+extension AddCategoryViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return Asset.iconImageList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellName = "AddCategoryIconCollectionViewCell"
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellName,
+                                                         for: indexPath) as? AddCategoryIconCollectionViewCell {
+            cell.configuration(index: indexPath.row)
+            return cell
+        }
+        
+        return BaseUICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = (collectionView.bounds.width / 5) - (cellSpacing * 4)
+        return CGSize(width: size, height: size)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? AddCategoryIconCollectionViewCell {
+            cell.isSelected = true
+            iconId = indexPath.row
+            updateAddCategoryButtonState()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? AddCategoryIconCollectionViewCell {
+            cell.isSelected = false
+        }
     }
 }

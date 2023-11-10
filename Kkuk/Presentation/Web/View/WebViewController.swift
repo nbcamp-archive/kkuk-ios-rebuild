@@ -166,33 +166,18 @@ extension WebViewController: WKUIDelegate {
 
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String,
                  initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
-        let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
-        
-        let confirmAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
+        showAlertOneButton(title: "", message: message, completion: {
             completionHandler()
         })
-        
-        alertController.addAction(confirmAction)
-        
-        self.present(alertController, animated: true, completion: nil)
     }
 
     func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String,
                  initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
-        let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+        showAlertTwoButton(title: "", message: message, actionCompletion: {
             completionHandler(true)
-        }
-        
-        let cancelAction = UIAlertAction(title: "취소", style: .default) { _ in
+        }, cancelCompletion: {
             completionHandler(false)
-        }
-        
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        
-        self.present(alertController, animated: true, completion: nil)
+        })
     }
 
     func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String,

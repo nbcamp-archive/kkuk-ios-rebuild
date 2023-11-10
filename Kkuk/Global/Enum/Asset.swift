@@ -41,6 +41,11 @@ enum Asset {
     static var shopping: UIImage { .loadAsset(named: "shopping") }
     static var trip: UIImage { .loadAsset(named: "trip") }
     
+    static var iconImageList: [UIImage] = [
+        animal, baby, beauty, book, cafe, car, culture, education, exercise, fashion,
+        finance, food, health, interier, tech, kitchen, music, plant, shopping, trip
+    ]
+    
     // MARK: - CategoryInnerView
     
     static var editCategory: UIImage { .loadAsset(named: "lucide_circle_ellipsis") }

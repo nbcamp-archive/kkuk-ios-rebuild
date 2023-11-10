@@ -27,9 +27,6 @@ final class BookmarkCell: UICollectionViewCell {
         view.contentMode = .scaleAspectFill
         view.backgroundColor = .subgray3
         view.clipsToBounds = true
-        view.layer.borderColor = UIColor.subgray2.cgColor
-        view.layer.borderWidth = 0.7
-        
         return view
     }()
     
@@ -64,6 +61,8 @@ final class BookmarkCell: UICollectionViewCell {
         self.backgroundColor = .background
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 12
+        self.layer.borderColor = UIColor.subgray2.cgColor
+        self.layer.borderWidth = 0.7
         
         addSubviews([imageView, circleButton, pinImage, contentLabel])
         setLayout()
