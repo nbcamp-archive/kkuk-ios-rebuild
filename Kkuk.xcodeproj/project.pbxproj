@@ -98,7 +98,6 @@
 		555C50472AFC6E37000E6B72 /* SegmentMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B933F2AF89D3B0006B348 /* SegmentMenu.swift */; };
 		555C50482AFC6E7E000E6B72 /* OpenGraphService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79F0012AE7E94400B5A97A /* OpenGraphService.swift */; };
 		555C504A2AFC6E9A000E6B72 /* HTMLParseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C79EFFF2AE7E6EF00B5A97A /* HTMLParseService.swift */; };
-		555C504B2AFC6F5D000E6B72 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD225642AE7883B009CA421 /* AddCategoryView.swift */; };
 		555C504F2AFCC353000E6B72 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 555C504E2AFCC353000E6B72 /* Kingfisher */; };
 		555C50512AFCC368000E6B72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555C50502AFCC368000E6B72 /* UIKit.framework */; };
 		55791AC02AE7AEC7005C06C4 /* CategoryInnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55791ABF2AE7AEC7005C06C4 /* CategoryInnerViewController.swift */; };
@@ -112,7 +111,6 @@
 		C352F4AA2AEB81170016398A /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4A92AEB81170016398A /* Content.swift */; };
 		C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */; };
 		C3D641F82AF92ABE00DA39E4 /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D641F72AF92ABE00DA39E4 /* BookmarkCell.swift */; };
-		ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD225642AE7883B009CA421 /* AddCategoryView.swift */; };
 		ECF81C432AE050FF000C05DC /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF81C422AE050FF000C05DC /* AddCategoryViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -236,7 +234,6 @@
 		C352F4AD2AEB87330016398A /* ContentHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentHelper.swift; sourceTree = "<group>"; };
 		C3A65F012ADEFBC500A100A7 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
 		C3D641F72AF92ABE00DA39E4 /* BookmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
-		ECD225642AE7883B009CA421 /* AddCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryView.swift; sourceTree = "<group>"; };
 		ECF81C422AE050FF000C05DC /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -553,7 +550,6 @@
 			isa = PBXGroup;
 			children = (
 				55791AC22AE7AED9005C06C4 /* CategoryTableViewCell.swift */,
-				ECD225642AE7883B009CA421 /* AddCategoryView.swift */,
 				0A70AB8E2AFCEC5900CAAC48 /* AddCategoryIconCollectionViewCell.swift */,
 			);
 			path = Component;
@@ -939,7 +935,6 @@
 				1C688AF62AFA913500E27714 /* ContentHelper.swift in Sources */,
 				1CAEBE692AEBFD5500FF4CF2 /* InduceLabel.swift in Sources */,
 				1C328F892AE92F8D0040D883 /* WebViewController.swift in Sources */,
-				ECD225652AE7883B009CA421 /* AddCategoryView.swift in Sources */,
 				1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */,
 				0A7B93402AF89D3B0006B348 /* SegmentMenu.swift in Sources */,
 				1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */,
@@ -1026,7 +1021,6 @@
 				555C50452AFC6E22000E6B72 /* ContentHelper.swift in Sources */,
 				555C50202AFC59E3000E6B72 /* UIColor+AppColor.swift in Sources */,
 				555C50472AFC6E37000E6B72 /* SegmentMenu.swift in Sources */,
-				555C504B2AFC6F5D000E6B72 /* AddCategoryView.swift in Sources */,
 				555C50412AFC6B24000E6B72 /* Category.swift in Sources */,
 				555C502E2AFC6205000E6B72 /* BaseUICollectionViewCell.swift in Sources */,
 				555C50482AFC6E7E000E6B72 /* OpenGraphService.swift in Sources */,
