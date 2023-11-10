@@ -158,11 +158,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewController = CategoryInnerViewController(completion: {
-            self.emptyCategoryLabel.isHidden = true
-            self.category = self.categoryHelper.read()
-            self.categoryTableView.reloadData()
-        })
+        let viewController = CategoryInnerViewController()
         viewController.setCategory(category: category[indexPath.row])
         navigationController?.pushViewController(viewController, animated: true)
 
@@ -175,8 +171,6 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension CategoryViewController: AddCategoryViewControllerDelegate {
-    func dismissModal() {}
-
     func reloadTableView() {
         emptyCategoryLabel.isHidden = true
         category = categoryHelper.read()

@@ -10,8 +10,6 @@ import UIKit
 import RealmSwift
 
 class CategoryInnerViewController: BaseUIViewController {
-    private var completion: ((Void) -> Void)?
-
     private var contentManager = ContentHelper()
     
     private var recentItems: [Content] = [] {
@@ -61,15 +59,6 @@ class CategoryInnerViewController: BaseUIViewController {
         button.tintColor = .text1
         return button
     }()
-
-    init(completion: ((Void) -> Void)? = nil) {
-        super.init(nibName: nil, bundle: nil)
-        self.completion = completion
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,10 +132,7 @@ extension CategoryInnerViewController {
                      PanModalOption.Title.delete,
                      PanModalOption.Title.cancel]
         
-        let customVC = PanModalTableViewController(option: PanModalOption(screenType: .category, title: title)) { [weak self] in
-            self?.completion?(())
-        }
-
+        let customVC = PanModalTableViewController(option: PanModalOption(screenType: .category, title: title))
         customVC.delegate = self
         customVC.modalPresentationStyle = .popover
         customVC.selfNavi = navigationController
@@ -157,8 +143,6 @@ extension CategoryInnerViewController {
 }
 
 extension CategoryInnerViewController: PanModalTableViewControllerDelegate {
-    func dismissModal() {}
-    
     func modifyTitle(title: String) {
         navigationItem.title = title
     }
@@ -213,12 +197,7 @@ extension CategoryInnerViewController: ContentTableViewCellDelegate {
                      PanModalOption.Title.share,
                      PanModalOption.Title.cancel]
         let option = PanModalOption(screenType: .content, title: title)
-        let modalVC = PanModalTableViewController(option: PanModalOption(screenType: .content, title: title), content: content, completion: { [weak self] in
-            let contents = self?.contentManager.readInCategory(at: self?.category?.id ?? Category().id).map { $0 as Content }
-            self?.recentItems = contents ?? []
-            self?.navigationController?.title = self?.category?.name
-            self?.contentTableView.reloadData()
-        })
+        let modalVC = PanModalTableViewController(option: PanModalOption(screenType: .content, title: title), content: content)
 
         modalVC.modalPresentationStyle = .popover
         presentPanModal(modalVC)

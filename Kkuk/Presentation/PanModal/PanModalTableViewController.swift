@@ -15,8 +15,6 @@ protocol PanModalTableViewControllerDelegate: AnyObject {
 }
 
 class PanModalTableViewController: BaseUIViewController {
-    private var completion: ((Void) -> Void)?
-
     private var category: Category?
 
     private var modifyTitle: String?
@@ -42,11 +40,10 @@ class PanModalTableViewController: BaseUIViewController {
         return tableView
     }()
     
-    init(option: PanModalOption, content: Content? = nil, completion: ((Void) -> Void)? = nil) {
+    init(option: PanModalOption, content: Content? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.panModalOption = option
         self.content = content
-        self.completion = completion
     }
     
     required init?(coder: NSCoder) {
@@ -149,9 +146,8 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
     func didSelectedCategoryScreen(_ menu: PanModalOption.Title) {
         switch menu {
         case .modify:
-            let viewController = AddCategoryViewController(isAddCategory: false, modifyCategory: category) { [weak self] in
-                self?.completion?(())
-            }
+            
+            let viewController = AddCategoryViewController(isAddCategory: false, modifyCategory: category)
             viewController.delegate = self
             presentFromPanModal(to: viewController)
         case .delete:
@@ -168,10 +164,7 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
         
         switch menu {
         case .modify:
-            let viewController = AddContentViewController(isAddContent: false, modifyContent: content) { [weak self] in
-                self?.completion?(())
-            }
-            viewController.delegate = self
+            let viewController = AddContentViewController(isAddContent: false, modifyContent: content)
             presentFromPanModal(to: viewController)
         case .delete:
             presentDeleteAlert()
@@ -213,11 +206,6 @@ extension PanModalTableViewController: PanModalPresentable {
     }
 }
 
-extension PanModalTableViewController: AddCategoryViewControllerDelegate, AddContetnViewControllerDelegate {
-    func dismissModal() {
-        completion?(())
-        dismiss(animated: false)
-    }
-
+extension PanModalTableViewController: AddCategoryViewControllerDelegate {
     func reloadTableView() {}
 }

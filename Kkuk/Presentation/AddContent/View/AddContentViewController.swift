@@ -11,10 +11,6 @@ import SnapKit
 import RealmSwift
 import UIKit
 
-protocol AddContetnViewControllerDelegate: AnyObject {
-    func dismissModal()
-}
-
 class AddContentViewController: BaseUIViewController {
     
     // MARK: - 프로퍼티
@@ -31,11 +27,7 @@ class AddContentViewController: BaseUIViewController {
     private var isAddContent = true
     
     private var modifyContent: Content?
-    
-    weak var delegate: AddContetnViewControllerDelegate?
-    
-    private var completion: ((Void) -> Void)?
-    
+            
     // MARK: - 컴포넌트
     private lazy var addContentButton = CompleteButton(frame: .zero)
     
@@ -104,11 +96,10 @@ class AddContentViewController: BaseUIViewController {
         return view
     }()
 
-    init(isAddContent: Bool = true, modifyContent: Content? = nil, completion: ((Void) -> Void)? = nil) {
+    init(isAddContent: Bool = true, modifyContent: Content? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.modifyContent = modifyContent
         self.isAddContent = isAddContent
-        self.completion = completion
     }
     
     required init?(coder: NSCoder) {
@@ -317,7 +308,6 @@ extension AddContentViewController {
                 self?.showAlertOneButton(title: title, message: nil, completion: {
                     self?.dismiss(animated: true, completion: nil)
                     self?.presentingViewController?.viewDidLoad()
-                    self?.delegate?.dismissModal()
                 })
                 
                 print("ogURL: \(openGraph.ogURL ?? "No Data")")
