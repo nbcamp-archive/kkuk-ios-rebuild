@@ -46,7 +46,7 @@ class AddContentShareViewController: UIViewController {
         label.font = .subtitle2
         label.textColor = .subgray1
         label.numberOfLines = 1
-        label.adjustsFontSizeToFitWidth = true
+        label.adjustsFontSizeToFitWidth = false
         return label
     }()
     
@@ -205,7 +205,7 @@ extension AddContentShareViewController {
                     let newContent = Content(sourceURL: text,
                                              title: openGraph.ogTitle ?? "",
                                              imageURL: openGraph.ogImage,
-                                             memo: self?.memoTextView.text,
+                                             memo: self?.memoTextView.text == "메모할 내용을 입력" ? "" : self?.memoTextView.text ,
                                              category: (self?.selectedCategoryId)!)
                     self?.contentHelper.create(content: newContent)
                     self?.updateActivityIndicatorState(false)
