@@ -1,0 +1,4 @@
+--swiftversion 5.0
+--self init-only
+--exclude Pods
+--indent 4
