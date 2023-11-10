@@ -145,9 +145,14 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let customVC = CategoryInnerViewController()
-        customVC.setCategory(category: category[indexPath.row])
-        navigationController?.pushViewController(customVC, animated: true)
+        let viewController = CategoryInnerViewController(completion: {
+            self.emptyCategoryLabel.isHidden = true
+            self.category = self.categoryHelper.read()
+            self.categoryTableView.reloadData()
+        })
+        viewController.setCategory(category: category[indexPath.row])
+        navigationController?.pushViewController(viewController, animated: true)
+
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -156,6 +161,8 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension CategoryViewController: AddCategoryViewControllerDelegate {
+    func dismissModal() {}
+
     func reloadTableView() {
         emptyCategoryLabel.isHidden = true
         category = categoryHelper.read()

@@ -10,10 +10,12 @@ import UIKit
 
 protocol AddCategoryViewControllerDelegate: AnyObject {
     func reloadTableView()
+    func dismissModal()
 }
 
 class AddCategoryViewController: BaseUIViewController {
-    
+    private var completion: ((Void) -> Void)?
+
     // MARK: - 변수
     let cellSpacing: CGFloat = 4
     
@@ -66,10 +68,11 @@ class AddCategoryViewController: BaseUIViewController {
         return collectionView
     }()
     
-    init(isAddCategory: Bool = true, modifyCategory: Category? = nil) {
+    init(isAddCategory: Bool = true, modifyCategory: Category? = nil, completion: ((Void) -> Void)? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.modifyCategory = modifyCategory
         self.isAddCategory = isAddCategory
+        self.completion = completion
     }
     
     required init?(coder: NSCoder) {
@@ -229,9 +232,8 @@ extension AddCategoryViewController {
         let title = isAddCategory ? "추가" : "수정"
         
         showAlertOneButton(title: "", message: "카테고리가 정상적으로 \(title) 되었습니다.", completion: {
-            self.delegate?.reloadTableView()
             self.dismiss(animated: true, completion: nil)
-            self.dismissPanModal()
+            self.delegate?.dismissModal()
         })
     }
     

@@ -14,6 +14,8 @@ protocol PanModalTableViewControllerDelegate: AnyObject {
 }
 
 class PanModalTableViewController: BaseUIViewController {
+    private var completion: ((Void) -> Void)?
+
     private var category: Category?
 
     private var modifyTitle: String?
@@ -39,10 +41,11 @@ class PanModalTableViewController: BaseUIViewController {
         return tableView
     }()
     
-    init(option: PanModalOption, content: Content? = nil) {
+    init(option: PanModalOption, content: Content? = nil, completion: ((Void) -> Void)? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.panModalOption = option
         self.content = content
+        self.completion = completion
     }
     
     required init?(coder: NSCoder) {
@@ -130,7 +133,10 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
     func didSelectedCategoryScreen(_ menu: PanModalOption.Title) {
         switch menu {
         case .modify:
-            let viewController = AddCategoryViewController(isAddCategory: false, modifyCategory: category)
+            let viewController = AddCategoryViewController(isAddCategory: false, modifyCategory: category) { [weak self] in
+                self?.completion?(())
+            }
+            viewController.delegate = self
             presentFromPanModal(to: viewController)
         case .delete:
             self.presentDeleteAlert()
@@ -186,4 +192,13 @@ extension PanModalTableViewController: PanModalPresentable {
     var dragIndicatorBackgroundColor: UIColor {
         .clear
     }
+}
+
+extension PanModalTableViewController: AddCategoryViewControllerDelegate {
+    func dismissModal() {
+        completion?(())
+        dismiss(animated: false)
+    }
+
+    func reloadTableView() {}
 }
