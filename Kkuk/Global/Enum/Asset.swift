@@ -42,7 +42,7 @@ enum Asset {
     static var trip: UIImage { .loadAsset(named: "trip") }
     
     static var iconImageList: [UIImage] = [
-        animal, baby, beauty, book, cafe, car, culture, education, exercise, fashion,
+        uncategorized, animal, baby, beauty, book, cafe, car, culture, education, exercise, fashion,
         finance, food, health, interier, tech, kitchen, music, plant, shopping, trip
     ]
     

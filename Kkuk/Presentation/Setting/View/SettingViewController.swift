@@ -184,7 +184,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                 let uncategorized = Category()
                 let categoryHelper = CategoryHelper.shared
                 uncategorized.name = "미분류"
-                uncategorized.iconId = 1
+                uncategorized.iconId = 0
                 categoryHelper.write(uncategorized)
                 
                 self?.showAlertWith(title: "완료", message: "모든 데이터가 삭제되었습니다.")
