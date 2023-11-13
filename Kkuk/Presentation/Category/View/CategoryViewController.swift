@@ -42,7 +42,7 @@ class CategoryViewController: BaseUIViewController {
     
     private var emptyCategoryLabel: UILabel = {
         let label = UILabel()
-        label.text = "카테고리가 없습니다. \n 카테고리를 추가해주세요."
+        label.text = "카테고리가 없어요 \n 카테고리를 추가해주세요"
         label.textAlignment = .center
         label.font = .subtitle2
         label.textColor = .text1
