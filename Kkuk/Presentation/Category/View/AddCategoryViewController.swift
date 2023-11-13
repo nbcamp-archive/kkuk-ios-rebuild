@@ -206,12 +206,6 @@ extension AddCategoryViewController {
             modifyCategory.iconId = selectedIconId
         })
     }
-    
-    private func dismissPanModal() {
-        if let presentingViewController = self.presentingViewController as? PanModalTableViewController {
-            presentingViewController.dismiss(animated: false)
-        }
-    }
 }
 
 // MARK: - @objc
@@ -227,7 +221,7 @@ extension AddCategoryViewController {
         
         let title = isAddCategory ? "추가" : "수정"
         
-        showAlertOneButton(title: "", message: "카테고리가 정상적으로 \(title) 되었습니다.", completion: {
+        showAlertOneButton(title: "카테고리가 \(title) 되었어요", message: "", completion: {
             self.dismiss(animated: true, completion: nil)
             self.delegate?.reloadTableView()
         })
@@ -235,7 +229,6 @@ extension AddCategoryViewController {
     
     @objc func closeButtonItemDidTap() {
         self.dismiss(animated: true, completion: nil)
-        self.dismissPanModal()
     }
 }
 // MARK: - 텍스트필드 델리게이트
