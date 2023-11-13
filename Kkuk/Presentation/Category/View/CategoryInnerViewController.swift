@@ -39,7 +39,7 @@ class CategoryInnerViewController: BaseUIViewController {
     
     private lazy var noContentLabel: UILabel = {
         let label = UILabel()
-        label.text = "컨텐츠가 없어요."
+        label.text = "콘텐츠가 없어요."
         label.font = .subtitle2
         label.textColor = .text1
         label.numberOfLines = 1
