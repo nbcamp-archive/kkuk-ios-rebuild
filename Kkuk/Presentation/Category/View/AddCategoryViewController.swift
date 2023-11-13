@@ -206,12 +206,6 @@ extension AddCategoryViewController {
             modifyCategory.iconId = selectedIconId
         })
     }
-    
-    private func dismissPanModal() {
-        if let presentingViewController = self.presentingViewController as? PanModalTableViewController {
-            presentingViewController.dismiss(animated: false)
-        }
-    }
 }
 
 // MARK: - @objc
@@ -235,7 +229,6 @@ extension AddCategoryViewController {
     
     @objc func closeButtonItemDidTap() {
         self.dismiss(animated: true, completion: nil)
-        self.dismissPanModal()
     }
 }
 // MARK: - 텍스트필드 델리게이트
