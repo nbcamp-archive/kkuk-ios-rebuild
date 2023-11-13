@@ -64,7 +64,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
     
     private var emptyLabel: UILabel = {
         let label = UILabel()
-        label.text = "최근에 추가한 콘텐츠가 없습니다."
+        label.text = "최근에 추가한 콘텐츠가 없어요."
         label.font = .subtitle1
         label.textColor = .subgray1
         

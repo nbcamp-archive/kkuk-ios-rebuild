@@ -221,7 +221,7 @@ extension AddCategoryViewController {
         
         let title = isAddCategory ? "추가" : "수정"
         
-        showAlertOneButton(title: "", message: "카테고리가 정상적으로 \(title) 되었습니다.", completion: {
+        showAlertOneButton(title: "카테고리가 \(title) 되었어요", message: "", completion: {
             self.dismiss(animated: true, completion: nil)
             self.delegate?.reloadTableView()
         })
