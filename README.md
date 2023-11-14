@@ -2,7 +2,7 @@
 
 <div align="center"> 
   
-[<img width="200" alt="appstore" src="https://github.com/nbcamp-archive/kkuk-ios/assets/26790710/a447bfcb-7473-435f-bc6b-c6af21a2a1b9">](https://apps.apple.com/kr/app/kkuk-%EA%BE%B9/id6471813268)
+[<img width="200" alt="appstore" src="https://github.com/nbcamp-archive/kkuk-ios/assets/26790710/72caf6ff-b829-4608-98d9-16d42d0a3eb0">](https://apps.apple.com/kr/app/kkuk/id6471813268)
 
 </div>
 
@@ -16,7 +16,7 @@
 
 
 
-## Dependencies
+# Dependencies
 
 <div align="center"> 
   <table>
