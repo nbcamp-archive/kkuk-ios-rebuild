@@ -22,6 +22,8 @@ class RecentSearchContentCollectionViewCell: BaseUICollectionViewCell {
         var button = UIButton()
         button.setImage(UIImage(named: "x_circle_custum"), for: .normal)
         button.tintColor = .text1
+        button.imageView?.layer.transform = CATransform3DMakeScale(0.5, 0.5, 0.5)
+
         return button
     }()
     
@@ -39,7 +41,7 @@ class RecentSearchContentCollectionViewCell: BaseUICollectionViewCell {
             make.centerY.equalToSuperview()
             make.leading.greaterThanOrEqualTo(searchWordLabel.snp.trailing).offset(4)
             make.trailing.equalToSuperview()
-            make.width.height.equalTo(contentView.snp.height).dividedBy(2)
+            make.width.height.equalTo(contentView.snp.height)
         }
     }
     
