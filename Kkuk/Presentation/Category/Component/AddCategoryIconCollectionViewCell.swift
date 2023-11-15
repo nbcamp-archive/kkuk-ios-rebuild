@@ -11,12 +11,16 @@ class AddCategoryIconCollectionViewCell: BaseUICollectionViewCell {
     
     lazy var iconImageView: UIImageView = {
         var imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
     
     override var isSelected: Bool {
         didSet {
             iconImageView.alpha = isSelected ? 0.5 : 1.0
+            iconImageView.layer.borderWidth = isSelected ? 2.0 : 0
+            iconImageView.layer.borderColor = isSelected ? UIColor.black.cgColor : nil
         }
     }
     
@@ -29,9 +33,13 @@ class AddCategoryIconCollectionViewCell: BaseUICollectionViewCell {
             make.centerX.centerY.equalToSuperview()
             make.width.height.equalTo(contentView.snp.height)
         }
+        
+        contentView.layoutIfNeeded()
+        iconImageView.layer.cornerRadius = iconImageView.frame.size.height / 2
     }
     
     func configuration(index: Int) {
         iconImageView.image = Asset.iconImageList[index]
+        iconImageView.layer.cornerRadius = contentView.frame.size.height / 2
     }
 }
