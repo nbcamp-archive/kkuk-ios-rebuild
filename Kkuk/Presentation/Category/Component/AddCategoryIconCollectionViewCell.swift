@@ -18,9 +18,8 @@ class AddCategoryIconCollectionViewCell: BaseUICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            iconImageView.alpha = isSelected ? 0.5 : 1.0
-            iconImageView.layer.borderWidth = isSelected ? 2.0 : 0
-            iconImageView.layer.borderColor = isSelected ? UIColor.black.cgColor : nil
+            iconImageView.layer.borderWidth = isSelected ? 4.0 : 0
+            iconImageView.layer.borderColor = isSelected ? UIColor.selected.cgColor : nil
         }
     }
     
