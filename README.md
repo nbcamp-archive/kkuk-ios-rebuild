@@ -40,10 +40,10 @@
 
 ### Contributors
 
-|![yujinkim1](https://images.weserv.nl/?url=https://github.com/yujinkim1.png&h=150&w=150&fit=cover&mask=rectangle)|![se-ryeong](https://images.weserv.nl/?url=https://github.com/se-ryeong.png&h=150&w=150&fit=cover&mask=rectangle)|![jooYeonStudyiOS](https://images.weserv.nl/?url=https://github.com/jooYeonStudyiOS.png&h=150&w=150&fit=cover&mask=rectangle)|![Sonyeongha](https://images.weserv.nl/?url=https://github.com/Sonyeongha.png&h=150&w=150&fit=cover&mask=rectangle)|![rkrua](https://images.weserv.nl/?url=https://github.com/rkrua.png&h=150&w=150&fit=cover&mask=rectangle)|
-|:---:|:---:|:---:|:---:|:---:|
-|[김유진 (Lead)](https://github.com/yujinkim1)|[이세령 (Associate-lead)](https://github.com/se-ryeong)|[강주연](https://github.com/jooYeonStudyiOS)|[손영하](https://github.com/Sonyeongha)|[장가겸](https://github.com/rkrua)|
-|`Extract HTML Data`, `Share Extension`, `Persistent data`|`Pin Content Collection`, `Image caching`, `App test`|`Search content`, `Bottom sheet`, `Persistent data`|`App setting`, `Categorized`, `Image caching`|`Bottom sheet`, `Categorized`, `Persistent data`, `Share Extension`|
+| 김유진 <br> Yujin Kim | 이세령 <br> Seryeong Lee | 강주연 <br> Jooyeon Kang | 손영하 <br> Yeongha Son | 장가겸 <br> gagyeom Jang |
+|:----:|:----:|:----:|:----:|:----:|
+|![yujinkim1](https://images.weserv.nl/?url=https://github.com/yujinkim1.png&h=100&w=100&fit=cover&mask=rectangle)|![se-ryeong](https://images.weserv.nl/?url=https://github.com/nbcamp-archive/kkuk-ios/assets/26790710/4abc777f-fb43-4048-a1c5-b75af57c8481&h=100&w=100&fit=cover&mask=rectangle)|![jooYeonStudyiOS](https://images.weserv.nl/?url=https://github.com/nbcamp-archive/kkuk-ios/assets/26790710/8e62a980-16e9-4d56-abe4-ecbbdb95f9bd&h=100&w=100&fit=cover&mask=rectangle)|![Sonyeongha](https://images.weserv.nl/?url=https://github.com/Sonyeongha.png&h=100&w=100&fit=cover&mask=rectangle)|![rkrua](https://images.weserv.nl/?url=https://github.com/rkrua.png&h=100&w=100&fit=cover&mask=rectangle)|
+|[@yujinkim1](https://github.com/yujinkim1)|[@se-ryeong](https://github.com/se-ryeong)|[@jooYeonStudyiOS](https://github.com/jooYeonStudyiOS)|[@Sonyeongha](https://github.com/Sonyeongha)|[@rkrua](https://github.com/rkrua)|
 
 ### Contact us
 
