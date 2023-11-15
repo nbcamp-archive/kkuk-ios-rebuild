@@ -40,6 +40,52 @@
 
 ## Project structure
 
+```
+.
+├── 📂Kkuk
+│   ├── 📂Application
+│   │   ├── 📜AppDelegate
+│   │   ├── 📜SceneDelegate
+│   │   └── 📜AppTabBarController
+│   ├── 📂Domain
+│   │   ├── 📂Entity
+│   │   │   ├── 📜Category
+│   │   │   └── 📜Content
+│   │   ├── 📂Helper
+│   │   │   ├── 📜CategoryHelper
+│   │   │   ├── 📜ContentHelper
+│   │   │   └── 📜RecentSearchHelper
+│   │   └── 📂Service
+│   │       ├── 📜HTMLParseService
+│   │       └── 📜OpenGraphService
+│   ├── 📂Global
+│   │   ├── 📂Base
+│   │   ├── 📂Component
+│   │   ├── 📂Enum
+│   │   ├── 📂Extension
+│   │   ├── 📂Protocol
+│   │   └── 📂Resource
+│   │       ├── 📦Assets.xcassets
+│   │       ├── 📂Font
+│   │       ├── 📦Settings.bundle
+│   │       ├── 📜Info.plist
+│   │       └── 📜LaunchScreen.storyboard
+│   ├── 📂Presentation
+│   │   ├── 📂AddContent
+│   │   ├── 📂Category
+│   │   ├── 📂Content
+│   │   ├── 📂Home
+│   │   ├── 📂PanModal
+│   │   ├── 📂SearchContent
+│   │   ├── 📂Setting
+│   │   └── 📂Web
+│   └── 📜Kkuk.entitlements
+└── 📂KkukShareExtension
+    ├── 📂View
+    ├── 📜Info.plist
+    └── 📜KkukShareExtension.entitlements
+```
+
 ### Contributors
 
 | 김유진 <br> Yujin Kim | 이세령 <br> Seryeong Lee | 강주연 <br> Jooyeon Kang | 손영하 <br> Yeongha Son | 장가겸 <br> gagyeom Jang |
