@@ -88,4 +88,9 @@ extension ContentHelper {
         databaseTransaction { database.delete(content) }
     }
     
+    func isAlreadyArchived(with URL: String) -> Bool {
+        let validationSet = read()
+        return validationSet.contains { $0.sourceURL == URL }
+    }
+    
 }
