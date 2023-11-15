@@ -264,7 +264,6 @@ extension AddContentViewController {
     private func closeButtonItemDidTap() {
         self.dismiss(animated: true, completion: nil)
         self.presentingViewController?.viewDidLoad()
-        self.dismissPanModal()
     }
     
     @objc
@@ -367,12 +366,6 @@ extension AddContentViewController {
             return UIApplication.shared.canOpenURL(url as URL)
         }
         return false
-    }
-    
-    private func dismissPanModal() {
-        if let presentingViewController = self.presentingViewController as? PanModalTableViewController {
-            presentingViewController.dismiss(animated: false)
-        }
     }
 }
 
