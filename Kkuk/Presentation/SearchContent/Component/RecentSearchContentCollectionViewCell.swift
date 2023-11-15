@@ -20,9 +20,9 @@ class RecentSearchContentCollectionViewCell: BaseUICollectionViewCell {
     
     lazy var deleteButton: UIButton = {
         var button = UIButton()
-        button.setImage(UIImage(named: "x_circle_custum"), for: .normal)
+        button.setImage(UIImage(named: "x_mark"), for: .normal)
         button.tintColor = .text1
-        button.imageView?.layer.transform = CATransform3DMakeScale(0.5, 0.5, 0.5)
+        button.imageView?.layer.transform = CATransform3DMakeScale(0.6, 0.6, 0.6)
 
         return button
     }()
