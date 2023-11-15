@@ -199,29 +199,49 @@ extension AddContentShareViewController {
         openGraphService.extractOpenGraphData(from: URL) { [weak self] result in
             switch result {
             case .success(let openGraph):
+                
                 guard let isAddContent = self?.isAddContent else { return }
+                
+                let memo = self?.memoTextView.text == "메모할 내용을 입력" ? "" : self?.memoTextView.text
                 
                 if isAddContent {
                     let newContent = Content(sourceURL: text,
                                              title: openGraph.ogTitle ?? "",
                                              imageURL: openGraph.ogImage,
-                                             memo: self?.memoTextView.text == "메모할 내용을 입력" ? "" : self?.memoTextView.text,
+                                             memo: memo,
                                              category: (self?.selectedCategoryId)!)
                     
                     if self?.contentHelper.isAlreadyArchived(with: text) == true {
                         self?.showAlertTwoButton(title: "알림", message: "이 콘텐츠는 이미 보관 중이에요. 그래도 추가할까요?",
                                                  actionTitle: "추가", actionCompletion: {
                             self?.contentHelper.create(content: newContent)
+                            
                             self?.updateActivityIndicatorState(false)
+                            
                             self?.addContentButton.isEnabled = true
+                            
+                            self?.showAlertOneButton(title: "콘텐츠를 추가했어요", message: nil, completion: {
+                                self?.dismiss(animated: true, completion: nil)
+                                
+                                self?.presentingViewController?.viewDidLoad()
+                            })
+                            
                         }, cancelTitle: "취소", cancelCompletion: {
                             self?.updateActivityIndicatorState(false)
                             self?.addContentButton.isEnabled = true
                         })
                     } else {
                         self?.contentHelper.create(content: newContent)
+                        
                         self?.updateActivityIndicatorState(false)
+                        
                         self?.addContentButton.isEnabled = true
+                        
+                        self?.showAlertOneButton(title: "콘텐츠를 추가했어요", message: nil, completion: {
+                            self?.dismiss(animated: true, completion: nil)
+                            
+                            self?.presentingViewController?.viewDidLoad()
+                        })
                     }
                 } else {
                     guard let modifyContent = self?.modifyContent else { return }
@@ -231,22 +251,13 @@ extension AddContentShareViewController {
                         content.memo = self?.memoTextView.text
                         content.category = (self?.selectedCategoryId)!
                     })
+                    
+                    self?.showAlertOneButton(title: "콘텐츠를 수정했어요", message: nil, completion: {
+                        self?.dismiss(animated: true, completion: nil)
+                        
+                        self?.presentingViewController?.viewDidLoad()
+                    })
                 }
-                
-                let title = isAddContent ? "콘텐츠를 추가했어요" : "콘텐츠를 수정했어요"
-                
-                let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-                
-                let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
-                    self?.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
-                })
-                
-                alertController.addAction(okAction)
-                self?.present(alertController, animated: true, completion: nil)
-                
-                print("ogURL: \(openGraph.ogURL ?? "No Data")")
-                print("ogTitle: \(openGraph.ogTitle ?? "No Data")")
-                print("ogGraph: \(openGraph.ogImage ?? "No Data")")
             case .failure(let error):
                 print("Open Graph Data를 추출하는데 문제가 발생했습니다. \(error.localizedDescription)")
                 
@@ -256,6 +267,7 @@ extension AddContentShareViewController {
                 }
             }
         }
+
     }
     
 }
@@ -283,6 +295,22 @@ extension AddContentShareViewController {
                 }
             }
         }
+    }
+    
+    private func showAlertOneButton(title: String?,
+                                    message: String?,
+                                    actionTitle: String = "확인",
+                                    completion: (() -> Void)? = nil) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: actionTitle, style: .default) { _ in
+            completion?()
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     private func showAlertTwoButton(title: String?,
