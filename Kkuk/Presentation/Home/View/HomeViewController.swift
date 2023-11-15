@@ -10,8 +10,6 @@ import RealmSwift
 import SnapKit
 
 final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
-
-    var selectedRow: Int = 0
     
     private var contentManager = ContentHelper()
     
@@ -76,6 +74,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         control.currentPage = 0
         control.pageIndicatorTintColor = .subgray2
         control.currentPageIndicatorTintColor = .white
+        control.allowsContinuousInteraction = false
         
         return control
     }()
