@@ -205,11 +205,24 @@ extension AddContentShareViewController {
                     let newContent = Content(sourceURL: text,
                                              title: openGraph.ogTitle ?? "",
                                              imageURL: openGraph.ogImage,
-                                             memo: self?.memoTextView.text == "메모할 내용을 입력" ? "" : self?.memoTextView.text ,
+                                             memo: self?.memoTextView.text == "메모할 내용을 입력" ? "" : self?.memoTextView.text,
                                              category: (self?.selectedCategoryId)!)
-                    self?.contentHelper.create(content: newContent)
-                    self?.updateActivityIndicatorState(false)
-                    self?.addContentButton.isEnabled = true
+                    
+                    if self?.contentHelper.isAlreadyArchived(with: text) == true {
+                        self?.showAlertTwoButton(title: "알림", message: "이 콘텐츠는 이미 보관 중이에요. 그래도 추가할까요?",
+                                                 actionTitle: "추가", actionCompletion: {
+                            self?.contentHelper.create(content: newContent)
+                            self?.updateActivityIndicatorState(false)
+                            self?.addContentButton.isEnabled = true
+                        }, cancelTitle: "취소", cancelCompletion: {
+                            self?.updateActivityIndicatorState(false)
+                            self?.addContentButton.isEnabled = true
+                        })
+                    } else {
+                        self?.contentHelper.create(content: newContent)
+                        self?.updateActivityIndicatorState(false)
+                        self?.addContentButton.isEnabled = true
+                    }
                 } else {
                     guard let modifyContent = self?.modifyContent else { return }
                     
@@ -270,6 +283,29 @@ extension AddContentShareViewController {
                 }
             }
         }
+    }
+    
+    private func showAlertTwoButton(title: String?,
+                                    message: String?,
+                                    actionTitle: String = "확인",
+                                    actionCompletion: (() -> Void)? = nil,
+                                    cancelTitle: String = "취소",
+                                    cancelCompletion: (() -> Void)? = nil) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let cancel = UIAlertAction(title: cancelTitle, style: .cancel) { _ in
+            cancelCompletion?()
+        }
+        
+        let action = UIAlertAction(title: actionTitle, style: .default) { _ in
+            actionCompletion?()
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
     }
 
 }
