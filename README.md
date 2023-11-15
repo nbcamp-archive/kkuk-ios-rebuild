@@ -8,43 +8,47 @@
 
 # kkuk-ios
 
-## Motivation
+## Overview
 
+웹 브라우저의 북마크 또는 즐겨찾기 기능은 본인이 어떤 브라우저를 사용하고 있는지에 따라 활성화 정도에 차이가 있습니다. 그리고 원하는 콘텐츠를 찾는 것도 저장한 콘텐츠의 양이 많아질 수록 쉽지 않습니다.
+이러한 문제점을 해결하기 위해 Kkuk 아카이빙 서비스는 링크, 이미지, 기타 데이터 정보를 카테고리로 분류하여 체계적으로 관리할 수 있도록 도와주는 도구입니다.
+
+사용자는 필요에 따라 메모를 작성해서 콘텐츠를 추가할 수도 있고, 공유하는 것이 가능합니다. 검색 기능도 지원하기 때문에 특정 단어를 입력하거나 범위를 설정하여 보관 중인 콘텐츠를 쉽게 추적할 수 있습니다.
 
 
 ## Architecture
 
 
+## Dependencies
 
-# Dependencies
+<div align="center"><table><tr><td><img src="./dependencies.png" alt="xcdependency_graph" width="1280"/></td></tr></table></div>
 
-<div align="center"> 
-  <table>
-    <tr>
-      <td><img src="./dependencies.png" alt="xcdependency_graph" width="1280"/></td>
-      <td>
-        <table>
-          <thead>
-            <tr><td>Target</td><td>Name</td></tr>
-          </thead>
-          <tbody>
-            <tr><td>Interface</td><td>UIKit</td></tr>
-            <tr><td>Web View</td><td>WebKit</td></tr>
-            <tr><td>Persistent Data</td><td>RealmSwift</td></tr>
-            <tr><td>UI Constraint</td><td>SnapKit</td></tr>
-            <tr><td>HTTP Networking</td><td>Alamofire</td></tr>
-            <tr><td>HTML Parse</td><td>SwiftSoup</td></tr>
-            <tr><td>Image Caching</td><td>Kingfisher</td></tr>
-            <tr><td>Code Style</td><td>SwiftLint</td></tr>
-            <tr><td>Bottom Sheet</td><td>PanModal</td></tr>
-            <tr><td>Keyboard Covering</td><td>IQKeyboardManager</td></tr>
-          </tbody>
-        </table>
-      </td>
-    </tr>
-  </table>
-</div>
+| Target | Name |
+|:-------|:----:|
+| Interface | UIKit |
+| Web View | WebKit |
+| Persistent Data | RealmSwift |
+| UI Constraints | SnapKit |
+| HTTP Networking | Alamofire |
+| HTML Parse | SwiftSoup |
+| Image caching | Kingfisher |
+| Code Style | SwiftLint |
+| Keyboard covering | IQKeyboardManager |
+| Bottom sheet | PanModal |
 
 ## Project structure
 
-## Members
+### Contributors
+
+|![yujinkim1](https://images.weserv.nl/?url=https://github.com/yujinkim1.png&h=150&w=150&fit=cover&mask=rectangle)|![se-ryeong](https://images.weserv.nl/?url=https://github.com/se-ryeong.png&h=150&w=150&fit=cover&mask=rectangle)|![jooYeonStudyiOS](https://images.weserv.nl/?url=https://github.com/jooYeonStudyiOS.png&h=150&w=150&fit=cover&mask=rectangle)|![Sonyeongha](https://images.weserv.nl/?url=https://github.com/Sonyeongha.png&h=150&w=150&fit=cover&mask=rectangle)|![rkrua](https://images.weserv.nl/?url=https://github.com/rkrua.png&h=150&w=150&fit=cover&mask=rectangle)|
+|:---:|:---:|:---:|:---:|:---:|
+|[김유진 (Lead)](https://github.com/yujinkim1)|[이세령 (Associate-lead)](https://github.com/se-ryeong)|[강주연](https://github.com/jooYeonStudyiOS)|[손영하](https://github.com/Sonyeongha)|[장가겸](https://github.com/rkrua)|
+|`Extract HTML Data`, `Share Extension`, `Persistent data`|`Pin Content Collection`, `Image caching`, `App test`|`Search content`, `Bottom sheet`, `Persistent data`|`App setting`, `Categorized`, `Image caching`|`Bottom sheet`, `Categorized`, `Persistent data`, `Share Extension`|
+
+### Contact us
+
+[문의하기](mailto:kkuk.help@gmail.com)
+
+### License
+
+Kkuk 서비스는 MIT 라이선스를 준수합니다. 자세한 내용은 [LICENSE](/LICENSE)를 참조하세요.
