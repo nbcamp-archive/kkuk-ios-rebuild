@@ -8,6 +8,8 @@
 
 # kkuk-ios
 
+<img src="https://img.shields.io/badge/Xcode_14+-147EFB?style=flat&logo=Xcode&logoColor=FFF" /> <img src="https://img.shields.io/badge/iOS_15+-000?style=flat&logo=Apple&logoColor=FFF" /> <img src="https://img.shields.io/badge/Swift_5-F05138?style=flat&logo=Swift&logoColor=FFF" /> <img src="https://img.shields.io/badge/UIKit-2396F3?style=flat&logo=UIKit&logoColor=000" /> <img src="https://img.shields.io/badge/SwiftUI-007FFF?style=flat&logo=Swift&logoColor=000" /> <img src="https://img.shields.io/badge/RealmSwift-39477F?style=flat&logo=Realm&logoColor=000" /> 
+
 ## Overview
 
 웹 브라우저의 북마크 또는 즐겨찾기 기능은 본인이 어떤 브라우저를 사용하고 있는지에 따라 활성화 정도에 차이가 있습니다. 그리고 원하는 콘텐츠를 찾는 것도 저장한 콘텐츠의 양이 많아질 수록 쉽지 않습니다.
