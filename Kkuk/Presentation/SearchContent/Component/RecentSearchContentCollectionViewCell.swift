@@ -20,7 +20,7 @@ class RecentSearchContentCollectionViewCell: BaseUICollectionViewCell {
     
     lazy var deleteButton: UIButton = {
         var button = UIButton()
-        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.setImage(UIImage(named: "x_circle_custum"), for: .normal)
         button.tintColor = .text1
         return button
     }()
