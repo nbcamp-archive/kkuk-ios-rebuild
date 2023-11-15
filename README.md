@@ -26,17 +26,17 @@
 <div align="center"><table><tr><td><img src="./dependencies.png" alt="xcdependency_graph" width="1280"/></td></tr></table></div>
 
 | Target | Name |
-|:-------|:----:|
-| Interface | UIKit |
-| Web View | WebKit |
-| Persistent Data | RealmSwift |
-| UI Constraints | SnapKit |
-| HTTP Networking | Alamofire |
-| HTML Parse | SwiftSoup |
-| Image caching | Kingfisher |
-| Code Style | SwiftLint |
-| Keyboard covering | IQKeyboardManager |
-| Bottom sheet | PanModal |
+|:-------|:-------|
+| Interface &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | UIKit |
+| Web View &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | WebKit |
+| Persistent Data &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | RealmSwift |
+| UI Constraints &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | SnapKit |
+| HTTP Networking &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Alamofire |
+| HTML Parse &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | SwiftSoup |
+| Image caching &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Kingfisher |
+| Code Style &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | SwiftLint |
+| Keyboard covering &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | IQKeyboardManager |
+| Bottom sheet &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | PanModal |
 
 ## Project structure
 
@@ -90,7 +90,7 @@
 
 | 김유진 <br> Yujin Kim | 이세령 <br> Seryeong Lee | 강주연 <br> Jooyeon Kang | 손영하 <br> Yeongha Son | 장가겸 <br> gagyeom Jang |
 |:----:|:----:|:----:|:----:|:----:|
-|![yujinkim1](https://images.weserv.nl/?url=https://github.com/yujinkim1.png&h=100&w=100&fit=cover&mask=rectangle)|![se-ryeong](https://images.weserv.nl/?url=https://github.com/nbcamp-archive/kkuk-ios/assets/26790710/4abc777f-fb43-4048-a1c5-b75af57c8481&h=100&w=100&fit=cover&mask=rectangle)|![jooYeonStudyiOS](https://images.weserv.nl/?url=https://github.com/nbcamp-archive/kkuk-ios/assets/26790710/8e62a980-16e9-4d56-abe4-ecbbdb95f9bd&h=100&w=100&fit=cover&mask=rectangle)|![Sonyeongha](https://images.weserv.nl/?url=https://github.com/Sonyeongha.png&h=100&w=100&fit=cover&mask=rectangle)|![rkrua](https://images.weserv.nl/?url=https://github.com/rkrua.png&h=100&w=100&fit=cover&mask=rectangle)|
+|![yujinkim1](https://images.weserv.nl/?url=https://github.com/yujinkim1.png&w=150&fit=cover&mask=rectangle)|![se-ryeong](https://images.weserv.nl/?url=https://github.com/nbcamp-archive/kkuk-ios/assets/26790710/4abc777f-fb43-4048-a1c5-b75af57c8481&w=150&fit=cover&mask=rectangle)|![jooYeonStudyiOS](https://images.weserv.nl/?url=https://github.com/nbcamp-archive/kkuk-ios/assets/26790710/8e62a980-16e9-4d56-abe4-ecbbdb95f9bd&w=150&fit=cover&mask=rectangle)|![Sonyeongha](https://images.weserv.nl/?url=https://github.com/Sonyeongha.png&w=150&fit=cover&mask=rectangle)|![rkrua](https://images.weserv.nl/?url=https://github.com/rkrua.png&w=150&fit=cover&mask=rectangle)|
 |[@yujinkim1](https://github.com/yujinkim1)|[@se-ryeong](https://github.com/se-ryeong)|[@jooYeonStudyiOS](https://github.com/jooYeonStudyiOS)|[@Sonyeongha](https://github.com/Sonyeongha)|[@rkrua](https://github.com/rkrua)|
 
 ### Contact us
