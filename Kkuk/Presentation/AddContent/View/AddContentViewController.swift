@@ -326,13 +326,14 @@ extension AddContentViewController {
     @objc
     private func addCategoryButtonDidTap() {
         let viewController = AddCategoryViewController()
+        viewController.dismissHandler = { [weak self] in
+            self?.updateSelectCategoryCollectionViewCell()
+        }
+        
         let navigationController = UINavigationController(rootViewController: viewController)
         present(navigationController, animated: true)
     }
     
-    private func updateActivityIndicatorState(_ isEnabled: Bool) {
-        addContentButton.configuration?.showsActivityIndicator = isEnabled
-    }
 }
 
 // MARK: - 커스텀 메서드
@@ -367,6 +368,28 @@ extension AddContentViewController {
         }
         return false
     }
+    
+    private func updateSelectCategoryCollectionViewCell() {
+        categories = categoryHelper.read()
+        selectCategoryCollectionView.reloadData()
+        
+        if let selectedCategoryId = selectedCategoryId {
+            for (index, category) in categories.enumerated() {
+                if category.id == selectedCategoryId {
+                    let indexPath = IndexPath(item: index, section: 0)
+                    selectCategoryCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+                    break
+                } else {
+                    break
+                }
+            }
+        }
+    }
+    
+    private func updateActivityIndicatorState(_ isEnabled: Bool) {
+        addContentButton.configuration?.showsActivityIndicator = isEnabled
+    }
+    
 }
 
 // MARK: - 텍스트필드 델리게이트
