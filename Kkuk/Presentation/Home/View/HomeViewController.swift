@@ -10,8 +10,6 @@ import RealmSwift
 import SnapKit
 
 final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
-
-    var selectedRow: Int = 0
     
     private var contentManager = ContentHelper()
     
@@ -76,6 +74,7 @@ final class HomeViewController: BaseUIViewController, UIScrollViewDelegate {
         control.currentPage = 0
         control.pageIndicatorTintColor = .subgray2
         control.currentPageIndicatorTintColor = .white
+        control.allowsContinuousInteraction = false
         
         return control
     }()
@@ -286,9 +285,17 @@ extension HomeViewController {
 
 extension HomeViewController: ContentTableViewCellDelegate {
     func togglePin(index: Int) {
-        contentManager.update(content: self.recentItems[index]) { [weak self] content in
-            content.isPinned.toggle()
-            self?.updatePin(index: index)
+        if recentItems[index].isPinned == false &&
+           bookmarkItems.count == 5 {
+            let alert = UIAlertController(title: nil, message: "콘텐츠 고정은 5개만 가능해요", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "확인", style: .default)
+            alert.addAction(ok)
+            self.present(alert, animated: true)
+        } else {
+            contentManager.update(content: self.recentItems[index]) { [weak self] content in
+                content.isPinned.toggle()
+                self?.updatePin(index: index)
+            }
         }
     }
     
