@@ -30,4 +30,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             UserDefaults.standard.set(true, forKey: key)
         }
     }
+    
+    func sceneWillEnterForeground(_ scene: UIScene) {
+        updateAppearanceStyle()
+    }
+}
+
+extension SceneDelegate {
+    
+    private func updateAppearanceStyle() {
+        let defaults = UserDefaults.standard
+        let themeMode = defaults.string(forKey: "app_appearance_style")
+        
+        if #available(iOS 15.0, *) {
+            switch themeMode {
+            case "light":
+                window?.overrideUserInterfaceStyle = .light
+                defaults.register(defaults: ["app_appearance_style" : "light"])
+            case "dark":
+                window?.overrideUserInterfaceStyle = .dark
+                defaults.register(defaults: ["app_appearance_style" : "dark"])
+            default:
+                window?.overrideUserInterfaceStyle = .unspecified
+                defaults.register(defaults: ["app_appearance_style" : "unspecified"])
+            }
+        }
+    }
+    
 }

@@ -289,9 +289,39 @@ extension AddContentViewController {
                                              imageURL: openGraph.ogImage,
                                              memo: memo,
                                              category: (self?.selectedCategoryId)!)
-                    self?.contentHelper.create(content: newContent)
-                    self?.updateActivityIndicatorState(false)
-                    self?.addContentButton.isEnabled = true
+                    
+                    if self?.contentHelper.isAlreadyArchived(with: text) == true {
+                        self?.showAlertTwoButton(title: "알림", message: "이 콘텐츠는 이미 보관 중이에요. 그래도 추가할까요?",
+                                                 actionTitle: "추가", actionCompletion: {
+                            self?.contentHelper.create(content: newContent)
+                            
+                            self?.updateActivityIndicatorState(false)
+                            
+                            self?.addContentButton.isEnabled = true
+                            
+                            self?.showAlertOneButton(title: "콘텐츠를 추가했어요", message: nil, completion: {
+                                self?.dismiss(animated: true, completion: nil)
+                                
+                                self?.presentingViewController?.viewDidLoad()
+                            })
+                            
+                        }, cancelTitle: "취소", cancelCompletion: {
+                            self?.updateActivityIndicatorState(false)
+                            self?.addContentButton.isEnabled = true
+                        })
+                    } else {
+                        self?.contentHelper.create(content: newContent)
+                        
+                        self?.updateActivityIndicatorState(false)
+                        
+                        self?.addContentButton.isEnabled = true
+                        
+                        self?.showAlertOneButton(title: "콘텐츠를 추가했어요", message: nil, completion: {
+                            self?.dismiss(animated: true, completion: nil)
+                            
+                            self?.presentingViewController?.viewDidLoad()
+                        })
+                    }
                 } else {
                     guard let modifyContent = self?.modifyContent else { return }
                     
@@ -300,18 +330,13 @@ extension AddContentViewController {
                         content.memo = self?.memoTextView.text
                         content.category = (self?.selectedCategoryId)!
                     })
+                    
+                    self?.showAlertOneButton(title: "콘텐츠를 수정했어요", message: nil, completion: {
+                        self?.dismiss(animated: true, completion: nil)
+                        
+                        self?.presentingViewController?.viewDidLoad()
+                    })
                 }
-
-                let title = isAddContent ? "콘텐츠를 추가했어요" : "콘텐츠를 수정했어요"
-                
-                self?.showAlertOneButton(title: title, message: nil, completion: {
-                    self?.dismiss(animated: true, completion: nil)
-                    self?.presentingViewController?.viewDidLoad()
-                })
-                
-                print("ogURL: \(openGraph.ogURL ?? "No Data")")
-                print("ogTitle: \(openGraph.ogTitle ?? "No Data")")
-                print("ogGraph: \(openGraph.ogImage ?? "No Data")")
             case .failure(let error):
                 print("Open Graph Data를 추출하는데 문제가 발생했습니다. \(error.localizedDescription)")
                 
@@ -326,13 +351,14 @@ extension AddContentViewController {
     @objc
     private func addCategoryButtonDidTap() {
         let viewController = AddCategoryViewController()
+        viewController.dismissHandler = { [weak self] in
+            self?.updateSelectCategoryCollectionViewCell()
+        }
+        
         let navigationController = UINavigationController(rootViewController: viewController)
         present(navigationController, animated: true)
     }
     
-    private func updateActivityIndicatorState(_ isEnabled: Bool) {
-        addContentButton.configuration?.showsActivityIndicator = isEnabled
-    }
 }
 
 // MARK: - 커스텀 메서드
@@ -367,6 +393,28 @@ extension AddContentViewController {
         }
         return false
     }
+    
+    private func updateSelectCategoryCollectionViewCell() {
+        categories = categoryHelper.read()
+        selectCategoryCollectionView.reloadData()
+        
+        if let selectedCategoryId = selectedCategoryId {
+            for (index, category) in categories.enumerated() {
+                if category.id == selectedCategoryId {
+                    let indexPath = IndexPath(item: index, section: 0)
+                    selectCategoryCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+                    break
+                } else {
+                    break
+                }
+            }
+        }
+    }
+    
+    private func updateActivityIndicatorState(_ isEnabled: Bool) {
+        addContentButton.configuration?.showsActivityIndicator = isEnabled
+    }
+    
 }
 
 // MARK: - 텍스트필드 델리게이트
