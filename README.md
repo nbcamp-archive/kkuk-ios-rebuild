@@ -8,7 +8,7 @@
 
 # kkuk-ios
 
-<img src="https://img.shields.io/badge/Xcode_14+-147EFB?style=flat&logo=Xcode&logoColor=FFF" /> <img src="https://img.shields.io/badge/iOS_15+-000?style=flat&logo=Apple&logoColor=FFF" /> <img src="https://img.shields.io/badge/Swift_5-F05138?style=flat&logo=Swift&logoColor=FFF" /> <img src="https://img.shields.io/badge/UIKit-2396F3?style=flat&logo=UIKit&logoColor=000" /> <img src="https://img.shields.io/badge/SwiftUI-007FFF?style=flat&logo=Swift&logoColor=000" /> <img src="https://img.shields.io/badge/RealmSwift-39477F?style=flat&logo=Realm&logoColor=FFF" /> 
+<img src="https://img.shields.io/badge/Xcode_14+-147EFB?style=flat&logo=Xcode&logoColor=FFF" /> <img src="https://img.shields.io/badge/iOS_15+-000?style=flat&logo=Apple&logoColor=FFF" /> <img src="https://img.shields.io/badge/Swift_5-F05138?style=flat&logo=Swift&logoColor=FFF" /> <img src="https://img.shields.io/badge/UIKit-2396F3?style=flat&logo=UIKit&logoColor=000" /> <img src="https://img.shields.io/badge/RealmSwift-39477F?style=flat&logo=Realm&logoColor=FFF" /> 
 
 ## Overview
 
@@ -44,20 +44,10 @@
 .
 ├── 📂Kkuk
 │   ├── 📂Application
-│   │   ├── 📜AppDelegate
-│   │   ├── 📜SceneDelegate
-│   │   └── 📜AppTabBarController
 │   ├── 📂Domain
 │   │   ├── 📂Entity
-│   │   │   ├── 📜Category
-│   │   │   └── 📜Content
 │   │   ├── 📂Helper
-│   │   │   ├── 📜CategoryHelper
-│   │   │   ├── 📜ContentHelper
-│   │   │   └── 📜RecentSearchHelper
 │   │   └── 📂Service
-│   │       ├── 📜HTMLParseService
-│   │       └── 📜OpenGraphService
 │   ├── 📂Global
 │   │   ├── 📂Base
 │   │   ├── 📂Component
