@@ -306,7 +306,6 @@ extension HomeViewController: ContentTableViewCellDelegate {
                      PanModalOption.Title.cancel]
         let option = PanModalOption(screenType: .content, title: title)
         let modalVC = PanModalTableViewController(option: PanModalOption(screenType: .content, title: title), content: content)
-        modalVC.modalPresentationStyle = .popover
         presentPanModal(modalVC)
     }
 }

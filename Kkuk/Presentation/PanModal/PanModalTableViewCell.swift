@@ -32,6 +32,7 @@ class PanModalTableViewCell: BaseUITableViewCell {
     
     override func setUI() {
         contentView.addSubview(titleLabel)
+        contentView.superview?.backgroundColor = .background
     }
 
     override func setLayout() {
