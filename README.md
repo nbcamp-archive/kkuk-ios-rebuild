@@ -20,10 +20,11 @@
 
 ## Architecture
 
+<img src="./architecture.png" alt="architecture" width="1280" />
 
 ## Dependencies
 
-<div align="center"><table><tr><td><img src="./dependencies.png" alt="xcdependency_graph" width="1280"/></td></tr></table></div>
+<div align="center"><table><tr><td><img src="./dependencies.png" alt="xcdependency_graph" width="1280" /></td></tr></table></div>
 
 | Target | Name |
 |:-------|:-------|
