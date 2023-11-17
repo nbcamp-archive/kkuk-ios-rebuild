@@ -20,6 +20,7 @@ class AddCategoryViewController: BaseUIViewController {
     
     var isAddCategory: Bool = true
     var modifyCategory: Category?
+    var dismissHandler: (() -> Void)?
     
     weak var delegate: AddCategoryViewControllerDelegate?
     private var categoryHelper = CategoryHelper.shared
@@ -222,7 +223,9 @@ extension AddCategoryViewController {
         let title = isAddCategory ? "추가" : "수정"
         
         showAlertOneButton(title: "카테고리가 \(title) 되었어요", message: "", completion: {
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: {
+                self.dismissHandler?()
+            })
             self.delegate?.reloadTableView()
         })
     }

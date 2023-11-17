@@ -185,9 +185,18 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
 extension CategoryInnerViewController: ContentTableViewCellDelegate {
     
     func togglePin(index: Int) {
-        contentManager.update(content: self.recentItems[index]) { [weak self] content in
-            content.isPinned.toggle()
-            self?.updatePin(index: index)
+        let items = contentManager.read().filter { $0.isPinned }
+        if recentItems[index].isPinned == false,
+           items.count == 5 {
+            let alert = UIAlertController(title: nil, message: "콘텐츠 고정은 5개만 가능해요", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "확인", style: .default)
+            alert.addAction(ok)
+            self.present(alert, animated: true)
+        } else {
+            contentManager.update(content: self.recentItems[index]) { [weak self] content in
+                content.isPinned.toggle()
+                self?.updatePin(index: index)
+            }
         }
     }
     

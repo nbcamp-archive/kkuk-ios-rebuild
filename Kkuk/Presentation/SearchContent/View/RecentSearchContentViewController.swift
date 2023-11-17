@@ -9,7 +9,7 @@ import UIKit
 
 class RecentSearchContentViewController: BaseUIViewController {
     let cellSpacing: CGFloat = 16
-    let cellHeight: CGFloat = 16
+    let cellHeight: CGFloat = 24
     
     let manager = RecentSearchHelper()
     

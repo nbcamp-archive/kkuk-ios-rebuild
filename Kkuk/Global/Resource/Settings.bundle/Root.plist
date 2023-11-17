@@ -8,6 +8,28 @@
 	<array>
 		<dict>
 			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>앱 화면 스타일</string>
+			<key>Key</key>
+			<string>app_appearance_style</string>
+			<key>DefaultValue</key>
+			<string>unspecified</string>
+			<key>Titles</key>
+			<array>
+				<string>라이트 모드</string>
+				<string>다크 모드</string>
+				<string>자동</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>light</string>
+				<string>dark</string>
+				<string>unspecified</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
 			<string>오픈소스 라이선스</string>

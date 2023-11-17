@@ -6,6 +6,7 @@
 //
 
 import PanModal
+import Kingfisher
 import SnapKit
 import UIKit
 import RealmSwift
@@ -28,6 +29,65 @@ class PanModalTableViewController: BaseUIViewController {
     private var helper = ContentHelper()
     
     weak var selfNavi: UINavigationController?
+    
+    private lazy var backView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .background
+        return view
+    }()
+    
+    private lazy var modifyView: UIView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.alignment = .center
+        view.spacing = 16
+        view.layer.cornerRadius = 8
+        view.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+        view.backgroundColor = .background
+        view.isHidden = true
+        return view
+    }()
+    
+    private lazy var thumbnailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "photo")
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 8
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderColor = UIColor.subgray2.cgColor
+        imageView.layer.borderWidth = 0.5
+        return imageView
+    }()
+    
+    private lazy var siteTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "사이트 타이틀 라벨"
+        label.font = .subtitle1
+        label.textColor = .text1
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var memoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "메모 라벨"
+        label.font = .subtitle3
+        label.textColor = .text1
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var urlLabel: UILabel = {
+        let label = UILabel()
+        label.text = "URL 라벨"
+        label.font = .subtitle4
+        label.textColor = .subgray1
+        label.textAlignment = .center
+        label.numberOfLines = 1
+        return label
+    }()
 
     private lazy var deleteModifyTableView: UITableView = {
         let tableView = UITableView()
@@ -40,6 +100,37 @@ class PanModalTableViewController: BaseUIViewController {
         return tableView
     }()
     
+    func configureCell() {
+        siteTitleLabel.text = content?.title
+        memoLabel.text = content?.memo
+        urlLabel.text = content?.sourceURL
+        setUpImage(imageURL: content?.imageURL)
+    }
+    
+    func setUpImage(imageURL: String?) {
+        guard var url = imageURL else { return }
+        
+        // http 포함 -> https로 변경
+        if url.contains("http:") {
+            if let range = url.range(of: "http:") {
+                url.replaceSubrange(range, with: "https:")
+            }
+            // http 미포함 -> https를 접두에 추가
+            // (이 조건은 https가 포함되어 있을 때도 만족하기 때문에 조건에서 제거해줘야함)
+        } else if !url.contains("https:") {
+            url = "https:" + url
+        }
+        
+        guard let https = url.range(of: "https:") else { return }
+        
+        url = String(url.suffix(from: https.lowerBound))
+        
+        // 내가 추가한거
+        guard let urlSource = URL(string: url) else { return }
+        // 내가 추가한거
+        thumbnailImageView.kf.setImage(with: urlSource)
+    }
+    
     init(option: PanModalOption, content: Content? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.panModalOption = option
@@ -51,13 +142,57 @@ class PanModalTableViewController: BaseUIViewController {
     }
 
     override func setUI() {
-        view.addSubview(deleteModifyTableView)
+        view.addSubviews([deleteModifyTableView, modifyView, backView])
+        modifyView.addSubviews([thumbnailImageView, siteTitleLabel, memoLabel, urlLabel])
+        view.backgroundColor = .clear
+        if content != nil {
+            configureCell()
+            modifyView.isHidden = false
+            addTopBorder(with: UIColor.selected, andWidth: 0.5)
+        } else {
+            deleteModifyTableView.layer.cornerRadius = 8
+            deleteModifyTableView.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+        }
     }
 
     /// 화면 레이아웃을 설정하기 위한 사용자 정의 함수입니다.
     override func setLayout() {
+        modifyView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(deleteModifyTableView.snp.top)
+        }
+        
+        thumbnailImageView.snp.makeConstraints { make in
+            make.top.leading.equalTo(modifyView).offset(12)
+            make.centerX.equalToSuperview()
+            make.width.height.equalTo(UIScreen.main.bounds.height * 0.1)
+        }
+        
+        siteTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(thumbnailImageView.snp.bottom).offset(12)
+            make.leading.trailing.equalTo(thumbnailImageView)
+        }
+        
+        memoLabel.snp.makeConstraints { make in
+            make.top.equalTo(siteTitleLabel.snp.bottom).offset(10)
+            make.leading.trailing.equalTo(modifyView).inset(12)
+        }
+        
+        urlLabel.snp.makeConstraints { make in
+            make.top.equalTo(memoLabel.snp.bottom).offset(10)
+            make.leading.trailing.equalTo(modifyView).inset(12)
+            make.bottom.equalTo(modifyView).offset(-12)
+        }
+
         deleteModifyTableView.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(UIScreen.main.bounds.height * 0.25)
+            make.leading.trailing.equalTo(modifyView)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        backView.snp.makeConstraints { make in
+            make.top.equalTo(deleteModifyTableView.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
 
@@ -104,6 +239,14 @@ class PanModalTableViewController: BaseUIViewController {
             self.selfNavi?.popToRootViewController(animated: true)
             self.dismiss(animated: true)
         })
+    }
+    
+    func addTopBorder(with color: UIColor?, andWidth borderWidth: CGFloat) {
+        let border = UIView()
+        border.backgroundColor = color
+        border.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
+        border.frame = CGRect(x: 0, y: 0, width: deleteModifyTableView.frame.width, height: borderWidth)
+        deleteModifyTableView.addSubview(border)
     }
 
 }
@@ -185,22 +328,30 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
 }
 
 extension PanModalTableViewController: PanModalPresentable {
+    var topOffset: CGFloat {
+        0
+    }
+    
     var panScrollable: UIScrollView? {
-        deleteModifyTableView
+        nil
     }
 
     var shortFormHeight: PanModalHeight {
-        .contentHeight(UIScreen.main.bounds.height * 0.25)
+        .contentHeight(UIScreen.main.bounds.height * 1)
     }
 
     var longFormHeight: PanModalHeight {
-        .contentHeight(UIScreen.main.bounds.height * 0.25)
+        .contentHeight(UIScreen.main.bounds.height * 1)
     }
-
+    
     var allowsTapToDismiss: Bool {
-        true
+        false
     }
-
+    
+    var allowsDragToDismiss: Bool {
+        false
+    }
+    
     var dragIndicatorBackgroundColor: UIColor {
         .clear
     }

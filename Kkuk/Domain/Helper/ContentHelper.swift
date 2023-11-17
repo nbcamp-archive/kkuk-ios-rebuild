@@ -69,7 +69,12 @@ extension ContentHelper {
     }
     
     func read(at column: SegmentMenu, with searchText: String) -> [Content] {
-        let query = NSPredicate(format: "\(column) CONTAINS[c] %@", searchText)
+        var query = NSPredicate(format: "\(column) CONTAINS[c] %@", searchText)
+        
+        if column == .title {
+            let urlQuery = NSPredicate(format: "sourceURL CONTAINS[c] %@", searchText)
+            query = NSCompoundPredicate(orPredicateWithSubpredicates: [query, urlQuery])
+        }
         
         let result = database.objects(Content.self).filter(query).sorted(byKeyPath: "createDate", ascending: false)
         
@@ -86,6 +91,11 @@ extension ContentHelper {
     
     func delete(_ content: Content) {
         databaseTransaction { database.delete(content) }
+    }
+    
+    func isAlreadyArchived(with URL: String) -> Bool {
+        let validationSet = read()
+        return validationSet.contains { $0.sourceURL == URL }
     }
     
 }
