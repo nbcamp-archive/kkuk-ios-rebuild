@@ -345,11 +345,11 @@
 		1C2843592ADB969A00A87E99 /* Kkuk */ = {
 			isa = PBXGroup;
 			children = (
+				1C28438A2ADB9D0D00A87E99 /* Application */,
 				555C504D2AFCB5E5000E6B72 /* Kkuk.entitlements */,
 				1CB640012AF7E4D5003BDB62 /* Domain */,
 				1C2843992ADC2CD400A87E99 /* Presentation */,
 				1C28438F2ADB9D8800A87E99 /* Global */,
-				1C28438A2ADB9D0D00A87E99 /* Application */,
 			);
 			path = Kkuk;
 			sourceTree = "<group>";
