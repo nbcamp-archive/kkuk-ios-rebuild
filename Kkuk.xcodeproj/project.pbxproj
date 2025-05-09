@@ -1174,7 +1174,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 347XA53QJK;
+				DEVELOPMENT_TEAM = 4CLS27ED5N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kkuk/Global/Resource/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Kkuk: 꾹";
@@ -1208,7 +1208,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 347XA53QJK;
+				DEVELOPMENT_TEAM = 4CLS27ED5N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kkuk/Global/Resource/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Kkuk: 꾹";
