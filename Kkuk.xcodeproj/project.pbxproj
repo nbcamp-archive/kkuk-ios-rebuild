@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,8 +18,6 @@
 		1C2843722ADB969C00A87E99 /* KkukTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843712ADB969C00A87E99 /* KkukTests.swift */; };
 		1C28437C2ADB969C00A87E99 /* KkukUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C28437B2ADB969C00A87E99 /* KkukUITests.swift */; };
 		1C28437E2ADB969C00A87E99 /* KkukUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C28437D2ADB969C00A87E99 /* KkukUITestsLaunchTests.swift */; };
-		1C28438D2ADB9D0D00A87E99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C28438B2ADB9D0D00A87E99 /* AppDelegate.swift */; };
-		1C28438E2ADB9D0D00A87E99 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C28438C2ADB9D0D00A87E99 /* SceneDelegate.swift */; };
 		1C2843962ADC2C5600A87E99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C2843932ADC2C5600A87E99 /* LaunchScreen.storyboard */; };
 		1C2843972ADC2C5600A87E99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C2843942ADC2C5600A87E99 /* Assets.xcassets */; };
 		1C2843A32ADC2F7000A87E99 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843A02ADC2F7000A87E99 /* Coordinator.swift */; };
@@ -28,7 +26,6 @@
 		1C2843B92ADD0DD400A87E99 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843B82ADD0DD400A87E99 /* CategoryViewController.swift */; };
 		1C2843BF2ADD0F5300A87E99 /* SearchContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843BE2ADD0F5300A87E99 /* SearchContentViewController.swift */; };
 		1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843C72ADD0FD600A87E99 /* AddContentViewController.swift */; };
-		1C2843CF2ADD11B600A87E99 /* AppTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843CE2ADD11B600A87E99 /* AppTabBarController.swift */; };
 		1C2843D12ADD2C5C00A87E99 /* BaseUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843D02ADD2C5C00A87E99 /* BaseUITableViewCell.swift */; };
 		1C2843D32ADD2C6800A87E99 /* BaseUICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843D22ADD2C6800A87E99 /* BaseUICollectionViewCell.swift */; };
 		1C2843D62ADD2F9300A87E99 /* UIView+AddSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843D52ADD2F9300A87E99 /* UIView+AddSubviews.swift */; };
@@ -177,8 +174,6 @@
 		1C2843772ADB969C00A87E99 /* KkukUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KkukUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C28437B2ADB969C00A87E99 /* KkukUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KkukUITests.swift; sourceTree = "<group>"; };
 		1C28437D2ADB969C00A87E99 /* KkukUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KkukUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		1C28438B2ADB9D0D00A87E99 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1C28438C2ADB9D0D00A87E99 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1C2843932ADC2C5600A87E99 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1C2843942ADC2C5600A87E99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C2843952ADC2C5600A87E99 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -189,7 +184,6 @@
 		1C2843B82ADD0DD400A87E99 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		1C2843BE2ADD0F5300A87E99 /* SearchContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContentViewController.swift; sourceTree = "<group>"; };
 		1C2843C72ADD0FD600A87E99 /* AddContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentViewController.swift; sourceTree = "<group>"; };
-		1C2843CE2ADD11B600A87E99 /* AppTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarController.swift; sourceTree = "<group>"; };
 		1C2843D02ADD2C5C00A87E99 /* BaseUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITableViewCell.swift; sourceTree = "<group>"; };
 		1C2843D22ADD2C6800A87E99 /* BaseUICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUICollectionViewCell.swift; sourceTree = "<group>"; };
 		1C2843D52ADD2F9300A87E99 /* UIView+AddSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddSubviews.swift"; sourceTree = "<group>"; };
@@ -236,6 +230,10 @@
 		C3D641F72AF92ABE00DA39E4 /* BookmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
 		ECF81C422AE050FF000C05DC /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		1CC491BB2DE205F4008DF22C /* Application */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Application; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		1C2843542ADB969A00A87E99 /* Frameworks */ = {
@@ -345,7 +343,7 @@
 		1C2843592ADB969A00A87E99 /* Kkuk */ = {
 			isa = PBXGroup;
 			children = (
-				1C28438A2ADB9D0D00A87E99 /* Application */,
+				1CC491BB2DE205F4008DF22C /* Application */,
 				555C504D2AFCB5E5000E6B72 /* Kkuk.entitlements */,
 				1CB640012AF7E4D5003BDB62 /* Domain */,
 				1C2843992ADC2CD400A87E99 /* Presentation */,
@@ -369,16 +367,6 @@
 				1C28437D2ADB969C00A87E99 /* KkukUITestsLaunchTests.swift */,
 			);
 			path = KkukUITests;
-			sourceTree = "<group>";
-		};
-		1C28438A2ADB9D0D00A87E99 /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				1C28438B2ADB9D0D00A87E99 /* AppDelegate.swift */,
-				1C28438C2ADB9D0D00A87E99 /* SceneDelegate.swift */,
-				1C2843CE2ADD11B600A87E99 /* AppTabBarController.swift */,
-			);
-			path = Application;
 			sourceTree = "<group>";
 		};
 		1C28438F2ADB9D8800A87E99 /* Global */ = {
@@ -725,6 +713,9 @@
 			dependencies = (
 				1CB640132AF7EC78003BDB62 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				1CC491BB2DE205F4008DF22C /* Application */,
+			);
 			name = Kkuk;
 			packageProductDependencies = (
 				1C2843E92ADE996200A87E99 /* Alamofire */,
@@ -940,14 +931,12 @@
 				1C2843C82ADD0FD600A87E99 /* AddContentViewController.swift in Sources */,
 				55791AC42AE7AED9005C06C4 /* CategoryTableViewCell.swift in Sources */,
 				1C79F0062AE7F67300B5A97A /* AppTabBarItem.swift in Sources */,
-				1C2843CF2ADD11B600A87E99 /* AppTabBarController.swift in Sources */,
 				0A70AB872AF9FF3A00CAAC48 /* PanModalOption.swift in Sources */,
 				1C328F8D2AE9368D0040D883 /* WebViewToolbar.swift in Sources */,
 				1CB63FFC2AF4CC6F003BDB62 /* RedirectAddCategoryButton.swift in Sources */,
 				0A042ED92ADFE48E002ED30D /* ContentTableViewCell.swift in Sources */,
 				1C79EFF92AE7675A00B5A97A /* Asset.swift in Sources */,
 				1C2843A82ADD0C0F00A87E99 /* HomeViewController.swift in Sources */,
-				1C28438D2ADB9D0D00A87E99 /* AppDelegate.swift in Sources */,
 				1C2843B92ADD0DD400A87E99 /* CategoryViewController.swift in Sources */,
 				C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */,
 				1C2843A42ADC2F7000A87E99 /* BaseUIViewController.swift in Sources */,
@@ -971,7 +960,6 @@
 				1C2843D12ADD2C5C00A87E99 /* BaseUITableViewCell.swift in Sources */,
 				1C79F0002AE7E6EF00B5A97A /* HTMLParseService.swift in Sources */,
 				0A042EDB2ADFF9D0002ED30D /* RecentSearchContentViewController.swift in Sources */,
-				1C28438E2ADB9D0D00A87E99 /* SceneDelegate.swift in Sources */,
 				1CB63FFA2AF33EC9003BDB62 /* SelectCategoryCell.swift in Sources */,
 				1C79EFF62AE7641000B5A97A /* UIImage+LoadAsset.swift in Sources */,
 				55791AD22AEBC0FF005C06C4 /* Category.swift in Sources */,
