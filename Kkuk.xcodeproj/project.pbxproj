@@ -30,7 +30,6 @@
 		1C2843D32ADD2C6800A87E99 /* BaseUICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843D22ADD2C6800A87E99 /* BaseUICollectionViewCell.swift */; };
 		1C2843D62ADD2F9300A87E99 /* UIView+AddSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843D52ADD2F9300A87E99 /* UIView+AddSubviews.swift */; };
 		1C2843D82ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843D72ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift */; };
-		1C2843DC2ADD388700A87E99 /* And.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843DB2ADD388700A87E99 /* And.swift */; };
 		1C2843EA2ADE996200A87E99 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843E92ADE996200A87E99 /* Alamofire */; };
 		1C2843ED2ADE99D400A87E99 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843EC2ADE99D400A87E99 /* IQKeyboardManagerSwift */; };
 		1C2843F02ADE99EF00A87E99 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2843EF2ADE99EF00A87E99 /* Kingfisher */; };
@@ -188,7 +187,6 @@
 		1C2843D22ADD2C6800A87E99 /* BaseUICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUICollectionViewCell.swift; sourceTree = "<group>"; };
 		1C2843D52ADD2F9300A87E99 /* UIView+AddSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddSubviews.swift"; sourceTree = "<group>"; };
 		1C2843D72ADD2FF600A87E99 /* UIStackView+AddArrangedSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+AddArrangedSubviews.swift"; sourceTree = "<group>"; };
-		1C2843DB2ADD388700A87E99 /* And.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = And.swift; sourceTree = "<group>"; };
 		1C28441C2ADED52B00A87E99 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		1C28441D2ADED52B00A87E99 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		1C28441E2ADED52B00A87E99 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
@@ -430,7 +428,6 @@
 		1C28439F2ADC2F7000A87E99 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				1C2843DB2ADD388700A87E99 /* And.swift */,
 				1C2843A02ADC2F7000A87E99 /* Coordinator.swift */,
 			);
 			path = Protocol;
@@ -940,7 +937,6 @@
 				1C2843B92ADD0DD400A87E99 /* CategoryViewController.swift in Sources */,
 				C3A65F022ADEFBC500A100A7 /* UIColor+AppColor.swift in Sources */,
 				1C2843A42ADC2F7000A87E99 /* BaseUIViewController.swift in Sources */,
-				1C2843DC2ADD388700A87E99 /* And.swift in Sources */,
 				55791AC02AE7AEC7005C06C4 /* CategoryInnerViewController.swift in Sources */,
 				1CAEBE6D2AED434700FF4CF2 /* Toast.swift in Sources */,
 				1CAEBE6F2AF1278500FF4CF2 /* OptionalLabel.swift in Sources */,
