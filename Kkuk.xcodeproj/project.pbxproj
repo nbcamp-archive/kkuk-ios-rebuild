@@ -840,9 +840,9 @@
 			projectRoot = "";
 			targets = (
 				1C2843562ADB969A00A87E99 /* Kkuk */,
+				1CB640092AF7EC78003BDB62 /* KkukShareExtension */,
 				1C28436C2ADB969C00A87E99 /* KkukTests */,
 				1C2843762ADB969C00A87E99 /* KkukUITests */,
-				1CB640092AF7EC78003BDB62 /* KkukShareExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1173,7 +1173,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yujinkim1.kkuk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yujinkim1.Kkuk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1210,7 +1210,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yujinkim1.kkuk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yujinkim1.Kkuk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1307,7 +1307,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "Kkuk/Global/Resource/Font/Pretendard-Light.otf Kkuk/Global/Resource/Font/Pretendard-SemiBold.otf Kkuk/Global/Resource/Font/Pretendard-Bold.otf Kkuk/Global/Resource/Font/Pretendard-Regular.otf Kkuk/Global/Resource/Font/Pretendard-Medium.otf";
-				DEVELOPMENT_TEAM = 347XA53QJK;
+				DEVELOPMENT_TEAM = 4CLS27ED5N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KkukShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = KkukShareExtension;
@@ -1318,7 +1318,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nbcamp.archive.Kkuk.KkukShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yujinkim1.Kkuk.KkukShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1336,7 +1336,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "Kkuk/Global/Resource/Font/Pretendard-Light.otf Kkuk/Global/Resource/Font/Pretendard-SemiBold.otf Kkuk/Global/Resource/Font/Pretendard-Bold.otf Kkuk/Global/Resource/Font/Pretendard-Regular.otf Kkuk/Global/Resource/Font/Pretendard-Medium.otf";
-				DEVELOPMENT_TEAM = 347XA53QJK;
+				DEVELOPMENT_TEAM = 4CLS27ED5N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KkukShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = KkukShareExtension;
@@ -1347,7 +1347,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nbcamp.archive.Kkuk.KkukShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yujinkim1.Kkuk.KkukShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
