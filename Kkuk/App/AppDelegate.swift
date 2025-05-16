@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let defaultRealm = Realm.Configuration.defaultConfiguration.fileURL!
         // Container for newly created App Group Identifier
-        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.nbcamp.archive.Kkuk")
+        // !!!: 커스텀 FileManager.default 경로에 접근하지 못하는 문제가 발생
+        // forSecurityApplicationGroupIdentifier 인자값을 수정해 우선적으로 해결함
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.yujinkim1.Kkuk")
         // Shared path of realm config
         let realmURL = container?.appendingPathComponent("default.realm")
         // Config init
