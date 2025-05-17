@@ -15,32 +15,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let defaultRealm = Realm.Configuration.defaultConfiguration.fileURL!
         // Container for newly created App Group Identifier
         // !!!: 커스텀 FileManager.default 경로에 접근하지 못하는 문제가 발생
         // forSecurityApplicationGroupIdentifier 인자값을 수정해 우선적으로 해결함
-        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.yujinkim1.Kkuk")
+        // 컨테이너가 nil인지 확인하는 코드로 변경함
+        guard let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.yujinkim1.Kkuk") else {
+            fatalError("App Group 컨테이너가 존재하지 않습니다.")
+        }
         // Shared path of realm config
-        let realmURL = container?.appendingPathComponent("default.realm")
+        let realmUrl = container.appendingPathComponent("default.realm")
+        let defaultRealmUrl = Realm.Configuration.defaultConfiguration.fileURL!
         // Config init
-        var config: Realm.Configuration!
+        var config = Realm.Configuration(fileURL: realmUrl, schemaVersion: 1)
 
         // Checking the old realm config is exist
-        if FileManager.default.fileExists(atPath: defaultRealm.path) {
+        if FileManager.default.fileExists(atPath: defaultRealmUrl.path) {
             do {
-              // Replace old config with the new one
-                _ = try FileManager.default.replaceItemAt(realmURL!, withItemAt: defaultRealm)
-
-               config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
+                // Replace old config with the new one
+                _ = try FileManager.default.replaceItemAt(realmUrl, withItemAt: defaultRealmUrl)
             } catch {
-               print("Error info: \(error)")
+               print("Realm 마이그레이션 실패: \(error)")
             }
-        } else {
-             config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
         }
 
         // Lastly init realm config to default config
+        // 경로 설정 반영 후 초기화 테스트
         Realm.Configuration.defaultConfiguration = config
+        do {
+            // 초기화하는 과정에서 에러 확인
+            _ = try Realm()
+            print("Realm 초기화 성공")
+        } catch {
+            print("Realm 초기화 실패: \(error)")
+        }
+        
         return true
     }
     
