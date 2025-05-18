@@ -25,8 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Shared path of realm config
         let realmUrl = container.appendingPathComponent("default.realm")
         let defaultRealmUrl = Realm.Configuration.defaultConfiguration.fileURL!
-        // Config init
-        var config = Realm.Configuration(fileURL: realmUrl, schemaVersion: 1)
+        
+        // 일단 초기화를 수행하도록 fallback 경로로 강제 설정해봄
+        let fallbackURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("default.realm")
+        
+        let config = Realm.Configuration(fileURL: fallbackURL, schemaVersion: 1)
+        Realm.Configuration.defaultConfiguration = config
 
         // Checking the old realm config is exist
         if FileManager.default.fileExists(atPath: defaultRealmUrl.path) {
