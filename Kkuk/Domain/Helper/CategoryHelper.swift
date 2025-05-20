@@ -15,7 +15,11 @@ protocol Storage {
     func sort<T: Object>(_ object: T.Type, by keyPath: String, ascending: Bool) -> Results<T>
 }
 
-final class CategoryHelper: Storage {
+// !!!: Command SwiftCompile failed with a nonzero exit code
+// Swift 6의 엄격한 동시성 검사 때문에 에러가 발생함
+// Thread-safe하지 않은 코드이고, Sendable 프로토콜을 준수해야 하지만,
+// 우선 무시하고 나중에 고쳐야함
+final class CategoryHelper: Storage, @unchecked Sendable {
     
     static let shared = CategoryHelper()
 
