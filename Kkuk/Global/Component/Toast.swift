@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 class Toast {
 
     static func showToast(_ viewController: UIViewController, message: String) {

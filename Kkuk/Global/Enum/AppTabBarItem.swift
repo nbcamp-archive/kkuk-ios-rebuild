@@ -42,6 +42,7 @@ enum AppTabBarItem: String, CaseIterable {
         }
     }
     
+    @MainActor
     func toTabImage() -> UIImage {
         switch self {
         case .home: return Asset.home
