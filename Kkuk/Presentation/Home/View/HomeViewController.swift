@@ -283,7 +283,7 @@ extension HomeViewController {
     }
 }
 
-extension HomeViewController: ContentTableViewCellDelegate {
+extension HomeViewController: @preconcurrency ContentTableViewCellDelegate {
     func togglePin(index: Int) {
         if recentItems[index].isPinned == false &&
            bookmarkItems.count == 5 {
@@ -310,7 +310,7 @@ extension HomeViewController: ContentTableViewCellDelegate {
     }
 }
 
-extension HomeViewController: BookmarkCellDelegate {
+extension HomeViewController: @preconcurrency BookmarkCellDelegate {
     func removePin(id: ObjectId) {
         if let index = recentItems.firstIndex(where: { $0.id == id }) {
             self.updatePin(index: index)

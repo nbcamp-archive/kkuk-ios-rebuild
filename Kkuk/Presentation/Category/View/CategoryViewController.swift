@@ -170,7 +170,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-extension CategoryViewController: AddCategoryViewControllerDelegate {
+extension CategoryViewController: @preconcurrency AddCategoryViewControllerDelegate {
     func reloadTableView() {
         emptyCategoryLabel.isHidden = true
         category = categoryHelper.read()
@@ -179,7 +179,7 @@ extension CategoryViewController: AddCategoryViewControllerDelegate {
     
 }
 
-extension CategoryViewController: CategoryTableViewCellDelegate {
+extension CategoryViewController: @preconcurrency CategoryTableViewCellDelegate {
     
     func deleteTableViewCell() {
         category = categoryHelper.read()

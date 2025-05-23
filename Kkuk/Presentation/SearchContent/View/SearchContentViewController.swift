@@ -248,7 +248,7 @@ extension SearchContentViewController: UITableViewDataSource, UITableViewDelegat
     }
 }
 
-extension SearchContentViewController: ContentTableViewCellDelegate {
+extension SearchContentViewController: @preconcurrency ContentTableViewCellDelegate {
     func togglePin(index: Int) {
         let items = contentManager.read().filter { $0.isPinned }
         if contentList[index].isPinned == false,

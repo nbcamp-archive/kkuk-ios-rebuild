@@ -327,7 +327,7 @@ extension PanModalTableViewController: UITableViewDelegate, UITableViewDataSourc
     }
 }
 
-extension PanModalTableViewController: PanModalPresentable {
+extension PanModalTableViewController: @preconcurrency PanModalPresentable {
     var topOffset: CGFloat {
         0
     }
@@ -357,6 +357,6 @@ extension PanModalTableViewController: PanModalPresentable {
     }
 }
 
-extension PanModalTableViewController: AddCategoryViewControllerDelegate {
+extension PanModalTableViewController: @preconcurrency AddCategoryViewControllerDelegate {
     func reloadTableView() {}
 }

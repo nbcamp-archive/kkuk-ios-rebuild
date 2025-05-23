@@ -142,7 +142,7 @@ extension CategoryInnerViewController {
     
 }
 
-extension CategoryInnerViewController: PanModalTableViewControllerDelegate {
+extension CategoryInnerViewController: @preconcurrency PanModalTableViewControllerDelegate {
     func modifyTitle(title: String) {
         navigationItem.title = title
     }
@@ -182,7 +182,7 @@ extension CategoryInnerViewController: UITableViewDelegate, UITableViewDataSourc
     }
 }
 
-extension CategoryInnerViewController: ContentTableViewCellDelegate {
+extension CategoryInnerViewController: @preconcurrency ContentTableViewCellDelegate {
     
     func togglePin(index: Int) {
         let items = contentManager.read().filter { $0.isPinned }
