@@ -230,6 +230,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		1C86B0C82DE4BFB800E54268 /* Sandbox */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Sandbox; sourceTree = "<group>"; };
 		1CC491BB2DE205F4008DF22C /* App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = App; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -342,6 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				1CC491BB2DE205F4008DF22C /* App */,
+				1C86B0C82DE4BFB800E54268 /* Sandbox */,
 				1CB640012AF7E4D5003BDB62 /* Domain */,
 				1C2843992ADC2CD400A87E99 /* Presentation */,
 				1C28438F2ADB9D8800A87E99 /* Global */,
@@ -711,6 +713,7 @@
 				1CB640132AF7EC78003BDB62 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				1C86B0C82DE4BFB800E54268 /* Sandbox */,
 				1CC491BB2DE205F4008DF22C /* App */,
 			);
 			name = Kkuk;
