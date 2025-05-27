@@ -9,7 +9,6 @@ import IQKeyboardManagerSwift
 import UIKit
 import RealmSwift
 
-@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
