@@ -16,10 +16,13 @@ let package = Package(
             targets: ["Data"]
         ),
     ],
+    dependencies: [
+        .package(name: "Domain", path: "../Domain")
+    ],
     targets: [
         .target(
             name: "Data",
-            dependencies: []
+            dependencies: ["Domain"]
         ),
         .testTarget(
             name: "DataTests",
