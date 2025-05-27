@@ -1,5 +1,5 @@
 //
-//  LinkMetadata.swift
+//  LinkMetadataEntity.swift
 //  Data
 //
 //  Created by Yujin Kim on 2025-05-28.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-public final class LinkMetadata {
+public final class LinkMetadataEntity {
     @Attribute(.unique) public var id: UUID
     public var ogTitle: String
     public var ogDescription: String?
