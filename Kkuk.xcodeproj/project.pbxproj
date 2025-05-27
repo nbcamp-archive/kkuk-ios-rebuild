@@ -46,6 +46,7 @@
 		1C2844272ADED5E500A87E99 /* UIFont+FontSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2844262ADED5E500A87E99 /* UIFont+FontSizes.swift */; };
 		1C328F892AE92F8D0040D883 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C328F882AE92F8D0040D883 /* WebViewController.swift */; };
 		1C328F8D2AE9368D0040D883 /* WebViewToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C328F8C2AE9368D0040D883 /* WebViewToolbar.swift */; };
+		1C3AC6AA2DE5CEB900A31DEA /* Data in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3AC6A92DE5CEB900A31DEA /* Data */; };
 		1C688AF62AFA913500E27714 /* ContentHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352F4AD2AEB87330016398A /* ContentHelper.swift */; };
 		1C688AF72AFA915900E27714 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843B02ADD0D6300A87E99 /* SettingViewController.swift */; };
 		1C6ABCE42AFA8B8900FF9E56 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C6ABCE32AFA8B8900FF9E56 /* Settings.bundle */; };
@@ -230,6 +231,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		1C3AC6962DE5B15700A31DEA /* Packages */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Packages; sourceTree = "<group>"; };
 		1C86B0C82DE4BFB800E54268 /* Sandbox */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Sandbox; sourceTree = "<group>"; };
 		1CC491BB2DE205F4008DF22C /* App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = App; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -247,6 +249,7 @@
 				1C2843ED2ADE99D400A87E99 /* IQKeyboardManagerSwift in Frameworks */,
 				1C2843F62ADE9AB600A87E99 /* Realm in Frameworks */,
 				1C2844012ADE9B0100A87E99 /* SwiftSoup in Frameworks */,
+				1C3AC6AA2DE5CEB900A31DEA /* Data in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +326,7 @@
 				1C2843702ADB969C00A87E99 /* KkukTests */,
 				1C28437A2ADB969C00A87E99 /* KkukUITests */,
 				1CB6400B2AF7EC78003BDB62 /* KkukShareExtension */,
+				1C3AC6962DE5B15700A31DEA /* Packages */,
 				1C2843582ADB969A00A87E99 /* Products */,
 				555C502F2AFC6933000E6B72 /* Frameworks */,
 			);
@@ -726,6 +730,7 @@
 				1C2843F72ADE9AB600A87E99 /* RealmSwift */,
 				1C2843FA2ADE9AE200A87E99 /* SnapKit */,
 				1C2844002ADE9B0100A87E99 /* SwiftSoup */,
+				1C3AC6A92DE5CEB900A31DEA /* Data */,
 			);
 			productName = Kkuk;
 			productReference = 1C2843572ADB969A00A87E99 /* Kkuk.app */;
@@ -837,6 +842,7 @@
 				1C2843F42ADE9AB600A87E99 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				1C2843F92ADE9AE200A87E99 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				1C2843FF2ADE9B0100A87E99 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				1C3AC6A82DE5CEB900A31DEA /* XCLocalSwiftPackageReference "Packages/Data" */,
 			);
 			productRefGroup = 1C2843582ADB969A00A87E99 /* Products */;
 			projectDirPath = "";
@@ -1411,6 +1417,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		1C3AC6A82DE5CEB900A31DEA /* XCLocalSwiftPackageReference "Packages/Data" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/Data;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		1C2843E82ADE996200A87E99 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -1510,6 +1523,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1C2843FF2ADE9B0100A87E99 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
 			productName = SwiftSoup;
+		};
+		1C3AC6A92DE5CEB900A31DEA /* Data */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Data;
 		};
 		555C50302AFC6933000E6B72 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
