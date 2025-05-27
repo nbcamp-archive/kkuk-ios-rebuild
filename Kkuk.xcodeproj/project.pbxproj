@@ -211,6 +211,7 @@
 		1CB6400A2AF7EC78003BDB62 /* KkukShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KkukShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CB6400C2AF7EC78003BDB62 /* AddContentShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentShareViewController.swift; sourceTree = "<group>"; };
 		1CB640112AF7EC78003BDB62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1CCF2F762DE6280B003BB0E8 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Domain; path = Packages/Domain; sourceTree = "<group>"; };
 		555C50182AFBB302000E6B72 /* EntryShareNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryShareNavigationController.swift; sourceTree = "<group>"; };
 		555C504C2AFCB5DC000E6B72 /* KkukShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KkukShareExtension.entitlements; sourceTree = "<group>"; };
 		555C504D2AFCB5E5000E6B72 /* Kkuk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kkuk.entitlements; sourceTree = "<group>"; };
@@ -693,6 +694,7 @@
 		555C502F2AFC6933000E6B72 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1CCF2F762DE6280B003BB0E8 /* Domain */,
 				555C50502AFCC368000E6B72 /* UIKit.framework */,
 			);
 			name = Frameworks;
