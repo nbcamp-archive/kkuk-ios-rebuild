@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import Domain
 
 @Model
 public final class LinkMetadataEntity {
@@ -22,5 +23,18 @@ public final class LinkMetadataEntity {
         self.ogDescription = ogDescription
         self.ogImage = ogImage
         self.createdAt = createdAt
+    }
+}
+
+// MARK: - 매핑
+extension LinkMetadataEntity {
+    func toDomain() -> LinkMetadata {
+        .init(id: id, ogTitle: ogTitle, ogDescription: ogDescription, ogImage: ogImage, createdAt: createdAt)
+    }
+}
+
+extension LinkMetadata {
+    func toEntity() -> LinkMetadataEntity {
+        .init(id: id, ogTitle: ogTitle, createdAt: createdAt)
     }
 }
