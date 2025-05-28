@@ -5,6 +5,11 @@ import PackageDescription
 
 let package = Package(
     name: "Features",
+    defaultLocalization: "ko",
+    platforms: [
+        .iOS(.v17),
+        .macOS(.v14)
+    ],
     products: [
         .library(
             name: "Features",
@@ -13,7 +18,8 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "Features"),
+            name: "Features"
+        ),
         .testTarget(
             name: "FeaturesTests",
             dependencies: ["Features"]
