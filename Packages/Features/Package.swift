@@ -16,9 +16,13 @@ let package = Package(
             targets: ["Features"]
         ),
     ],
+    dependencies: [
+        .package(name: "Domain", path: "../Domain")
+    ],
     targets: [
         .target(
-            name: "Features"
+            name: "Features",
+            dependencies: ["Domain"]
         ),
         .testTarget(
             name: "FeaturesTests",
