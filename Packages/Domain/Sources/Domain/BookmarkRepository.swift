@@ -9,5 +9,5 @@ import Foundation
 
 // MARK: - Abstraction
 public protocol BookmarkRepository {
-    func fetchAll() async throws -> [LinkMetadata]
+    func fetch() async throws -> [Bookmark]
 }
