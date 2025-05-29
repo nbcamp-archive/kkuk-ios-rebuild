@@ -52,7 +52,7 @@ extension BookmarkEntity: Hashable {
 }
 
 // MARK: - Mapper
-extension BookmarkEntity {
+public extension BookmarkEntity {
     static func toModel(_ entity: BookmarkEntity) -> Bookmark {
         return .init(
             id: entity.id,
