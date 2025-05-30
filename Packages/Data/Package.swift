@@ -17,12 +17,16 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(name: "Domain", path: "../Domain")
+        .package(name: "Domain", path: "../Domain"),
+        .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.6.0")
     ],
     targets: [
         .target(
             name: "Data",
-            dependencies: ["Domain"]
+            dependencies: [
+                "Domain",
+                "SwiftSoup"
+            ]
         ),
         .testTarget(
             name: "DataTests",
