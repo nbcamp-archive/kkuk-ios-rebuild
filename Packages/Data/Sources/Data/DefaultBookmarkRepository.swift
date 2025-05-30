@@ -18,12 +18,12 @@ final class DefaultBookmarkRepository: BookmarkRepository {
     }
     
     func fetch() async throws -> [Domain.Bookmark] {
-        let sortDescriptor = SortDescriptor(\Bookmark.createdAt, order: .reverse)
-        let fetchDescriptor = FetchDescriptor<Bookmark>(sortBy: [sortDescriptor])
+        let sortDescriptor = SortDescriptor(\BookmarkEntity.createdAt, order: .reverse)
+        let fetchDescriptor = FetchDescriptor<BookmarkEntity>(sortBy: [sortDescriptor])
         
         do {
             let result = try modelContext.fetch(fetchDescriptor)
-            return result
+            return result.compactMap(BookmarkEntity.toModel(_:))
         } catch {
             print("\(SwiftDataError.missingModelContext.localizedDescription)")
         }
