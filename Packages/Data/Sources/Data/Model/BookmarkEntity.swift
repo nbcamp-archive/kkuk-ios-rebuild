@@ -11,7 +11,7 @@ import Domain
 
 @Model
 public class BookmarkEntity {
-    public var id: UUID // 고유번호
+    @Attribute(.unique) public var id: UUID // 고유번호
     public var createdAt: Date // 생성일
     public var type: String = "bookmark" // 유형
     public var ogUrl: String // og:url
@@ -35,6 +35,20 @@ public class BookmarkEntity {
             self.ogDescription = ogDescription
             self.ogImage = ogImage
         }
+}
+
+// MARK: - Identifiable
+extension BookmarkEntity: Identifiable {}
+
+// MARK: - Hashable
+extension BookmarkEntity: Hashable {
+    public static func == (lhs: BookmarkEntity, rhs: BookmarkEntity) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 // MARK: - Mapper
