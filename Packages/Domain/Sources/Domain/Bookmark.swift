@@ -6,32 +6,37 @@
 //
 
 import Foundation
-import SwiftData
 
-@Model
-public final class Bookmark: Identifiable, Hashable {
-    public var id: UUID // 고유번호
-    public var type: String = "link" // 유형
-    public var createdAt: String // 생성일
-    public var ogUrl: String // og:url
-    public var ogTitle: String // og:title
-    public var ogDescription: String? // og:description
-    public var ogImage: String? // og:image
+public struct Bookmark {
+    public let id: UUID
+    public let createdAt: Date
+    public let type: String
+    public let ogUrl: String
+    public let ogTitle: String
+    public let ogDescription: String?
+    public let ogImage: String?
     
     public init(
-        id: UUID,
-        type: String,
-        createdAt: String,
+        id: UUID = UUID(),
+        createdAt: Date = .now,
+        type: String = "bookmark",
         ogUrl: String,
         ogTitle: String,
-        ogDescription: String? = nil,
-        ogImage: String? = nil) {
+        ogDescription: String?,
+        ogImage: String?) {
         self.id = id
-        self.type = type
         self.createdAt = createdAt
+        self.type = type
         self.ogUrl = ogUrl
         self.ogTitle = ogTitle
         self.ogDescription = ogDescription
         self.ogImage = ogImage
     }
 }
+
+// MARK: - Extensions
+extension Bookmark: Identifiable {}
+
+extension Bookmark: Equatable {}
+
+extension Bookmark: Sendable {}
