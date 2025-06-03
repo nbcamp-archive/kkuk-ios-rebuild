@@ -22,7 +22,13 @@ let package = Package(
     targets: [
         .target(
             name: "Features",
-            dependencies: ["Domain"]
+            dependencies: [
+                "Domain"
+            ],
+            swiftSettings: [
+                // ProjectDescription 6.0에 처음 도입된 설정
+                .swiftLanguageMode(.v6)
+            ]
         ),
         .testTarget(
             name: "FeaturesTests",
