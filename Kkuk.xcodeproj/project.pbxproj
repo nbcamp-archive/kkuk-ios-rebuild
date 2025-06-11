@@ -18,7 +18,6 @@
 		1C2843722ADB969C00A87E99 /* KkukTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843712ADB969C00A87E99 /* KkukTests.swift */; };
 		1C28437C2ADB969C00A87E99 /* KkukUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C28437B2ADB969C00A87E99 /* KkukUITests.swift */; };
 		1C28437E2ADB969C00A87E99 /* KkukUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C28437D2ADB969C00A87E99 /* KkukUITestsLaunchTests.swift */; };
-		1C2843962ADC2C5600A87E99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C2843932ADC2C5600A87E99 /* LaunchScreen.storyboard */; };
 		1C2843972ADC2C5600A87E99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C2843942ADC2C5600A87E99 /* Assets.xcassets */; };
 		1C2843A32ADC2F7000A87E99 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843A02ADC2F7000A87E99 /* Coordinator.swift */; };
 		1C2843A42ADC2F7000A87E99 /* BaseUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2843A22ADC2F7000A87E99 /* BaseUIViewController.swift */; };
@@ -174,7 +173,6 @@
 		1C2843772ADB969C00A87E99 /* KkukUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KkukUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C28437B2ADB969C00A87E99 /* KkukUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KkukUITests.swift; sourceTree = "<group>"; };
 		1C28437D2ADB969C00A87E99 /* KkukUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KkukUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		1C2843932ADC2C5600A87E99 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1C2843942ADC2C5600A87E99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C2843952ADC2C5600A87E99 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C2843A02ADC2F7000A87E99 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -391,7 +389,6 @@
 			isa = PBXGroup;
 			children = (
 				1C28441B2ADED52B00A87E99 /* Font */,
-				1C2843932ADC2C5600A87E99 /* LaunchScreen.storyboard */,
 				1C2843942ADC2C5600A87E99 /* Assets.xcassets */,
 				1C2843952ADC2C5600A87E99 /* Info.plist */,
 				1C6ABCE32AFA8B8900FF9E56 /* Settings.bundle */,
@@ -869,7 +866,6 @@
 				1C2844242ADED52B00A87E99 /* Pretendard-Bold.otf in Resources */,
 				1C2844252ADED52B00A87E99 /* Pretendard-SemiBold.otf in Resources */,
 				1C2844212ADED52B00A87E99 /* Pretendard-Regular.otf in Resources */,
-				1C2843962ADC2C5600A87E99 /* LaunchScreen.storyboard in Resources */,
 				1C2844232ADED52B00A87E99 /* Pretendard-Light.otf in Resources */,
 				1C2844222ADED52B00A87E99 /* Pretendard-Medium.otf in Resources */,
 			);
@@ -1170,18 +1166,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Kkuk/Kkuk.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4CLS27ED5N;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kkuk/Global/Resource/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Kkuk: 꾹";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1207,18 +1202,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Kkuk/Kkuk.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4CLS27ED5N;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kkuk/Global/Resource/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Kkuk: 꾹";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
