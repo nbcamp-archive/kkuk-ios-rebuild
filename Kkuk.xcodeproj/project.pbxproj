@@ -826,11 +826,11 @@
 			};
 			buildConfigurationList = 1C2843522ADB969A00A87E99 /* Build configuration list for PBXProject "Kkuk" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				ko,
 			);
 			mainGroup = 1C28434E2ADB969A00A87E99;
 			packageReferences = (
