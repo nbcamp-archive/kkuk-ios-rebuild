@@ -7,7 +7,6 @@
 
 import SnapKit
 import UIKit
-import RealmSwift
 
 class SettingViewController: BaseUIViewController {
     

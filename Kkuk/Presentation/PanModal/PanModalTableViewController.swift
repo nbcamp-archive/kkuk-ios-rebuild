@@ -5,11 +5,10 @@
 //  Created by 장가겸 on 10/25/23.
 //
 
+import UIKit
 import PanModal
 import Kingfisher
 import SnapKit
-import UIKit
-import RealmSwift
 
 protocol PanModalTableViewControllerDelegate: AnyObject {
     func modifyTitle(title: String)
