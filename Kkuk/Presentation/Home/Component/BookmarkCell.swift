@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 protocol BookmarkCellDelegate: AnyObject {
     func removePin(id: ObjectId)

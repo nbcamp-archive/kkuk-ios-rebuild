@@ -5,8 +5,6 @@
 //  Created by se-ryeong on 2023/10/27.
 //
 
-import RealmSwift
-
 import Foundation
 
 class ContentHelper {

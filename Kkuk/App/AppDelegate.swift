@@ -7,7 +7,6 @@
 
 import IQKeyboardManagerSwift
 import UIKit
-import RealmSwift
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     

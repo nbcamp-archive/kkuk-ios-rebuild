@@ -5,8 +5,6 @@
 //  Created by 장가겸 on 10/26/23.
 //
 
-import RealmSwift
-
 import Foundation
 
 protocol Storage {

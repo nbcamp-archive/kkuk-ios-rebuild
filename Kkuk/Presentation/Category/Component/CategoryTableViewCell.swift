@@ -5,9 +5,8 @@
 //  Created by 장가겸 on 10/23/23.
 //
 
-import RealmSwift
-import SnapKit
 import UIKit
+import SnapKit
 
 protocol CategoryTableViewCellDelegate: AnyObject {
     func deleteTableViewCell()
